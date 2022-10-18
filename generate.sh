@@ -7,3 +7,5 @@ cp -r ./OpenApi/test ./
 cp ./OpenApi/.php-cs-fixer.dist.php ./
 cp ./OpenApi/.travis.yml ./
 cp ./OpenApi/phpunit.xml.dist ./
+rm -r ./OpenApi/lib
+rm -r ./OpenApi/test
