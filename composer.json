@@ -2,7 +2,7 @@
     "name": "upmind/enhance-sdk",
     "description": "Enhance.com PHP SDK automatically generated from the Enhance OpenAPI spec using OpenAPI Generator",
     "type": "library",
-    "license": "Apache License 2.0",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Harry Lewis",
