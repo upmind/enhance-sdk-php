@@ -59,7 +59,7 @@ try {
 
 ## API Endpoints
 
-All URIs are relative to your Enhance CP URL.
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -108,7 +108,6 @@ Class | Method | HTTP request | Description
 *DomainsApi* | [**createDomain**](docs/Api/DomainsApi.md#createdomain) | **POST** /orgs/{org_id}/domains | Create domain
 *DomainsApi* | [**createWebsiteDomainAlias**](docs/Api/DomainsApi.md#createwebsitedomainalias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias
 *DomainsApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/DomainsApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
-*DomainsApi* | [**createWebsiteDomainMapping**](docs/Api/DomainsApi.md#createwebsitedomainmapping) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Create website domain mapping
 *DomainsApi* | [**deleteDomain**](docs/Api/DomainsApi.md#deletedomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain
 *DomainsApi* | [**deleteWebsiteDomainMapping**](docs/Api/DomainsApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
 *DomainsApi* | [**getDomains**](docs/Api/DomainsApi.md#getdomains) | **GET** /orgs/{org_id}/domains | Get domains
@@ -273,6 +272,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**deleteServerSslCert**](docs/Api/ServersApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
 *ServersApi* | [**deleteServiceSetting**](docs/Api/ServersApi.md#deleteservicesetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *ServersApi* | [**deleteSlave**](docs/Api/ServersApi.md#deleteslave) | **DELETE** /servers/{server_id} | Delete a (slave) server
+*ServersApi* | [**getAppcdVersion**](docs/Api/ServersApi.md#getappcdversion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd
 *ServersApi* | [**getControlPanelRoleInfo**](docs/Api/ServersApi.md#getcontrolpanelroleinfo) | **GET** /servers/master/roles/control | Get master server control panel role info
 *ServersApi* | [**getHttpdStatus**](docs/Api/ServersApi.md#gethttpdstatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server.
 *ServersApi* | [**getInstallCmd**](docs/Api/ServersApi.md#getinstallcmd) | **GET** /servers/install-cmd | Get slave installation command
@@ -298,14 +298,15 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getServerUptime**](docs/Api/ServersApi.md#getserveruptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds
 *ServersApi* | [**getServers**](docs/Api/ServersApi.md#getservers) | **GET** /servers | Get installed servers
 *ServersApi* | [**getServiceSetting**](docs/Api/ServersApi.md#getservicesetting) | **GET** /servers/{server_id}/settings/{setting_kind} | Get the value for a particular setting
+*ServersApi* | [**getWebserverKind**](docs/Api/ServersApi.md#getwebserverkind) | **GET** /servers/{server_id}/webserver | Get web server
 *ServersApi* | [**getWebsiteFpmSettings**](docs/Api/ServersApi.md#getwebsitefpmsettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website
 *ServersApi* | [**initAllServers**](docs/Api/ServersApi.md#initallservers) | **POST** /servers/init | Attempts to initialize all roles
 *ServersApi* | [**installServerRole**](docs/Api/ServersApi.md#installserverrole) | **PUT** /servers/{server_id}/roles/{role} | Install server role
 *ServersApi* | [**setServerStatus**](docs/Api/ServersApi.md#setserverstatus) | **POST** /servers/{server_id}/status | Set the status of one server.
 *ServersApi* | [**setServiceSetting**](docs/Api/ServersApi.md#setservicesetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting
 *ServersApi* | [**setServiceStatus**](docs/Api/ServersApi.md#setservicestatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified.
+*ServersApi* | [**setWebserverKind**](docs/Api/ServersApi.md#setwebserverkind) | **PUT** /servers/{server_id}/webserver | Set the web server kind for one server.
 *ServersApi* | [**uninstallServerRole**](docs/Api/ServersApi.md#uninstallserverrole) | **DELETE** /servers/{server_id}/roles/{role} | Uninstall a server role
-*ServersApi* | [**updateControlPanelRole**](docs/Api/ServersApi.md#updatecontrolpanelrole) | **PATCH** /servers/master/roles/control | Update master server control panel role info
 *ServersApi* | [**updateServerGroup**](docs/Api/ServersApi.md#updateservergroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name
 *ServersApi* | [**updateServerPrimaryIp**](docs/Api/ServersApi.md#updateserverprimaryip) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed.
 *ServersApi* | [**updateServerRole**](docs/Api/ServersApi.md#updateserverrole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role
@@ -314,15 +315,20 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**validateRegistrationKey**](docs/Api/ServersApi.md#validateregistrationkey) | **POST** /servers/registration-key/validate | Validate slave registration key
 *SettingsApi* | [**createSettings**](docs/Api/SettingsApi.md#createsettings) | **POST** /settings | Create settings
 *SettingsApi* | [**deleteGlobalServiceSetting**](docs/Api/SettingsApi.md#deleteglobalservicesetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting
+*SettingsApi* | [**deleteOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipwhitelist) | **DELETE** /settings/orchd/login_policy/ip_whitelist | Delete an orchd login policy whitelist ip
 *SettingsApi* | [**deleteSetting**](docs/Api/SettingsApi.md#deletesetting) | **DELETE** /settings/{name} | Remove the specified setting
 *SettingsApi* | [**getDockerRegistry**](docs/Api/SettingsApi.md#getdockerregistry) | **GET** /settings/registry | Gets the Docker registry credentials.
 *SettingsApi* | [**getGlobalServiceSetting**](docs/Api/SettingsApi.md#getglobalservicesetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting
 *SettingsApi* | [**getOrchdLogSettings**](docs/Api/SettingsApi.md#getorchdlogsettings) | **GET** /settings/orchd/logs | Get the orchd log settings
+*SettingsApi* | [**getOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicyipwhitelist) | **GET** /settings/orchd/login_policy/ip_whitelist | Get the orchd login policy whitelist
+*SettingsApi* | [**getOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#getorchdloginpolicysettings) | **GET** /settings/orchd/login_policy/settings | Get the orchd login policy settings
 *SettingsApi* | [**getSetting**](docs/Api/SettingsApi.md#getsetting) | **GET** /settings/{name} | Get the specified setting
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /settings | Get all current settings
 *SettingsApi* | [**setDockerRegistry**](docs/Api/SettingsApi.md#setdockerregistry) | **PUT** /settings/registry | Updates the Docker registry credentials.
 *SettingsApi* | [**setGlobalServiceSetting**](docs/Api/SettingsApi.md#setglobalservicesetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting
 *SettingsApi* | [**setOrchdLogSettings**](docs/Api/SettingsApi.md#setorchdlogsettings) | **PUT** /settings/orchd/logs | Set the orchd log settings
+*SettingsApi* | [**setOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicyipwhitelist) | **PUT** /settings/orchd/login_policy/ip_whitelist | Set the orchd login policy whitelist as a whole
+*SettingsApi* | [**setOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#setorchdloginpolicysettings) | **PUT** /settings/orchd/login_policy/settings | Set a single orchd login policy setting
 *SettingsApi* | [**updateSetting**](docs/Api/SettingsApi.md#updatesetting) | **PUT** /settings/{name} | Create or update the specified setting
 *SslApi* | [**deleteServerSslCert**](docs/Api/SslApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
 *SslApi* | [**deleteWebsiteSslCert**](docs/Api/SslApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
@@ -350,7 +356,6 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**createWebsite**](docs/Api/WebsitesApi.md#createwebsite) | **POST** /orgs/{org_id}/websites | Create a new website or clone an existing one.
 *WebsitesApi* | [**createWebsiteDomainAlias**](docs/Api/WebsitesApi.md#createwebsitedomainalias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias
 *WebsitesApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/WebsitesApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
-*WebsitesApi* | [**createWebsiteDomainMapping**](docs/Api/WebsitesApi.md#createwebsitedomainmapping) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Create website domain mapping
 *WebsitesApi* | [**createWebsiteMySQLDB**](docs/Api/WebsitesApi.md#createwebsitemysqldb) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website
 *WebsitesApi* | [**deleteFtpUser**](docs/Api/WebsitesApi.md#deleteftpuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Deletes given FTP user
 *WebsitesApi* | [**deleteUserCrontab**](docs/Api/WebsitesApi.md#deleteusercrontab) | **DELETE** /orgs/{org_id}/websites/{website_id}/crontab | Delete user&#39;s crontab
@@ -385,7 +390,6 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**setWebsiteSetting**](docs/Api/WebsitesApi.md#setwebsitesetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting
 *WebsitesApi* | [**takeScreenshot**](docs/Api/WebsitesApi.md#takescreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot
 *WebsitesApi* | [**unauthorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#unauthorizewebsitesshkey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID.
-*WebsitesApi* | [**unauthorizeWebsiteSshPassword**](docs/Api/WebsitesApi.md#unauthorizewebsitesshpassword) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/password | Unauthorize SSH password for the given website.
 *WebsitesApi* | [**updateFtpUser**](docs/Api/WebsitesApi.md#updateftpuser) | **PATCH** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Update given FTP user
 *WebsitesApi* | [**updateUserCrontab**](docs/Api/WebsitesApi.md#updateusercrontab) | **PATCH** /orgs/{org_id}/websites/{website_id}/crontab | Update user&#39;s crontab
 *WebsitesApi* | [**updateWebsite**](docs/Api/WebsitesApi.md#updatewebsite) | **PATCH** /orgs/{org_id}/websites/{website_id} | Update website
@@ -399,12 +403,16 @@ Class | Method | HTTP request | Description
 *WordpressApi* | [**createWordpressUser**](docs/Api/WordpressApi.md#createwordpressuser) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | Create website WordPress user
 *WordpressApi* | [**deleteWordpressPlugin**](docs/Api/WordpressApi.md#deletewordpressplugin) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Delete website WordPress plugin
 *WordpressApi* | [**deleteWordpressUser**](docs/Api/WordpressApi.md#deletewordpressuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user
+*WordpressApi* | [**getDefaultWpSsoUser**](docs/Api/WordpressApi.md#getdefaultwpssouser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default |
 *WordpressApi* | [**getWordpressAppVersion**](docs/Api/WordpressApi.md#getwordpressappversion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version
 *WordpressApi* | [**getWordpressLatestVersion**](docs/Api/WordpressApi.md#getwordpresslatestversion) | **GET** /utils/wordpress/latest | Get WordPress latest available version
 *WordpressApi* | [**getWordpressPlugins**](docs/Api/WordpressApi.md#getwordpressplugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins
 *WordpressApi* | [**getWordpressSettings**](docs/Api/WordpressApi.md#getwordpresssettings) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress | Get Wordpress application settings
 *WordpressApi* | [**getWordpressThemes**](docs/Api/WordpressApi.md#getwordpressthemes) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes | Get website WordPress themes
+*WordpressApi* | [**getWordpressUserSsoUrl**](docs/Api/WordpressApi.md#getwordpressuserssourl) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id}/sso | Get SSO URL for a WP user
 *WordpressApi* | [**getWordpressUsers**](docs/Api/WordpressApi.md#getwordpressusers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | 
+*WordpressApi* | [**installWordpressPlugin**](docs/Api/WordpressApi.md#installwordpressplugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin
+*WordpressApi* | [**setDefaultWpSsoUser**](docs/Api/WordpressApi.md#setdefaultwpssouser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website.
 *WordpressApi* | [**updateWordpressAppVersion**](docs/Api/WordpressApi.md#updatewordpressappversion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest
 *WordpressApi* | [**updateWordpressPluginSettings**](docs/Api/WordpressApi.md#updatewordpresspluginsettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings
 *WordpressApi* | [**updateWordpressPluginToLatest**](docs/Api/WordpressApi.md#updatewordpressplugintolatest) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin}/version | Updates website WordPress plugin to latest version
@@ -488,6 +496,7 @@ Class | Method | HTTP request | Description
 - [IniSetting](docs/Model/IniSetting.md)
 - [Install](docs/Model/Install.md)
 - [InstallCmd](docs/Model/InstallCmd.md)
+- [InstallWpPlugin](docs/Model/InstallWpPlugin.md)
 - [InstallableWebsiteApp](docs/Model/InstallableWebsiteApp.md)
 - [InstallableWebsiteAppsFullListing](docs/Model/InstallableWebsiteAppsFullListing.md)
 - [InterfaceIp](docs/Model/InterfaceIp.md)
@@ -561,6 +570,8 @@ Class | Method | HTTP request | Description
 - [NewWpUser](docs/Model/NewWpUser.md)
 - [OperationStatus](docs/Model/OperationStatus.md)
 - [OrchdLogSettings](docs/Model/OrchdLogSettings.md)
+- [OrchdLoginPolicySettings](docs/Model/OrchdLoginPolicySettings.md)
+- [OrchdLoginPolicyWhitelist](docs/Model/OrchdLoginPolicyWhitelist.md)
 - [Org](docs/Model/Org.md)
 - [OrgAccessToken](docs/Model/OrgAccessToken.md)
 - [OrgOwnerUpdate](docs/Model/OrgOwnerUpdate.md)
@@ -587,9 +598,6 @@ Class | Method | HTTP request | Description
 - [Role](docs/Model/Role.md)
 - [RoleInstallationState](docs/Model/RoleInstallationState.md)
 - [RoleInstalledStatusSummary](docs/Model/RoleInstalledStatusSummary.md)
-- [RoleServiceSettings](docs/Model/RoleServiceSettings.md)
-- [RoleServiceSettingsCustom](docs/Model/RoleServiceSettingsCustom.md)
-- [RoleServiceSettingsGlobal](docs/Model/RoleServiceSettingsGlobal.md)
 - [RoleState](docs/Model/RoleState.md)
 - [RoleSummary](docs/Model/RoleSummary.md)
 - [RolesInfo](docs/Model/RolesInfo.md)
@@ -637,6 +645,7 @@ Class | Method | HTTP request | Description
 - [SessionsFullListing](docs/Model/SessionsFullListing.md)
 - [SetServerStatus](docs/Model/SetServerStatus.md)
 - [SetServiceStatus](docs/Model/SetServiceStatus.md)
+- [SetWebserverKind](docs/Model/SetWebserverKind.md)
 - [Setting](docs/Model/Setting.md)
 - [SettingKind](docs/Model/SettingKind.md)
 - [SettingsFullListing](docs/Model/SettingsFullListing.md)
@@ -668,11 +677,8 @@ Class | Method | HTTP request | Description
 - [TldNs](docs/Model/TldNs.md)
 - [UnixTimestamp](docs/Model/UnixTimestamp.md)
 - [UpdateApplicationRole](docs/Model/UpdateApplicationRole.md)
-- [UpdateApplicationRoleServices](docs/Model/UpdateApplicationRoleServices.md)
 - [UpdateAutoresponder](docs/Model/UpdateAutoresponder.md)
 - [UpdateBackupRole](docs/Model/UpdateBackupRole.md)
-- [UpdateBackupRoleServices](docs/Model/UpdateBackupRoleServices.md)
-- [UpdateControl](docs/Model/UpdateControl.md)
 - [UpdateCrontabFullListing](docs/Model/UpdateCrontabFullListing.md)
 - [UpdateCrontabValue](docs/Model/UpdateCrontabValue.md)
 - [UpdateCrontabValueCmd](docs/Model/UpdateCrontabValueCmd.md)
@@ -680,31 +686,24 @@ Class | Method | HTTP request | Description
 - [UpdateCrontabValueVariable](docs/Model/UpdateCrontabValueVariable.md)
 - [UpdateCrontabValueVariableVariable](docs/Model/UpdateCrontabValueVariableVariable.md)
 - [UpdateDatabaseRole](docs/Model/UpdateDatabaseRole.md)
-- [UpdateDatabaseRoleServices](docs/Model/UpdateDatabaseRoleServices.md)
 - [UpdateDnsRecord](docs/Model/UpdateDnsRecord.md)
 - [UpdateDnsRole](docs/Model/UpdateDnsRole.md)
-- [UpdateDnsRoleServices](docs/Model/UpdateDnsRoleServices.md)
 - [UpdateDnsZone](docs/Model/UpdateDnsZone.md)
 - [UpdateEmail](docs/Model/UpdateEmail.md)
 - [UpdateEmailRole](docs/Model/UpdateEmailRole.md)
-- [UpdateEmailRoleServices](docs/Model/UpdateEmailRoleServices.md)
 - [UpdateLogin](docs/Model/UpdateLogin.md)
 - [UpdateLoginResult](docs/Model/UpdateLoginResult.md)
 - [UpdateMember](docs/Model/UpdateMember.md)
-- [UpdateMtacd](docs/Model/UpdateMtacd.md)
 - [UpdatePlan](docs/Model/UpdatePlan.md)
 - [UpdateRewriteChain](docs/Model/UpdateRewriteChain.md)
 - [UpdateRewriteChainFullListing](docs/Model/UpdateRewriteChainFullListing.md)
 - [UpdateServerRoleRequest](docs/Model/UpdateServerRoleRequest.md)
 - [UpdateSettingRequest](docs/Model/UpdateSettingRequest.md)
-- [UpdateSged](docs/Model/UpdateSged.md)
 - [UpdateSubscription](docs/Model/UpdateSubscription.md)
 - [UpdateWebsite](docs/Model/UpdateWebsite.md)
-- [UpdateWebsitePhpVersion](docs/Model/UpdateWebsitePhpVersion.md)
 - [UpdateWebsiteSubscriptionId](docs/Model/UpdateWebsiteSubscriptionId.md)
 - [UpdateWpAppToVersion](docs/Model/UpdateWpAppToVersion.md)
 - [UpdateWpPlugin](docs/Model/UpdateWpPlugin.md)
-- [UpdateWpPluginToVersion](docs/Model/UpdateWpPluginToVersion.md)
 - [UpdateWpSettings](docs/Model/UpdateWpSettings.md)
 - [UpdateWpUser](docs/Model/UpdateWpUser.md)
 - [UsedResource](docs/Model/UsedResource.md)
@@ -716,6 +715,7 @@ Class | Method | HTTP request | Description
 - [WPPluginAutoUpdateStatus](docs/Model/WPPluginAutoUpdateStatus.md)
 - [WPPluginStatus](docs/Model/WPPluginStatus.md)
 - [WPPluginUpdateAvailable](docs/Model/WPPluginUpdateAvailable.md)
+- [WebserverKind](docs/Model/WebserverKind.md)
 - [Website](docs/Model/Website.md)
 - [WebsiteApp](docs/Model/WebsiteApp.md)
 - [WebsiteAppKind](docs/Model/WebsiteAppKind.md)
@@ -736,9 +736,6 @@ Class | Method | HTTP request | Description
 - [WebsitesListing](docs/Model/WebsitesListing.md)
 - [WpLatestVersion](docs/Model/WpLatestVersion.md)
 - [WpPlugin](docs/Model/WpPlugin.md)
-- [WpPluginKindDir](docs/Model/WpPluginKindDir.md)
-- [WpPluginKindDirDir](docs/Model/WpPluginKindDirDir.md)
-- [WpPluginKindFile](docs/Model/WpPluginKindFile.md)
 - [WpPluginsFullListing](docs/Model/WpPluginsFullListing.md)
 - [WpSettings](docs/Model/WpSettings.md)
 - [WpTheme](docs/Model/WpTheme.md)
