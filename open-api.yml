@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: orchd API docs
-  version: 7.3.0
+  version: 8.0.0
   title: orchd
 tags:
   - name: install
@@ -326,7 +326,6 @@ paths:
           content:
             application/json:
               schema:
-                type: string
                 $ref: "#/components/schemas/OrchdLogSettings"
         "401":
           description: Invalid session
@@ -347,8 +346,117 @@ paths:
         content:
           application/json:
             schema:
-              type: string
               $ref: "#/components/schemas/OrchdLogSettings"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login_policy/settings:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy settings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicySettings
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicySettings"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set a single orchd login policy setting
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicySettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicySettings"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login_policy/ip_whitelist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyIpWhitelist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyWhitelist"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy whitelist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyIpWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyWhitelist"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy whitelist ip
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyIpWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyWhitelist"
       responses:
         "204":
           description: Successful
@@ -607,34 +715,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ControlRoleInfo"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-    patch:
-      tags:
-        - servers
-      summary: Update master server control panel role info
-      description: >-
-        Updates configuration for the control panel role.
-
-        Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-      operationId: updateControlPanelRole
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        description: Info for updating the control panel role.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateControl"
-      responses:
-        "200":
-          description: Successful
-        "400":
-          description: Invalid input
         "401":
           description: Invalid session
         "403":
@@ -992,6 +1072,32 @@ paths:
         "404":
           description: Not found
 
+  /servers/{server_id}/appcd/version:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the version of the running appcd
+      description: >-
+        Returns the version of the running appcd instance on this server.
+      operationId: getAppcdVersion
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: string
+                format: semver
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
   /servers/{server_id}/domains:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -1267,6 +1373,60 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+
+  /servers/{server_id}/webserver:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get web server
+      description: >-
+        Fetches the current web server kind for this server.
+      operationId: getWebserverKind
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebserverKind"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: Set the web server kind for one server.
+      description: >-
+        Changes the web server kind for this server.  This will rebuild any
+        application containers if required.  It may be a long running operation.
+      operationId: setWebserverKind
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetWebserverKind"
+      responses:
+        "200":
+          description: Web server kind successfully set
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
   ###############################################################################
   # -- Server stats
   ###############################################################################
@@ -1756,7 +1916,7 @@ paths:
         - servers
       summary: Update server role
       description: >-
-        Updates role and service settings and role state.
+        Updates role and role state.
 
         A role, if activated on a server, may be in a state of enabled or
         disabled. If enabled, it means that new resources (e.g. websites for the
@@ -2993,6 +3153,8 @@ paths:
         - $ref: "#/components/parameters/SortOrder"
         - $ref: "#/components/parameters/Recursive"
         - $ref: "#/components/parameters/MaxDepth"
+        - $ref: "#/components/parameters/Status"
+        - $ref: "#/components/parameters/ResourcesUnderPlanId"
       responses:
         "200":
           description: Customers successfully queried
@@ -4130,6 +4292,15 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: showDeleted
+          in: query
+          description: >-
+            Filters out deleted emails, which are otherwise returned in the result.
+            Defaults to `showDeleted=true` if not set. Can only be set by MO,
+            if set by others, a 403 is returned.
+          required: false
+          schema:
+            type: boolean
       responses:
         "200":
           description: Successful
@@ -4302,7 +4473,8 @@ paths:
           in: query
           description: >-
             Filters out deleted websites, which are otherwise returned in the result.
-            Defaults to `showDeleted=true` if not set. Can only be set by the MO, if set by other 400 is returned.
+            Defaults to `showDeleted=true` if not set. Can only be set by MO,
+            if set by others, a 403 is returned.
           required: false
           schema:
             type: boolean
@@ -5505,37 +5677,6 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-    put:
-      tags:
-        - domains
-        - websites
-      summary: Create website domain mapping
-      description: >-
-        Creates a mapping between an existing domain and a website.
-
-        Since only the MO can create standalone domains, session holder must be
-        at least a `SuperAdmin` in the MO.
-      operationId: createWebsiteDomainMapping
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DomainMappingUpdate"
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "201":
-          description: Successful
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
     patch:
       tags:
         - domains
@@ -6428,24 +6569,6 @@ paths:
       responses:
         "201":
           description: Successful
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    delete:
-      tags:
-        - websites
-      summary: Unauthorize SSH password for the given website.
-      description: >-
-        This operation will unauthorize the SSH password for the given website
-      operationId: unauthorizeWebsiteSshPassword
-      responses:
-        "204":
-          description: SSH password successfully unauthorized
         "400":
           description: Invalid input
         "401":
@@ -7736,6 +7859,61 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+    get:
+      tags:
+        - wordpress
+      description: >-
+        Return previously set default Wordpress SSO user. If WP users exist but
+        none were set to be default, returns 404.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: getDefaultWpSsoUser
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WpUser"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - wordpress
+      summary: Set WP user as the default SSO user for that website.
+      description: >-
+        Idempotently set WP user as the default SSO user for that website.
+
+        User needs to exist.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: setDefaultWpSsoUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WpUserId"
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -7788,6 +7966,30 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id}/sso:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/WpUserId"
+    get:
+      tags:
+        - wordpress
+      summary: Get SSO URL for a WP user
+      description: >-
+        Session holder must have write access to the website
+      operationId: getWordpressUserSsoUrl
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: string
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -7820,6 +8022,35 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+    post:
+      tags:
+        - wordpress
+      summary: Install a plugin
+      description: >-
+        Adds a specific plugin to a WordPress installation.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: installWordpressPlugin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InstallWpPlugin"
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+        "409":
+          description: Already exists
   /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -9296,7 +9527,17 @@ components:
     SettingKey:
       name: setting_key
       in: path
-      description: A key for updating an existing setting
+      description: >-
+        A key for updating an existing setting, some known values are
+        - hard_delete_after_secs
+        - letsencrypt_enabled
+        - myhostname
+        - org_websites_same_server
+        - screenshot_driver_pool_size
+        - screenshot_interval
+        - sged_smtp
+        - smtp_smart_host
+        - website_backup
       required: true
       schema:
         type: string
@@ -9492,10 +9733,10 @@ components:
     MetricsGranularity:
       name: granularity
       in: query
-      description: Takes one of `hour`, `day`, `month` or `year`, defaults to `day`
+      description: Takes one of `hour`, `day`, defaults to `day`
       schema:
         type: string
-        enum: [hour, day, month, year]
+        enum: [hour, day]
     Force:
       name: force
       in: query
@@ -9569,6 +9810,14 @@ components:
       schema:
         type: string
         enum: [asc, desc]
+    Status:
+      name: status
+      in: query
+      description: Filters the customers list by its status.
+      required: false
+      schema:
+        type: string
+        enum: [active, suspended, deleted]
     FilterMigrationStatus:
       name: migrationStatus
       in: query
@@ -10793,16 +11042,14 @@ components:
         serverGroupId:
           type: string
           format: uuid
+        phpVersion:
+          $ref: "#/components/schemas/PhpVersion"
     UpdateWebsite:
       type: object
       properties:
         phpVersion:
           description: The PHP version.
-          oneOf:
-            - $ref: "#/components/schemas/PhpVersion"
-            - $ref: "#/components/schemas/Unset"
-        ssh:
-          type: boolean
+          $ref: "#/components/schemas/PhpVersion"
         status:
           $ref: "#/components/schemas/WebsiteStatus"
         isSuspended:
@@ -10954,9 +11201,6 @@ components:
         phpVersion:
           description: If PHP is enabled, this represents the PHP version installed for the website.
           $ref: "#/components/schemas/PhpVersion"
-        ssh:
-          description: True if SSH is enabled for this website, otherwise False.
-          type: boolean
         createdAt:
           description: The date the site was first added
           type: string
@@ -10980,6 +11224,7 @@ components:
           phpFpm,
           apache,
           postfix,
+          sged,
           rspamd,
           dovecot,
           myCnf,
@@ -10990,7 +11235,7 @@ components:
         ]
     PhpVersion:
       type: string
-      enum: [php56, php74, php80]
+      enum: [php56, php70, php71, php72, php73, php74, php80, php81]
     SiteAccessMember:
       type: object
       required:
@@ -11680,7 +11925,6 @@ components:
         - status
         - port
         - usage
-        - settings
       properties:
         id:
           type: string
@@ -11694,8 +11938,6 @@ components:
           type: integer
         usage:
           type: integer
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
         processes:
           type: array
           items:
@@ -11704,37 +11946,21 @@ components:
       type: object
       required:
         - state
-        - settings
         - usage
-        - apachecd
         - filerd
-        - sshcd
         - ftpcd
-        - nginxcd
         - screenshotd
         - websitesCount
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
         usage:
           type: integer
-        apachecd:
-          $ref: "#/components/schemas/ServiceInfo"
-        phpcds:
-          type: array
-          items:
-            $ref: "#/components/schemas/ServiceInfo"
         filerd:
-          $ref: "#/components/schemas/ServiceInfo"
-        sshcd:
           $ref: "#/components/schemas/ServiceInfo"
         screenshotd:
           $ref: "#/components/schemas/ServiceInfo"
         ftpcd:
-          $ref: "#/components/schemas/ServiceInfo"
-        nginxcd:
           $ref: "#/components/schemas/ServiceInfo"
         websitesCount:
           type: integer
@@ -11745,7 +11971,6 @@ components:
       type: object
       required:
         - state
-        - settings
         - usage
         - snapshotsCount
         - last24hSnapshotsCount
@@ -11754,8 +11979,6 @@ components:
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
         usage:
           type: integer
         snapshotsCount:
@@ -11773,7 +11996,6 @@ components:
       type: object
       required:
         - state
-        - settings
         - usage
         - mysqlStats
         - mysqlcd
@@ -11781,8 +12003,6 @@ components:
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
         usage:
           type: integer
         mysqlStats:
@@ -11798,7 +12018,6 @@ components:
       type: object
       required:
         - state
-        - settings
         - usage
         - zonesCount
         - dnscd
@@ -11806,8 +12025,6 @@ components:
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
         usage:
           type: integer
         zonesCount:
@@ -11823,7 +12040,6 @@ components:
       type: object
       required:
         - state
-        - settings
         - usage
         - mailboxCount
         - failedDeliveryCount
@@ -11834,8 +12050,6 @@ components:
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
         usage:
           type: integer
         mailboxCount:
@@ -11888,94 +12102,36 @@ components:
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        services:
-          type: object
-          properties:
-            apachecd:
-              type: object
-            phpcd:
-              type: object
-            filerd:
-              type: object
     UpdateBackupRole:
       type: object
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        services:
-          type: object
-          properties:
-            bkupd:
-              type: object
+
     UpdateDatabaseRole:
       type: object
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        services:
-          type: object
-          properties:
-            mysqlcd:
-              type: object
+
     UpdateDnsRole:
       type: object
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        services:
-          type: object
-          properties:
-            dnsd:
-              type: object
+
     UpdateEmailRole:
       type: object
       properties:
         state:
           $ref: "#/components/schemas/ServerRoleState"
-        services:
-          type: object
-          properties:
-            mtacd:
-              $ref: "#/components/schemas/UpdateMtacd"
-            imapcd:
-              type: object
-            spamcd:
-              type: object
-    UpdateControl:
-      type: object
-      properties:
-        sged:
-          $ref: "#/components/schemas/UpdateSged"
-    UpdateSged:
-      type: object
-      properties:
-        server:
-          type: string
-        port:
-          type: integer
-        username:
-          type: string
-        password:
-          type: string
-        acceptInvalidCerts:
-          type: boolean
-        testEmail:
-          description: >-
-            Email address to test new settings before application. An error is
-            returned, if fails to send an email.
-          type: string
-    UpdateMtacd:
-      type: object
-      properties:
-        hostname:
-          type: string
+
     ServiceInfo:
       type: object
       required:
         - id
         - status
         - port
-        - settings
         - usage
       properties:
         id:
@@ -11988,8 +12144,7 @@ components:
           $ref: "#/components/schemas/NetworkStatus"
         port:
           type: integer
-        settings:
-          $ref: "#/components/schemas/RoleServiceSettings"
+
         usage:
           type: integer
         processes:
@@ -12276,38 +12431,19 @@ components:
           logd,
           sged,
           watchd,
-          apachecd,
-          phpcd,
           bkupd,
           mysqlcd,
-          nginxcd,
           dnscd,
           filerd,
           mtacd,
           imapcd,
           spamcd,
-          sshcd,
           ftpcd,
         ]
     ServerRoleState:
       type: string
       enum: [enabled, disabled]
-    RoleServiceSettings:
-      oneOf:
-        - $ref: "#/components/schemas/RoleServiceSettingsGlobal"
-        - $ref: "#/components/schemas/RoleServiceSettingsCustom"
-    RoleServiceSettingsGlobal:
-      type: string
-      enum: [global]
-    RoleServiceSettingsCustom:
-      type: object
-      required:
-        - custom
-      properties:
-        custom:
-          type: array
-          items:
-            $ref: "#/components/schemas/Setting"
+
     WebsitePhpSettings:
       type: object
       required:
@@ -13095,6 +13231,8 @@ components:
     WpUserRole:
       type: string
       enum: [administrator, author, contributor, editor, subscriber]
+    WpUserId:
+      type: number
     WpUsersFullListing:
       type: object
       required:
@@ -13163,19 +13301,6 @@ components:
           $ref: "#/components/schemas/WPPluginStatus"
         autoUpdate:
           $ref: "#/components/schemas/WPPluginAutoUpdateStatus"
-    UpdateWpPluginToVersion:
-      type: object
-      required:
-        - plugin
-        - newVersion
-        - downloadUrl
-      properties:
-        plugin:
-          $ref: "#/components/schemas/WpPlugin"
-        newVersion:
-          type: string
-        downloadUrl:
-          type: string
     UpdateWpAppToVersion:
       type: object
       properties:
@@ -13191,28 +13316,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WpTheme"
-    WpPluginKindFile:
-      type: object
-      required:
-        - file
-      properties:
-        file:
-          type: string
-    WpPluginKindDir:
-      type: object
-      required:
-        - dir
-      properties:
-        dir:
-          type: object
-          required:
-            - entryPoint
-            - path
-          properties:
-            entryPoint:
-              type: string
-            path:
-              type: string
     WpTheme:
       type: object
       description: >-
@@ -14116,6 +14219,24 @@ components:
           $ref: "#/components/schemas/LogLevelLimit"
       required:
         - limit
+    OrchdLoginPolicySettings:
+      description: Settings for orchd login policy
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        emailQuota:
+          type: integer
+        ipQuota:
+          type: integer
+    OrchdLoginPolicyWhitelist:
+      description: Whitelist for orchd login policy
+      type: object
+      properties:
+        ipList:
+          type: array
+          items:
+            type: string
     Outcome:
       type: string
       enum: [success, restartRequired, updateNotApplied]
@@ -14381,3 +14502,22 @@ components:
           zu,
           zu-ZA,
         ]
+    InstallWpPlugin:
+      type: object
+      required:
+        - pluginName
+      properties:
+        pluginName:
+          type: string
+    WebserverKind:
+      type: string
+      enum: ["liteSpeed", "openLiteSpeed", "dummyWebServer", "apache"]
+    SetWebserverKind:
+      type: object
+      required:
+        - webserverKind
+      properties:
+        webserverKind:
+          $ref: "#/components/schemas/WebserverKind"
+        serial:
+          type: string
