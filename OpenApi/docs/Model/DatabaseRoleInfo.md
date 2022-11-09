@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **state** | [**\Upmind\EnhanceSdk\Model\ServerRoleState**](ServerRoleState.md) |  |
-**settings** | [**\Upmind\EnhanceSdk\Model\RoleServiceSettings**](RoleServiceSettings.md) |  |
 **usage** | **int** |  |
 **mysql_stats** | **object** |  |
 **mysqlcd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |

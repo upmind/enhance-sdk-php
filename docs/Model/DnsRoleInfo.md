@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **state** | [**\Upmind\EnhanceSdk\Model\ServerRoleState**](ServerRoleState.md) |  |
-**settings** | [**\Upmind\EnhanceSdk\Model\RoleServiceSettings**](RoleServiceSettings.md) |  |
 **usage** | **int** |  |
 **zones_count** | **int** |  |
 **dnscd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |

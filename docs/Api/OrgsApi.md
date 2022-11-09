@@ -1250,7 +1250,7 @@ try {
 ## `getEmails()`
 
 ```php
-getEmails($org_id, $offset, $limit, $sort_by, $sort_order, $search, $recursive, $max_depth, $status, $domain_id, $plan_id, $subscription_id, $include_internal): \Upmind\EnhanceSdk\Model\EmailsListing
+getEmails($org_id, $offset, $limit, $sort_by, $sort_order, $search, $recursive, $max_depth, $status, $domain_id, $plan_id, $subscription_id, $include_internal, $show_deleted): \Upmind\EnhanceSdk\Model\EmailsListing
 ```
 
 Get org emails
@@ -1292,9 +1292,10 @@ $domain_id = 'domain_id_example'; // string | Limit the result set to emails und
 $plan_id = 56; // int | Limit the result set to resources under subscriptions to the plan.
 $subscription_id = 56; // int | Limit the result set to resources under subscription.
 $include_internal = false; // bool | Include internal emails in response
+$show_deleted = True; // bool | Filters out deleted emails, which are otherwise returned in the result. Defaults to `showDeleted=true` if not set. Can only be set by MO, if set by others, a 403 is returned.
 
 try {
-    $result = $apiInstance->getEmails($org_id, $offset, $limit, $sort_by, $sort_order, $search, $recursive, $max_depth, $status, $domain_id, $plan_id, $subscription_id, $include_internal);
+    $result = $apiInstance->getEmails($org_id, $offset, $limit, $sort_by, $sort_order, $search, $recursive, $max_depth, $status, $domain_id, $plan_id, $subscription_id, $include_internal, $show_deleted);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrgsApi->getEmails: ', $e->getMessage(), PHP_EOL;
@@ -1318,6 +1319,7 @@ try {
 | **plan_id** | **int**| Limit the result set to resources under subscriptions to the plan. | [optional] |
 | **subscription_id** | **int**| Limit the result set to resources under subscription. | [optional] |
 | **include_internal** | **bool**| Include internal emails in response | [optional] [default to false] |
+| **show_deleted** | **bool**| Filters out deleted emails, which are otherwise returned in the result. Defaults to &#x60;showDeleted&#x3D;true&#x60; if not set. Can only be set by MO, if set by others, a 403 is returned. | [optional] |
 
 ### Return type
 

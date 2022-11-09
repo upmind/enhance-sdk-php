@@ -7,12 +7,16 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createWordpressUser()**](WordpressApi.md#createWordpressUser) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | Create website WordPress user |
 | [**deleteWordpressPlugin()**](WordpressApi.md#deleteWordpressPlugin) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Delete website WordPress plugin |
 | [**deleteWordpressUser()**](WordpressApi.md#deleteWordpressUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user |
+| [**getDefaultWpSsoUser()**](WordpressApi.md#getDefaultWpSsoUser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default |  |
 | [**getWordpressAppVersion()**](WordpressApi.md#getWordpressAppVersion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version |
 | [**getWordpressLatestVersion()**](WordpressApi.md#getWordpressLatestVersion) | **GET** /utils/wordpress/latest | Get WordPress latest available version |
 | [**getWordpressPlugins()**](WordpressApi.md#getWordpressPlugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins |
 | [**getWordpressSettings()**](WordpressApi.md#getWordpressSettings) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress | Get Wordpress application settings |
 | [**getWordpressThemes()**](WordpressApi.md#getWordpressThemes) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes | Get website WordPress themes |
+| [**getWordpressUserSsoUrl()**](WordpressApi.md#getWordpressUserSsoUrl) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id}/sso | Get SSO URL for a WP user |
 | [**getWordpressUsers()**](WordpressApi.md#getWordpressUsers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users |  |
+| [**installWordpressPlugin()**](WordpressApi.md#installWordpressPlugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin |
+| [**setDefaultWpSsoUser()**](WordpressApi.md#setDefaultWpSsoUser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website. |
 | [**updateWordpressAppVersion()**](WordpressApi.md#updateWordpressAppVersion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest |
 | [**updateWordpressPluginSettings()**](WordpressApi.md#updateWordpressPluginSettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings |
 | [**updateWordpressPluginToLatest()**](WordpressApi.md#updateWordpressPluginToLatest) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin}/version | Updates website WordPress plugin to latest version |
@@ -198,6 +202,66 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getDefaultWpSsoUser()`
+
+```php
+getDefaultWpSsoUser($org_id, $website_id, $app_id): \Upmind\EnhanceSdk\Model\WpUser
+```
+
+
+
+Return previously set default Wordpress SSO user. If WP users exist but none were set to be default, returns 404. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+
+try {
+    $result = $apiInstance->getDefaultWpSsoUser($org_id, $website_id, $app_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->getDefaultWpSsoUser: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\WpUser**](../Model/WpUser.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -498,6 +562,68 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWordpressUserSsoUrl()`
+
+```php
+getWordpressUserSsoUrl($org_id, $website_id, $app_id, $user_id): string
+```
+
+Get SSO URL for a WP user
+
+Session holder must have write access to the website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$user_id = 56; // int | The id of the wordpress user.
+
+try {
+    $result = $apiInstance->getWordpressUserSsoUrl($org_id, $website_id, $app_id, $user_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->getWordpressUserSsoUrl: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **user_id** | **int**| The id of the wordpress user. | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWordpressUsers()`
 
 ```php
@@ -553,6 +679,130 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `installWordpressPlugin()`
+
+```php
+installWordpressPlugin($org_id, $website_id, $app_id, $install_wp_plugin, $refresh_cache)
+```
+
+Install a plugin
+
+Adds a specific plugin to a WordPress installation. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$install_wp_plugin = new \Upmind\EnhanceSdk\Model\InstallWpPlugin(); // \Upmind\EnhanceSdk\Model\InstallWpPlugin
+$refresh_cache = True; // bool | If set to true, it will bypass internal caching.
+
+try {
+    $apiInstance->installWordpressPlugin($org_id, $website_id, $app_id, $install_wp_plugin, $refresh_cache);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->installWordpressPlugin: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **install_wp_plugin** | [**\Upmind\EnhanceSdk\Model\InstallWpPlugin**](../Model/InstallWpPlugin.md)|  | |
+| **refresh_cache** | **bool**| If set to true, it will bypass internal caching. | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setDefaultWpSsoUser()`
+
+```php
+setDefaultWpSsoUser($org_id, $website_id, $app_id, $body)
+```
+
+Set WP user as the default SSO user for that website.
+
+Idempotently set WP user as the default SSO user for that website. User needs to exist. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$body = 3.4; // float
+
+try {
+    $apiInstance->setDefaultWpSsoUser($org_id, $website_id, $app_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->setDefaultWpSsoUser: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **body** | **float**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

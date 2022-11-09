@@ -18,6 +18,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteServerSslCert()**](ServersApi.md#deleteServerSslCert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate |
 | [**deleteServiceSetting()**](ServersApi.md#deleteServiceSetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
 | [**deleteSlave()**](ServersApi.md#deleteSlave) | **DELETE** /servers/{server_id} | Delete a (slave) server |
+| [**getAppcdVersion()**](ServersApi.md#getAppcdVersion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd |
 | [**getControlPanelRoleInfo()**](ServersApi.md#getControlPanelRoleInfo) | **GET** /servers/master/roles/control | Get master server control panel role info |
 | [**getHttpdStatus()**](ServersApi.md#getHttpdStatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server. |
 | [**getInstallCmd()**](ServersApi.md#getInstallCmd) | **GET** /servers/install-cmd | Get slave installation command |
@@ -43,14 +44,15 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getServerUptime()**](ServersApi.md#getServerUptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds |
 | [**getServers()**](ServersApi.md#getServers) | **GET** /servers | Get installed servers |
 | [**getServiceSetting()**](ServersApi.md#getServiceSetting) | **GET** /servers/{server_id}/settings/{setting_kind} | Get the value for a particular setting |
+| [**getWebserverKind()**](ServersApi.md#getWebserverKind) | **GET** /servers/{server_id}/webserver | Get web server |
 | [**getWebsiteFpmSettings()**](ServersApi.md#getWebsiteFpmSettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website |
 | [**initAllServers()**](ServersApi.md#initAllServers) | **POST** /servers/init | Attempts to initialize all roles |
 | [**installServerRole()**](ServersApi.md#installServerRole) | **PUT** /servers/{server_id}/roles/{role} | Install server role |
 | [**setServerStatus()**](ServersApi.md#setServerStatus) | **POST** /servers/{server_id}/status | Set the status of one server. |
 | [**setServiceSetting()**](ServersApi.md#setServiceSetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting |
 | [**setServiceStatus()**](ServersApi.md#setServiceStatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified. |
+| [**setWebserverKind()**](ServersApi.md#setWebserverKind) | **PUT** /servers/{server_id}/webserver | Set the web server kind for one server. |
 | [**uninstallServerRole()**](ServersApi.md#uninstallServerRole) | **DELETE** /servers/{server_id}/roles/{role} | Uninstall a server role |
-| [**updateControlPanelRole()**](ServersApi.md#updateControlPanelRole) | **PATCH** /servers/master/roles/control | Update master server control panel role info |
 | [**updateServerGroup()**](ServersApi.md#updateServerGroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name |
 | [**updateServerPrimaryIp()**](ServersApi.md#updateServerPrimaryIp) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed. |
 | [**updateServerRole()**](ServersApi.md#updateServerRole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role |
@@ -876,7 +878,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 
 try {
     $result = $apiInstance->deleteServiceSetting($server_id, $setting_kind, $setting_key);
@@ -892,7 +894,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 
 ### Return type
 
@@ -972,6 +974,71 @@ void (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getAppcdVersion()`
+
+```php
+getAppcdVersion($server_id): string
+```
+
+Get the version of the running appcd
+
+Returns the version of the running appcd instance on this server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getAppcdVersion($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getAppcdVersion: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -2582,6 +2649,71 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebserverKind()`
+
+```php
+getWebserverKind($server_id): \Upmind\EnhanceSdk\Model\WebserverKind
+```
+
+Get web server
+
+Fetches the current web server kind for this server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getWebserverKind($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getWebserverKind: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\WebserverKind**](../Model/WebserverKind.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebsiteFpmSettings()`
 
 ```php
@@ -2869,7 +3001,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
 try {
@@ -2886,7 +3018,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 
 ### Return type
@@ -2974,6 +3106,72 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWebserverKind()`
+
+```php
+setWebserverKind($server_id, $set_webserver_kind)
+```
+
+Set the web server kind for one server.
+
+Changes the web server kind for this server.  This will rebuild any application containers if required.  It may be a long running operation.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$set_webserver_kind = new \Upmind\EnhanceSdk\Model\SetWebserverKind(); // \Upmind\EnhanceSdk\Model\SetWebserverKind
+
+try {
+    $apiInstance->setWebserverKind($server_id, $set_webserver_kind);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setWebserverKind: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **set_webserver_kind** | [**\Upmind\EnhanceSdk\Model\SetWebserverKind**](../Model/SetWebserverKind.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `uninstallServerRole()`
 
 ```php
@@ -3034,70 +3232,6 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `updateControlPanelRole()`
-
-```php
-updateControlPanelRole($update_control)
-```
-
-Update master server control panel role info
-
-Updates configuration for the control panel role. Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$update_control = new \Upmind\EnhanceSdk\Model\UpdateControl(); // \Upmind\EnhanceSdk\Model\UpdateControl | Info for updating the control panel role.
-
-try {
-    $apiInstance->updateControlPanelRole($update_control);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->updateControlPanelRole: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **update_control** | [**\Upmind\EnhanceSdk\Model\UpdateControl**](../Model/UpdateControl.md)| Info for updating the control panel role. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -3233,7 +3367,7 @@ updateServerRole($server_id, $role, $update_server_role_request)
 
 Update server role
 
-Updates role and service settings and role state. A role, if activated on a server, may be in a state of enabled or disabled. If enabled, it means that new resources (e.g. websites for the application role) may be installed on the server, but if it's disabled, existing resources (e.g. websites) are kept but no new resources may be added. Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
+Updates role and role state. A role, if activated on a server, may be in a state of enabled or disabled. If enabled, it means that new resources (e.g. websites for the application role) may be installed on the server, but if it's disabled, existing resources (e.g. websites) are kept but no new resources may be added. Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
 
 ### Example
 

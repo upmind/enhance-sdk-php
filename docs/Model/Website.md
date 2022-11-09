@@ -35,7 +35,6 @@ Name | Type | Description | Notes
 **email_server_ips** | [**\Upmind\EnhanceSdk\Model\ServerIp[]**](ServerIp.md) | The addresses of the the server on which this website&#39;s emails are located. | [optional]
 **filerd_address** | **string** | The path relative to the control panel domain where filerd can be accessed. | [optional]
 **php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  | [optional]
-**ssh** | **bool** | True if SSH is enabled for this website, otherwise False. | [optional]
 **created_at** | **string** | The date the site was first added |
 **app_server_name** | **string** |  | [optional]
 **db_server_name** | **string** |  | [optional]

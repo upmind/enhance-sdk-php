@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **version** | **string** |  | [optional]
 **status** | [**\Upmind\EnhanceSdk\Model\NetworkStatus**](NetworkStatus.md) |  |
 **port** | **int** |  |
-**settings** | [**\Upmind\EnhanceSdk\Model\RoleServiceSettings**](RoleServiceSettings.md) |  |
 **usage** | **int** |  |
 **processes** | [**\Upmind\EnhanceSdk\Model\ProcessInfo[]**](ProcessInfo.md) |  | [optional]
 

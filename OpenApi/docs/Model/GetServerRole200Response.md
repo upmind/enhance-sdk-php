@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **state** | [**\Upmind\EnhanceSdk\Model\ServerRoleState**](ServerRoleState.md) |  |
-**settings** | [**\Upmind\EnhanceSdk\Model\RoleServiceSettings**](RoleServiceSettings.md) |  |
 **usage** | **int** |  |
 **mailbox_count** | **int** |  |
 **failed_delivery_count** | **int** |  |
@@ -18,13 +17,9 @@ Name | Type | Description | Notes
 **bkupd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 **mysql_stats** | **object** |  |
 **mysqlcd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
-**apachecd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
-**phpcds** | [**\Upmind\EnhanceSdk\Model\ServiceInfo[]**](ServiceInfo.md) |  | [optional]
 **filerd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
-**sshcd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 **screenshotd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 **ftpcd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
-**nginxcd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 **zones_count** | **int** |  |
 **dnscd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 

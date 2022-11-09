@@ -224,7 +224,7 @@ try {
 ## `getOrgCustomers()`
 
 ```php
-getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth): \Upmind\EnhanceSdk\Model\CustomersListing
+getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth, $status, $plan_id): \Upmind\EnhanceSdk\Model\CustomersListing
 ```
 
 Get organization customers
@@ -260,9 +260,11 @@ $sort_by = 'sort_by_example'; // string | The field by which to sort.
 $sort_order = 'sort_order_example'; // string | The direction in which to sort. Possible values are 'asc' and 'desc', defaulting to 'asc'.
 $recursive = True; // bool | If set to true, the endpoint will return resources in some hierarchy recursively, that is, several or all levels of the hierarchy, depending on whether `maxDepth` is set. E.g. for customers this means direct and indirect customers are returned. For websites, this returns websites of all direct and indirect customers.
 $max_depth = 56; // int | If recursive is set to true, this can be specified to limit the recursion depth. By default there is no recursion bound.
+$status = 'status_example'; // string | Filters the customers list by its status.
+$plan_id = 56; // int | Limit the result set to resources under subscriptions to the plan.
 
 try {
-    $result = $apiInstance->getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth);
+    $result = $apiInstance->getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth, $status, $plan_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->getOrgCustomers: ', $e->getMessage(), PHP_EOL;
@@ -280,6 +282,8 @@ try {
 | **sort_order** | **string**| The direction in which to sort. Possible values are &#39;asc&#39; and &#39;desc&#39;, defaulting to &#39;asc&#39;. | [optional] |
 | **recursive** | **bool**| If set to true, the endpoint will return resources in some hierarchy recursively, that is, several or all levels of the hierarchy, depending on whether &#x60;maxDepth&#x60; is set. E.g. for customers this means direct and indirect customers are returned. For websites, this returns websites of all direct and indirect customers. | [optional] |
 | **max_depth** | **int**| If recursive is set to true, this can be specified to limit the recursion depth. By default there is no recursion bound. | [optional] |
+| **status** | **string**| Filters the customers list by its status. | [optional] |
+| **plan_id** | **int**| Limit the result set to resources under subscriptions to the plan. | [optional] |
 
 ### Return type
 

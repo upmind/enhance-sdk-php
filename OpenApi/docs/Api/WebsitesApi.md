@@ -11,7 +11,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createWebsite()**](WebsitesApi.md#createWebsite) | **POST** /orgs/{org_id}/websites | Create a new website or clone an existing one. |
 | [**createWebsiteDomainAlias()**](WebsitesApi.md#createWebsiteDomainAlias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias |
 | [**createWebsiteDomainLetsencryptCerts()**](WebsitesApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
-| [**createWebsiteDomainMapping()**](WebsitesApi.md#createWebsiteDomainMapping) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Create website domain mapping |
 | [**createWebsiteMySQLDB()**](WebsitesApi.md#createWebsiteMySQLDB) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website |
 | [**deleteFtpUser()**](WebsitesApi.md#deleteFtpUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Deletes given FTP user |
 | [**deleteUserCrontab()**](WebsitesApi.md#deleteUserCrontab) | **DELETE** /orgs/{org_id}/websites/{website_id}/crontab | Delete user&#39;s crontab |
@@ -46,7 +45,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**setWebsiteSetting()**](WebsitesApi.md#setWebsiteSetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting |
 | [**takeScreenshot()**](WebsitesApi.md#takeScreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot |
 | [**unauthorizeWebsiteSshKey()**](WebsitesApi.md#unauthorizeWebsiteSshKey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID. |
-| [**unauthorizeWebsiteSshPassword()**](WebsitesApi.md#unauthorizeWebsiteSshPassword) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/password | Unauthorize SSH password for the given website. |
 | [**updateFtpUser()**](WebsitesApi.md#updateFtpUser) | **PATCH** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Update given FTP user |
 | [**updateUserCrontab()**](WebsitesApi.md#updateUserCrontab) | **PATCH** /orgs/{org_id}/websites/{website_id}/crontab | Update user&#39;s crontab |
 | [**updateWebsite()**](WebsitesApi.md#updateWebsite) | **PATCH** /orgs/{org_id}/websites/{website_id} | Update website |
@@ -530,76 +528,6 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createWebsiteDomainMapping()`
-
-```php
-createWebsiteDomainMapping($org_id, $website_id, $domain_id, $domain_mapping_update)
-```
-
-Create website domain mapping
-
-Creates a mapping between an existing domain and a website. Since only the MO can create standalone domains, session holder must be at least a `SuperAdmin` in the MO.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$domain_id = 'domain_id_example'; // string | The id of the domain.
-$domain_mapping_update = new \Upmind\EnhanceSdk\Model\DomainMappingUpdate(); // \Upmind\EnhanceSdk\Model\DomainMappingUpdate
-
-try {
-    $apiInstance->createWebsiteDomainMapping($org_id, $website_id, $domain_id, $domain_mapping_update);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->createWebsiteDomainMapping: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **domain_id** | **string**| The id of the domain. | |
-| **domain_mapping_update** | [**\Upmind\EnhanceSdk\Model\DomainMappingUpdate**](../Model/DomainMappingUpdate.md)|  | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `createWebsiteMySQLDB()`
 
 ```php
@@ -958,7 +886,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 
 try {
     $apiInstance->deleteWebsiteSetting($org_id, $website_id, $setting_kind, $setting_key);
@@ -974,7 +902,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 
 ### Return type
 
@@ -2073,7 +2001,7 @@ $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $start = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Start datetime UTC.
 $end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | End datetime UTC.
-$granularity = 'granularity_example'; // string | Takes one of `hour`, `day`, `month` or `year`, defaults to `day`
+$granularity = 'granularity_example'; // string | Takes one of `hour`, `day`, defaults to `day`
 
 try {
     $result = $apiInstance->getWebsiteMetrics($org_id, $website_id, $start, $end, $granularity);
@@ -2091,7 +2019,7 @@ try {
 | **website_id** | **string**| The id of the website. | |
 | **start** | **\DateTime**| Start datetime UTC. | [optional] |
 | **end** | **\DateTime**| End datetime UTC. | [optional] |
-| **granularity** | **string**| Takes one of &#x60;hour&#x60;, &#x60;day&#x60;, &#x60;month&#x60; or &#x60;year&#x60;, defaults to &#x60;day&#x60; | [optional] |
+| **granularity** | **string**| Takes one of &#x60;hour&#x60;, &#x60;day&#x60;, defaults to &#x60;day&#x60; | [optional] |
 
 ### Return type
 
@@ -2537,7 +2465,7 @@ $is_suspended = True; // bool | Limit the result set to websites which are curre
 $roles = array(new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole()); // \Upmind\EnhanceSdk\Model\ServerRole[] | Limit the result set to websites having one of these roles assigned to a server.
 $servers = array('servers_example'); // string[] | Limit the result set to websites having one of the selected roles (or all roles) on one of these servers.
 $kind = new \Upmind\EnhanceSdk\Model\WebsiteKind(); // WebsiteKind | Limit the results to websites of the specified type.
-$show_deleted = True; // bool | Filters out deleted websites, which are otherwise returned in the result. Defaults to `showDeleted=true` if not set. Can only be set by the MO, if set by other 400 is returned.
+$show_deleted = True; // bool | Filters out deleted websites, which are otherwise returned in the result. Defaults to `showDeleted=true` if not set. Can only be set by MO, if set by others, a 403 is returned.
 $show_aliases = True; // bool | Includes domain aliases in search results and listings in addition to the website's primary domain.
 
 try {
@@ -2566,7 +2494,7 @@ try {
 | **roles** | [**\Upmind\EnhanceSdk\Model\ServerRole[]**](../Model/\Upmind\EnhanceSdk\Model\ServerRole.md)| Limit the result set to websites having one of these roles assigned to a server. | [optional] |
 | **servers** | [**string[]**](../Model/string.md)| Limit the result set to websites having one of the selected roles (or all roles) on one of these servers. | [optional] |
 | **kind** | [**WebsiteKind**](../Model/.md)| Limit the results to websites of the specified type. | [optional] |
-| **show_deleted** | **bool**| Filters out deleted websites, which are otherwise returned in the result. Defaults to &#x60;showDeleted&#x3D;true&#x60; if not set. Can only be set by the MO, if set by other 400 is returned. | [optional] |
+| **show_deleted** | **bool**| Filters out deleted websites, which are otherwise returned in the result. Defaults to &#x60;showDeleted&#x3D;true&#x60; if not set. Can only be set by MO, if set by others, a 403 is returned. | [optional] |
 | **show_aliases** | **bool**| Includes domain aliases in search results and listings in addition to the website&#39;s primary domain. | [optional] |
 
 ### Return type
@@ -2687,7 +2615,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
 try {
@@ -2704,7 +2632,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 
 ### Return type
@@ -2831,63 +2759,6 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **key_id** | **string**| The unique ID of the SSH key within the same authorized_keys file. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `unauthorizeWebsiteSshPassword()`
-
-```php
-unauthorizeWebsiteSshPassword($org_id, $website_id)
-```
-
-Unauthorize SSH password for the given website.
-
-This operation will unauthorize the SSH password for the given website
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-
-try {
-    $apiInstance->unauthorizeWebsiteSshPassword($org_id, $website_id);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->unauthorizeWebsiteSshPassword: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
 
 ### Return type
 

@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**php_version** | [**\Upmind\EnhanceSdk\Model\UpdateWebsitePhpVersion**](UpdateWebsitePhpVersion.md) |  | [optional]
-**ssh** | **bool** |  | [optional]
+**php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  | [optional]
 **status** | [**\Upmind\EnhanceSdk\Model\WebsiteStatus**](WebsiteStatus.md) |  | [optional]
 **is_suspended** | **bool** |  | [optional]
 **tags** | **int[]** |  | [optional]

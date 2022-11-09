@@ -6,15 +6,20 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**createSettings()**](SettingsApi.md#createSettings) | **POST** /settings | Create settings |
 | [**deleteGlobalServiceSetting()**](SettingsApi.md#deleteGlobalServiceSetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting |
+| [**deleteOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyIpWhitelist) | **DELETE** /settings/orchd/login_policy/ip_whitelist | Delete an orchd login policy whitelist ip |
 | [**deleteSetting()**](SettingsApi.md#deleteSetting) | **DELETE** /settings/{name} | Remove the specified setting |
 | [**getDockerRegistry()**](SettingsApi.md#getDockerRegistry) | **GET** /settings/registry | Gets the Docker registry credentials. |
 | [**getGlobalServiceSetting()**](SettingsApi.md#getGlobalServiceSetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting |
 | [**getOrchdLogSettings()**](SettingsApi.md#getOrchdLogSettings) | **GET** /settings/orchd/logs | Get the orchd log settings |
+| [**getOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#getOrchdLoginPolicyIpWhitelist) | **GET** /settings/orchd/login_policy/ip_whitelist | Get the orchd login policy whitelist |
+| [**getOrchdLoginPolicySettings()**](SettingsApi.md#getOrchdLoginPolicySettings) | **GET** /settings/orchd/login_policy/settings | Get the orchd login policy settings |
 | [**getSetting()**](SettingsApi.md#getSetting) | **GET** /settings/{name} | Get the specified setting |
 | [**getSettings()**](SettingsApi.md#getSettings) | **GET** /settings | Get all current settings |
 | [**setDockerRegistry()**](SettingsApi.md#setDockerRegistry) | **PUT** /settings/registry | Updates the Docker registry credentials. |
 | [**setGlobalServiceSetting()**](SettingsApi.md#setGlobalServiceSetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting |
 | [**setOrchdLogSettings()**](SettingsApi.md#setOrchdLogSettings) | **PUT** /settings/orchd/logs | Set the orchd log settings |
+| [**setOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#setOrchdLoginPolicyIpWhitelist) | **PUT** /settings/orchd/login_policy/ip_whitelist | Set the orchd login policy whitelist as a whole |
+| [**setOrchdLoginPolicySettings()**](SettingsApi.md#setOrchdLoginPolicySettings) | **PUT** /settings/orchd/login_policy/settings | Set a single orchd login policy setting |
 | [**updateSetting()**](SettingsApi.md#updateSetting) | **PUT** /settings/{name} | Create or update the specified setting |
 
 
@@ -113,7 +118,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     $config
 );
 $setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 
 try {
     $result = $apiInstance->deleteGlobalServiceSetting($setting_kind, $setting_key);
@@ -128,7 +133,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 
 ### Return type
 
@@ -142,6 +147,68 @@ try {
 
 - **Content-Type**: Not defined
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyIpWhitelist()`
+
+```php
+deleteOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist)
+```
+
+Delete an orchd login policy whitelist ip
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_whitelist = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_whitelist** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist**](../Model/OrchdLoginPolicyWhitelist.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -396,6 +463,126 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getOrchdLoginPolicyIpWhitelist()`
+
+```php
+getOrchdLoginPolicyIpWhitelist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist
+```
+
+Get the orchd login policy whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyIpWhitelist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist**](../Model/OrchdLoginPolicyWhitelist.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicySettings()`
+
+```php
+getOrchdLoginPolicySettings(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings
+```
+
+Get the orchd login policy settings
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicySettings();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicySettings: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings**](../Model/OrchdLoginPolicySettings.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getSetting()`
 
 ```php
@@ -616,7 +803,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     $config
 );
 $setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
 try {
@@ -632,7 +819,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 
 ### Return type
@@ -682,7 +869,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$orchd_log_settings = 'orchd_log_settings_example'; // \Upmind\EnhanceSdk\Model\OrchdLogSettings
+$orchd_log_settings = new \Upmind\EnhanceSdk\Model\OrchdLogSettings(); // \Upmind\EnhanceSdk\Model\OrchdLogSettings
 
 try {
     $apiInstance->setOrchdLogSettings($orchd_log_settings);
@@ -696,6 +883,130 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **orchd_log_settings** | [**\Upmind\EnhanceSdk\Model\OrchdLogSettings**](../Model/OrchdLogSettings.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyIpWhitelist()`
+
+```php
+setOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist)
+```
+
+Set the orchd login policy whitelist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_whitelist = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist
+
+try {
+    $apiInstance->setOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_whitelist** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist**](../Model/OrchdLoginPolicyWhitelist.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicySettings()`
+
+```php
+setOrchdLoginPolicySettings($orchd_login_policy_settings)
+```
+
+Set a single orchd login policy setting
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_settings = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings
+
+try {
+    $apiInstance->setOrchdLoginPolicySettings($orchd_login_policy_settings);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicySettings: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_settings** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings**](../Model/OrchdLoginPolicySettings.md)|  | |
 
 ### Return type
 

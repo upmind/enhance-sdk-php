@@ -34,7 +34,7 @@ $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $start = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Start datetime UTC.
 $end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | End datetime UTC.
-$granularity = 'granularity_example'; // string | Takes one of `hour`, `day`, `month` or `year`, defaults to `day`
+$granularity = 'granularity_example'; // string | Takes one of `hour`, `day`, defaults to `day`
 
 try {
     $result = $apiInstance->getWebsiteMetrics($org_id, $website_id, $start, $end, $granularity);
@@ -52,7 +52,7 @@ try {
 | **website_id** | **string**| The id of the website. | |
 | **start** | **\DateTime**| Start datetime UTC. | [optional] |
 | **end** | **\DateTime**| End datetime UTC. | [optional] |
-| **granularity** | **string**| Takes one of &#x60;hour&#x60;, &#x60;day&#x60;, &#x60;month&#x60; or &#x60;year&#x60;, defaults to &#x60;day&#x60; | [optional] |
+| **granularity** | **string**| Takes one of &#x60;hour&#x60;, &#x60;day&#x60;, defaults to &#x60;day&#x60; | [optional] |
 
 ### Return type
 

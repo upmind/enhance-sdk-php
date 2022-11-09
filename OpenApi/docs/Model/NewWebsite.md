@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **db_server_id** | **string** |  | [optional]
 **email_server_id** | **string** |  | [optional]
 **server_group_id** | **string** |  | [optional]
+**php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
