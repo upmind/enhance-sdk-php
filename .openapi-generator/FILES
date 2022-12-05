@@ -284,6 +284,8 @@ docs/Model/SubscriptionDedicatedServer.md
 docs/Model/SubscriptionDedicatedServers.md
 docs/Model/SubscriptionDedicatedServersInfo.md
 docs/Model/SubscriptionsListing.md
+docs/Model/SystemPackage.md
+docs/Model/SystemPackageName.md
 docs/Model/Tag.md
 docs/Model/TagsFullListing.md
 docs/Model/TldNs.md
@@ -318,6 +320,7 @@ docs/Model/UpdateWpAppToVersion.md
 docs/Model/UpdateWpPlugin.md
 docs/Model/UpdateWpSettings.md
 docs/Model/UpdateWpUser.md
+docs/Model/UpgradableSystemPackage.md
 docs/Model/UsedResource.md
 docs/Model/UsedResourcesFullListing.md
 docs/Model/UuidListing.md
@@ -346,6 +349,7 @@ docs/Model/WebsitePhpSettings.md
 docs/Model/WebsiteServerDomains.md
 docs/Model/WebsiteStatus.md
 docs/Model/WebsitesListing.md
+docs/Model/WpInstallation.md
 docs/Model/WpLatestVersion.md
 docs/Model/WpPlugin.md
 docs/Model/WpPluginsFullListing.md
@@ -641,6 +645,8 @@ lib/Model/SubscriptionDedicatedServer.php
 lib/Model/SubscriptionDedicatedServers.php
 lib/Model/SubscriptionDedicatedServersInfo.php
 lib/Model/SubscriptionsListing.php
+lib/Model/SystemPackage.php
+lib/Model/SystemPackageName.php
 lib/Model/Tag.php
 lib/Model/TagsFullListing.php
 lib/Model/TldNs.php
@@ -675,6 +681,7 @@ lib/Model/UpdateWpAppToVersion.php
 lib/Model/UpdateWpPlugin.php
 lib/Model/UpdateWpSettings.php
 lib/Model/UpdateWpUser.php
+lib/Model/UpgradableSystemPackage.php
 lib/Model/UsedResource.php
 lib/Model/UsedResourcesFullListing.php
 lib/Model/UuidListing.php
@@ -703,6 +710,7 @@ lib/Model/WebsitePhpSettings.php
 lib/Model/WebsiteServerDomains.php
 lib/Model/WebsiteStatus.php
 lib/Model/WebsitesListing.php
+lib/Model/WpInstallation.php
 lib/Model/WpLatestVersion.php
 lib/Model/WpPlugin.php
 lib/Model/WpPluginsFullListing.php
@@ -995,6 +1003,8 @@ test/Model/SubscriptionDedicatedServersInfoTest.php
 test/Model/SubscriptionDedicatedServersTest.php
 test/Model/SubscriptionTest.php
 test/Model/SubscriptionsListingTest.php
+test/Model/SystemPackageNameTest.php
+test/Model/SystemPackageTest.php
 test/Model/TagTest.php
 test/Model/TagsFullListingTest.php
 test/Model/TldNsTest.php
@@ -1029,6 +1039,7 @@ test/Model/UpdateWpAppToVersionTest.php
 test/Model/UpdateWpPluginTest.php
 test/Model/UpdateWpSettingsTest.php
 test/Model/UpdateWpUserTest.php
+test/Model/UpgradableSystemPackageTest.php
 test/Model/UsedResourceTest.php
 test/Model/UsedResourcesFullListingTest.php
 test/Model/UuidListingTest.php
@@ -1057,6 +1068,7 @@ test/Model/WebsiteServerDomainsTest.php
 test/Model/WebsiteStatusTest.php
 test/Model/WebsiteTest.php
 test/Model/WebsitesListingTest.php
+test/Model/WpInstallationTest.php
 test/Model/WpLatestVersionTest.php
 test/Model/WpPluginTest.php
 test/Model/WpPluginsFullListingTest.php

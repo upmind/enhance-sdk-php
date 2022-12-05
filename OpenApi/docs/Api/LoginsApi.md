@@ -5,6 +5,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**createLogin()**](LoginsApi.md#createLogin) | **POST** /logins | Create a new login |
+| [**createOtpSession()**](LoginsApi.md#createOtpSession) | **GET** /login/sessions/sso | Create a new session for login with a one-time-password |
 | [**createSession()**](LoginsApi.md#createSession) | **POST** /login/sessions | Create a new session for login |
 | [**deleteCurrentSession()**](LoginsApi.md#deleteCurrentSession) | **DELETE** /login/sessions/current | Delete current session |
 | [**deleteLoginAvatar()**](LoginsApi.md#deleteLoginAvatar) | **DELETE** /login/avatar | Remove login avatar |
@@ -85,6 +86,62 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createOtpSession()`
+
+```php
+createOtpSession($otp): \Upmind\EnhanceSdk\Model\LoginMemberships
+```
+
+Create a new session for login with a one-time-password
+
+Creates a new session for the login in a specific login realm, using a short lived one time password. This creates a session as well, with the difference that realmId is required and any 2FA will be bypassed.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$otp = 'otp_example'; // string | Contains a short lived otp for direct login bypassing any 2FA.
+
+try {
+    $result = $apiInstance->createOtpSession($otp);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginsApi->createOtpSession: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **otp** | **string**| Contains a short lived otp for direct login bypassing any 2FA. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\LoginMemberships**](../Model/LoginMemberships.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

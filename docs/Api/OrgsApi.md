@@ -27,6 +27,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getMember()**](OrgsApi.md#getMember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member |
 | [**getMembers()**](OrgsApi.md#getMembers) | **GET** /orgs/{org_id}/members | Get organization members |
 | [**getOrg()**](OrgsApi.md#getOrg) | **GET** /orgs/{org_id} | Get organization info |
+| [**getOrgMemberLogin()**](OrgsApi.md#getOrgMemberLogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member |
 | [**getPlan()**](OrgsApi.md#getPlan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan |
 | [**getPlans()**](OrgsApi.md#getPlans) | **GET** /orgs/{org_id}/plans | Get plans |
 | [**getTags()**](OrgsApi.md#getTags) | **GET** /orgs/{org_id}/tags | Get tags |
@@ -1535,6 +1536,73 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\Org**](../Model/Org.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrgMemberLogin()`
+
+```php
+getOrgMemberLogin($org_id, $member_id): string
+```
+
+Get a One-Time-Password link for the member
+
+Returns a short lived one time password link for direct log-ins via the users realm. Session holder must be an `Owner`, `SuperAdmin` or `Sysadmin` in the org or the MO.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$member_id = 'member_id_example'; // string | The id of the member.
+
+try {
+    $result = $apiInstance->getOrgMemberLogin($org_id, $member_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->getOrgMemberLogin: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **member_id** | **string**| The id of the member. | |
+
+### Return type
+
+**string**
 
 ### Authorization
 

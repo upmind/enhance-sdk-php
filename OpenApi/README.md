@@ -169,6 +169,7 @@ Class | Method | HTTP request | Description
 *LicenceApi* | [**getLicenceInfo**](docs/Api/LicenceApi.md#getlicenceinfo) | **GET** /licence | Get current licence status
 *LicenceApi* | [**refreshLicence**](docs/Api/LicenceApi.md#refreshlicence) | **PUT** /licence | Updates licence key if provided, and refresh licence status by calling home servers. NOTE: calling without any licence_key body, only refreshes the current licence status
 *LoginsApi* | [**createLogin**](docs/Api/LoginsApi.md#createlogin) | **POST** /logins | Create a new login
+*LoginsApi* | [**createOtpSession**](docs/Api/LoginsApi.md#createotpsession) | **GET** /login/sessions/sso | Create a new session for login with a one-time-password
 *LoginsApi* | [**createSession**](docs/Api/LoginsApi.md#createsession) | **POST** /login/sessions | Create a new session for login
 *LoginsApi* | [**deleteCurrentSession**](docs/Api/LoginsApi.md#deletecurrentsession) | **DELETE** /login/sessions/current | Delete current session
 *LoginsApi* | [**deleteLoginAvatar**](docs/Api/LoginsApi.md#deleteloginavatar) | **DELETE** /login/avatar | Remove login avatar
@@ -194,6 +195,7 @@ Class | Method | HTTP request | Description
 *MembersApi* | [**getAccessTokens**](docs/Api/MembersApi.md#getaccesstokens) | **GET** /orgs/{org_id}/access_tokens | Get access token members
 *MembersApi* | [**getMember**](docs/Api/MembersApi.md#getmember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member
 *MembersApi* | [**getMembers**](docs/Api/MembersApi.md#getmembers) | **GET** /orgs/{org_id}/members | Get organization members
+*MembersApi* | [**getOrgMemberLogin**](docs/Api/MembersApi.md#getorgmemberlogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member
 *MembersApi* | [**updateMember**](docs/Api/MembersApi.md#updatemember) | **PUT** /orgs/{org_id}/members/{member_id} | Overwrite organization member settings
 *MembersApi* | [**updateOwner**](docs/Api/MembersApi.md#updateowner) | **PUT** /orgs/{org_id}/owner | Update organization owner
 *MetricsApi* | [**getWebsiteMetrics**](docs/Api/MetricsApi.md#getwebsitemetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics
@@ -240,6 +242,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**getMember**](docs/Api/OrgsApi.md#getmember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member
 *OrgsApi* | [**getMembers**](docs/Api/OrgsApi.md#getmembers) | **GET** /orgs/{org_id}/members | Get organization members
 *OrgsApi* | [**getOrg**](docs/Api/OrgsApi.md#getorg) | **GET** /orgs/{org_id} | Get organization info
+*OrgsApi* | [**getOrgMemberLogin**](docs/Api/OrgsApi.md#getorgmemberlogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member
 *OrgsApi* | [**getPlan**](docs/Api/OrgsApi.md#getplan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan
 *OrgsApi* | [**getPlans**](docs/Api/OrgsApi.md#getplans) | **GET** /orgs/{org_id}/plans | Get plans
 *OrgsApi* | [**getTags**](docs/Api/OrgsApi.md#gettags) | **GET** /orgs/{org_id}/tags | Get tags
@@ -309,6 +312,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getServerUptime**](docs/Api/ServersApi.md#getserveruptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds
 *ServersApi* | [**getServers**](docs/Api/ServersApi.md#getservers) | **GET** /servers | Get installed servers
 *ServersApi* | [**getServiceSetting**](docs/Api/ServersApi.md#getservicesetting) | **GET** /servers/{server_id}/settings/{setting_kind} | Get the value for a particular setting
+*ServersApi* | [**getSystemPackageUpdateInfo**](docs/Api/ServersApi.md#getsystempackageupdateinfo) | **GET** /servers/{server_id}/packages/update | Returns a map of upgradable packages.
 *ServersApi* | [**getWebserverKind**](docs/Api/ServersApi.md#getwebserverkind) | **GET** /servers/{server_id}/webserver | Get web server
 *ServersApi* | [**getWebsiteFpmSettings**](docs/Api/ServersApi.md#getwebsitefpmsettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website
 *ServersApi* | [**initAllServers**](docs/Api/ServersApi.md#initallservers) | **POST** /servers/init | Attempts to initialize all roles
@@ -322,6 +326,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**updateServerPrimaryIp**](docs/Api/ServersApi.md#updateserverprimaryip) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed.
 *ServersApi* | [**updateServerRole**](docs/Api/ServersApi.md#updateserverrole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role
 *ServersApi* | [**updateService**](docs/Api/ServersApi.md#updateservice) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version.
+*ServersApi* | [**updateSystemPackage**](docs/Api/ServersApi.md#updatesystempackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version.
 *ServersApi* | [**uploadServerSslCert**](docs/Api/ServersApi.md#uploadserversslcert) | **POST** /servers/ssl | Upload SSL certificate for server/service use
 *ServersApi* | [**validateRegistrationKey**](docs/Api/ServersApi.md#validateregistrationkey) | **POST** /servers/registration-key/validate | Validate slave registration key
 *SettingsApi* | [**createSettings**](docs/Api/SettingsApi.md#createsettings) | **POST** /settings | Create settings
@@ -416,6 +421,7 @@ Class | Method | HTTP request | Description
 *WordpressApi* | [**deleteWordpressUser**](docs/Api/WordpressApi.md#deletewordpressuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user
 *WordpressApi* | [**getDefaultWpSsoUser**](docs/Api/WordpressApi.md#getdefaultwpssouser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | 
 *WordpressApi* | [**getWordpressAppVersion**](docs/Api/WordpressApi.md#getwordpressappversion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version
+*WordpressApi* | [**getWordpressInstallations**](docs/Api/WordpressApi.md#getwordpressinstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations
 *WordpressApi* | [**getWordpressLatestVersion**](docs/Api/WordpressApi.md#getwordpresslatestversion) | **GET** /utils/wordpress/latest | Get WordPress latest available version
 *WordpressApi* | [**getWordpressPlugins**](docs/Api/WordpressApi.md#getwordpressplugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins
 *WordpressApi* | [**getWordpressSettings**](docs/Api/WordpressApi.md#getwordpresssettings) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress | Get Wordpress application settings
@@ -683,6 +689,8 @@ Class | Method | HTTP request | Description
 - [SubscriptionDedicatedServers](docs/Model/SubscriptionDedicatedServers.md)
 - [SubscriptionDedicatedServersInfo](docs/Model/SubscriptionDedicatedServersInfo.md)
 - [SubscriptionsListing](docs/Model/SubscriptionsListing.md)
+- [SystemPackage](docs/Model/SystemPackage.md)
+- [SystemPackageName](docs/Model/SystemPackageName.md)
 - [Tag](docs/Model/Tag.md)
 - [TagsFullListing](docs/Model/TagsFullListing.md)
 - [TldNs](docs/Model/TldNs.md)
@@ -717,6 +725,7 @@ Class | Method | HTTP request | Description
 - [UpdateWpPlugin](docs/Model/UpdateWpPlugin.md)
 - [UpdateWpSettings](docs/Model/UpdateWpSettings.md)
 - [UpdateWpUser](docs/Model/UpdateWpUser.md)
+- [UpgradableSystemPackage](docs/Model/UpgradableSystemPackage.md)
 - [UsedResource](docs/Model/UsedResource.md)
 - [UsedResourcesFullListing](docs/Model/UsedResourcesFullListing.md)
 - [UuidListing](docs/Model/UuidListing.md)
@@ -745,6 +754,7 @@ Class | Method | HTTP request | Description
 - [WebsiteServerDomains](docs/Model/WebsiteServerDomains.md)
 - [WebsiteStatus](docs/Model/WebsiteStatus.md)
 - [WebsitesListing](docs/Model/WebsitesListing.md)
+- [WpInstallation](docs/Model/WpInstallation.md)
 - [WpLatestVersion](docs/Model/WpLatestVersion.md)
 - [WpPlugin](docs/Model/WpPlugin.md)
 - [WpPluginsFullListing](docs/Model/WpPluginsFullListing.md)
@@ -786,5 +796,5 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `8.0.0`
+- API version: `8.1.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

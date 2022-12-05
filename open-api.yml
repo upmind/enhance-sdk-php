@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: orchd API docs
-  version: 8.0.0
+  version: 8.1.0
   title: orchd
 tags:
   - name: install
@@ -2230,6 +2230,64 @@ paths:
         "404":
           description: Not found
 
+  /servers/{server_id}/packages/update:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+      - name: systemPackageName
+        in: query
+        schema:
+          $ref: "#/components/schemas/SystemPackageName"
+    get:
+      tags:
+        - servers
+      summary: Returns a map of upgradable packages.
+      description: >-
+        Map of upgradable system packages is returned along with latest Version
+        if the package update is available.
+      operationId: getSystemPackageUpdateInfo
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of upgradable packages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpgradableSystemPackage"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: Updates a system package to its latest version.
+      description: >-
+        Can only update installed package to its latest version.
+      operationId: updateSystemPackage
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Package to be updated.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SystemPackage"
+      responses:
+        "200":
+          description: Package Updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
   /servers/{server_id}/services/{service_id}/status:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -2597,6 +2655,44 @@ paths:
                 type: string
         "401":
           description: Invalid session
+  /login/sessions/sso:
+    get:
+      tags:
+        - logins
+      summary: Create a new session for login with a one-time-password
+      description: >-
+        Creates a new session for the login in a specific login realm,
+        using a short lived one time password.
+
+        This creates a session as well, with the difference that realmId is
+        required and any 2FA will be bypassed.
+      operationId: createOtpSession
+      parameters:
+        - name: otp
+          in: query
+          description: >-
+            Contains a short lived otp for direct login bypassing any 2FA.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Successful
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginMemberships"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid credentials
+        "403":
+          description: Insufficient privileges
   /login/sessions/{session_id}:
     parameters:
       - name: session_id
@@ -3759,6 +3855,33 @@ paths:
         "404":
           description: Not found
 
+  /orgs/{org_id}/members/{member_id}/sso:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/MemberId"
+    get:
+      tags:
+        - orgs
+        - members
+      summary: Get a One-Time-Password link for the member
+      description: >-
+        Returns a short lived one time password link for direct log-ins via the users realm.
+        Session holder must be an `Owner`, `SuperAdmin` or `Sysadmin` in the org or the MO.
+      operationId: getOrgMemberLogin
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "201":
+          description: OTP login link successfully created
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
   /orgs/{org_id}/access_tokens:
     get:
       tags:
@@ -7661,6 +7784,36 @@ paths:
   # -- wordpress
   ###############################################################################
 
+  /orgs/{org_id}/websites/{website_id}/apps/wordpress:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - wordpress
+      summary: Trigger discovery of WP installations
+      description: >-
+        WP installations that were made manually (aside from invoking) orchd
+        APIs aren't immediately discovered by orchd.
+
+        Invoking this endpoint triggers the discovery and adds installation
+        info to the database.
+      operationId: getWordpressInstallations
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WpInstallation"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -10159,6 +10312,25 @@ components:
     ServiceStatusAction:
       type: string
       enum: [gracefulRestart, forceRestart]
+    SystemPackageName:
+      type: string
+      enum: [appcd, git]
+    UpgradableSystemPackage:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/schemas/SystemPackageName"
+        version:
+          type: string
+    SystemPackage:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          $ref: "#/components/schemas/SystemPackageName"
     SetServerStatus:
       type: object
       required:
@@ -10444,7 +10616,6 @@ components:
 
         Note: for arbitrary string casting please use `camelCase` format
       enum:
-        - bandwidth
         - customers
         - diskspace
         - domainAliases
@@ -13149,6 +13320,21 @@ components:
           items:
             type: string
             format: ip
+    WpInstallation:
+      type: object
+      required:
+        - dbName
+        - dbUser
+        - tablePrefix
+      properties:
+        dbName:
+          type: string
+        dbUser:
+          type: string
+        tablePrefix:
+          type: string
+        path:
+          type: string
     WPAutoUpdateCore:
       type: string
       enum: ["major", "minor"]
@@ -13290,7 +13476,7 @@ components:
       enum: ["enabled", "disabled"]
     WPPluginStatus:
       type: string
-      enum: ["active", "inactive"]
+      enum: ["active", "inactive", "unknown"]
     WPPluginUpdateAvailable:
       type: string
       enum: ["available", "none"]
@@ -13441,6 +13627,11 @@ components:
             '/blog', then the path will be present and equal to 'blog'. But if
             they install WP in website root, instead of returning '/' or empty
             string, this property is omitted.
+        defaultWpUserId:
+          type: integer
+          description: >-
+            Only present if default was set by the user. Otherwise, this field
+            isn't there.
     WebsiteCloneStatus:
       type: object
       required:

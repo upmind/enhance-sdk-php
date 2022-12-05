@@ -44,6 +44,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getServerUptime()**](ServersApi.md#getServerUptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds |
 | [**getServers()**](ServersApi.md#getServers) | **GET** /servers | Get installed servers |
 | [**getServiceSetting()**](ServersApi.md#getServiceSetting) | **GET** /servers/{server_id}/settings/{setting_kind} | Get the value for a particular setting |
+| [**getSystemPackageUpdateInfo()**](ServersApi.md#getSystemPackageUpdateInfo) | **GET** /servers/{server_id}/packages/update | Returns a map of upgradable packages. |
 | [**getWebserverKind()**](ServersApi.md#getWebserverKind) | **GET** /servers/{server_id}/webserver | Get web server |
 | [**getWebsiteFpmSettings()**](ServersApi.md#getWebsiteFpmSettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website |
 | [**initAllServers()**](ServersApi.md#initAllServers) | **POST** /servers/init | Attempts to initialize all roles |
@@ -57,6 +58,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**updateServerPrimaryIp()**](ServersApi.md#updateServerPrimaryIp) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed. |
 | [**updateServerRole()**](ServersApi.md#updateServerRole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role |
 | [**updateService()**](ServersApi.md#updateService) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version. |
+| [**updateSystemPackage()**](ServersApi.md#updateSystemPackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version. |
 | [**uploadServerSslCert()**](ServersApi.md#uploadServerSslCert) | **POST** /servers/ssl | Upload SSL certificate for server/service use |
 | [**validateRegistrationKey()**](ServersApi.md#validateRegistrationKey) | **POST** /servers/registration-key/validate | Validate slave registration key |
 
@@ -2649,6 +2651,73 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getSystemPackageUpdateInfo()`
+
+```php
+getSystemPackageUpdateInfo($server_id, $system_package_name): \Upmind\EnhanceSdk\Model\UpgradableSystemPackage
+```
+
+Returns a map of upgradable packages.
+
+Map of upgradable system packages is returned along with latest Version if the package update is available.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$system_package_name = new \Upmind\EnhanceSdk\Model\SystemPackageName(); // SystemPackageName
+
+try {
+    $result = $apiInstance->getSystemPackageUpdateInfo($server_id, $system_package_name);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getSystemPackageUpdateInfo: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **system_package_name** | [**SystemPackageName**](../Model/.md)|  | [optional] |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\UpgradableSystemPackage**](../Model/UpgradableSystemPackage.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebserverKind()`
 
 ```php
@@ -3487,6 +3556,74 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateSystemPackage()`
+
+```php
+updateSystemPackage($server_id, $system_package, $system_package_name)
+```
+
+Updates a system package to its latest version.
+
+Can only update installed package to its latest version.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$system_package = new \Upmind\EnhanceSdk\Model\SystemPackage(); // \Upmind\EnhanceSdk\Model\SystemPackage | Package to be updated.
+$system_package_name = new \Upmind\EnhanceSdk\Model\SystemPackageName(); // SystemPackageName
+
+try {
+    $apiInstance->updateSystemPackage($server_id, $system_package, $system_package_name);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->updateSystemPackage: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **system_package** | [**\Upmind\EnhanceSdk\Model\SystemPackage**](../Model/SystemPackage.md)| Package to be updated. | |
+| **system_package_name** | [**SystemPackageName**](../Model/.md)|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
