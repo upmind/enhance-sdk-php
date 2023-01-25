@@ -6,20 +6,41 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**createSettings()**](SettingsApi.md#createSettings) | **POST** /settings | Create settings |
 | [**deleteGlobalServiceSetting()**](SettingsApi.md#deleteGlobalServiceSetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting |
-| [**deleteOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyIpWhitelist) | **DELETE** /settings/orchd/login_policy/ip_whitelist | Delete an orchd login policy whitelist ip |
+| [**deleteOrchdLoginPolicyEmailBlacklist()**](SettingsApi.md#deleteOrchdLoginPolicyEmailBlacklist) | **DELETE** /settings/orchd/login-policy/email-blacklist | Delete an orchd login policy email blacklist |
+| [**deleteOrchdLoginPolicyEmailWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyEmailWhitelist) | **DELETE** /settings/orchd/login-policy/email-whitelist | Delete an orchd login policy email whitelist |
+| [**deleteOrchdLoginPolicyIpBlacklist()**](SettingsApi.md#deleteOrchdLoginPolicyIpBlacklist) | **DELETE** /settings/orchd/login-policy/ip-blacklist | Delete an orchd login policy ip blacklist |
+| [**deleteOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyIpWhitelist) | **DELETE** /settings/orchd/login-policy/ip-whitelist | Delete an orchd login policy ip whitelist |
+| [**deleteOrchdLoginPolicyTemporaryEmailBlacklist()**](SettingsApi.md#deleteOrchdLoginPolicyTemporaryEmailBlacklist) | **DELETE** /settings/orchd/login-policy/temporary/email-blacklist | Delete an orchd login policy temporary email blacklist |
+| [**deleteOrchdLoginPolicyTemporaryEmailWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyTemporaryEmailWhitelist) | **DELETE** /settings/orchd/login-policy/temporary/email-whitelist | Delete an orchd login policy temporary email whitelist |
+| [**deleteOrchdLoginPolicyTemporaryIpBlacklist()**](SettingsApi.md#deleteOrchdLoginPolicyTemporaryIpBlacklist) | **DELETE** /settings/orchd/login-policy/temporary/ip-blacklist | Delete an orchd login policy temporary ip blacklist |
+| [**deleteOrchdLoginPolicyTemporaryIpWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyTemporaryIpWhitelist) | **DELETE** /settings/orchd/login-policy/temporary/ip-whitelist | Delete an orchd login policy temporary ip whitelist |
 | [**deleteSetting()**](SettingsApi.md#deleteSetting) | **DELETE** /settings/{name} | Remove the specified setting |
 | [**getDockerRegistry()**](SettingsApi.md#getDockerRegistry) | **GET** /settings/registry | Gets the Docker registry credentials. |
 | [**getGlobalServiceSetting()**](SettingsApi.md#getGlobalServiceSetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting |
 | [**getOrchdLogSettings()**](SettingsApi.md#getOrchdLogSettings) | **GET** /settings/orchd/logs | Get the orchd log settings |
-| [**getOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#getOrchdLoginPolicyIpWhitelist) | **GET** /settings/orchd/login_policy/ip_whitelist | Get the orchd login policy whitelist |
-| [**getOrchdLoginPolicySettings()**](SettingsApi.md#getOrchdLoginPolicySettings) | **GET** /settings/orchd/login_policy/settings | Get the orchd login policy settings |
+| [**getOrchdLoginPolicyEmailBlacklist()**](SettingsApi.md#getOrchdLoginPolicyEmailBlacklist) | **GET** /settings/orchd/login-policy/email-blacklist | Get the orchd login policy email blacklist |
+| [**getOrchdLoginPolicyEmailWhitelist()**](SettingsApi.md#getOrchdLoginPolicyEmailWhitelist) | **GET** /settings/orchd/login-policy/email-whitelist | Get the orchd login policy email whitelist |
+| [**getOrchdLoginPolicyIpBlacklist()**](SettingsApi.md#getOrchdLoginPolicyIpBlacklist) | **GET** /settings/orchd/login-policy/ip-blacklist | Get the orchd login policy ip blacklist |
+| [**getOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#getOrchdLoginPolicyIpWhitelist) | **GET** /settings/orchd/login-policy/ip-whitelist | Get the orchd login policy ip whitelist |
+| [**getOrchdLoginPolicySettings()**](SettingsApi.md#getOrchdLoginPolicySettings) | **GET** /settings/orchd/login-policy/settings | Get the orchd login policy settings |
+| [**getOrchdLoginPolicyTemporaryEmailBlacklist()**](SettingsApi.md#getOrchdLoginPolicyTemporaryEmailBlacklist) | **GET** /settings/orchd/login-policy/temporary/email-blacklist | Get the orchd login policy temporary email blacklist |
+| [**getOrchdLoginPolicyTemporaryEmailWhitelist()**](SettingsApi.md#getOrchdLoginPolicyTemporaryEmailWhitelist) | **GET** /settings/orchd/login-policy/temporary/email-whitelist | Get the orchd login policy temporary email whitelist |
+| [**getOrchdLoginPolicyTemporaryIpBlacklist()**](SettingsApi.md#getOrchdLoginPolicyTemporaryIpBlacklist) | **GET** /settings/orchd/login-policy/temporary/ip-blacklist | Get the orchd login policy temporary ip blacklist |
+| [**getOrchdLoginPolicyTemporaryIpWhitelist()**](SettingsApi.md#getOrchdLoginPolicyTemporaryIpWhitelist) | **GET** /settings/orchd/login-policy/temporary/ip-whitelist | Get the orchd login policy temporary ip whitelist |
 | [**getSetting()**](SettingsApi.md#getSetting) | **GET** /settings/{name} | Get the specified setting |
 | [**getSettings()**](SettingsApi.md#getSettings) | **GET** /settings | Get all current settings |
 | [**setDockerRegistry()**](SettingsApi.md#setDockerRegistry) | **PUT** /settings/registry | Updates the Docker registry credentials. |
 | [**setGlobalServiceSetting()**](SettingsApi.md#setGlobalServiceSetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting |
 | [**setOrchdLogSettings()**](SettingsApi.md#setOrchdLogSettings) | **PUT** /settings/orchd/logs | Set the orchd log settings |
-| [**setOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#setOrchdLoginPolicyIpWhitelist) | **PUT** /settings/orchd/login_policy/ip_whitelist | Set the orchd login policy whitelist as a whole |
-| [**setOrchdLoginPolicySettings()**](SettingsApi.md#setOrchdLoginPolicySettings) | **PUT** /settings/orchd/login_policy/settings | Set a single orchd login policy setting |
+| [**setOrchdLoginPolicyEmailBlacklist()**](SettingsApi.md#setOrchdLoginPolicyEmailBlacklist) | **PUT** /settings/orchd/login-policy/email-blacklist | Set the orchd login policy email blacklist as a whole |
+| [**setOrchdLoginPolicyEmailWhitelist()**](SettingsApi.md#setOrchdLoginPolicyEmailWhitelist) | **PUT** /settings/orchd/login-policy/email-whitelist | Set the orchd login policy email whitelist as a whole |
+| [**setOrchdLoginPolicyIpBlacklist()**](SettingsApi.md#setOrchdLoginPolicyIpBlacklist) | **PUT** /settings/orchd/login-policy/ip-blacklist | Set the orchd login policy ip blacklist as a whole |
+| [**setOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#setOrchdLoginPolicyIpWhitelist) | **PUT** /settings/orchd/login-policy/ip-whitelist | Set the orchd login policy ip whitelist as a whole |
+| [**setOrchdLoginPolicySettings()**](SettingsApi.md#setOrchdLoginPolicySettings) | **PUT** /settings/orchd/login-policy/settings | Set a single orchd login policy setting |
+| [**setOrchdLoginPolicyTemporaryEmailBlacklist()**](SettingsApi.md#setOrchdLoginPolicyTemporaryEmailBlacklist) | **PUT** /settings/orchd/login-policy/temporary/email-blacklist | Set the orchd login policy temporary whitelist as a whole |
+| [**setOrchdLoginPolicyTemporaryEmailWhitelist()**](SettingsApi.md#setOrchdLoginPolicyTemporaryEmailWhitelist) | **PUT** /settings/orchd/login-policy/temporary/email-whitelist | Set the orchd login policy temporary email whitelist as a whole |
+| [**setOrchdLoginPolicyTemporaryIpBlacklist()**](SettingsApi.md#setOrchdLoginPolicyTemporaryIpBlacklist) | **PUT** /settings/orchd/login-policy/temporary/ip-blacklist | Set the orchd login policy temporary ip blacklist as a whole |
+| [**setOrchdLoginPolicyTemporaryIpWhitelist()**](SettingsApi.md#setOrchdLoginPolicyTemporaryIpWhitelist) | **PUT** /settings/orchd/login-policy/temporary/ip-whitelist | Set the orchd login policy temporary ip whitelist as a whole |
 | [**updateSetting()**](SettingsApi.md#updateSetting) | **PUT** /settings/{name} | Create or update the specified setting |
 
 
@@ -152,13 +173,13 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `deleteOrchdLoginPolicyIpWhitelist()`
+## `deleteOrchdLoginPolicyEmailBlacklist()`
 
 ```php
-deleteOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist)
+deleteOrchdLoginPolicyEmailBlacklist($orchd_login_policy_email_list)
 ```
 
-Delete an orchd login policy whitelist ip
+Delete an orchd login policy email blacklist
 
 ### Example
 
@@ -182,10 +203,196 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$orchd_login_policy_whitelist = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist
+$orchd_login_policy_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList
 
 try {
-    $apiInstance->deleteOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist);
+    $apiInstance->deleteOrchdLoginPolicyEmailBlacklist($orchd_login_policy_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyEmailBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList**](../Model/OrchdLoginPolicyEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyEmailWhitelist()`
+
+```php
+deleteOrchdLoginPolicyEmailWhitelist($orchd_login_policy_email_list)
+```
+
+Delete an orchd login policy email whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyEmailWhitelist($orchd_login_policy_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyEmailWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList**](../Model/OrchdLoginPolicyEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyIpBlacklist()`
+
+```php
+deleteOrchdLoginPolicyIpBlacklist($orchd_login_policy_ip_list)
+```
+
+Delete an orchd login policy ip blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyIpBlacklist($orchd_login_policy_ip_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyIpBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList**](../Model/OrchdLoginPolicyIpList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyIpWhitelist()`
+
+```php
+deleteOrchdLoginPolicyIpWhitelist($orchd_login_policy_ip_list)
+```
+
+Delete an orchd login policy ip whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyIpWhitelist($orchd_login_policy_ip_list);
 } catch (Exception $e) {
     echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyIpWhitelist: ', $e->getMessage(), PHP_EOL;
 }
@@ -195,7 +402,255 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **orchd_login_policy_whitelist** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist**](../Model/OrchdLoginPolicyWhitelist.md)|  | |
+| **orchd_login_policy_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList**](../Model/OrchdLoginPolicyIpList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyTemporaryEmailBlacklist()`
+
+```php
+deleteOrchdLoginPolicyTemporaryEmailBlacklist($orchd_login_policy_temporary_email_list)
+```
+
+Delete an orchd login policy temporary email blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyTemporaryEmailBlacklist($orchd_login_policy_temporary_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyTemporaryEmailBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList**](../Model/OrchdLoginPolicyTemporaryEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyTemporaryEmailWhitelist()`
+
+```php
+deleteOrchdLoginPolicyTemporaryEmailWhitelist($orchd_login_policy_temporary_email_list)
+```
+
+Delete an orchd login policy temporary email whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyTemporaryEmailWhitelist($orchd_login_policy_temporary_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyTemporaryEmailWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList**](../Model/OrchdLoginPolicyTemporaryEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyTemporaryIpBlacklist()`
+
+```php
+deleteOrchdLoginPolicyTemporaryIpBlacklist($orchd_login_policy_temporary_ip_list)
+```
+
+Delete an orchd login policy temporary ip blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyTemporaryIpBlacklist($orchd_login_policy_temporary_ip_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyTemporaryIpBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList**](../Model/OrchdLoginPolicyTemporaryIpList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrchdLoginPolicyTemporaryIpWhitelist()`
+
+```php
+deleteOrchdLoginPolicyTemporaryIpWhitelist($orchd_login_policy_temporary_ip_list)
+```
+
+Delete an orchd login policy temporary ip whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList
+
+try {
+    $apiInstance->deleteOrchdLoginPolicyTemporaryIpWhitelist($orchd_login_policy_temporary_ip_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteOrchdLoginPolicyTemporaryIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList**](../Model/OrchdLoginPolicyTemporaryIpList.md)|  | |
 
 ### Return type
 
@@ -463,13 +918,193 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getOrchdLoginPolicyEmailBlacklist()`
+
+```php
+getOrchdLoginPolicyEmailBlacklist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList
+```
+
+Get the orchd login policy email blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyEmailBlacklist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyEmailBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList**](../Model/OrchdLoginPolicyEmailList.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicyEmailWhitelist()`
+
+```php
+getOrchdLoginPolicyEmailWhitelist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList
+```
+
+Get the orchd login policy email whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyEmailWhitelist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyEmailWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList**](../Model/OrchdLoginPolicyEmailList.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicyIpBlacklist()`
+
+```php
+getOrchdLoginPolicyIpBlacklist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList
+```
+
+Get the orchd login policy ip blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyIpBlacklist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyIpBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList**](../Model/OrchdLoginPolicyIpList.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getOrchdLoginPolicyIpWhitelist()`
 
 ```php
-getOrchdLoginPolicyIpWhitelist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist
+getOrchdLoginPolicyIpWhitelist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList
 ```
 
-Get the orchd login policy whitelist
+Get the orchd login policy ip whitelist
 
 ### Example
 
@@ -508,7 +1143,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist**](../Model/OrchdLoginPolicyWhitelist.md)
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList**](../Model/OrchdLoginPolicyIpList.md)
 
 ### Authorization
 
@@ -569,6 +1204,246 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings**](../Model/OrchdLoginPolicySettings.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicyTemporaryEmailBlacklist()`
+
+```php
+getOrchdLoginPolicyTemporaryEmailBlacklist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList
+```
+
+Get the orchd login policy temporary email blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyTemporaryEmailBlacklist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyTemporaryEmailBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList**](../Model/OrchdLoginPolicyTemporaryEmailList.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicyTemporaryEmailWhitelist()`
+
+```php
+getOrchdLoginPolicyTemporaryEmailWhitelist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList
+```
+
+Get the orchd login policy temporary email whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyTemporaryEmailWhitelist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyTemporaryEmailWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList**](../Model/OrchdLoginPolicyTemporaryEmailList.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicyTemporaryIpBlacklist()`
+
+```php
+getOrchdLoginPolicyTemporaryIpBlacklist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList
+```
+
+Get the orchd login policy temporary ip blacklist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyTemporaryIpBlacklist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyTemporaryIpBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList**](../Model/OrchdLoginPolicyTemporaryIpList.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrchdLoginPolicyTemporaryIpWhitelist()`
+
+```php
+getOrchdLoginPolicyTemporaryIpWhitelist(): \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList
+```
+
+Get the orchd login policy temporary ip whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getOrchdLoginPolicyTemporaryIpWhitelist();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getOrchdLoginPolicyTemporaryIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList**](../Model/OrchdLoginPolicyTemporaryIpList.md)
 
 ### Authorization
 
@@ -901,13 +1776,13 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `setOrchdLoginPolicyIpWhitelist()`
+## `setOrchdLoginPolicyEmailBlacklist()`
 
 ```php
-setOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist)
+setOrchdLoginPolicyEmailBlacklist($orchd_login_policy_email_list)
 ```
 
-Set the orchd login policy whitelist as a whole
+Set the orchd login policy email blacklist as a whole
 
 ### Example
 
@@ -931,10 +1806,196 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$orchd_login_policy_whitelist = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist
+$orchd_login_policy_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList
 
 try {
-    $apiInstance->setOrchdLoginPolicyIpWhitelist($orchd_login_policy_whitelist);
+    $apiInstance->setOrchdLoginPolicyEmailBlacklist($orchd_login_policy_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyEmailBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList**](../Model/OrchdLoginPolicyEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyEmailWhitelist()`
+
+```php
+setOrchdLoginPolicyEmailWhitelist($orchd_login_policy_email_list)
+```
+
+Set the orchd login policy email whitelist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList
+
+try {
+    $apiInstance->setOrchdLoginPolicyEmailWhitelist($orchd_login_policy_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyEmailWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyEmailList**](../Model/OrchdLoginPolicyEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyIpBlacklist()`
+
+```php
+setOrchdLoginPolicyIpBlacklist($orchd_login_policy_ip_list)
+```
+
+Set the orchd login policy ip blacklist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList
+
+try {
+    $apiInstance->setOrchdLoginPolicyIpBlacklist($orchd_login_policy_ip_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyIpBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList**](../Model/OrchdLoginPolicyIpList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyIpWhitelist()`
+
+```php
+setOrchdLoginPolicyIpWhitelist($orchd_login_policy_ip_list)
+```
+
+Set the orchd login policy ip whitelist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList
+
+try {
+    $apiInstance->setOrchdLoginPolicyIpWhitelist($orchd_login_policy_ip_list);
 } catch (Exception $e) {
     echo 'Exception when calling SettingsApi->setOrchdLoginPolicyIpWhitelist: ', $e->getMessage(), PHP_EOL;
 }
@@ -944,7 +2005,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **orchd_login_policy_whitelist** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyWhitelist**](../Model/OrchdLoginPolicyWhitelist.md)|  | |
+| **orchd_login_policy_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyIpList**](../Model/OrchdLoginPolicyIpList.md)|  | |
 
 ### Return type
 
@@ -1007,6 +2068,254 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **orchd_login_policy_settings** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicySettings**](../Model/OrchdLoginPolicySettings.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyTemporaryEmailBlacklist()`
+
+```php
+setOrchdLoginPolicyTemporaryEmailBlacklist($orchd_login_policy_temporary_email_list)
+```
+
+Set the orchd login policy temporary whitelist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList
+
+try {
+    $apiInstance->setOrchdLoginPolicyTemporaryEmailBlacklist($orchd_login_policy_temporary_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyTemporaryEmailBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList**](../Model/OrchdLoginPolicyTemporaryEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyTemporaryEmailWhitelist()`
+
+```php
+setOrchdLoginPolicyTemporaryEmailWhitelist($orchd_login_policy_temporary_email_list)
+```
+
+Set the orchd login policy temporary email whitelist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_email_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList
+
+try {
+    $apiInstance->setOrchdLoginPolicyTemporaryEmailWhitelist($orchd_login_policy_temporary_email_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyTemporaryEmailWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_email_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryEmailList**](../Model/OrchdLoginPolicyTemporaryEmailList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyTemporaryIpBlacklist()`
+
+```php
+setOrchdLoginPolicyTemporaryIpBlacklist($orchd_login_policy_temporary_ip_list)
+```
+
+Set the orchd login policy temporary ip blacklist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList
+
+try {
+    $apiInstance->setOrchdLoginPolicyTemporaryIpBlacklist($orchd_login_policy_temporary_ip_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyTemporaryIpBlacklist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList**](../Model/OrchdLoginPolicyTemporaryIpList.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOrchdLoginPolicyTemporaryIpWhitelist()`
+
+```php
+setOrchdLoginPolicyTemporaryIpWhitelist($orchd_login_policy_temporary_ip_list)
+```
+
+Set the orchd login policy temporary ip whitelist as a whole
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$orchd_login_policy_temporary_ip_list = new \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList(); // \Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList
+
+try {
+    $apiInstance->setOrchdLoginPolicyTemporaryIpWhitelist($orchd_login_policy_temporary_ip_list);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setOrchdLoginPolicyTemporaryIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **orchd_login_policy_temporary_ip_list** | [**\Upmind\EnhanceSdk\Model\OrchdLoginPolicyTemporaryIpList**](../Model/OrchdLoginPolicyTemporaryIpList.md)|  | |
 
 ### Return type
 

@@ -19,7 +19,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteOwner()**](OrgsApi.md#deleteOwner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner |
 | [**deletePlan()**](OrgsApi.md#deletePlan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan |
 | [**deletePlanAllowance()**](OrgsApi.md#deletePlanAllowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance |
-| [**deleteWebsiteMySQLUserAccessHosts()**](OrgsApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/access-hosts | Delete website MySQL database user access hosts |
+| [**deleteWebsiteMySQLUserAccessHosts()**](OrgsApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts |
 | [**deleteWebsiteSslCert()**](OrgsApi.md#deleteWebsiteSslCert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate |
 | [**enableWebsiteSslCert()**](OrgsApi.md#enableWebsiteSslCert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain |
 | [**getCustomersAdded()**](OrgsApi.md#getCustomersAdded) | **GET** /orgs/{org_id}/stats/customers/added | Get customers added over a given time period |

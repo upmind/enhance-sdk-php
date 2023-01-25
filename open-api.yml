@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: orchd API docs
-  version: 8.1.0
+  version: 9.0.0
   title: orchd
 tags:
   - name: install
@@ -118,6 +118,20 @@ paths:
                 type: string
                 enum:
                   ["initialising", "updating", "initialisingServers", "ready"]
+  /client_ip:
+    get:
+      tags:
+        - servers
+      summary: Reflect back the IP of the API consumer
+      operationId: getClientIp
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: string
+                format: ip
 
   ###############################################################################
   # -- Install
@@ -355,7 +369,7 @@ paths:
         "403":
           description: Insufficient privileges
 
-  /settings/orchd/login_policy/settings:
+  /settings/orchd/login-policy/settings:
     get:
       tags:
         - settings
@@ -399,11 +413,11 @@ paths:
         "403":
           description: Insufficient privileges
 
-  /settings/orchd/login_policy/ip_whitelist:
+  /settings/orchd/login-policy/ip-whitelist:
     get:
       tags:
         - settings
-      summary: Get the orchd login policy whitelist
+      summary: Get the orchd login policy ip whitelist
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -414,7 +428,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrchdLoginPolicyWhitelist"
+                $ref: "#/components/schemas/OrchdLoginPolicyIpList"
         "401":
           description: Invalid session
         "403":
@@ -424,7 +438,7 @@ paths:
     put:
       tags:
         - settings
-      summary: Set the orchd login policy whitelist as a whole
+      summary: Set the orchd login policy ip whitelist as a whole
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -434,7 +448,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyWhitelist"
+              $ref: "#/components/schemas/OrchdLoginPolicyIpList"
       responses:
         "204":
           description: Successful
@@ -446,7 +460,7 @@ paths:
     delete:
       tags:
         - settings
-      summary: Delete an orchd login policy whitelist ip
+      summary: Delete an orchd login policy ip whitelist
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -456,7 +470,469 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyWhitelist"
+              $ref: "#/components/schemas/OrchdLoginPolicyIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/ip-blacklist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy ip blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyIpBlacklist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyIpList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy ip blacklist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyIpBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy ip blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyIpBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/temporary/ip-whitelist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy temporary ip whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyTemporaryIpWhitelist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy temporary ip whitelist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyTemporaryIpWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy temporary ip whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyTemporaryIpWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/temporary/ip-blacklist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy temporary ip blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyTemporaryIpBlacklist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy temporary ip blacklist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyTemporaryIpBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy temporary ip blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyTemporaryIpBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/email-whitelist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy email whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyEmailWhitelist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyEmailList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy email whitelist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyEmailWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy email whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyEmailWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/email-blacklist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy email blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyEmailBlacklist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyEmailList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy email blacklist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyEmailBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy email blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyEmailBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/temporary/email-whitelist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy temporary email whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyTemporaryEmailWhitelist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy temporary email whitelist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyTemporaryEmailWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy temporary email whitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyTemporaryEmailWhitelist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/login-policy/temporary/email-blacklist:
+    get:
+      tags:
+        - settings
+      summary: Get the orchd login policy temporary email blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getOrchdLoginPolicyTemporaryEmailBlacklist
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the orchd login policy temporary whitelist as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setOrchdLoginPolicyTemporaryEmailBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+    delete:
+      tags:
+        - settings
+      summary: Delete an orchd login policy temporary email blacklist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteOrchdLoginPolicyTemporaryEmailBlacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
       responses:
         "204":
           description: Successful
@@ -2196,40 +2672,6 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
-  /servers/{server_id}/logs:
-    parameters:
-      - $ref: "#/components/parameters/ServerId"
-      - $ref: "#/components/parameters/Since"
-      - $ref: "#/components/parameters/Until"
-      - $ref: "#/components/parameters/Limit"
-      - $ref: "#/components/parameters/Flush"
-    get:
-      tags:
-        - servers
-      summary: Get services status logs
-      description: >-
-        Services running on each server are being monitored. Returns the status
-        of each running service. Limit defaults to 50.
-
-        Session holder must owner, `SuperAdmin`, `SysAdmin` or MO.
-      operationId: getServerLogs
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceLogsFullListing"
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
   /servers/{server_id}/packages/update:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -5192,34 +5634,6 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/logs:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/Since"
-      - $ref: "#/components/parameters/Until"
-      - $ref: "#/components/parameters/Limit"
-      - $ref: "#/components/parameters/Flush"
-    get:
-      tags:
-        - website
-      summary: Get website status logs
-      description: >-
-        Websites are being monitored. Returns the logs which enhance gathered
-        about the website status over time. Limit defaults to 50.
-
-        Session holder must be at least a `SuperAdmin` in this org or a parent
-        org, or be a member in this org that has access to the website.
-      operationId: getWebsiteLogs
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WebsiteLogsFullListing"
-        "400":
-          description: Invalid input
   /orgs/{org_id}/websites/{website_id}/htaccess/ips:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -5374,7 +5788,7 @@ paths:
         - websites
       summary: Sends command to take website screenshot
       description: >-
-        Sends Command to the watchd service, to take website screenshot immediately
+        Sends Command to screenshotd service, to take website screenshot immediately
       operationId: takeScreenshot
       security:
         - sessionCookie: []
@@ -5410,6 +5824,55 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UnixTimestamp"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/cgroup_limits:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get the active cgroup limits for a website
+      operationId: getWebsiteCgroupLimits
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Cgroup limitations if set
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CgroupLimits"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - websites
+      summary: Set the active cgroup limits for a website (Master org only)
+      operationId: setWebsiteCgroupLimits
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Cgroup limits.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CgroupLimits"
+      responses:
+        "200":
+          description: Cgroup limits successfully updated
         "401":
           description: Invalid session
         "403":
@@ -7335,11 +7798,10 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users:
+  /orgs/{org_id}/websites/{website_id}/mysql-users:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
     get:
       tags:
         - mysql
@@ -7395,11 +7857,10 @@ paths:
           description: Not found
         "409":
           description: Already exists
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}:
+  /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
       - $ref: "#/components/parameters/DbUserId"
     put:
       tags:
@@ -7446,11 +7907,10 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/privileges:
+  /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
       - $ref: "#/components/parameters/DbUserId"
     post:
       tags:
@@ -7506,7 +7966,7 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/access-hosts:
+  /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
@@ -10542,6 +11002,21 @@ components:
           type: string
         planType:
           $ref: "#/components/schemas/PlanType"
+        cgroupLimits:
+          $ref: "#/components/schemas/CgroupLimits"
+    CgroupLimits:
+      type: object
+      properties:
+        nproc:
+          type: number
+        memoryLimit:
+          type: number
+        iops:
+          type: number
+        ioBandwidth:
+          type: number
+        virtualCpus:
+          type: number
     Plan:
       description: >-
         A plan (or sometimes referred to as a package) defines a set of resources
@@ -10586,6 +11061,8 @@ components:
           type: string
         planType:
           $ref: "#/components/schemas/PlanType"
+        cgroupLimits:
+          $ref: "#/components/schemas/CgroupLimits"
     UpdatePlan:
       type: object
       properties:
@@ -10593,6 +11070,8 @@ components:
           type: string
         planType:
           $ref: "#/components/schemas/PlanType"
+        cgroupLimits:
+          $ref: "#/components/schemas/CgroupLimits"
     Resource:
       type: object
       required:
@@ -11406,7 +11885,7 @@ components:
         ]
     PhpVersion:
       type: string
-      enum: [php56, php70, php71, php72, php73, php74, php80, php81]
+      enum: [php56, php70, php71, php72, php73, php74, php80, php81, php82]
     SiteAccessMember:
       type: object
       required:
@@ -11480,6 +11959,7 @@ components:
         - orgName
         - isMasterOrg
         - roles
+        - siteAccessCount
       properties:
         memberId:
           type: string
@@ -11493,6 +11973,8 @@ components:
           type: boolean
         roles:
           $ref: "#/components/schemas/RoleList"
+        siteAccessCount:
+          type: number
     NewServerGroup:
       type: object
       required:
@@ -11558,8 +12040,9 @@ components:
           $ref: "#/components/schemas/RolesSummary"
         createdAt:
           type: string
-        controld:
-          $ref: "#/components/schemas/ServiceInfo"
+        controldVersion:
+          type: string
+          format: semver
         dedicatedSubscription:
           $ref: "#/components/schemas/DedicatedSubscriptionInfo"
     ServerInfoBrief:
@@ -12076,7 +12559,6 @@ components:
         - usage
         - authd
         - sged
-        - watchd
         - logd
       properties:
         usage:
@@ -12084,8 +12566,6 @@ components:
         authd:
           $ref: "#/components/schemas/CoreServiceInfo"
         sged:
-          $ref: "#/components/schemas/CoreServiceInfo"
-        watchd:
           $ref: "#/components/schemas/CoreServiceInfo"
         logd:
           $ref: "#/components/schemas/CoreServiceInfo"
@@ -12601,7 +13081,6 @@ components:
           authd,
           logd,
           sged,
-          watchd,
           bkupd,
           mysqlcd,
           dnscd,
@@ -12644,7 +13123,7 @@ components:
           $ref: "#/components/schemas/NetworkStatus"
     NetworkStatus:
       type: string
-      enum: [online, restarting, warning, critical]
+      enum: [unknown, online, restarting, warning, critical]
     ServerUptime:
       type: object
       required:
@@ -12800,7 +13279,6 @@ components:
       type: object
       required:
         - id
-        - dbId
         - username
         - accessHosts
         - authPlugin
@@ -12825,6 +13303,7 @@ components:
         grants:
           description: Table names mapped to a list of privileges on that table. The wildcard "*" means the privileges are granted for all tables.
           type: object
+          # Todo, improve type defs?  Or return something when listing the databases instead.
         createdAt:
           type: string
         isEphemeral:
@@ -12832,8 +13311,12 @@ components:
     MySQLUserGrants:
       type: object
       required:
+        - dbId
         - grants
       properties:
+        dbId:
+          type: string
+          format: uuid
         grants:
           description: Table names mapped to a list of privileges on that table. The wildcard "*" means the privileges are granted for all tables.
           type: object
@@ -13416,7 +13899,16 @@ components:
           $ref: "#/components/schemas/WpUserRole"
     WpUserRole:
       type: string
-      enum: [administrator, author, contributor, editor, subscriber]
+      enum:
+        [
+          administrator,
+          author,
+          contributor,
+          editor,
+          subscriber,
+          customer,
+          other,
+        ]
     WpUserId:
       type: number
     WpUsersFullListing:
@@ -14418,16 +14910,63 @@ components:
           type: boolean
         emailQuota:
           type: integer
+        emailAutoBlock:
+          type: boolean
+        emailAutoBlockThreshold:
+          type: integer
+          minimum: 1
         ipQuota:
           type: integer
-    OrchdLoginPolicyWhitelist:
-      description: Whitelist for orchd login policy
+        ipAutoBlock:
+          type: boolean
+        ipAutoBlockThreshold:
+          type: integer
+          minimum: 1
+    OrchdLoginPolicyIpList:
+      description: Ip white or black list for orchd login policy
       type: object
       properties:
         ipList:
           type: array
           items:
             type: string
+    OrchdLoginPolicyEmailList:
+      description: Email white or black list for orchd login policy
+      type: object
+      properties:
+        emailList:
+          type: array
+          items:
+            type: string
+    OrchdLoginPolicyTemporaryIpList:
+      description: Ip white or black list for orchd login policy
+      type: object
+      properties:
+        ipList:
+          type: array
+          items:
+            type: object
+            properties:
+              net:
+                type: string
+              valid:
+                type: string
+                format: date-time
+    OrchdLoginPolicyTemporaryEmailList:
+      description: Email white or black list for orchd login policy
+      type: object
+      properties:
+        emailList:
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              valid:
+                type: string
+                format: date-time
     Outcome:
       type: string
       enum: [success, restartRequired, updateNotApplied]

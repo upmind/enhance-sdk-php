@@ -19,6 +19,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteServiceSetting()**](ServersApi.md#deleteServiceSetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
 | [**deleteSlave()**](ServersApi.md#deleteSlave) | **DELETE** /servers/{server_id} | Delete a (slave) server |
 | [**getAppcdVersion()**](ServersApi.md#getAppcdVersion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd |
+| [**getClientIp()**](ServersApi.md#getClientIp) | **GET** /client_ip | Reflect back the IP of the API consumer |
 | [**getControlPanelRoleInfo()**](ServersApi.md#getControlPanelRoleInfo) | **GET** /servers/master/roles/control | Get master server control panel role info |
 | [**getHttpdStatus()**](ServersApi.md#getHttpdStatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server. |
 | [**getInstallCmd()**](ServersApi.md#getInstallCmd) | **GET** /servers/install-cmd | Get slave installation command |
@@ -30,7 +31,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getServerInfo()**](ServersApi.md#getServerInfo) | **GET** /servers/{server_id} | Get server info |
 | [**getServerIowait()**](ServersApi.md#getServerIowait) | **GET** /servers/{server_id}/iowait | Get server iowait |
 | [**getServerLoad()**](ServersApi.md#getServerLoad) | **GET** /servers/{server_id}/load | Get server system load |
-| [**getServerLogs()**](ServersApi.md#getServerLogs) | **GET** /servers/{server_id}/logs | Get services status logs |
 | [**getServerMemoryUsage()**](ServersApi.md#getServerMemoryUsage) | **GET** /servers/{server_id}/memory-usage | Get server memory usage |
 | [**getServerNetworkInterfaces()**](ServersApi.md#getServerNetworkInterfaces) | **GET** /servers/{server_id}/interfaces | Get server network interfaces |
 | [**getServerNetworkStats()**](ServersApi.md#getServerNetworkStats) | **GET** /servers/{server_id}/network-stats | Get server network stats |
@@ -1046,6 +1046,57 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getClientIp()`
+
+```php
+getClientIp(): string
+```
+
+Reflect back the IP of the API consumer
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+
+try {
+    $result = $apiInstance->getClientIp();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getClientIp: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getControlPanelRoleInfo()`
 
 ```php
@@ -1726,70 +1777,6 @@ try {
 ### Authorization
 
 [bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getServerLogs()`
-
-```php
-getServerLogs($server_id, $since, $until, $limit, $flush): \Upmind\EnhanceSdk\Model\ServiceLogsFullListing
-```
-
-Get services status logs
-
-Services running on each server are being monitored. Returns the status of each running service. Limit defaults to 50. Session holder must owner, `SuperAdmin`, `SysAdmin` or MO.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$server_id = 'server_id_example'; // string | The UUID of the server
-$since = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Only return resources which have been created on or after provided date.
-$until = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Only return resources which have been created earlier than provided date.
-$limit = 56; // int | The maximum number of items to return.
-$flush = True; // bool | If true, then we do extra job of flushing cache in relevant places before gathering logs. This makes the operation more expensive and only makes sense using if latest logs are necessary. If false, logs newer than a few minutes may not be in the result.
-
-try {
-    $result = $apiInstance->getServerLogs($server_id, $since, $until, $limit, $flush);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->getServerLogs: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **server_id** | **string**| The UUID of the server | |
-| **since** | **\DateTime**| Only return resources which have been created on or after provided date. | [optional] |
-| **until** | **\DateTime**| Only return resources which have been created earlier than provided date. | [optional] |
-| **limit** | **int**| The maximum number of items to return. | [optional] |
-| **flush** | **bool**| If true, then we do extra job of flushing cache in relevant places before gathering logs. This makes the operation more expensive and only makes sense using if latest logs are necessary. If false, logs newer than a few minutes may not be in the result. | [optional] |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\ServiceLogsFullListing**](../Model/ServiceLogsFullListing.md)
-
-### Authorization
-
-No authorization required
 
 ### HTTP request headers
 

@@ -205,19 +205,19 @@ Class | Method | HTTP request | Description
 *MigrationsApi* | [**getMigrations**](docs/Api/MigrationsApi.md#getmigrations) | **GET** /migrations | Get website role migrations
 *MysqlApi* | [**createOrRestoreWebsiteMySQLDBBackup**](docs/Api/MysqlApi.md#createorrestorewebsitemysqldbbackup) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/backups | Create or restore website MySQL database backup
 *MysqlApi* | [**createWebsiteMySQLDB**](docs/Api/MysqlApi.md#createwebsitemysqldb) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website
-*MysqlApi* | [**createWebsiteMySQLUser**](docs/Api/MysqlApi.md#createwebsitemysqluser) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users | Create website MySQL database user
-*MysqlApi* | [**createWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#createwebsitemysqluseraccesshosts) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/access-hosts | Create website MySQL database user access hosts
-*MysqlApi* | [**createWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#createwebsitemysqluserprivileges) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/privileges | Create website MySQL database user privileges
+*MysqlApi* | [**createWebsiteMySQLUser**](docs/Api/MysqlApi.md#createwebsitemysqluser) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users | Create website MySQL database user
+*MysqlApi* | [**createWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#createwebsitemysqluseraccesshosts) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Create website MySQL database user access hosts
+*MysqlApi* | [**createWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#createwebsitemysqluserprivileges) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Create website MySQL database user privileges
 *MysqlApi* | [**deleteWebsiteMySQLDB**](docs/Api/MysqlApi.md#deletewebsitemysqldb) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id} | Delete website MySQL database
-*MysqlApi* | [**deleteWebsiteMySQLUser**](docs/Api/MysqlApi.md#deletewebsitemysqluser) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id} | Delete website MySQL database user
-*MysqlApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/access-hosts | Delete website MySQL database user access hosts
-*MysqlApi* | [**deleteWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#deletewebsitemysqluserprivileges) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/privileges | Delete website MySQL database user privileges
+*MysqlApi* | [**deleteWebsiteMySQLUser**](docs/Api/MysqlApi.md#deletewebsitemysqluser) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Delete website MySQL database user
+*MysqlApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts
+*MysqlApi* | [**deleteWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#deletewebsitemysqluserprivileges) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Delete website MySQL database user privileges
 *MysqlApi* | [**downloadSql**](docs/Api/MysqlApi.md#downloadsql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Takes a backup of given database and returns it gziped
 *MysqlApi* | [**getOrgMySQLDBs**](docs/Api/MysqlApi.md#getorgmysqldbs) | **GET** /orgs/{org_id}/mysql-dbs | Get org&#39;s MySQL databases
 *MysqlApi* | [**getPhpMyAdminSSOUrl**](docs/Api/MysqlApi.md#getphpmyadminssourl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sso | Get phpMyAdmin SSO URL
 *MysqlApi* | [**getWebsiteMySQLDBs**](docs/Api/MysqlApi.md#getwebsitemysqldbs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases
-*MysqlApi* | [**getWebsiteMySQLUsers**](docs/Api/MysqlApi.md#getwebsitemysqlusers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users | Get website MySQL database users
-*MysqlApi* | [**updateWebsiteMySQLUser**](docs/Api/MysqlApi.md#updatewebsitemysqluser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id} | Update website MySQL database user
+*MysqlApi* | [**getWebsiteMySQLUsers**](docs/Api/MysqlApi.md#getwebsitemysqlusers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-users | Get website MySQL database users
+*MysqlApi* | [**updateWebsiteMySQLUser**](docs/Api/MysqlApi.md#updatewebsitemysqluser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Update website MySQL database user
 *MysqlApi* | [**uploadSql**](docs/Api/MysqlApi.md#uploadsql) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Uploads sql file and executes it against db
 *OrgsApi* | [**createAccessToken**](docs/Api/OrgsApi.md#createaccesstoken) | **POST** /orgs/{org_id}/access_tokens | Create organisation access token
 *OrgsApi* | [**createCustomer**](docs/Api/OrgsApi.md#createcustomer) | **POST** /orgs/{org_id}/customers | Create a customer organization
@@ -234,7 +234,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**deleteOwner**](docs/Api/OrgsApi.md#deleteowner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner
 *OrgsApi* | [**deletePlan**](docs/Api/OrgsApi.md#deleteplan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan
 *OrgsApi* | [**deletePlanAllowance**](docs/Api/OrgsApi.md#deleteplanallowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance
-*OrgsApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/OrgsApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/users/{user_id}/access-hosts | Delete website MySQL database user access hosts
+*OrgsApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/OrgsApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts
 *OrgsApi* | [**deleteWebsiteSslCert**](docs/Api/OrgsApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
 *OrgsApi* | [**enableWebsiteSslCert**](docs/Api/OrgsApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
 *OrgsApi* | [**getCustomersAdded**](docs/Api/OrgsApi.md#getcustomersadded) | **GET** /orgs/{org_id}/stats/customers/added | Get customers added over a given time period
@@ -287,6 +287,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**deleteServiceSetting**](docs/Api/ServersApi.md#deleteservicesetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *ServersApi* | [**deleteSlave**](docs/Api/ServersApi.md#deleteslave) | **DELETE** /servers/{server_id} | Delete a (slave) server
 *ServersApi* | [**getAppcdVersion**](docs/Api/ServersApi.md#getappcdversion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd
+*ServersApi* | [**getClientIp**](docs/Api/ServersApi.md#getclientip) | **GET** /client_ip | Reflect back the IP of the API consumer
 *ServersApi* | [**getControlPanelRoleInfo**](docs/Api/ServersApi.md#getcontrolpanelroleinfo) | **GET** /servers/master/roles/control | Get master server control panel role info
 *ServersApi* | [**getHttpdStatus**](docs/Api/ServersApi.md#gethttpdstatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server.
 *ServersApi* | [**getInstallCmd**](docs/Api/ServersApi.md#getinstallcmd) | **GET** /servers/install-cmd | Get slave installation command
@@ -298,7 +299,6 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getServerInfo**](docs/Api/ServersApi.md#getserverinfo) | **GET** /servers/{server_id} | Get server info
 *ServersApi* | [**getServerIowait**](docs/Api/ServersApi.md#getserveriowait) | **GET** /servers/{server_id}/iowait | Get server iowait
 *ServersApi* | [**getServerLoad**](docs/Api/ServersApi.md#getserverload) | **GET** /servers/{server_id}/load | Get server system load
-*ServersApi* | [**getServerLogs**](docs/Api/ServersApi.md#getserverlogs) | **GET** /servers/{server_id}/logs | Get services status logs
 *ServersApi* | [**getServerMemoryUsage**](docs/Api/ServersApi.md#getservermemoryusage) | **GET** /servers/{server_id}/memory-usage | Get server memory usage
 *ServersApi* | [**getServerNetworkInterfaces**](docs/Api/ServersApi.md#getservernetworkinterfaces) | **GET** /servers/{server_id}/interfaces | Get server network interfaces
 *ServersApi* | [**getServerNetworkStats**](docs/Api/ServersApi.md#getservernetworkstats) | **GET** /servers/{server_id}/network-stats | Get server network stats
@@ -331,20 +331,41 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**validateRegistrationKey**](docs/Api/ServersApi.md#validateregistrationkey) | **POST** /servers/registration-key/validate | Validate slave registration key
 *SettingsApi* | [**createSettings**](docs/Api/SettingsApi.md#createsettings) | **POST** /settings | Create settings
 *SettingsApi* | [**deleteGlobalServiceSetting**](docs/Api/SettingsApi.md#deleteglobalservicesetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting
-*SettingsApi* | [**deleteOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipwhitelist) | **DELETE** /settings/orchd/login_policy/ip_whitelist | Delete an orchd login policy whitelist ip
+*SettingsApi* | [**deleteOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyemailblacklist) | **DELETE** /settings/orchd/login-policy/email-blacklist | Delete an orchd login policy email blacklist
+*SettingsApi* | [**deleteOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyemailwhitelist) | **DELETE** /settings/orchd/login-policy/email-whitelist | Delete an orchd login policy email whitelist
+*SettingsApi* | [**deleteOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipblacklist) | **DELETE** /settings/orchd/login-policy/ip-blacklist | Delete an orchd login policy ip blacklist
+*SettingsApi* | [**deleteOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipwhitelist) | **DELETE** /settings/orchd/login-policy/ip-whitelist | Delete an orchd login policy ip whitelist
+*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryEmailBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryemailblacklist) | **DELETE** /settings/orchd/login-policy/temporary/email-blacklist | Delete an orchd login policy temporary email blacklist
+*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryEmailWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryemailwhitelist) | **DELETE** /settings/orchd/login-policy/temporary/email-whitelist | Delete an orchd login policy temporary email whitelist
+*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryIpBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryipblacklist) | **DELETE** /settings/orchd/login-policy/temporary/ip-blacklist | Delete an orchd login policy temporary ip blacklist
+*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryipwhitelist) | **DELETE** /settings/orchd/login-policy/temporary/ip-whitelist | Delete an orchd login policy temporary ip whitelist
 *SettingsApi* | [**deleteSetting**](docs/Api/SettingsApi.md#deletesetting) | **DELETE** /settings/{name} | Remove the specified setting
 *SettingsApi* | [**getDockerRegistry**](docs/Api/SettingsApi.md#getdockerregistry) | **GET** /settings/registry | Gets the Docker registry credentials.
 *SettingsApi* | [**getGlobalServiceSetting**](docs/Api/SettingsApi.md#getglobalservicesetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting
 *SettingsApi* | [**getOrchdLogSettings**](docs/Api/SettingsApi.md#getorchdlogsettings) | **GET** /settings/orchd/logs | Get the orchd log settings
-*SettingsApi* | [**getOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicyipwhitelist) | **GET** /settings/orchd/login_policy/ip_whitelist | Get the orchd login policy whitelist
-*SettingsApi* | [**getOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#getorchdloginpolicysettings) | **GET** /settings/orchd/login_policy/settings | Get the orchd login policy settings
+*SettingsApi* | [**getOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicyemailblacklist) | **GET** /settings/orchd/login-policy/email-blacklist | Get the orchd login policy email blacklist
+*SettingsApi* | [**getOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicyemailwhitelist) | **GET** /settings/orchd/login-policy/email-whitelist | Get the orchd login policy email whitelist
+*SettingsApi* | [**getOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicyipblacklist) | **GET** /settings/orchd/login-policy/ip-blacklist | Get the orchd login policy ip blacklist
+*SettingsApi* | [**getOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicyipwhitelist) | **GET** /settings/orchd/login-policy/ip-whitelist | Get the orchd login policy ip whitelist
+*SettingsApi* | [**getOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#getorchdloginpolicysettings) | **GET** /settings/orchd/login-policy/settings | Get the orchd login policy settings
+*SettingsApi* | [**getOrchdLoginPolicyTemporaryEmailBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryemailblacklist) | **GET** /settings/orchd/login-policy/temporary/email-blacklist | Get the orchd login policy temporary email blacklist
+*SettingsApi* | [**getOrchdLoginPolicyTemporaryEmailWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryemailwhitelist) | **GET** /settings/orchd/login-policy/temporary/email-whitelist | Get the orchd login policy temporary email whitelist
+*SettingsApi* | [**getOrchdLoginPolicyTemporaryIpBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryipblacklist) | **GET** /settings/orchd/login-policy/temporary/ip-blacklist | Get the orchd login policy temporary ip blacklist
+*SettingsApi* | [**getOrchdLoginPolicyTemporaryIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryipwhitelist) | **GET** /settings/orchd/login-policy/temporary/ip-whitelist | Get the orchd login policy temporary ip whitelist
 *SettingsApi* | [**getSetting**](docs/Api/SettingsApi.md#getsetting) | **GET** /settings/{name} | Get the specified setting
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /settings | Get all current settings
 *SettingsApi* | [**setDockerRegistry**](docs/Api/SettingsApi.md#setdockerregistry) | **PUT** /settings/registry | Updates the Docker registry credentials.
 *SettingsApi* | [**setGlobalServiceSetting**](docs/Api/SettingsApi.md#setglobalservicesetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting
 *SettingsApi* | [**setOrchdLogSettings**](docs/Api/SettingsApi.md#setorchdlogsettings) | **PUT** /settings/orchd/logs | Set the orchd log settings
-*SettingsApi* | [**setOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicyipwhitelist) | **PUT** /settings/orchd/login_policy/ip_whitelist | Set the orchd login policy whitelist as a whole
-*SettingsApi* | [**setOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#setorchdloginpolicysettings) | **PUT** /settings/orchd/login_policy/settings | Set a single orchd login policy setting
+*SettingsApi* | [**setOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicyemailblacklist) | **PUT** /settings/orchd/login-policy/email-blacklist | Set the orchd login policy email blacklist as a whole
+*SettingsApi* | [**setOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicyemailwhitelist) | **PUT** /settings/orchd/login-policy/email-whitelist | Set the orchd login policy email whitelist as a whole
+*SettingsApi* | [**setOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicyipblacklist) | **PUT** /settings/orchd/login-policy/ip-blacklist | Set the orchd login policy ip blacklist as a whole
+*SettingsApi* | [**setOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicyipwhitelist) | **PUT** /settings/orchd/login-policy/ip-whitelist | Set the orchd login policy ip whitelist as a whole
+*SettingsApi* | [**setOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#setorchdloginpolicysettings) | **PUT** /settings/orchd/login-policy/settings | Set a single orchd login policy setting
+*SettingsApi* | [**setOrchdLoginPolicyTemporaryEmailBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryemailblacklist) | **PUT** /settings/orchd/login-policy/temporary/email-blacklist | Set the orchd login policy temporary whitelist as a whole
+*SettingsApi* | [**setOrchdLoginPolicyTemporaryEmailWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryemailwhitelist) | **PUT** /settings/orchd/login-policy/temporary/email-whitelist | Set the orchd login policy temporary email whitelist as a whole
+*SettingsApi* | [**setOrchdLoginPolicyTemporaryIpBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryipblacklist) | **PUT** /settings/orchd/login-policy/temporary/ip-blacklist | Set the orchd login policy temporary ip blacklist as a whole
+*SettingsApi* | [**setOrchdLoginPolicyTemporaryIpWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryipwhitelist) | **PUT** /settings/orchd/login-policy/temporary/ip-whitelist | Set the orchd login policy temporary ip whitelist as a whole
 *SettingsApi* | [**updateSetting**](docs/Api/SettingsApi.md#updatesetting) | **PUT** /settings/{name} | Create or update the specified setting
 *SslApi* | [**deleteServerSslCert**](docs/Api/SslApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
 *SslApi* | [**deleteWebsiteSslCert**](docs/Api/SslApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
@@ -364,7 +385,6 @@ Class | Method | HTTP request | Description
 *SubscriptionsApi* | [**updateSubscription**](docs/Api/SubscriptionsApi.md#updatesubscription) | **PATCH** /orgs/{org_id}/subscriptions/{subscription_id} | Update subscription
 *TagsApi* | [**createTag**](docs/Api/TagsApi.md#createtag) | **POST** /orgs/{org_id}/tags | Create tag
 *TagsApi* | [**getTags**](docs/Api/TagsApi.md#gettags) | **GET** /orgs/{org_id}/tags | Get tags
-*WebsiteApi* | [**getWebsiteLogs**](docs/Api/WebsiteApi.md#getwebsitelogs) | **GET** /orgs/{org_id}/websites/{website_id}/logs | Get website status logs
 *WebsitesApi* | [**authorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#authorizewebsitesshkey) | **POST** /orgs/{org_id}/websites/{website_id}/ssh/keys | Authorize a new SSH key.
 *WebsitesApi* | [**authorizeWebsiteSshPassword**](docs/Api/WebsitesApi.md#authorizewebsitesshpassword) | **POST** /orgs/{org_id}/websites/{website_id}/ssh/password | Authorize a new SSH password for website.
 *WebsitesApi* | [**createFtpUser**](docs/Api/WebsitesApi.md#createftpuser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website
@@ -387,6 +407,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getUserCrontab**](docs/Api/WebsitesApi.md#getusercrontab) | **GET** /orgs/{org_id}/websites/{website_id}/crontab | Get user&#39;s crontab
 *WebsitesApi* | [**getWebsite**](docs/Api/WebsitesApi.md#getwebsite) | **GET** /orgs/{org_id}/websites/{website_id} | Get website
 *WebsitesApi* | [**getWebsiteBackupStatus**](docs/Api/WebsitesApi.md#getwebsitebackupstatus) | **GET** /orgs/{org_id}/websites/{website_id}/status/backup | Get the status of an ongoing website backup operation
+*WebsitesApi* | [**getWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#getwebsitecgrouplimits) | **GET** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Get the active cgroup limits for a website
 *WebsitesApi* | [**getWebsiteClonesStatus**](docs/Api/WebsitesApi.md#getwebsiteclonesstatus) | **GET** /orgs/{org_id}/websites/{website_id}/status/clones/{domain} | Get the status of the clone operation of a given website
 *WebsitesApi* | [**getWebsiteDomainDnsQuery**](docs/Api/WebsitesApi.md#getwebsitedomaindnsquery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain
 *WebsitesApi* | [**getWebsiteDomainMapping**](docs/Api/WebsitesApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
@@ -403,6 +424,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteSslCerts**](docs/Api/WebsitesApi.md#getwebsitesslcerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website
 *WebsitesApi* | [**getWebsites**](docs/Api/WebsitesApi.md#getwebsites) | **GET** /orgs/{org_id}/websites | Get websites
 *WebsitesApi* | [**pushWebsiteLive**](docs/Api/WebsitesApi.md#pushwebsitelive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live
+*WebsitesApi* | [**setWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#setwebsitecgrouplimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteSetting**](docs/Api/WebsitesApi.md#setwebsitesetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting
 *WebsitesApi* | [**takeScreenshot**](docs/Api/WebsitesApi.md#takescreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot
 *WebsitesApi* | [**unauthorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#unauthorizewebsitesshkey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID.
@@ -457,6 +479,7 @@ Class | Method | HTTP request | Description
 - [Branding](docs/Model/Branding.md)
 - [CPLocale](docs/Model/CPLocale.md)
 - [CanonicalRedirect](docs/Model/CanonicalRedirect.md)
+- [CgroupLimits](docs/Model/CgroupLimits.md)
 - [ChangeSubscriptionParams](docs/Model/ChangeSubscriptionParams.md)
 - [ChangeSubscriptionParamsSubscriptionId](docs/Model/ChangeSubscriptionParamsSubscriptionId.md)
 - [CloneStatus](docs/Model/CloneStatus.md)
@@ -587,8 +610,13 @@ Class | Method | HTTP request | Description
 - [NewWpUser](docs/Model/NewWpUser.md)
 - [OperationStatus](docs/Model/OperationStatus.md)
 - [OrchdLogSettings](docs/Model/OrchdLogSettings.md)
+- [OrchdLoginPolicyEmailList](docs/Model/OrchdLoginPolicyEmailList.md)
+- [OrchdLoginPolicyIpList](docs/Model/OrchdLoginPolicyIpList.md)
 - [OrchdLoginPolicySettings](docs/Model/OrchdLoginPolicySettings.md)
-- [OrchdLoginPolicyWhitelist](docs/Model/OrchdLoginPolicyWhitelist.md)
+- [OrchdLoginPolicyTemporaryEmailList](docs/Model/OrchdLoginPolicyTemporaryEmailList.md)
+- [OrchdLoginPolicyTemporaryEmailListEmailListInner](docs/Model/OrchdLoginPolicyTemporaryEmailListEmailListInner.md)
+- [OrchdLoginPolicyTemporaryIpList](docs/Model/OrchdLoginPolicyTemporaryIpList.md)
+- [OrchdLoginPolicyTemporaryIpListIpListInner](docs/Model/OrchdLoginPolicyTemporaryIpListIpListInner.md)
 - [Org](docs/Model/Org.md)
 - [OrgAccessToken](docs/Model/OrgAccessToken.md)
 - [OrgOwnerUpdate](docs/Model/OrgOwnerUpdate.md)
@@ -796,5 +824,5 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `8.1.0`
+- API version: `9.0.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

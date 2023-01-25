@@ -26,6 +26,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getUserCrontab()**](WebsitesApi.md#getUserCrontab) | **GET** /orgs/{org_id}/websites/{website_id}/crontab | Get user&#39;s crontab |
 | [**getWebsite()**](WebsitesApi.md#getWebsite) | **GET** /orgs/{org_id}/websites/{website_id} | Get website |
 | [**getWebsiteBackupStatus()**](WebsitesApi.md#getWebsiteBackupStatus) | **GET** /orgs/{org_id}/websites/{website_id}/status/backup | Get the status of an ongoing website backup operation |
+| [**getWebsiteCgroupLimits()**](WebsitesApi.md#getWebsiteCgroupLimits) | **GET** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Get the active cgroup limits for a website |
 | [**getWebsiteClonesStatus()**](WebsitesApi.md#getWebsiteClonesStatus) | **GET** /orgs/{org_id}/websites/{website_id}/status/clones/{domain} | Get the status of the clone operation of a given website |
 | [**getWebsiteDomainDnsQuery()**](WebsitesApi.md#getWebsiteDomainDnsQuery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain |
 | [**getWebsiteDomainMapping()**](WebsitesApi.md#getWebsiteDomainMapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping |
@@ -42,6 +43,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteSslCerts()**](WebsitesApi.md#getWebsiteSslCerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website |
 | [**getWebsites()**](WebsitesApi.md#getWebsites) | **GET** /orgs/{org_id}/websites | Get websites |
 | [**pushWebsiteLive()**](WebsitesApi.md#pushWebsiteLive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live |
+| [**setWebsiteCgroupLimits()**](WebsitesApi.md#setWebsiteCgroupLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only) |
 | [**setWebsiteSetting()**](WebsitesApi.md#setWebsiteSetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting |
 | [**takeScreenshot()**](WebsitesApi.md#takeScreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot |
 | [**unauthorizeWebsiteSshKey()**](WebsitesApi.md#unauthorizeWebsiteSshKey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID. |
@@ -1493,6 +1495,71 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteCgroupLimits()`
+
+```php
+getWebsiteCgroupLimits($org_id, $website_id): \Upmind\EnhanceSdk\Model\CgroupLimits
+```
+
+Get the active cgroup limits for a website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsiteCgroupLimits($org_id, $website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteCgroupLimits: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\CgroupLimits**](../Model/CgroupLimits.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebsiteClonesStatus()`
 
 ```php
@@ -2580,6 +2647,72 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWebsiteCgroupLimits()`
+
+```php
+setWebsiteCgroupLimits($org_id, $website_id, $cgroup_limits)
+```
+
+Set the active cgroup limits for a website (Master org only)
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$cgroup_limits = new \Upmind\EnhanceSdk\Model\CgroupLimits(); // \Upmind\EnhanceSdk\Model\CgroupLimits | Cgroup limits.
+
+try {
+    $apiInstance->setWebsiteCgroupLimits($org_id, $website_id, $cgroup_limits);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteCgroupLimits: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **cgroup_limits** | [**\Upmind\EnhanceSdk\Model\CgroupLimits**](../Model/CgroupLimits.md)| Cgroup limits. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `setWebsiteSetting()`
 
 ```php
@@ -2660,7 +2793,7 @@ takeScreenshot($org_id, $website_id)
 
 Sends command to take website screenshot
 
-Sends Command to the watchd service, to take website screenshot immediately
+Sends Command to screenshotd service, to take website screenshot immediately
 
 ### Example
 

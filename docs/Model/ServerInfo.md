@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **status** | [**\Upmind\EnhanceSdk\Model\NetworkStatus**](NetworkStatus.md) |  | [optional]
 **roles** | [**\Upmind\EnhanceSdk\Model\RolesSummary**](RolesSummary.md) |  |
 **created_at** | **string** |  |
-**controld** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
+**controld_version** | **string** |  | [optional]
 **dedicated_subscription** | [**\Upmind\EnhanceSdk\Model\DedicatedSubscriptionInfo**](DedicatedSubscriptionInfo.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
