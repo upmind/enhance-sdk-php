@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 9.0.0
+  version: 9.1.1
   title: orchd
 tags:
   - name: install
@@ -48,6 +48,8 @@ tags:
     description: Endpoints for manipulating tags belonging to an organization
   - name: backups
     description: Endpoints for managing website backups
+  - name: importers
+    description: Endpoints for importing from other systems
 
 ###############################################################################
 # --------------------------------- Paths -------------------------------------
@@ -369,6 +371,7 @@ paths:
         "403":
           description: Insufficient privileges
 
+  # ANCHOR: login_policy_settings
   /settings/orchd/login-policy/settings:
     get:
       tags:
@@ -408,11 +411,15 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: login_policy_settings
 
+  # ANCHOR: ip_whitelist
   /settings/orchd/login-policy/ip-whitelist:
     get:
       tags:
@@ -452,6 +459,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -478,7 +487,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: ip_whitelist
 
+  # ANCHOR: ip_blacklist
   /settings/orchd/login-policy/ip-blacklist:
     get:
       tags:
@@ -518,6 +529,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -544,7 +557,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: ip_blacklist
 
+  # ANCHOR: temporary_ip_whitelist
   /settings/orchd/login-policy/temporary/ip-whitelist:
     get:
       tags:
@@ -584,6 +599,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -610,7 +627,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: temporary_ip_whitelist
 
+  # ANCHOR: temporary_ip_blacklist
   /settings/orchd/login-policy/temporary/ip-blacklist:
     get:
       tags:
@@ -650,6 +669,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -676,7 +697,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: temporary_ip_blacklist
 
+  # ANCHOR: email_whitelist
   /settings/orchd/login-policy/email-whitelist:
     get:
       tags:
@@ -716,6 +739,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -742,7 +767,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: email_whitelist
 
+  # ANCHOR: email_blacklist
   /settings/orchd/login-policy/email-blacklist:
     get:
       tags:
@@ -782,6 +809,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -808,7 +837,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: email_blacklist
 
+  # ANCHOR: temporary_email_whitelist
   /settings/orchd/login-policy/temporary/email-whitelist:
     get:
       tags:
@@ -848,6 +879,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -874,7 +907,9 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: temporary_email_whitelist
 
+  # ANCHOR: temporary_email_blacklist
   /settings/orchd/login-policy/temporary/email-blacklist:
     get:
       tags:
@@ -914,6 +949,8 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid request
         "401":
           description: Invalid session
         "403":
@@ -940,6 +977,7 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  # ANCHOR_END: temporary_email_blacklist
 
   /settings/{name}:
     parameters:
@@ -982,7 +1020,6 @@ paths:
               oneOf:
                 - type: string
                 - type: number
-                - type: integer
                 - type: boolean
                 - type: array
                   items: {}
@@ -1155,6 +1192,60 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DockerRegistry"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  ###############################################################################
+  # -- Reports
+  ###############################################################################
+
+  /reports/orchd/login-policy/blocked-ips:
+    get:
+      tags:
+        - reports
+      summary: Get blocked ips
+      description: >-
+        Returns a list of all currently active blocked ips.
+      operationId: getLoginPolicyBlockedIps
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginPolicyBlockedIps"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /reports/orchd/login-policy/blocked-logins:
+    get:
+      tags:
+        - reports
+      summary: Get blocked logins
+      description: >-
+        Returns a list of all currently active blocked logins and ips.
+      operationId: getLoginPolicyBlockedLogins
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginPolicyBlockedLogins"
         "400":
           description: Invalid input
         "401":
@@ -1937,6 +2028,43 @@ paths:
         "404":
           description: Not found
 
+  /servers/{server_id}/fs_quota_limits:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get whether FS quota was enabled on the server
+      operationId: getFsQuotaStatus
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FsQuotaStatus"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    post:
+      tags:
+        - servers
+      summary: Enable FS quota limits on the server
+      operationId: enableFsQuotaLimits
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: FS quota limits enabled
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
   /servers/{server_id}/uptime:
     get:
       tags:
@@ -2445,7 +2573,7 @@ paths:
         - sessionCookie: []
         - bearerAuth: []
       responses:
-        "200":
+        "204":
           description: Successful
         "400":
           description: Invalid input
@@ -3637,6 +3765,150 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/cloudflare:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - orgs
+      summary: Get CloudFlare API keys, org level
+      description: >-
+        Returns the CloudFlare API keys for an org (obfuscated for security).
+      operationId: getCloudflareApiKeys
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: CloudFlare API successfully queried
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CloudFlareApiKey"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - orgs
+      summary: Set CloudFlare API key, org level
+      description: >-
+        Adds a CloudFlare API key for an org.
+      operationId: createCloudflareApiKey
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Key in plain text.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewCloudFlareToken"
+      responses:
+        "201":
+          description: CloudFlare API key created
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/cloudflare/{cloudflare_key}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/CloudFlareTokenId"
+    delete:
+      tags:
+        - orgs
+      summary: Delete CloudFlare API key, org level
+      description: >-
+        Delete a CloudFlare API key for an org.
+      operationId: deleteCloudflareApiKey
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "204":
+          description: CloudFlare key deleted
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - orgs
+      summary: Update CloudFlare API key
+      description: >-
+        Update a CloudFlare API key for an org.
+      operationId: updateCloudflareApiKey
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Key in plain text.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCloudFlareApiKey"
+      responses:
+        "204":
+          description: CloudFlare key deleted
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - orgs
+      summary: Get affected domains for a CloudFlare key
+      description: >-
+        Get affected domains for an organisation's CloudFlare key
+      operationId: getCloudFlareKeyAffectedDomains
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Domains listed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
         "400":
           description: Invalid input
         "401":
@@ -5869,10 +6141,59 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CgroupLimits"
+              $ref: "#/components/schemas/SetCgroupLimits"
       responses:
         "200":
           description: Cgroup limits successfully updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/fs_quota_limits:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get the active FS quoa limits for a website
+      operationId: getWebsiteFsQuotaLimits
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: FS quota limitations if set
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FsQuotaInfo"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - websites
+      summary: Set the active FS quota limits for a website (Master org only)
+      operationId: setWebsiteFsQuotaLimits
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: FS quota limits.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FsQuotaLimit"
+      responses:
+        "200":
+          description: FS quota limits successfully updated
         "401":
           description: Invalid session
         "403":
@@ -6099,6 +6420,119 @@ paths:
       responses:
         "200":
           description: Email auth settings successfully updated
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/domains/{domain_id}/cloudflare:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - domains
+      summary: Get CloudFlare API key, domain level
+      description: >-
+        Returns the CloudFlare API key for a domain (obfuscated for security).
+        This key will override an org level key.
+      operationId: getCloudflareApiKeyDomain
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: CloudFlare API successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CloudFlareApiKey"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - domains
+      summary: Set CloudFlare API key, domain level
+      description: >-
+        Sets the CloudFlare API key for a domain.  This key will override an org
+        level key.
+      operationId: setCloudflareApiKeyId
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Cloudflare API key ID.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: uuid
+      responses:
+        "200":
+          description: CloudFlare API key successfully set
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - domains
+      summary: Delete CloudFlare API key, domain level
+      description: >-
+        Deletes the CloudFlare API key for a domain
+      operationId: deleteCloudflareApiKeyId
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: CloudFlare API key successfully deleted
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/domains/{domain_id}/cloudflare/nameservers:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - domains
+      summary: Get CloudFlare name servers
+      description: >-
+        Returns the CloudFlare nameservers for a given domain, if it exists in
+        CloudFlare.
+      operationId: getCloudflareNameServers
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: CloudFlare API successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CloudFlareNameServers"
         "400":
           description: Invalid input
         "401":
@@ -9849,6 +10283,255 @@ paths:
           description: Insufficient privileges
 
   ###############################################################################
+  # --------------------------------- Importers -------------------------------
+  ###############################################################################
+
+  /v2/orgs/{org_id}/import/{import_migration_id}/log:
+    get:
+      tags:
+        - importers
+      summary: Get the log for an import migration
+      description: >-
+        Fetches the import migration log for a single import migration.
+      operationId: getImportMigrationLog
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/OrgId"
+        - $ref: "#/components/parameters/ImportMigrationdId"
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportMigrationLog"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/orgs/{org_id}/import/{import_migration_id}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ImportMigrationdId"
+    get:
+      tags:
+        - importers
+      summary: Fetches single migration details
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getImportMigration
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportMigrationEntry"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - importers
+      summary: Delete single migration
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteImportMigration
+      description: >-
+        Delete a single migration with the uploaded file.
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - importers
+      summary: Create a new import migration.
+      description: >-
+        Create a new import migration for a given import type.
+      operationId: createImportMigration
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImporterMigrationReqBody"
+      responses:
+        "200":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/orgs/{org_id}/import/{import_migration_id}/resource:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ImportMigrationdId"
+    post:
+      tags:
+        - importers
+      summary: Check if all resources from the imported migration could be created.
+      description: |
+        Check if all resources from the imported migration could be created.
+
+        If all resources could be created, 200 is returned with an empty `ResourceCheckError`.
+        However, if any error occurs, 200 is returned with a non-empty `ResourceCheckError`.
+
+        In case of import failure, you can rerun importing by setting forceQueue to true.
+        Before doing so, it's required to remove any already imported resources. Otherwise,
+        the import will fail.
+      operationId: checkImportMigrationResources
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImporterMigrationReqBody"
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceCheckError"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/orgs/{org_id}/import/{import_migration_id}/analyze:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ImportMigrationdId"
+    get:
+      tags:
+        - importers
+      summary: Get import migration information
+      description: |
+        Get analyzed informations about import.
+
+        Information contains details about domains, ftp users, databases,
+        crontabs and mailboxes.
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getImportMigrationData
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImporterAnalyzedData"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - importers
+      summary: Analyze imported migration
+      description: |
+        Analyze import and store results into database.
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: analyzeImportMigration
+      responses:
+        "200":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/orgs/{org_id}/import/upload/{import_migration_kind}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ImportMigrationKind"
+    post:
+      tags:
+        - importers
+      summary: Upload file for analyzing and processing.
+      description: |
+        Uploads an import file. File must be in `tar.gz` format, and only cPanel
+        uploads are allowed.
+
+        The max allowed size is 100 GB.
+      operationId: uploadImportMigration
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                backup:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: Upload created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewResourceUuid"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/orgs/{org_id}/import:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - importers
+      summary: List all import migrations
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getImportMigrations
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportMigrationFullListing"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  ###############################################################################
   # -- MO DNS
   ###############################################################################
 
@@ -10094,6 +10777,14 @@ components:
       name: org_id
       in: path
       description: The id of the organization.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    CloudFlareTokenId:
+      name: cloudflare_key
+      in: path
+      description: The id of a CloudFlare key to be acted upon.
       required: true
       schema:
         type: string
@@ -10586,12 +11277,242 @@ components:
       schema:
         type: string
         format: uuid
+    ImportMigrationdId:
+      name: import_migration_id
+      in: path
+      description: The ID of the import migration being acted upon.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    ImportMigrationKind:
+      name: import_migration_kind
+      in: path
+      description: The type of migration file being uploaded.
+      required: true
+      schema:
+        type: string
+        enum: [cpanel]
 
   ###############################################################################
   # -- schemas
   ###############################################################################
 
   schemas:
+    ResourceCheckConflict:
+      type: object
+      required:
+        - kind
+        - id
+        - name
+      properties:
+        kind:
+          $ref: "#/components/schemas/ResourceCheckConflictKind"
+        id:
+          type: string
+        name:
+          type: string
+    ResourceCheckConflictKind:
+      type: string
+      enum:
+        - mysqlUser
+        - mysqlDb
+        - ftpUser
+        - mailboxForwarder
+        - mailbox
+        - domain
+    ResourceCheckError:
+      type: object
+      properties:
+        conflicts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceCheckConflict"
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceCheckManagerError"
+    ResourceCheckManagerError:
+      type: object
+      required:
+        - kind
+        - resourceName
+        - total
+        - usage
+        - requested
+      properties:
+        kind:
+          $ref: "#/components/schemas/ResourceCheckManagerErrorKind"
+        resourceName:
+          $ref: "#/components/schemas/ResourceName"
+        total:
+          type: integer
+        usage:
+          type: integer
+        requested:
+          type: integer
+    ResourceCheckManagerErrorKind:
+      type: string
+      enum:
+        - nonExistentResource
+        - resourceOutOfQuota
+    ImporterMigrationReqBody:
+      type: object
+      properties:
+        subscriptionId:
+          type: integer
+        forceQueue:
+          type: boolean
+    ImporterAnalyzedData:
+      type: object
+      required:
+        - domains
+      properties:
+        domains:
+          type: array
+          items:
+            type: object
+            required: [domainName, domainKind]
+            properties:
+              domainName:
+                type: string
+              domainKind:
+                type: string
+              phpVersion:
+                type: string
+              documentRoot:
+                type: string
+        mysqlDatabases:
+          type: array
+          items:
+            type: object
+            required: [dbName, sqlInitPath]
+            properties:
+              dbName:
+                type: string
+              sqlInitPath:
+                type: string
+        mysqlUsers:
+          type: array
+          items:
+            type: object
+            required: [username, authPlugin]
+            properties:
+              username:
+                type: string
+              authPlugin:
+                type: string
+        mysqlGrants:
+          type: array
+          items:
+            type: object
+            required: [username, dbName, tableName]
+            properties:
+              dbName:
+                type: string
+              username:
+                type: string
+              tableName:
+                type: string
+              privilege:
+                type: array
+                items:
+                  type: string
+        crontabs:
+          type: array
+          items:
+            type: object
+            required: [username, crontab]
+            properties:
+              username:
+                type: string
+              crontab:
+                type: string
+        ftps:
+          type: array
+          items:
+            type: object
+            required: [username]
+            properties:
+              username:
+                type: string
+        mailboxes:
+          type: array
+          items:
+            type: object
+            required: [username, domain, hasMailbox, isSuspended]
+            properties:
+              username:
+                type: string
+              domain:
+                type: string
+              hasMailbox:
+                type: boolean
+              isSuspended:
+                type: boolean
+              forwarders:
+                type: array
+                items:
+                  type: string
+              quota:
+                type: number
+    CloudFlareApiKey:
+      type: object
+      required:
+        - id
+        - token
+        - updatedAt
+        - friendlyName
+      properties:
+        id:
+          type: string
+          format: uuid
+        token:
+          type: string
+        updatedAt:
+          type: string
+          format: date
+        friendlyName:
+          type: string
+        lastSync:
+          type: string
+          format: date
+        lastMessage:
+          type: string
+        domains:
+          type: array
+          items:
+            type: string
+    CloudFlareNameServers:
+      type: object
+      required:
+        - nameServers
+        - status
+      properties:
+        nameServers:
+          format: array
+          items:
+            type: string
+        status:
+          format: string
+          enum: ["active", "pending"]
+    NewCloudFlareToken:
+      type: object
+      required:
+        - token
+        - friendlyName
+      properties:
+        token:
+          format: string
+        friendlyName:
+          format: date
+    UpdateCloudFlareApiKey:
+      type: object
+      properties:
+        token:
+          type: string
+        friendlyName:
+          type: string
     MigrationStatus:
       type: string
       enum: ["queued", "inProgress", "failed", "complete"]
@@ -10694,6 +11615,71 @@ components:
           format: uuid
         logData:
           type: string
+    ImportMigrationLog:
+      type: array
+      items:
+        $ref: "#/components/schemas/ImportMigrationLogEntry"
+    ImportMigrationLogEntry:
+      type: object
+      required:
+        - id
+        - createdAt
+        - migrationId
+        - logData
+        - percentageComplete
+        - level
+        - action
+        - kind
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+        migrationId:
+          type: string
+          format: uuid
+        logData:
+          type: string
+        percentageComplete:
+          type: integer
+        level:
+          $ref: "#/components/schemas/LogLevel"
+        action:
+          $ref: "#/components/schemas/LogAction"
+        kind:
+          $ref: "#/components/schemas/LogKind"
+    LogLevel:
+      type: string
+      enum:
+        - info
+        - error
+    LogAction:
+      type: string
+      enum:
+        - create
+        - update
+        - delete
+    LogKind:
+      type: string
+      enum:
+        - migration
+        - website
+        - websitePrimaryDomain
+        - websiteSecondyDomain
+        - websiteHomeDir
+        - mysqlDb
+        - mysqlUser
+        - mysqlAccessHost
+        - mysqlGrant
+        - cron
+        - ftp
+        - ftpUser
+        - email
+        - emailForwarder
+        - emailAccount
+        - emailData
+        - emailDataTransfer
     DomainMappingKind:
       type: string
       enum: ["primary", "secondary", "preview"]
@@ -10877,6 +11863,23 @@ components:
             $ref: "#/components/schemas/Org"
         total:
           type: integer
+    LoginPolicyBlockedIps:
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/Blocked"
+    LoginPolicyBlockedLogins:
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/Blocked"
+    Blocked:
+      type: object
+      properties:
+        blockedUntil:
+          type: integer
+        currentFailures:
+          type: integer
+        allFailures:
+          type: integer
     DockerRegistry:
       type: object
       required:
@@ -11004,7 +12007,33 @@ components:
           $ref: "#/components/schemas/PlanType"
         cgroupLimits:
           $ref: "#/components/schemas/CgroupLimits"
+        fsQuotaLimit:
+          $ref: "#/components/schemas/FsQuotaLimit"
     CgroupLimits:
+      type: object
+      required:
+        - nproc
+        - memoryLimit
+        - iops
+        - ioBandwidth
+        - virtualCpus
+      properties:
+        nproc:
+          type: number
+          nullable: true
+        memoryLimit:
+          type: number
+          nullable: true
+        iops:
+          type: number
+          nullable: true
+        ioBandwidth:
+          type: number
+          nullable: true
+        virtualCpus:
+          type: number
+          nullable: true
+    SetCgroupLimits:
       type: object
       properties:
         nproc:
@@ -11016,6 +12045,28 @@ components:
         ioBandwidth:
           type: number
         virtualCpus:
+          type: number
+    FsQuotaStatus:
+      type: string
+      enum:
+        - disabled
+        - enabling
+        - enabled
+    FsQuotaLimit:
+      type: object
+      required:
+        - totalAvailable
+      properties:
+        totalAvailable:
+          type: number
+    FsQuotaInfo:
+      type: object
+      required:
+        - totalAvailable
+      properties:
+        totalAvailable:
+          type: number
+        used:
           type: number
     Plan:
       description: >-
@@ -11063,15 +12114,22 @@ components:
           $ref: "#/components/schemas/PlanType"
         cgroupLimits:
           $ref: "#/components/schemas/CgroupLimits"
+        fsQuotaLimit:
+          $ref: "#/components/schemas/FsQuotaLimit"
     UpdatePlan:
       type: object
       properties:
+        serverGroupId:
+          type: string
+          format: uuid
         name:
           type: string
         planType:
           $ref: "#/components/schemas/PlanType"
         cgroupLimits:
           $ref: "#/components/schemas/CgroupLimits"
+        fsQuotaLimit:
+          $ref: "#/components/schemas/FsQuotaLimit"
     Resource:
       type: object
       required:
@@ -11153,7 +12211,6 @@ components:
         - resources
         - allowances
         - selections
-        - createdAt
         - planType
       properties:
         id:
@@ -11185,8 +12242,6 @@ components:
             $ref: "#/components/schemas/Selection"
         dedicatedServers:
           $ref: "#/components/schemas/SubscriptionDedicatedServersInfo"
-        createdAt:
-          type: string
         planType:
           $ref: "#/components/schemas/PlanType"
     UpdateSubscription:
@@ -11366,23 +12421,23 @@ components:
           type: boolean
     NewSslCert:
       type: object
-      allOf:
+      anyOf:
         - $ref: "#/components/schemas/BaseSslCert"
         - $ref: "#/components/schemas/SslCertMappings"
     SslCertWithData:
       type: object
-      allOf:
+      anyOf:
         - $ref: "#/components/schemas/BaseSslCert"
         - $ref: "#/components/schemas/SslCertMappings"
         - $ref: "#/components/schemas/SslCertData"
     ServiceSslCert:
       type: object
-      allOf:
+      anyOf:
         - $ref: "#/components/schemas/BaseSslCert"
         - $ref: "#/components/schemas/ServiceSslCertMappings"
     ServiceSslCertWithData:
       type: object
-      allOf:
+      anyOf:
         - $ref: "#/components/schemas/BaseSslCert"
         - $ref: "#/components/schemas/ServiceSslCertMappings"
         - $ref: "#/components/schemas/SslCertData"
@@ -11727,7 +12782,6 @@ components:
         - subdomains
         - status
         - colorCode
-        - settings
         - size
         - orgId
         - kind
@@ -11758,8 +12812,6 @@ components:
           format: uuid
         colorCode:
           type: string
-        settings:
-          type: object
         tags:
           type: array
           items:
@@ -11912,22 +12964,20 @@ components:
         - id
         - domain
         - documentRoot
-        - createdAt
         - kind
+        - cloudflareStatus
       properties:
         id:
           type: string
           format: uuid
         domain:
           type: string
-          format: domain
         documentRoot:
           type: string
-        createdAt:
-          type: string
-          format: date
         kind:
           $ref: "#/components/schemas/DomainMappingKind"
+        cloudflareStatus:
+          $ref: "#/components/schemas/CloudFlareStatus"
     WebsiteStatus:
       type: string
       enum: [active, disabled, deleted]
@@ -12120,7 +13170,7 @@ components:
       properties:
         ip:
           type: string
-          format: ip
+          format: ipv4
         isPrimary:
           type: boolean
     RolesSummary:
@@ -12284,6 +13334,7 @@ components:
         - domain
         - dkim
         - spf
+        - cloudflareStatus
       properties:
         id:
           type: string
@@ -12297,6 +13348,13 @@ components:
           type: boolean
         spf:
           type: boolean
+        cloudflareStatus:
+          $ref: "#/components/schemas/CloudFlareStatus"
+        cloudflareTokenFriendlyName:
+          type: string
+    CloudFlareStatus:
+      type: string
+      enum: ["Connected", "Disconnected", "Error"]
     NewPrimaryDomainMapping:
       type: object
       required:
@@ -12336,6 +13394,7 @@ components:
         - domain
         - documentRoot
         - mappingKind
+        - cloudflareStatus
       properties:
         domainId:
           type: string
@@ -12353,6 +13412,13 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DomainSslCert"
+        cloudflareStatus:
+          $ref: "#/components/schemas/CloudFlareStatus"
+        cloudflareFriendlyName:
+          type: string
+        cloudflareTokenId:
+          type: string
+          format: uuid
     SshKeyFullListing:
       type: object
       required:
@@ -12541,8 +13607,6 @@ components:
     RolesInfo:
       type: object
       properties:
-        control:
-          $ref: "#/components/schemas/ControlRoleInfo"
         email:
           $ref: "#/components/schemas/EmailRoleInfo"
         backup:
@@ -13389,6 +14453,7 @@ components:
         - name
         - value
         - ttl
+        - proxy
       properties:
         id:
           type: string
@@ -13402,6 +14467,9 @@ components:
         ttl:
           description: In seconds
           type: integer
+        proxy:
+          description: Is CloudFlare proxy on?
+          type: boolean
     UpdateDnsZone:
       type: object
       properties:
@@ -13430,6 +14498,9 @@ components:
         ttl:
           description: In seconds
           type: integer
+        proxy:
+          description: If CloudFlare enabled, will enable the proxy
+          type: boolean
     NewDnsRecord:
       type: object
       required:
@@ -13445,6 +14516,8 @@ components:
           type: string
         ttl:
           type: integer
+        proxy:
+          type: boolean
     DnsRecordKind:
       type: string
       enum: [A, AAAA, CNAME, TXT, SPF, SRV, NS, MX, PTR]
@@ -13484,6 +14557,54 @@ components:
         id:
           type: string
           format: uuid
+    ImportMigrationFullListing:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImportMigrationEntry"
+    ImportMigrationEntry:
+      type: object
+      required:
+        - id
+        - orgId
+        - filename
+        - filesize
+        - status
+        - importType
+        - createdAt
+        - updatedAt
+        - percentageComplete
+      properties:
+        id:
+          type: string
+          format: uuid
+        orgId:
+          type: string
+          format: uuid
+        filename:
+          type: string
+        filesize:
+          type: integer
+        status:
+          type: string
+          enum: [unprocessed, processed, queued, inProgress, failed, complete]
+        importType:
+          type: string
+          enum: [cPanel]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        percentageComplete:
+          type: integer
+        primaryDomain:
+          type: string
     UnixTimestamp:
       type: object
       properties:
@@ -14481,7 +15602,6 @@ components:
           oneOf:
             - type: string
             - type: number
-            - type: integer
             - type: boolean
             - type: array
               items: {}
@@ -14912,7 +16032,10 @@ components:
           type: integer
         emailAutoBlock:
           type: boolean
+          minimum: 1
         emailAutoBlockThreshold:
+          type: integer
+        emailAutoBlockDuration:
           type: integer
           minimum: 1
         ipQuota:
@@ -14920,6 +16043,9 @@ components:
         ipAutoBlock:
           type: boolean
         ipAutoBlockThreshold:
+          type: integer
+          minimum: 1
+        ipAutoBlockDuration:
           type: integer
           minimum: 1
     OrchdLoginPolicyIpList:
