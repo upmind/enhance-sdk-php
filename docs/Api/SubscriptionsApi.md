@@ -30,13 +30,13 @@ Recursively Re-Calculates organization's subscription resources. Session holder 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -69,7 +69,7 @@ try {
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -97,13 +97,13 @@ Creates a subscription for customer to the org's plan. Only a reseller org or th
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -138,7 +138,7 @@ try {
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -166,13 +166,13 @@ Soft or force deletes the subscription and its resources. All resources under th
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -206,7 +206,7 @@ void (empty response body)
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -234,13 +234,13 @@ Lists a customer's subscriptions to packages belonging to the selected organizat
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -281,7 +281,7 @@ try {
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -309,13 +309,13 @@ Queries the organization's subscription. Session holder must be at least a `Supe
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -348,7 +348,7 @@ try {
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -376,13 +376,13 @@ Lists subscriptions to the packages of the parent organization to which the curr
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -421,7 +421,7 @@ try {
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -449,13 +449,13 @@ Updates the organization's subscription. This endpoint is used to update the sub
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 // Configure API key authorization: sessionCookie
 $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
@@ -489,7 +489,7 @@ void (empty response body)
 
 ### Authorization
 
-[bearerAuth](../../README.md#bearerAuth), [sessionCookie](../../README.md#sessionCookie)
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 

@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **status** | [**\Upmind\EnhanceSdk\Model\WebsiteStatus**](WebsiteStatus.md) |  |
 **suspended_by** | **string** |  | [optional]
 **color_code** | **string** |  |
-**settings** | **object** |  |
 **tags** | [**\Upmind\EnhanceSdk\Model\Tag[]**](Tag.md) |  | [optional]
 **size** | **int** |  |
 **org_id** | **string** |  |

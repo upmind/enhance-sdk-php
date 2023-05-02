@@ -119,13 +119,17 @@ Class | Method | HTTP request | Description
 *DomainsApi* | [**createDomain**](docs/Api/DomainsApi.md#createdomain) | **POST** /orgs/{org_id}/domains | Create domain
 *DomainsApi* | [**createWebsiteDomainAlias**](docs/Api/DomainsApi.md#createwebsitedomainalias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias
 *DomainsApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/DomainsApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*DomainsApi* | [**deleteCloudflareApiKeyId**](docs/Api/DomainsApi.md#deletecloudflareapikeyid) | **DELETE** /orgs/{org_id}/domains/{domain_id}/cloudflare | Delete CloudFlare API key, domain level
 *DomainsApi* | [**deleteDomain**](docs/Api/DomainsApi.md#deletedomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain
 *DomainsApi* | [**deleteWebsiteDomainMapping**](docs/Api/DomainsApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
+*DomainsApi* | [**getCloudflareApiKeyDomain**](docs/Api/DomainsApi.md#getcloudflareapikeydomain) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare | Get CloudFlare API key, domain level
+*DomainsApi* | [**getCloudflareNameServers**](docs/Api/DomainsApi.md#getcloudflarenameservers) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare/nameservers | Get CloudFlare name servers
 *DomainsApi* | [**getDomains**](docs/Api/DomainsApi.md#getdomains) | **GET** /orgs/{org_id}/domains | Get domains
 *DomainsApi* | [**getWebsiteDomainDnsQuery**](docs/Api/DomainsApi.md#getwebsitedomaindnsquery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain
 *DomainsApi* | [**getWebsiteDomainMapping**](docs/Api/DomainsApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
 *DomainsApi* | [**getWebsiteDomainMappingDnsStatus**](docs/Api/DomainsApi.md#getwebsitedomainmappingdnsstatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status
 *DomainsApi* | [**getWebsiteDomainMappings**](docs/Api/DomainsApi.md#getwebsitedomainmappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains
+*DomainsApi* | [**setCloudflareApiKeyId**](docs/Api/DomainsApi.md#setcloudflareapikeyid) | **PUT** /orgs/{org_id}/domains/{domain_id}/cloudflare | Set CloudFlare API key, domain level
 *DomainsApi* | [**updateWebsiteDomainMapping**](docs/Api/DomainsApi.md#updatewebsitedomainmapping) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Update website domain mapping
 *DomainsApi* | [**updateWebsitePrimaryDomain**](docs/Api/DomainsApi.md#updatewebsiteprimarydomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping
 *EmailClientApi* | [**createEmailAutoresponder**](docs/Api/EmailClientApi.md#createemailautoresponder) | **POST** /email-client/autoresponders | Create new email autoresponder
@@ -155,6 +159,15 @@ Class | Method | HTTP request | Description
 *FtpApi* | [**deleteFtpUser**](docs/Api/FtpApi.md#deleteftpuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Deletes given FTP user
 *FtpApi* | [**getFtpUsers**](docs/Api/FtpApi.md#getftpusers) | **GET** /orgs/{org_id}/websites/{website_id}/ftp/users | Returns all ftp users data for a given website
 *FtpApi* | [**updateFtpUser**](docs/Api/FtpApi.md#updateftpuser) | **PATCH** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Update given FTP user
+*ImportersApi* | [**analyzeImportMigration**](docs/Api/ImportersApi.md#analyzeimportmigration) | **POST** /v2/orgs/{org_id}/import/{import_migration_id}/analyze | Analyze imported migration
+*ImportersApi* | [**checkImportMigrationResources**](docs/Api/ImportersApi.md#checkimportmigrationresources) | **POST** /v2/orgs/{org_id}/import/{import_migration_id}/resource | Check if all resources from the imported migration could be created.
+*ImportersApi* | [**createImportMigration**](docs/Api/ImportersApi.md#createimportmigration) | **POST** /v2/orgs/{org_id}/import/{import_migration_id} | Create a new import migration.
+*ImportersApi* | [**deleteImportMigration**](docs/Api/ImportersApi.md#deleteimportmigration) | **DELETE** /v2/orgs/{org_id}/import/{import_migration_id} | Delete single migration
+*ImportersApi* | [**getImportMigration**](docs/Api/ImportersApi.md#getimportmigration) | **GET** /v2/orgs/{org_id}/import/{import_migration_id} | Fetches single migration details
+*ImportersApi* | [**getImportMigrationData**](docs/Api/ImportersApi.md#getimportmigrationdata) | **GET** /v2/orgs/{org_id}/import/{import_migration_id}/analyze | Get import migration information
+*ImportersApi* | [**getImportMigrationLog**](docs/Api/ImportersApi.md#getimportmigrationlog) | **GET** /v2/orgs/{org_id}/import/{import_migration_id}/log | Get the log for an import migration
+*ImportersApi* | [**getImportMigrations**](docs/Api/ImportersApi.md#getimportmigrations) | **GET** /v2/orgs/{org_id}/import | List all import migrations
+*ImportersApi* | [**uploadImportMigration**](docs/Api/ImportersApi.md#uploadimportmigration) | **POST** /v2/orgs/{org_id}/import/upload/{import_migration_kind} | Upload file for analyzing and processing.
 *InstallApi* | [**controldVersion**](docs/Api/InstallApi.md#controldversion) | **GET** /install/compatible_versions/controld | Get the compatible controld version
 *InstallApi* | [**getServiceKindLatestVersion**](docs/Api/InstallApi.md#getservicekindlatestversion) | **GET** /install/latest_available_version/{service_kind} | Get the latest available version of a given service kind
 *InstallApi* | [**install**](docs/Api/InstallApi.md#install) | **POST** /install | Create the master organization owner
@@ -220,6 +233,7 @@ Class | Method | HTTP request | Description
 *MysqlApi* | [**updateWebsiteMySQLUser**](docs/Api/MysqlApi.md#updatewebsitemysqluser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Update website MySQL database user
 *MysqlApi* | [**uploadSql**](docs/Api/MysqlApi.md#uploadsql) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Uploads sql file and executes it against db
 *OrgsApi* | [**createAccessToken**](docs/Api/OrgsApi.md#createaccesstoken) | **POST** /orgs/{org_id}/access_tokens | Create organisation access token
+*OrgsApi* | [**createCloudflareApiKey**](docs/Api/OrgsApi.md#createcloudflareapikey) | **POST** /orgs/{org_id}/cloudflare | Set CloudFlare API key, org level
 *OrgsApi* | [**createCustomer**](docs/Api/OrgsApi.md#createcustomer) | **POST** /orgs/{org_id}/customers | Create a customer organization
 *OrgsApi* | [**createMember**](docs/Api/OrgsApi.md#createmember) | **POST** /orgs/{org_id}/members | Create organization member
 *OrgsApi* | [**createPlan**](docs/Api/OrgsApi.md#createplan) | **POST** /orgs/{org_id}/plans | Create plan
@@ -228,6 +242,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**createPlanSelections**](docs/Api/OrgsApi.md#createplanselections) | **POST** /orgs/{org_id}/plans/{plan_id}/selections | Create plan selections
 *OrgsApi* | [**createTag**](docs/Api/OrgsApi.md#createtag) | **POST** /orgs/{org_id}/tags | Create tag
 *OrgsApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/OrgsApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*OrgsApi* | [**deleteCloudflareApiKey**](docs/Api/OrgsApi.md#deletecloudflareapikey) | **DELETE** /orgs/{org_id}/cloudflare/{cloudflare_key} | Delete CloudFlare API key, org level
 *OrgsApi* | [**deleteMember**](docs/Api/OrgsApi.md#deletemember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member
 *OrgsApi* | [**deleteOrg**](docs/Api/OrgsApi.md#deleteorg) | **DELETE** /orgs/{org_id} | Delete organization
 *OrgsApi* | [**deleteOrgAvatar**](docs/Api/OrgsApi.md#deleteorgavatar) | **DELETE** /orgs/{org_id}/avatar | Remove org avatar
@@ -237,6 +252,8 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/OrgsApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts
 *OrgsApi* | [**deleteWebsiteSslCert**](docs/Api/OrgsApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
 *OrgsApi* | [**enableWebsiteSslCert**](docs/Api/OrgsApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
+*OrgsApi* | [**getCloudFlareKeyAffectedDomains**](docs/Api/OrgsApi.md#getcloudflarekeyaffecteddomains) | **GET** /orgs/{org_id}/cloudflare/{cloudflare_key} | Get affected domains for a CloudFlare key
+*OrgsApi* | [**getCloudflareApiKeys**](docs/Api/OrgsApi.md#getcloudflareapikeys) | **GET** /orgs/{org_id}/cloudflare | Get CloudFlare API keys, org level
 *OrgsApi* | [**getCustomersAdded**](docs/Api/OrgsApi.md#getcustomersadded) | **GET** /orgs/{org_id}/stats/customers/added | Get customers added over a given time period
 *OrgsApi* | [**getEmails**](docs/Api/OrgsApi.md#getemails) | **GET** /orgs/{org_id}/emails | Get org emails
 *OrgsApi* | [**getMember**](docs/Api/OrgsApi.md#getmember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member
@@ -250,6 +267,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**getWebsiteSslCerts**](docs/Api/OrgsApi.md#getwebsitesslcerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website
 *OrgsApi* | [**getWebsitesAdded**](docs/Api/OrgsApi.md#getwebsitesadded) | **GET** /orgs/{org_id}/stats/websites/added | Get websites added over a given time period
 *OrgsApi* | [**setOrgAvatar**](docs/Api/OrgsApi.md#setorgavatar) | **PUT** /orgs/{org_id}/avatar | Set org avatar
+*OrgsApi* | [**updateCloudflareApiKey**](docs/Api/OrgsApi.md#updatecloudflareapikey) | **PUT** /orgs/{org_id}/cloudflare/{cloudflare_key} | Update CloudFlare API key
 *OrgsApi* | [**updateMember**](docs/Api/OrgsApi.md#updatemember) | **PUT** /orgs/{org_id}/members/{member_id} | Overwrite organization member settings
 *OrgsApi* | [**updateOrg**](docs/Api/OrgsApi.md#updateorg) | **PATCH** /orgs/{org_id} | Update organization
 *OrgsApi* | [**updateOwner**](docs/Api/OrgsApi.md#updateowner) | **PUT** /orgs/{org_id}/owner | Update organization owner
@@ -272,6 +290,8 @@ Class | Method | HTTP request | Description
 *PlansApi* | [**updatePlanAllowance**](docs/Api/PlansApi.md#updateplanallowance) | **PUT** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Update plan allowance
 *PlansApi* | [**updatePlanResource**](docs/Api/PlansApi.md#updateplanresource) | **PUT** /orgs/{org_id}/plans/{plan_id}/resources/{name} | Update plan resource
 *PlansApi* | [**updatePlanSelection**](docs/Api/PlansApi.md#updateplanselection) | **PUT** /orgs/{org_id}/plans/{plan_id}/selections/{name} | Update plan selection
+*ReportsApi* | [**getLoginPolicyBlockedIps**](docs/Api/ReportsApi.md#getloginpolicyblockedips) | **GET** /reports/orchd/login-policy/blocked-ips | Get blocked ips
+*ReportsApi* | [**getLoginPolicyBlockedLogins**](docs/Api/ReportsApi.md#getloginpolicyblockedlogins) | **GET** /reports/orchd/login-policy/blocked-logins | Get blocked logins
 *ServersApi* | [**configureServer**](docs/Api/ServersApi.md#configureserver) | **PATCH** /servers/{server_id} | Configure a server
 *ServersApi* | [**createServerDomain**](docs/Api/ServersApi.md#createserverdomain) | **POST** /servers/{server_id}/domains | Create a domain which is mapped to a server
 *ServersApi* | [**createServerGroup**](docs/Api/ServersApi.md#createservergroup) | **POST** /servers/groups | Creates a new server group
@@ -286,9 +306,11 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**deleteServerSslCert**](docs/Api/ServersApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
 *ServersApi* | [**deleteServiceSetting**](docs/Api/ServersApi.md#deleteservicesetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *ServersApi* | [**deleteSlave**](docs/Api/ServersApi.md#deleteslave) | **DELETE** /servers/{server_id} | Delete a (slave) server
+*ServersApi* | [**enableFsQuotaLimits**](docs/Api/ServersApi.md#enablefsquotalimits) | **POST** /servers/{server_id}/fs_quota_limits | Enable FS quota limits on the server
 *ServersApi* | [**getAppcdVersion**](docs/Api/ServersApi.md#getappcdversion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd
 *ServersApi* | [**getClientIp**](docs/Api/ServersApi.md#getclientip) | **GET** /client_ip | Reflect back the IP of the API consumer
 *ServersApi* | [**getControlPanelRoleInfo**](docs/Api/ServersApi.md#getcontrolpanelroleinfo) | **GET** /servers/master/roles/control | Get master server control panel role info
+*ServersApi* | [**getFsQuotaStatus**](docs/Api/ServersApi.md#getfsquotastatus) | **GET** /servers/{server_id}/fs_quota_limits | Get whether FS quota was enabled on the server
 *ServersApi* | [**getHttpdStatus**](docs/Api/ServersApi.md#gethttpdstatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server.
 *ServersApi* | [**getInstallCmd**](docs/Api/ServersApi.md#getinstallcmd) | **GET** /servers/install-cmd | Get slave installation command
 *ServersApi* | [**getRegistrationKey**](docs/Api/ServersApi.md#getregistrationkey) | **GET** /servers/registration-key | Get slave registration key
@@ -413,6 +435,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteDomainMapping**](docs/Api/WebsitesApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
 *WebsitesApi* | [**getWebsiteDomainMappingDnsStatus**](docs/Api/WebsitesApi.md#getwebsitedomainmappingdnsstatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status
 *WebsitesApi* | [**getWebsiteDomainMappings**](docs/Api/WebsitesApi.md#getwebsitedomainmappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains
+*WebsitesApi* | [**getWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#getwebsitefsquotalimits) | **GET** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Get the active FS quoa limits for a website
 *WebsitesApi* | [**getWebsiteHtaccessIpsRule**](docs/Api/WebsitesApi.md#getwebsitehtaccessipsrule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs
 *WebsitesApi* | [**getWebsiteHtaccessRewrites**](docs/Api/WebsitesApi.md#getwebsitehtaccessrewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules
 *WebsitesApi* | [**getWebsiteMetrics**](docs/Api/WebsitesApi.md#getwebsitemetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics
@@ -425,6 +448,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsites**](docs/Api/WebsitesApi.md#getwebsites) | **GET** /orgs/{org_id}/websites | Get websites
 *WebsitesApi* | [**pushWebsiteLive**](docs/Api/WebsitesApi.md#pushwebsitelive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live
 *WebsitesApi* | [**setWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#setwebsitecgrouplimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only)
+*WebsitesApi* | [**setWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#setwebsitefsquotalimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteSetting**](docs/Api/WebsitesApi.md#setwebsitesetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting
 *WebsitesApi* | [**takeScreenshot**](docs/Api/WebsitesApi.md#takescreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot
 *WebsitesApi* | [**unauthorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#unauthorizewebsitesshkey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID.
@@ -476,6 +500,7 @@ Class | Method | HTTP request | Description
 - [BackupStatus](docs/Model/BackupStatus.md)
 - [BackupsFullListing](docs/Model/BackupsFullListing.md)
 - [BaseSslCert](docs/Model/BaseSslCert.md)
+- [Blocked](docs/Model/Blocked.md)
 - [Branding](docs/Model/Branding.md)
 - [CPLocale](docs/Model/CPLocale.md)
 - [CanonicalRedirect](docs/Model/CanonicalRedirect.md)
@@ -483,6 +508,9 @@ Class | Method | HTTP request | Description
 - [ChangeSubscriptionParams](docs/Model/ChangeSubscriptionParams.md)
 - [ChangeSubscriptionParamsSubscriptionId](docs/Model/ChangeSubscriptionParamsSubscriptionId.md)
 - [CloneStatus](docs/Model/CloneStatus.md)
+- [CloudFlareApiKey](docs/Model/CloudFlareApiKey.md)
+- [CloudFlareNameServers](docs/Model/CloudFlareNameServers.md)
+- [CloudFlareStatus](docs/Model/CloudFlareStatus.md)
 - [ControlRoleInfo](docs/Model/ControlRoleInfo.md)
 - [CoreServiceInfo](docs/Model/CoreServiceInfo.md)
 - [CrontabFullListing](docs/Model/CrontabFullListing.md)
@@ -527,12 +555,27 @@ Class | Method | HTTP request | Description
 - [EmailStatus](docs/Model/EmailStatus.md)
 - [EmailsListing](docs/Model/EmailsListing.md)
 - [ForwardersFullListing](docs/Model/ForwardersFullListing.md)
+- [FsQuotaInfo](docs/Model/FsQuotaInfo.md)
+- [FsQuotaLimit](docs/Model/FsQuotaLimit.md)
+- [FsQuotaStatus](docs/Model/FsQuotaStatus.md)
 - [FtpUser](docs/Model/FtpUser.md)
 - [FtpUserUpdate](docs/Model/FtpUserUpdate.md)
 - [FtpUsersFullListing](docs/Model/FtpUsersFullListing.md)
 - [GetServerRole200Response](docs/Model/GetServerRole200Response.md)
 - [GetWordpressAppVersion200Response](docs/Model/GetWordpressAppVersion200Response.md)
 - [HttpdStatus](docs/Model/HttpdStatus.md)
+- [ImportMigrationEntry](docs/Model/ImportMigrationEntry.md)
+- [ImportMigrationFullListing](docs/Model/ImportMigrationFullListing.md)
+- [ImportMigrationLogEntry](docs/Model/ImportMigrationLogEntry.md)
+- [ImporterAnalyzedData](docs/Model/ImporterAnalyzedData.md)
+- [ImporterAnalyzedDataCrontabsInner](docs/Model/ImporterAnalyzedDataCrontabsInner.md)
+- [ImporterAnalyzedDataDomainsInner](docs/Model/ImporterAnalyzedDataDomainsInner.md)
+- [ImporterAnalyzedDataFtpsInner](docs/Model/ImporterAnalyzedDataFtpsInner.md)
+- [ImporterAnalyzedDataMailboxesInner](docs/Model/ImporterAnalyzedDataMailboxesInner.md)
+- [ImporterAnalyzedDataMysqlDatabasesInner](docs/Model/ImporterAnalyzedDataMysqlDatabasesInner.md)
+- [ImporterAnalyzedDataMysqlGrantsInner](docs/Model/ImporterAnalyzedDataMysqlGrantsInner.md)
+- [ImporterAnalyzedDataMysqlUsersInner](docs/Model/ImporterAnalyzedDataMysqlUsersInner.md)
+- [ImporterMigrationReqBody](docs/Model/ImporterMigrationReqBody.md)
 - [IniSetting](docs/Model/IniSetting.md)
 - [Install](docs/Model/Install.md)
 - [InstallCmd](docs/Model/InstallCmd.md)
@@ -546,8 +589,11 @@ Class | Method | HTTP request | Description
 - [LicenceStatus](docs/Model/LicenceStatus.md)
 - [LocalRemote](docs/Model/LocalRemote.md)
 - [LocalRemoteBody](docs/Model/LocalRemoteBody.md)
+- [LogAction](docs/Model/LogAction.md)
 - [LogGreetingsMessageMetadata](docs/Model/LogGreetingsMessageMetadata.md)
 - [LogHttpMetadata](docs/Model/LogHttpMetadata.md)
+- [LogKind](docs/Model/LogKind.md)
+- [LogLevel](docs/Model/LogLevel.md)
 - [LogLevelLimit](docs/Model/LogLevelLimit.md)
 - [LogTimeMetadata](docs/Model/LogTimeMetadata.md)
 - [Login](docs/Model/Login.md)
@@ -581,6 +627,7 @@ Class | Method | HTTP request | Description
 - [NewAccessTokenResponse](docs/Model/NewAccessTokenResponse.md)
 - [NewAutoresponder](docs/Model/NewAutoresponder.md)
 - [NewBackupRole](docs/Model/NewBackupRole.md)
+- [NewCloudFlareToken](docs/Model/NewCloudFlareToken.md)
 - [NewCustomer](docs/Model/NewCustomer.md)
 - [NewDnsRecord](docs/Model/NewDnsRecord.md)
 - [NewDnsThirdPartyProvider](docs/Model/NewDnsThirdPartyProvider.md)
@@ -634,6 +681,11 @@ Class | Method | HTTP request | Description
 - [RequireIpsRuleKind](docs/Model/RequireIpsRuleKind.md)
 - [ResendPin](docs/Model/ResendPin.md)
 - [Resource](docs/Model/Resource.md)
+- [ResourceCheckConflict](docs/Model/ResourceCheckConflict.md)
+- [ResourceCheckConflictKind](docs/Model/ResourceCheckConflictKind.md)
+- [ResourceCheckError](docs/Model/ResourceCheckError.md)
+- [ResourceCheckManagerError](docs/Model/ResourceCheckManagerError.md)
+- [ResourceCheckManagerErrorKind](docs/Model/ResourceCheckManagerErrorKind.md)
 - [ResourceCountByInterval](docs/Model/ResourceCountByInterval.md)
 - [ResourceName](docs/Model/ResourceName.md)
 - [RewriteChain](docs/Model/RewriteChain.md)
@@ -688,6 +740,7 @@ Class | Method | HTTP request | Description
 - [Session](docs/Model/Session.md)
 - [SessionResult](docs/Model/SessionResult.md)
 - [SessionsFullListing](docs/Model/SessionsFullListing.md)
+- [SetCgroupLimits](docs/Model/SetCgroupLimits.md)
 - [SetServerStatus](docs/Model/SetServerStatus.md)
 - [SetServiceStatus](docs/Model/SetServiceStatus.md)
 - [SetWebserverKind](docs/Model/SetWebserverKind.md)
@@ -726,6 +779,7 @@ Class | Method | HTTP request | Description
 - [UpdateApplicationRole](docs/Model/UpdateApplicationRole.md)
 - [UpdateAutoresponder](docs/Model/UpdateAutoresponder.md)
 - [UpdateBackupRole](docs/Model/UpdateBackupRole.md)
+- [UpdateCloudFlareApiKey](docs/Model/UpdateCloudFlareApiKey.md)
 - [UpdateCrontabFullListing](docs/Model/UpdateCrontabFullListing.md)
 - [UpdateCrontabValue](docs/Model/UpdateCrontabValue.md)
 - [UpdateCrontabValueCmd](docs/Model/UpdateCrontabValueCmd.md)
@@ -795,17 +849,17 @@ Class | Method | HTTP request | Description
 
 ## Authorization
 
-### bearerAuth
-
-- **Type**: Bearer authentication
-
-
 ### sessionCookie
 
 - **Type**: API key
 - **API key parameter name**: id0
 - **Location**: 
 
+
+
+### bearerAuth
+
+- **Type**: Bearer authentication
 
 ## Tests
 
@@ -824,5 +878,5 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `9.0.0`
+- API version: `9.1.1`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional]
 **value** | **string** |  | [optional]
 **ttl** | **int** | In seconds | [optional]
+**proxy** | **bool** | If CloudFlare enabled, will enable the proxy | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

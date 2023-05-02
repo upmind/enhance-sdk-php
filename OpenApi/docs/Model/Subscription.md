@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **allowances** | [**\Upmind\EnhanceSdk\Model\Allowance[]**](Allowance.md) |  |
 **selections** | [**\Upmind\EnhanceSdk\Model\Selection[]**](Selection.md) |  |
 **dedicated_servers** | [**\Upmind\EnhanceSdk\Model\SubscriptionDedicatedServersInfo**](SubscriptionDedicatedServersInfo.md) |  | [optional]
-**created_at** | **string** |  |
 **plan_type** | [**\Upmind\EnhanceSdk\Model\PlanType**](PlanType.md) |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

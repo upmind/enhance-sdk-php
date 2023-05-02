@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**control** | [**\Upmind\EnhanceSdk\Model\ControlRoleInfo**](ControlRoleInfo.md) |  | [optional]
 **email** | [**\Upmind\EnhanceSdk\Model\EmailRoleInfo**](EmailRoleInfo.md) |  | [optional]
 **backup** | [**\Upmind\EnhanceSdk\Model\BackupRoleInfo**](BackupRoleInfo.md) |  | [optional]
 **database** | [**\Upmind\EnhanceSdk\Model\DatabaseRoleInfo**](DatabaseRoleInfo.md) |  | [optional]
