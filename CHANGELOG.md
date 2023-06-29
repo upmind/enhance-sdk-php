@@ -2,6 +2,12 @@
 
 All notable changes to the package will be documented in this file.
 
+## v9.4.0 - 2023-06-29
+
+- Update open-api.yml to Enhance v9.4.0 OpenAPI spec
+- Re-generate SDK
+- Update README.md docs
+
 ## v9.1.1 - 2023-05-02
 
 - Update open-api.yml to Enhance v9.1.1 OpenAPI spec
