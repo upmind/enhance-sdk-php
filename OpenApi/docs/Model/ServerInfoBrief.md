@@ -14,5 +14,6 @@ Name | Type | Description | Notes
 **roles** | [**\Upmind\EnhanceSdk\Model\RoleInstalledStatusSummary**](RoleInstalledStatusSummary.md) |  |
 **created_at** | **string** |  |
 **dedicated_subscription** | **float** |  | [optional]
+**is_decommissioned** | **bool** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

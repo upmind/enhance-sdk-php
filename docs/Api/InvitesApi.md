@@ -78,12 +78,12 @@ void (empty response body)
 ## `createInvite()`
 
 ```php
-createInvite($org_id, $new_invite)
+createInvite($org_id, $new_invite): string
 ```
 
 Create invite
 
-Issues an invite for the user with the given email. The user may or may not have an account in the realm that the organization is in: If the user is not registered yet, a pending login entry is created for them along with a pending member entry, and the login is \"activated\" once the user accepts the invite. In this case they need to supply a password. If the user is already registered, their existing login is linked to a pending member entry that gets \"activated\" once the user accepts the invite. The sent out invite contains the following URL: http://{control_panel_domain}/invites/{invite_key}?email={user_email} Where control panel domain is the domain name of the reseller's or the MO's control panel, the invite key is randomly generated, and the user email is the email address to which the invite is sent (and can be used by the API consumer e.g. for display purposes). If the invite is issued for the same organization and email more than once, the invite email is simply sent out again, with a different invite token. The routine will fail if the login already has membership in the organization. Session holder must be at least a `SuperAdmin` in this org or a parent org.
+Issues an invite for the user with the given email. The user may or may not have an account in the realm that the organization is in: If the user is not registered yet, a pending login entry is created for them along with a pending member entry, and the login is \"activated\" once the user accepts the invite. In this case they need to supply a password. If the user is already registered, their existing login is linked to a pending member entry that gets \"activated\" once the user accepts the invite. The sent out invite contains the following URL: http://{control_panel_domain}/invites/{invite_key}?email={user_email} The invite is also returned as a string response for immediate display to the creator of the invite. Where control panel domain is the domain name of the reseller's or the MO's control panel, the invite key is randomly generated, and the user email is the email address to which the invite is sent (and can be used by the API consumer e.g. for display purposes). If the invite is issued for the same organization and email more than once, the invite email is simply sent out again, with a different invite token. The routine will fail if the login already has membership in the organization. Session holder must be at least a `SuperAdmin` in this org or a parent org.
 
 ### Example
 
@@ -111,7 +111,8 @@ $org_id = 'org_id_example'; // string | The id of the organization.
 $new_invite = new \Upmind\EnhanceSdk\Model\NewInvite(); // \Upmind\EnhanceSdk\Model\NewInvite | Invite details.
 
 try {
-    $apiInstance->createInvite($org_id, $new_invite);
+    $result = $apiInstance->createInvite($org_id, $new_invite);
+    print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling InvitesApi->createInvite: ', $e->getMessage(), PHP_EOL;
 }
@@ -126,7 +127,7 @@ try {
 
 ### Return type
 
-void (empty response body)
+**string**
 
 ### Authorization
 
@@ -135,7 +136,7 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
-- **Accept**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

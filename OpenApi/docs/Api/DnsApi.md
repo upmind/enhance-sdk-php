@@ -4,15 +4,84 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**createDefaultDnsRecord()**](DnsApi.md#createDefaultDnsRecord) | **POST** /v2/settings/dns/default-records | Create a default DNS record |
 | [**createDnsThirdPartyProvider()**](DnsApi.md#createDnsThirdPartyProvider) | **POST** /dns/third-party-providers | Create new third party provider. |
 | [**createWebsiteDomainDnsZoneRecord()**](DnsApi.md#createWebsiteDomainDnsZoneRecord) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records | Create a new dns record for website domain |
+| [**deleteDefaultDnsRecord()**](DnsApi.md#deleteDefaultDnsRecord) | **DELETE** /v2/settings/dns/default-records/{record_id} | Delete a default DNS record |
 | [**deleteDnsThirdPartyProvider()**](DnsApi.md#deleteDnsThirdPartyProvider) | **DELETE** /dns/third-party-providers/{provider_id} | Deletes a third party dns provider. |
 | [**deleteWebsiteDomainDnsZoneRecord()**](DnsApi.md#deleteWebsiteDomainDnsZoneRecord) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Delete dns zone record |
 | [**getDnsThirdPartyProviders()**](DnsApi.md#getDnsThirdPartyProviders) | **GET** /dns/third-party-providers | Lists all third party providers. |
 | [**getWebsiteDomainDnsZone()**](DnsApi.md#getWebsiteDomainDnsZone) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Get a dns zone for given domain |
+| [**listDefaultDnsRecords()**](DnsApi.md#listDefaultDnsRecords) | **GET** /v2/settings/dns/default-records | List default DNS records |
+| [**updateDefaultDnsRecord()**](DnsApi.md#updateDefaultDnsRecord) | **PATCH** /v2/settings/dns/default-records/{record_id} | Update a default DNS record |
 | [**updateWebsiteDomainDnsZone()**](DnsApi.md#updateWebsiteDomainDnsZone) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Updates a dns zone SOA for website domain |
 | [**updateWebsiteDomainDnsZoneRecord()**](DnsApi.md#updateWebsiteDomainDnsZoneRecord) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Updates a dns record for given domain |
 
+
+## `createDefaultDnsRecord()`
+
+```php
+createDefaultDnsRecord($new_default_dns_record): string
+```
+
+Create a default DNS record
+
+Creates a default record at a platform level which will be added to all newly created DNS zones.  In the value you can use $$origin$$ which will be substituted for the origin domain.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$new_default_dns_record = new \Upmind\EnhanceSdk\Model\NewDefaultDnsRecord(); // \Upmind\EnhanceSdk\Model\NewDefaultDnsRecord
+
+try {
+    $result = $apiInstance->createDefaultDnsRecord($new_default_dns_record);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->createDefaultDnsRecord: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **new_default_dns_record** | [**\Upmind\EnhanceSdk\Model\NewDefaultDnsRecord**](../Model/NewDefaultDnsRecord.md)|  | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `createDnsThirdPartyProvider()`
 
@@ -144,6 +213,70 @@ try {
 
 - **Content-Type**: `application/json`
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteDefaultDnsRecord()`
+
+```php
+deleteDefaultDnsRecord($record_id)
+```
+
+Delete a default DNS record
+
+Delete a default DNS record.  Will not remove from existing zones.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$record_id = 'record_id_example'; // string
+
+try {
+    $apiInstance->deleteDefaultDnsRecord($record_id);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->deleteDefaultDnsRecord: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **record_id** | **string**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -409,6 +542,134 @@ try {
 
 - **Content-Type**: Not defined
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `listDefaultDnsRecords()`
+
+```php
+listDefaultDnsRecords(): \Upmind\EnhanceSdk\Model\DefaultDnsRecord[]
+```
+
+List default DNS records
+
+Lists the DNS records which will be added to all newly created DNS zones.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->listDefaultDnsRecords();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->listDefaultDnsRecords: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\DefaultDnsRecord[]**](../Model/DefaultDnsRecord.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateDefaultDnsRecord()`
+
+```php
+updateDefaultDnsRecord($record_id, $update_default_dns_record)
+```
+
+Update a default DNS record
+
+Updates a default DNS record, all fields are optional.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$record_id = 'record_id_example'; // string
+$update_default_dns_record = new \Upmind\EnhanceSdk\Model\UpdateDefaultDnsRecord(); // \Upmind\EnhanceSdk\Model\UpdateDefaultDnsRecord
+
+try {
+    $apiInstance->updateDefaultDnsRecord($record_id, $update_default_dns_record);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->updateDefaultDnsRecord: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **record_id** | **string**|  | |
+| **update_default_dns_record** | [**\Upmind\EnhanceSdk\Model\UpdateDefaultDnsRecord**](../Model/UpdateDefaultDnsRecord.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

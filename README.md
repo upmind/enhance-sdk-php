@@ -97,12 +97,16 @@ Class | Method | HTTP request | Description
 *CustomersApi* | [**createCustomerSubscription**](docs/Api/CustomersApi.md#createcustomersubscription) | **POST** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Create a subscriptions for a customer
 *CustomersApi* | [**getCustomerSubscriptions**](docs/Api/CustomersApi.md#getcustomersubscriptions) | **GET** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Get customer subscriptions
 *CustomersApi* | [**getOrgCustomers**](docs/Api/CustomersApi.md#getorgcustomers) | **GET** /orgs/{org_id}/customers | Get organization customers
+*DnsApi* | [**createDefaultDnsRecord**](docs/Api/DnsApi.md#createdefaultdnsrecord) | **POST** /v2/settings/dns/default-records | Create a default DNS record
 *DnsApi* | [**createDnsThirdPartyProvider**](docs/Api/DnsApi.md#creatednsthirdpartyprovider) | **POST** /dns/third-party-providers | Create new third party provider.
 *DnsApi* | [**createWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#createwebsitedomaindnszonerecord) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records | Create a new dns record for website domain
+*DnsApi* | [**deleteDefaultDnsRecord**](docs/Api/DnsApi.md#deletedefaultdnsrecord) | **DELETE** /v2/settings/dns/default-records/{record_id} | Delete a default DNS record
 *DnsApi* | [**deleteDnsThirdPartyProvider**](docs/Api/DnsApi.md#deletednsthirdpartyprovider) | **DELETE** /dns/third-party-providers/{provider_id} | Deletes a third party dns provider.
 *DnsApi* | [**deleteWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#deletewebsitedomaindnszonerecord) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Delete dns zone record
 *DnsApi* | [**getDnsThirdPartyProviders**](docs/Api/DnsApi.md#getdnsthirdpartyproviders) | **GET** /dns/third-party-providers | Lists all third party providers.
 *DnsApi* | [**getWebsiteDomainDnsZone**](docs/Api/DnsApi.md#getwebsitedomaindnszone) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Get a dns zone for given domain
+*DnsApi* | [**listDefaultDnsRecords**](docs/Api/DnsApi.md#listdefaultdnsrecords) | **GET** /v2/settings/dns/default-records | List default DNS records
+*DnsApi* | [**updateDefaultDnsRecord**](docs/Api/DnsApi.md#updatedefaultdnsrecord) | **PATCH** /v2/settings/dns/default-records/{record_id} | Update a default DNS record
 *DnsApi* | [**updateWebsiteDomainDnsZone**](docs/Api/DnsApi.md#updatewebsitedomaindnszone) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Updates a dns zone SOA for website domain
 *DnsApi* | [**updateWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#updatewebsitedomaindnszonerecord) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Updates a dns record for given domain
 *DomainApi* | [**enableWebsiteSslCert**](docs/Api/DomainApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
@@ -115,6 +119,7 @@ Class | Method | HTTP request | Description
 *DomainsApi* | [**deleteWebsiteDomainMapping**](docs/Api/DomainsApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
 *DomainsApi* | [**getCloudflareApiKeyDomain**](docs/Api/DomainsApi.md#getcloudflareapikeydomain) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare | Get CloudFlare API key, domain level
 *DomainsApi* | [**getCloudflareNameServers**](docs/Api/DomainsApi.md#getcloudflarenameservers) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare/nameservers | Get CloudFlare name servers
+*DomainsApi* | [**getDomainAuthNs**](docs/Api/DomainsApi.md#getdomainauthns) | **GET** /orgs/{org_id}/domains/{domain_id}/auth-ns | Get authoritative nameservers for domain.
 *DomainsApi* | [**getDomains**](docs/Api/DomainsApi.md#getdomains) | **GET** /orgs/{org_id}/domains | Get domains
 *DomainsApi* | [**getWebsiteDomainDnsQuery**](docs/Api/DomainsApi.md#getwebsitedomaindnsquery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain
 *DomainsApi* | [**getWebsiteDomainMapping**](docs/Api/DomainsApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
@@ -146,6 +151,7 @@ Class | Method | HTTP request | Description
 *EmailsApi* | [**updateDomainEmailAuth**](docs/Api/EmailsApi.md#updatedomainemailauth) | **PUT** /orgs/{org_id}/domains/{domain_id}/email-auth | Update email authentication preferences
 *EmailsApi* | [**updateWebsiteEmail**](docs/Api/EmailsApi.md#updatewebsiteemail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Update website email
 *EmailsApi* | [**updateWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#updatewebsiteemailautoresponder) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders/{autoresponder_id} | Update website email autoresponder
+*EmailsApi* | [**validateDomainEmailAuth**](docs/Api/EmailsApi.md#validatedomainemailauth) | **GET** /orgs/{org_id}/domains/{domain_id}/email-auth/validate | Validate email authentication DNS records
 *FtpApi* | [**createFtpUser**](docs/Api/FtpApi.md#createftpuser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website
 *FtpApi* | [**deleteFtpUser**](docs/Api/FtpApi.md#deleteftpuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Deletes given FTP user
 *FtpApi* | [**getFtpUsers**](docs/Api/FtpApi.md#getftpusers) | **GET** /orgs/{org_id}/websites/{website_id}/ftp/users | Returns all ftp users data for a given website
@@ -158,6 +164,7 @@ Class | Method | HTTP request | Description
 *ImportersApi* | [**getImportMigrationData**](docs/Api/ImportersApi.md#getimportmigrationdata) | **GET** /v2/orgs/{org_id}/import/{import_migration_id}/analyze | Get import migration information
 *ImportersApi* | [**getImportMigrationLog**](docs/Api/ImportersApi.md#getimportmigrationlog) | **GET** /v2/orgs/{org_id}/import/{import_migration_id}/log | Get the log for an import migration
 *ImportersApi* | [**getImportMigrations**](docs/Api/ImportersApi.md#getimportmigrations) | **GET** /v2/orgs/{org_id}/import | List all import migrations
+*ImportersApi* | [**scanImportMigrations**](docs/Api/ImportersApi.md#scanimportmigrations) | **GET** /v2/import/scan | Scan for manually uploaded cPanel backups.
 *ImportersApi* | [**uploadImportMigration**](docs/Api/ImportersApi.md#uploadimportmigration) | **POST** /v2/orgs/{org_id}/import/upload/{import_migration_kind} | Upload file for analyzing and processing.
 *InstallApi* | [**controldVersion**](docs/Api/InstallApi.md#controldversion) | **GET** /install/compatible_versions/controld | Get the compatible controld version
 *InstallApi* | [**getServiceKindLatestVersion**](docs/Api/InstallApi.md#getservicekindlatestversion) | **GET** /install/latest_available_version/{service_kind} | Get the latest available version of a given service kind
@@ -330,6 +337,9 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getWebsiteFpmSettings**](docs/Api/ServersApi.md#getwebsitefpmsettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website
 *ServersApi* | [**initAllServers**](docs/Api/ServersApi.md#initallservers) | **POST** /servers/init | Attempts to initialize all roles
 *ServersApi* | [**installServerRole**](docs/Api/ServersApi.md#installserverrole) | **PUT** /servers/{server_id}/roles/{role} | Install server role
+*ServersApi* | [**resetWebServerConfig**](docs/Api/ServersApi.md#resetwebserverconfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default.
+*ServersApi* | [**setLiteSpeedAdminPassword**](docs/Api/ServersApi.md#setlitespeedadminpassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password.
+*ServersApi* | [**setServerDecommissioned**](docs/Api/ServersApi.md#setserverdecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned
 *ServersApi* | [**setServerStatus**](docs/Api/ServersApi.md#setserverstatus) | **POST** /servers/{server_id}/status | Set the status of one server.
 *ServersApi* | [**setServiceSetting**](docs/Api/ServersApi.md#setservicesetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting
 *ServersApi* | [**setServiceStatus**](docs/Api/ServersApi.md#setservicestatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified.
@@ -342,16 +352,17 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**updateSystemPackage**](docs/Api/ServersApi.md#updatesystempackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version.
 *ServersApi* | [**uploadServerSslCert**](docs/Api/ServersApi.md#uploadserversslcert) | **POST** /servers/ssl | Upload SSL certificate for server/service use
 *ServersApi* | [**validateRegistrationKey**](docs/Api/ServersApi.md#validateregistrationkey) | **POST** /servers/registration-key/validate | Validate slave registration key
+*SettingsApi* | [**addOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#addorchdloginpolicyemailblacklist) | **PUT** /settings/orchd/login-policy/email-blacklist | Set the orchd login policy email blacklist as a whole
+*SettingsApi* | [**addOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#addorchdloginpolicyemailwhitelist) | **PUT** /settings/orchd/login-policy/email-whitelist | Set the orchd login policy email whitelist as a whole
+*SettingsApi* | [**addOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#addorchdloginpolicyipblacklist) | **PUT** /settings/orchd/login-policy/ip-blacklist | Set the orchd login policy ip blacklist as a whole
+*SettingsApi* | [**addOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#addorchdloginpolicyipwhitelist) | **PUT** /settings/orchd/login-policy/ip-whitelist | Set the orchd login policy ip whitelist as a whole
+*SettingsApi* | [**addOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#addorchdloginpolicysettings) | **PUT** /settings/orchd/login-policy/settings | Set a single orchd login policy setting
 *SettingsApi* | [**createSettings**](docs/Api/SettingsApi.md#createsettings) | **POST** /settings | Create settings
 *SettingsApi* | [**deleteGlobalServiceSetting**](docs/Api/SettingsApi.md#deleteglobalservicesetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting
 *SettingsApi* | [**deleteOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyemailblacklist) | **DELETE** /settings/orchd/login-policy/email-blacklist | Delete an orchd login policy email blacklist
 *SettingsApi* | [**deleteOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyemailwhitelist) | **DELETE** /settings/orchd/login-policy/email-whitelist | Delete an orchd login policy email whitelist
 *SettingsApi* | [**deleteOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipblacklist) | **DELETE** /settings/orchd/login-policy/ip-blacklist | Delete an orchd login policy ip blacklist
 *SettingsApi* | [**deleteOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipwhitelist) | **DELETE** /settings/orchd/login-policy/ip-whitelist | Delete an orchd login policy ip whitelist
-*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryEmailBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryemailblacklist) | **DELETE** /settings/orchd/login-policy/temporary/email-blacklist | Delete an orchd login policy temporary email blacklist
-*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryEmailWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryemailwhitelist) | **DELETE** /settings/orchd/login-policy/temporary/email-whitelist | Delete an orchd login policy temporary email whitelist
-*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryIpBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryipblacklist) | **DELETE** /settings/orchd/login-policy/temporary/ip-blacklist | Delete an orchd login policy temporary ip blacklist
-*SettingsApi* | [**deleteOrchdLoginPolicyTemporaryIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicytemporaryipwhitelist) | **DELETE** /settings/orchd/login-policy/temporary/ip-whitelist | Delete an orchd login policy temporary ip whitelist
 *SettingsApi* | [**deleteSetting**](docs/Api/SettingsApi.md#deletesetting) | **DELETE** /settings/{name} | Remove the specified setting
 *SettingsApi* | [**getDockerRegistry**](docs/Api/SettingsApi.md#getdockerregistry) | **GET** /settings/registry | Gets the Docker registry credentials.
 *SettingsApi* | [**getGlobalServiceSetting**](docs/Api/SettingsApi.md#getglobalservicesetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting
@@ -361,24 +372,11 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**getOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicyipblacklist) | **GET** /settings/orchd/login-policy/ip-blacklist | Get the orchd login policy ip blacklist
 *SettingsApi* | [**getOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicyipwhitelist) | **GET** /settings/orchd/login-policy/ip-whitelist | Get the orchd login policy ip whitelist
 *SettingsApi* | [**getOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#getorchdloginpolicysettings) | **GET** /settings/orchd/login-policy/settings | Get the orchd login policy settings
-*SettingsApi* | [**getOrchdLoginPolicyTemporaryEmailBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryemailblacklist) | **GET** /settings/orchd/login-policy/temporary/email-blacklist | Get the orchd login policy temporary email blacklist
-*SettingsApi* | [**getOrchdLoginPolicyTemporaryEmailWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryemailwhitelist) | **GET** /settings/orchd/login-policy/temporary/email-whitelist | Get the orchd login policy temporary email whitelist
-*SettingsApi* | [**getOrchdLoginPolicyTemporaryIpBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryipblacklist) | **GET** /settings/orchd/login-policy/temporary/ip-blacklist | Get the orchd login policy temporary ip blacklist
-*SettingsApi* | [**getOrchdLoginPolicyTemporaryIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicytemporaryipwhitelist) | **GET** /settings/orchd/login-policy/temporary/ip-whitelist | Get the orchd login policy temporary ip whitelist
 *SettingsApi* | [**getSetting**](docs/Api/SettingsApi.md#getsetting) | **GET** /settings/{name} | Get the specified setting
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /settings | Get all current settings
 *SettingsApi* | [**setDockerRegistry**](docs/Api/SettingsApi.md#setdockerregistry) | **PUT** /settings/registry | Updates the Docker registry credentials.
 *SettingsApi* | [**setGlobalServiceSetting**](docs/Api/SettingsApi.md#setglobalservicesetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting
 *SettingsApi* | [**setOrchdLogSettings**](docs/Api/SettingsApi.md#setorchdlogsettings) | **PUT** /settings/orchd/logs | Set the orchd log settings
-*SettingsApi* | [**setOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicyemailblacklist) | **PUT** /settings/orchd/login-policy/email-blacklist | Set the orchd login policy email blacklist as a whole
-*SettingsApi* | [**setOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicyemailwhitelist) | **PUT** /settings/orchd/login-policy/email-whitelist | Set the orchd login policy email whitelist as a whole
-*SettingsApi* | [**setOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicyipblacklist) | **PUT** /settings/orchd/login-policy/ip-blacklist | Set the orchd login policy ip blacklist as a whole
-*SettingsApi* | [**setOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicyipwhitelist) | **PUT** /settings/orchd/login-policy/ip-whitelist | Set the orchd login policy ip whitelist as a whole
-*SettingsApi* | [**setOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#setorchdloginpolicysettings) | **PUT** /settings/orchd/login-policy/settings | Set a single orchd login policy setting
-*SettingsApi* | [**setOrchdLoginPolicyTemporaryEmailBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryemailblacklist) | **PUT** /settings/orchd/login-policy/temporary/email-blacklist | Set the orchd login policy temporary whitelist as a whole
-*SettingsApi* | [**setOrchdLoginPolicyTemporaryEmailWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryemailwhitelist) | **PUT** /settings/orchd/login-policy/temporary/email-whitelist | Set the orchd login policy temporary email whitelist as a whole
-*SettingsApi* | [**setOrchdLoginPolicyTemporaryIpBlacklist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryipblacklist) | **PUT** /settings/orchd/login-policy/temporary/ip-blacklist | Set the orchd login policy temporary ip blacklist as a whole
-*SettingsApi* | [**setOrchdLoginPolicyTemporaryIpWhitelist**](docs/Api/SettingsApi.md#setorchdloginpolicytemporaryipwhitelist) | **PUT** /settings/orchd/login-policy/temporary/ip-whitelist | Set the orchd login policy temporary ip whitelist as a whole
 *SettingsApi* | [**updateSetting**](docs/Api/SettingsApi.md#updatesetting) | **PUT** /settings/{name} | Create or update the specified setting
 *SslApi* | [**deleteServerSslCert**](docs/Api/SslApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
 *SslApi* | [**deleteWebsiteSslCert**](docs/Api/SslApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
@@ -398,14 +396,18 @@ Class | Method | HTTP request | Description
 *SubscriptionsApi* | [**updateSubscription**](docs/Api/SubscriptionsApi.md#updatesubscription) | **PATCH** /orgs/{org_id}/subscriptions/{subscription_id} | Update subscription
 *TagsApi* | [**createTag**](docs/Api/TagsApi.md#createtag) | **POST** /orgs/{org_id}/tags | Create tag
 *TagsApi* | [**getTags**](docs/Api/TagsApi.md#gettags) | **GET** /orgs/{org_id}/tags | Get tags
+*WebsitesApi* | [**addDomainNginxFastCgiExcludedPath**](docs/Api/WebsitesApi.md#adddomainnginxfastcgiexcludedpath) | **POST** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Add Nginx FastCGI excluded path
 *WebsitesApi* | [**authorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#authorizewebsitesshkey) | **POST** /orgs/{org_id}/websites/{website_id}/ssh/keys | Authorize a new SSH key.
 *WebsitesApi* | [**authorizeWebsiteSshPassword**](docs/Api/WebsitesApi.md#authorizewebsitesshpassword) | **POST** /orgs/{org_id}/websites/{website_id}/ssh/password | Authorize a new SSH password for website.
+*WebsitesApi* | [**clearDomainNginxFastCgi**](docs/Api/WebsitesApi.md#cleardomainnginxfastcgi) | **DELETE** /v2/domains/{domain_id}/nginx_fastcgi | Clear FastCGI cache for domain
 *WebsitesApi* | [**createFtpUser**](docs/Api/WebsitesApi.md#createftpuser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website
 *WebsitesApi* | [**createPreviewDomain**](docs/Api/WebsitesApi.md#createpreviewdomain) | **POST** /orgs/{org_id}/websites/{website_id}/preview | Create a preview domain
 *WebsitesApi* | [**createWebsite**](docs/Api/WebsitesApi.md#createwebsite) | **POST** /orgs/{org_id}/websites | Create a new website or clone an existing one.
 *WebsitesApi* | [**createWebsiteDomainAlias**](docs/Api/WebsitesApi.md#createwebsitedomainalias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias
 *WebsitesApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/WebsitesApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
 *WebsitesApi* | [**createWebsiteMySQLDB**](docs/Api/WebsitesApi.md#createwebsitemysqldb) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website
+*WebsitesApi* | [**deleteDomainNginxFastCgiExcludedPath**](docs/Api/WebsitesApi.md#deletedomainnginxfastcgiexcludedpath) | **DELETE** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Delete Nginx FastCGI excluded path
+*WebsitesApi* | [**deleteDomainWebserverRewrite**](docs/Api/WebsitesApi.md#deletedomainwebserverrewrite) | **DELETE** /v2/domains/{domain_id}/webserver_rewrites | Delete web server rewrite
 *WebsitesApi* | [**deleteFtpUser**](docs/Api/WebsitesApi.md#deleteftpuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Deletes given FTP user
 *WebsitesApi* | [**deleteUserCrontab**](docs/Api/WebsitesApi.md#deleteusercrontab) | **DELETE** /orgs/{org_id}/websites/{website_id}/crontab | Delete user&#39;s crontab
 *WebsitesApi* | [**deleteWebsite**](docs/Api/WebsitesApi.md#deletewebsite) | **DELETE** /orgs/{org_id}/websites/{website_id} | Delete website
@@ -414,6 +416,9 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**deleteWebsiteSslCert**](docs/Api/WebsitesApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
 *WebsitesApi* | [**deleteWebsites**](docs/Api/WebsitesApi.md#deletewebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites
 *WebsitesApi* | [**enableWebsiteSslCert**](docs/Api/WebsitesApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
+*WebsitesApi* | [**getDomainNginxFastCgi**](docs/Api/WebsitesApi.md#getdomainnginxfastcgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement
+*WebsitesApi* | [**getDomainNginxFastCgiExcludedPaths**](docs/Api/WebsitesApi.md#getdomainnginxfastcgiexcludedpaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths
+*WebsitesApi* | [**getDomainWebserverRewrites**](docs/Api/WebsitesApi.md#getdomainwebserverrewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain
 *WebsitesApi* | [**getFtpUsers**](docs/Api/WebsitesApi.md#getftpusers) | **GET** /orgs/{org_id}/websites/{website_id}/ftp/users | Returns all ftp users data for a given website
 *WebsitesApi* | [**getScreenshotTimestamp**](docs/Api/WebsitesApi.md#getscreenshottimestamp) | **GET** /orgs/{org_id}/websites/{website_id}/screenshot/timestamp | Get last screeshot file&#39;s Timestamp
 *WebsitesApi* | [**getSiteAccessToken**](docs/Api/WebsitesApi.md#getsiteaccesstoken) | **POST** /orgs/{org_id}/websites/{website_id}/access-tokens | Get an access token for the given website
@@ -436,8 +441,11 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteSshKeys**](docs/Api/WebsitesApi.md#getwebsitesshkeys) | **GET** /orgs/{org_id}/websites/{website_id}/ssh/keys | Get website&#39;s authorized SSH keys
 *WebsitesApi* | [**getWebsiteSslCert**](docs/Api/WebsitesApi.md#getwebsitesslcert) | **GET** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Fetches a single SSL cert
 *WebsitesApi* | [**getWebsiteSslCerts**](docs/Api/WebsitesApi.md#getwebsitesslcerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website
+*WebsitesApi* | [**getWebsiteWebserverKind**](docs/Api/WebsitesApi.md#getwebsitewebserverkind) | **GET** /v2/websites/{website_id}/webserver_kind | Get web server kind for a given website
 *WebsitesApi* | [**getWebsites**](docs/Api/WebsitesApi.md#getwebsites) | **GET** /orgs/{org_id}/websites | Get websites
 *WebsitesApi* | [**pushWebsiteLive**](docs/Api/WebsitesApi.md#pushwebsitelive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live
+*WebsitesApi* | [**setDomainNginxFastCgi**](docs/Api/WebsitesApi.md#setdomainnginxfastcgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement
+*WebsitesApi* | [**setDomainWebserverRewrite**](docs/Api/WebsitesApi.md#setdomainwebserverrewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file
 *WebsitesApi* | [**setWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#setwebsitecgrouplimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#setwebsitefsquotalimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteSetting**](docs/Api/WebsitesApi.md#setwebsitesetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting
@@ -458,6 +466,7 @@ Class | Method | HTTP request | Description
 *WordpressApi* | [**deleteWordpressUser**](docs/Api/WordpressApi.md#deletewordpressuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user
 *WordpressApi* | [**getDefaultWpSsoUser**](docs/Api/WordpressApi.md#getdefaultwpssouser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default |
 *WordpressApi* | [**getWordpressAppVersion**](docs/Api/WordpressApi.md#getwordpressappversion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version
+*WordpressApi* | [**getWordpressConfig**](docs/Api/WordpressApi.md#getwordpressconfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option
 *WordpressApi* | [**getWordpressInstallations**](docs/Api/WordpressApi.md#getwordpressinstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations
 *WordpressApi* | [**getWordpressLatestVersion**](docs/Api/WordpressApi.md#getwordpresslatestversion) | **GET** /utils/wordpress/latest | Get WordPress latest available version
 *WordpressApi* | [**getWordpressPlugins**](docs/Api/WordpressApi.md#getwordpressplugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins
@@ -467,6 +476,7 @@ Class | Method | HTTP request | Description
 *WordpressApi* | [**getWordpressUsers**](docs/Api/WordpressApi.md#getwordpressusers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | 
 *WordpressApi* | [**installWordpressPlugin**](docs/Api/WordpressApi.md#installwordpressplugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin
 *WordpressApi* | [**setDefaultWpSsoUser**](docs/Api/WordpressApi.md#setdefaultwpssouser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website.
+*WordpressApi* | [**setWordpressConfig**](docs/Api/WordpressApi.md#setwordpressconfig) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config | Set a single value of a wp-config.php entry.
 *WordpressApi* | [**updateWordpressAppVersion**](docs/Api/WordpressApi.md#updatewordpressappversion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest
 *WordpressApi* | [**updateWordpressPluginSettings**](docs/Api/WordpressApi.md#updatewordpresspluginsettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings
 *WordpressApi* | [**updateWordpressPluginToLatest**](docs/Api/WordpressApi.md#updatewordpressplugintolatest) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin}/version | Updates website WordPress plugin to latest version
@@ -479,6 +489,8 @@ Class | Method | HTTP request | Description
 - [Allowance](docs/Model/Allowance.md)
 - [ApplicationRoleInfo](docs/Model/ApplicationRoleInfo.md)
 - [AuthNs](docs/Model/AuthNs.md)
+- [AuthNsResponse](docs/Model/AuthNsResponse.md)
+- [AuthNsResponseNs](docs/Model/AuthNsResponseNs.md)
 - [Autoresponder](docs/Model/Autoresponder.md)
 - [AutorespondersFullListing](docs/Model/AutorespondersFullListing.md)
 - [Backup](docs/Model/Backup.md)
@@ -514,6 +526,7 @@ Class | Method | HTTP request | Description
 - [DaemonKind](docs/Model/DaemonKind.md)
 - [DatabaseRoleInfo](docs/Model/DatabaseRoleInfo.md)
 - [DedicatedSubscriptionInfo](docs/Model/DedicatedSubscriptionInfo.md)
+- [DefaultDnsRecord](docs/Model/DefaultDnsRecord.md)
 - [DeviceKind](docs/Model/DeviceKind.md)
 - [Disk](docs/Model/Disk.md)
 - [DnsQueryOutcome](docs/Model/DnsQueryOutcome.md)
@@ -538,6 +551,7 @@ Class | Method | HTTP request | Description
 - [EmailAddress](docs/Model/EmailAddress.md)
 - [EmailAuth](docs/Model/EmailAuth.md)
 - [EmailAuthUpdate](docs/Model/EmailAuthUpdate.md)
+- [EmailAuthValidation](docs/Model/EmailAuthValidation.md)
 - [EmailDetailed](docs/Model/EmailDetailed.md)
 - [EmailForwardersUpdate](docs/Model/EmailForwardersUpdate.md)
 - [EmailPasswordUpdate](docs/Model/EmailPasswordUpdate.md)
@@ -620,6 +634,7 @@ Class | Method | HTTP request | Description
 - [NewBackupRole](docs/Model/NewBackupRole.md)
 - [NewCloudFlareToken](docs/Model/NewCloudFlareToken.md)
 - [NewCustomer](docs/Model/NewCustomer.md)
+- [NewDefaultDnsRecord](docs/Model/NewDefaultDnsRecord.md)
 - [NewDnsRecord](docs/Model/NewDnsRecord.md)
 - [NewDnsThirdPartyProvider](docs/Model/NewDnsThirdPartyProvider.md)
 - [NewDomain](docs/Model/NewDomain.md)
@@ -651,10 +666,6 @@ Class | Method | HTTP request | Description
 - [OrchdLoginPolicyEmailList](docs/Model/OrchdLoginPolicyEmailList.md)
 - [OrchdLoginPolicyIpList](docs/Model/OrchdLoginPolicyIpList.md)
 - [OrchdLoginPolicySettings](docs/Model/OrchdLoginPolicySettings.md)
-- [OrchdLoginPolicyTemporaryEmailList](docs/Model/OrchdLoginPolicyTemporaryEmailList.md)
-- [OrchdLoginPolicyTemporaryEmailListEmailListInner](docs/Model/OrchdLoginPolicyTemporaryEmailListEmailListInner.md)
-- [OrchdLoginPolicyTemporaryIpList](docs/Model/OrchdLoginPolicyTemporaryIpList.md)
-- [OrchdLoginPolicyTemporaryIpListIpListInner](docs/Model/OrchdLoginPolicyTemporaryIpListIpListInner.md)
 - [Org](docs/Model/Org.md)
 - [OrgAccessToken](docs/Model/OrgAccessToken.md)
 - [OrgOwnerUpdate](docs/Model/OrgOwnerUpdate.md)
@@ -713,6 +724,7 @@ Class | Method | HTTP request | Description
 - [ServerStatsFullListing](docs/Model/ServerStatsFullListing.md)
 - [ServerStatus](docs/Model/ServerStatus.md)
 - [ServerStatusAction](docs/Model/ServerStatusAction.md)
+- [ServerStatusUpdate](docs/Model/ServerStatusUpdate.md)
 - [ServerUptime](docs/Model/ServerUptime.md)
 - [ServersListing](docs/Model/ServersListing.md)
 - [ServiceInfo](docs/Model/ServiceInfo.md)
@@ -778,6 +790,7 @@ Class | Method | HTTP request | Description
 - [UpdateCrontabValueVariable](docs/Model/UpdateCrontabValueVariable.md)
 - [UpdateCrontabValueVariableVariable](docs/Model/UpdateCrontabValueVariableVariable.md)
 - [UpdateDatabaseRole](docs/Model/UpdateDatabaseRole.md)
+- [UpdateDefaultDnsRecord](docs/Model/UpdateDefaultDnsRecord.md)
 - [UpdateDnsRecord](docs/Model/UpdateDnsRecord.md)
 - [UpdateDnsRole](docs/Model/UpdateDnsRole.md)
 - [UpdateDnsZone](docs/Model/UpdateDnsZone.md)
@@ -808,6 +821,7 @@ Class | Method | HTTP request | Description
 - [WPPluginAutoUpdateStatus](docs/Model/WPPluginAutoUpdateStatus.md)
 - [WPPluginStatus](docs/Model/WPPluginStatus.md)
 - [WPPluginUpdateAvailable](docs/Model/WPPluginUpdateAvailable.md)
+- [WebServerRewrite](docs/Model/WebServerRewrite.md)
 - [WebserverKind](docs/Model/WebserverKind.md)
 - [Website](docs/Model/Website.md)
 - [WebsiteApp](docs/Model/WebsiteApp.md)
@@ -827,6 +841,10 @@ Class | Method | HTTP request | Description
 - [WebsiteServerDomains](docs/Model/WebsiteServerDomains.md)
 - [WebsiteStatus](docs/Model/WebsiteStatus.md)
 - [WebsitesListing](docs/Model/WebsitesListing.md)
+- [WordpressConfig](docs/Model/WordpressConfig.md)
+- [WpDebug](docs/Model/WpDebug.md)
+- [WpDebugDisplay](docs/Model/WpDebugDisplay.md)
+- [WpDebugLog](docs/Model/WpDebugLog.md)
 - [WpInstallation](docs/Model/WpInstallation.md)
 - [WpLatestVersion](docs/Model/WpLatestVersion.md)
 - [WpPlugin](docs/Model/WpPlugin.md)
@@ -837,8 +855,6 @@ Class | Method | HTTP request | Description
 - [WpUser](docs/Model/WpUser.md)
 - [WpUserRole](docs/Model/WpUserRole.md)
 - [WpUsersFullListing](docs/Model/WpUsersFullListing.md)
-
-
 
 ## Tests
 

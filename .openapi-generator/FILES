@@ -38,6 +38,8 @@ docs/Model/AcceptInviteBody.md
 docs/Model/Allowance.md
 docs/Model/ApplicationRoleInfo.md
 docs/Model/AuthNs.md
+docs/Model/AuthNsResponse.md
+docs/Model/AuthNsResponseNs.md
 docs/Model/Autoresponder.md
 docs/Model/AutorespondersFullListing.md
 docs/Model/Backup.md
@@ -73,6 +75,7 @@ docs/Model/CustomersListing.md
 docs/Model/DaemonKind.md
 docs/Model/DatabaseRoleInfo.md
 docs/Model/DedicatedSubscriptionInfo.md
+docs/Model/DefaultDnsRecord.md
 docs/Model/DeviceKind.md
 docs/Model/Disk.md
 docs/Model/DnsQueryOutcome.md
@@ -97,6 +100,7 @@ docs/Model/Email.md
 docs/Model/EmailAddress.md
 docs/Model/EmailAuth.md
 docs/Model/EmailAuthUpdate.md
+docs/Model/EmailAuthValidation.md
 docs/Model/EmailDetailed.md
 docs/Model/EmailForwardersUpdate.md
 docs/Model/EmailPasswordUpdate.md
@@ -179,6 +183,7 @@ docs/Model/NewAutoresponder.md
 docs/Model/NewBackupRole.md
 docs/Model/NewCloudFlareToken.md
 docs/Model/NewCustomer.md
+docs/Model/NewDefaultDnsRecord.md
 docs/Model/NewDnsRecord.md
 docs/Model/NewDnsThirdPartyProvider.md
 docs/Model/NewDomain.md
@@ -210,10 +215,6 @@ docs/Model/OrchdLogSettings.md
 docs/Model/OrchdLoginPolicyEmailList.md
 docs/Model/OrchdLoginPolicyIpList.md
 docs/Model/OrchdLoginPolicySettings.md
-docs/Model/OrchdLoginPolicyTemporaryEmailList.md
-docs/Model/OrchdLoginPolicyTemporaryEmailListEmailListInner.md
-docs/Model/OrchdLoginPolicyTemporaryIpList.md
-docs/Model/OrchdLoginPolicyTemporaryIpListIpListInner.md
 docs/Model/Org.md
 docs/Model/OrgAccessToken.md
 docs/Model/OrgOwnerUpdate.md
@@ -272,6 +273,7 @@ docs/Model/ServerStatEntry.md
 docs/Model/ServerStatsFullListing.md
 docs/Model/ServerStatus.md
 docs/Model/ServerStatusAction.md
+docs/Model/ServerStatusUpdate.md
 docs/Model/ServerUptime.md
 docs/Model/ServersListing.md
 docs/Model/ServiceInfo.md
@@ -337,6 +339,7 @@ docs/Model/UpdateCrontabValueCmdCronCmd.md
 docs/Model/UpdateCrontabValueVariable.md
 docs/Model/UpdateCrontabValueVariableVariable.md
 docs/Model/UpdateDatabaseRole.md
+docs/Model/UpdateDefaultDnsRecord.md
 docs/Model/UpdateDnsRecord.md
 docs/Model/UpdateDnsRole.md
 docs/Model/UpdateDnsZone.md
@@ -367,6 +370,7 @@ docs/Model/WPAutoUpdateCore.md
 docs/Model/WPPluginAutoUpdateStatus.md
 docs/Model/WPPluginStatus.md
 docs/Model/WPPluginUpdateAvailable.md
+docs/Model/WebServerRewrite.md
 docs/Model/WebserverKind.md
 docs/Model/Website.md
 docs/Model/WebsiteApp.md
@@ -386,6 +390,10 @@ docs/Model/WebsitePhpSettings.md
 docs/Model/WebsiteServerDomains.md
 docs/Model/WebsiteStatus.md
 docs/Model/WebsitesListing.md
+docs/Model/WordpressConfig.md
+docs/Model/WpDebug.md
+docs/Model/WpDebugDisplay.md
+docs/Model/WpDebugLog.md
 docs/Model/WpInstallation.md
 docs/Model/WpLatestVersion.md
 docs/Model/WpPlugin.md
@@ -435,6 +443,8 @@ lib/Model/AcceptInviteBody.php
 lib/Model/Allowance.php
 lib/Model/ApplicationRoleInfo.php
 lib/Model/AuthNs.php
+lib/Model/AuthNsResponse.php
+lib/Model/AuthNsResponseNs.php
 lib/Model/Autoresponder.php
 lib/Model/AutorespondersFullListing.php
 lib/Model/Backup.php
@@ -470,6 +480,7 @@ lib/Model/CustomersListing.php
 lib/Model/DaemonKind.php
 lib/Model/DatabaseRoleInfo.php
 lib/Model/DedicatedSubscriptionInfo.php
+lib/Model/DefaultDnsRecord.php
 lib/Model/DeviceKind.php
 lib/Model/Disk.php
 lib/Model/DnsQueryOutcome.php
@@ -494,6 +505,7 @@ lib/Model/Email.php
 lib/Model/EmailAddress.php
 lib/Model/EmailAuth.php
 lib/Model/EmailAuthUpdate.php
+lib/Model/EmailAuthValidation.php
 lib/Model/EmailDetailed.php
 lib/Model/EmailForwardersUpdate.php
 lib/Model/EmailPasswordUpdate.php
@@ -577,6 +589,7 @@ lib/Model/NewAutoresponder.php
 lib/Model/NewBackupRole.php
 lib/Model/NewCloudFlareToken.php
 lib/Model/NewCustomer.php
+lib/Model/NewDefaultDnsRecord.php
 lib/Model/NewDnsRecord.php
 lib/Model/NewDnsThirdPartyProvider.php
 lib/Model/NewDomain.php
@@ -608,10 +621,6 @@ lib/Model/OrchdLogSettings.php
 lib/Model/OrchdLoginPolicyEmailList.php
 lib/Model/OrchdLoginPolicyIpList.php
 lib/Model/OrchdLoginPolicySettings.php
-lib/Model/OrchdLoginPolicyTemporaryEmailList.php
-lib/Model/OrchdLoginPolicyTemporaryEmailListEmailListInner.php
-lib/Model/OrchdLoginPolicyTemporaryIpList.php
-lib/Model/OrchdLoginPolicyTemporaryIpListIpListInner.php
 lib/Model/Org.php
 lib/Model/OrgAccessToken.php
 lib/Model/OrgOwnerUpdate.php
@@ -670,6 +679,7 @@ lib/Model/ServerStatEntry.php
 lib/Model/ServerStatsFullListing.php
 lib/Model/ServerStatus.php
 lib/Model/ServerStatusAction.php
+lib/Model/ServerStatusUpdate.php
 lib/Model/ServerUptime.php
 lib/Model/ServersListing.php
 lib/Model/ServiceInfo.php
@@ -735,6 +745,7 @@ lib/Model/UpdateCrontabValueCmdCronCmd.php
 lib/Model/UpdateCrontabValueVariable.php
 lib/Model/UpdateCrontabValueVariableVariable.php
 lib/Model/UpdateDatabaseRole.php
+lib/Model/UpdateDefaultDnsRecord.php
 lib/Model/UpdateDnsRecord.php
 lib/Model/UpdateDnsRole.php
 lib/Model/UpdateDnsZone.php
@@ -765,6 +776,7 @@ lib/Model/WPAutoUpdateCore.php
 lib/Model/WPPluginAutoUpdateStatus.php
 lib/Model/WPPluginStatus.php
 lib/Model/WPPluginUpdateAvailable.php
+lib/Model/WebServerRewrite.php
 lib/Model/WebserverKind.php
 lib/Model/Website.php
 lib/Model/WebsiteApp.php
@@ -784,6 +796,10 @@ lib/Model/WebsitePhpSettings.php
 lib/Model/WebsiteServerDomains.php
 lib/Model/WebsiteStatus.php
 lib/Model/WebsitesListing.php
+lib/Model/WordpressConfig.php
+lib/Model/WpDebug.php
+lib/Model/WpDebugDisplay.php
+lib/Model/WpDebugLog.php
 lib/Model/WpInstallation.php
 lib/Model/WpLatestVersion.php
 lib/Model/WpPlugin.php
@@ -830,6 +846,8 @@ test/Api/WordpressApiTest.php
 test/Model/AcceptInviteBodyTest.php
 test/Model/AllowanceTest.php
 test/Model/ApplicationRoleInfoTest.php
+test/Model/AuthNsResponseNsTest.php
+test/Model/AuthNsResponseTest.php
 test/Model/AuthNsTest.php
 test/Model/AutoresponderTest.php
 test/Model/AutorespondersFullListingTest.php
@@ -866,6 +884,7 @@ test/Model/CustomersListingTest.php
 test/Model/DaemonKindTest.php
 test/Model/DatabaseRoleInfoTest.php
 test/Model/DedicatedSubscriptionInfoTest.php
+test/Model/DefaultDnsRecordTest.php
 test/Model/DeviceKindTest.php
 test/Model/DiskTest.php
 test/Model/DnsQueryOutcomeTest.php
@@ -889,6 +908,7 @@ test/Model/DomainsListingTest.php
 test/Model/EmailAddressTest.php
 test/Model/EmailAuthTest.php
 test/Model/EmailAuthUpdateTest.php
+test/Model/EmailAuthValidationTest.php
 test/Model/EmailDetailedTest.php
 test/Model/EmailForwardersUpdateTest.php
 test/Model/EmailPasswordUpdateTest.php
@@ -972,6 +992,7 @@ test/Model/NewAutoresponderTest.php
 test/Model/NewBackupRoleTest.php
 test/Model/NewCloudFlareTokenTest.php
 test/Model/NewCustomerTest.php
+test/Model/NewDefaultDnsRecordTest.php
 test/Model/NewDnsRecordTest.php
 test/Model/NewDnsThirdPartyProviderTest.php
 test/Model/NewDomainAliasTest.php
@@ -1003,10 +1024,6 @@ test/Model/OrchdLogSettingsTest.php
 test/Model/OrchdLoginPolicyEmailListTest.php
 test/Model/OrchdLoginPolicyIpListTest.php
 test/Model/OrchdLoginPolicySettingsTest.php
-test/Model/OrchdLoginPolicyTemporaryEmailListEmailListInnerTest.php
-test/Model/OrchdLoginPolicyTemporaryEmailListTest.php
-test/Model/OrchdLoginPolicyTemporaryIpListIpListInnerTest.php
-test/Model/OrchdLoginPolicyTemporaryIpListTest.php
 test/Model/OrgAccessTokenTest.php
 test/Model/OrgOwnerUpdateTest.php
 test/Model/OrgTest.php
@@ -1065,6 +1082,7 @@ test/Model/ServerStatEntryTest.php
 test/Model/ServerStatsFullListingTest.php
 test/Model/ServerStatusActionTest.php
 test/Model/ServerStatusTest.php
+test/Model/ServerStatusUpdateTest.php
 test/Model/ServerUptimeTest.php
 test/Model/ServersListingTest.php
 test/Model/ServiceInfoTest.php
@@ -1130,6 +1148,7 @@ test/Model/UpdateCrontabValueTest.php
 test/Model/UpdateCrontabValueVariableTest.php
 test/Model/UpdateCrontabValueVariableVariableTest.php
 test/Model/UpdateDatabaseRoleTest.php
+test/Model/UpdateDefaultDnsRecordTest.php
 test/Model/UpdateDnsRecordTest.php
 test/Model/UpdateDnsRoleTest.php
 test/Model/UpdateDnsZoneTest.php
@@ -1160,6 +1179,7 @@ test/Model/WPAutoUpdateCoreTest.php
 test/Model/WPPluginAutoUpdateStatusTest.php
 test/Model/WPPluginStatusTest.php
 test/Model/WPPluginUpdateAvailableTest.php
+test/Model/WebServerRewriteTest.php
 test/Model/WebserverKindTest.php
 test/Model/WebsiteAppKindTest.php
 test/Model/WebsiteAppTest.php
@@ -1179,6 +1199,10 @@ test/Model/WebsiteServerDomainsTest.php
 test/Model/WebsiteStatusTest.php
 test/Model/WebsiteTest.php
 test/Model/WebsitesListingTest.php
+test/Model/WordpressConfigTest.php
+test/Model/WpDebugDisplayTest.php
+test/Model/WpDebugLogTest.php
+test/Model/WpDebugTest.php
 test/Model/WpInstallationTest.php
 test/Model/WpLatestVersionTest.php
 test/Model/WpPluginTest.php

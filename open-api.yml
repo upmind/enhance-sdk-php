@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 9.1.1
+  version: 9.4.0
   title: orchd
 tags:
   - name: install
@@ -401,7 +401,7 @@ paths:
       security:
         - sessionCookie: []
         - bearerAuth: []
-      operationId: setOrchdLoginPolicySettings
+      operationId: addOrchdLoginPolicySettings
       requestBody:
         required: true
         content:
@@ -449,7 +449,7 @@ paths:
       security:
         - sessionCookie: []
         - bearerAuth: []
-      operationId: setOrchdLoginPolicyIpWhitelist
+      operationId: addOrchdLoginPolicyIpWhitelist
       requestBody:
         required: true
         content:
@@ -519,7 +519,7 @@ paths:
       security:
         - sessionCookie: []
         - bearerAuth: []
-      operationId: setOrchdLoginPolicyIpBlacklist
+      operationId: addOrchdLoginPolicyIpBlacklist
       requestBody:
         required: true
         content:
@@ -559,146 +559,6 @@ paths:
           description: Insufficient privileges
   # ANCHOR_END: ip_blacklist
 
-  # ANCHOR: temporary_ip_whitelist
-  /settings/orchd/login-policy/temporary/ip-whitelist:
-    get:
-      tags:
-        - settings
-      summary: Get the orchd login policy temporary ip whitelist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: getOrchdLoginPolicyTemporaryIpWhitelist
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    put:
-      tags:
-        - settings
-      summary: Set the orchd login policy temporary ip whitelist as a whole
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: setOrchdLoginPolicyTemporaryIpWhitelist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
-      responses:
-        "204":
-          description: Successful
-        "400":
-          description: Invalid request
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
-    delete:
-      tags:
-        - settings
-      summary: Delete an orchd login policy temporary ip whitelist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: deleteOrchdLoginPolicyTemporaryIpWhitelist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
-      responses:
-        "204":
-          description: Successful
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-  # ANCHOR_END: temporary_ip_whitelist
-
-  # ANCHOR: temporary_ip_blacklist
-  /settings/orchd/login-policy/temporary/ip-blacklist:
-    get:
-      tags:
-        - settings
-      summary: Get the orchd login policy temporary ip blacklist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: getOrchdLoginPolicyTemporaryIpBlacklist
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    put:
-      tags:
-        - settings
-      summary: Set the orchd login policy temporary ip blacklist as a whole
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: setOrchdLoginPolicyTemporaryIpBlacklist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
-      responses:
-        "204":
-          description: Successful
-        "400":
-          description: Invalid request
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
-    delete:
-      tags:
-        - settings
-      summary: Delete an orchd login policy temporary ip blacklist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: deleteOrchdLoginPolicyTemporaryIpBlacklist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryIpList"
-      responses:
-        "204":
-          description: Successful
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-  # ANCHOR_END: temporary_ip_blacklist
-
   # ANCHOR: email_whitelist
   /settings/orchd/login-policy/email-whitelist:
     get:
@@ -729,7 +589,7 @@ paths:
       security:
         - sessionCookie: []
         - bearerAuth: []
-      operationId: setOrchdLoginPolicyEmailWhitelist
+      operationId: addOrchdLoginPolicyEmailWhitelist
       requestBody:
         required: true
         content:
@@ -799,7 +659,7 @@ paths:
       security:
         - sessionCookie: []
         - bearerAuth: []
-      operationId: setOrchdLoginPolicyEmailBlacklist
+      operationId: addOrchdLoginPolicyEmailBlacklist
       requestBody:
         required: true
         content:
@@ -838,146 +698,6 @@ paths:
         "403":
           description: Insufficient privileges
   # ANCHOR_END: email_blacklist
-
-  # ANCHOR: temporary_email_whitelist
-  /settings/orchd/login-policy/temporary/email-whitelist:
-    get:
-      tags:
-        - settings
-      summary: Get the orchd login policy temporary email whitelist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: getOrchdLoginPolicyTemporaryEmailWhitelist
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    put:
-      tags:
-        - settings
-      summary: Set the orchd login policy temporary email whitelist as a whole
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: setOrchdLoginPolicyTemporaryEmailWhitelist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
-      responses:
-        "204":
-          description: Successful
-        "400":
-          description: Invalid request
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
-    delete:
-      tags:
-        - settings
-      summary: Delete an orchd login policy temporary email whitelist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: deleteOrchdLoginPolicyTemporaryEmailWhitelist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
-      responses:
-        "204":
-          description: Successful
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-  # ANCHOR_END: temporary_email_whitelist
-
-  # ANCHOR: temporary_email_blacklist
-  /settings/orchd/login-policy/temporary/email-blacklist:
-    get:
-      tags:
-        - settings
-      summary: Get the orchd login policy temporary email blacklist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: getOrchdLoginPolicyTemporaryEmailBlacklist
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    put:
-      tags:
-        - settings
-      summary: Set the orchd login policy temporary whitelist as a whole
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: setOrchdLoginPolicyTemporaryEmailBlacklist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
-      responses:
-        "204":
-          description: Successful
-        "400":
-          description: Invalid request
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
-    delete:
-      tags:
-        - settings
-      summary: Delete an orchd login policy temporary email blacklist
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      operationId: deleteOrchdLoginPolicyTemporaryEmailBlacklist
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OrchdLoginPolicyTemporaryEmailList"
-      responses:
-        "204":
-          description: Successful
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-  # ANCHOR_END: temporary_email_blacklist
 
   /settings/{name}:
     parameters:
@@ -1192,6 +912,120 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DockerRegistry"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /v2/settings/dns/default-records:
+    post:
+      tags:
+        - dns
+      summary: Create a default DNS record
+      description: >-
+        Creates a default record at a platform level which will be added to all
+        newly created DNS zones.  In the value you can use $$origin$$ which will
+        be substituted for the origin domain.
+      operationId: createDefaultDnsRecord
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewDefaultDnsRecord"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    get:
+      tags:
+        - dns
+      summary: List default DNS records
+      description: >-
+        Lists the DNS records which will be added to all newly created DNS
+        zones.
+      operationId: listDefaultDnsRecords
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully listed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DefaultDnsRecord"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/settings/dns/default-records/{record_id}:
+    parameters:
+      - $ref: "#/components/parameters/DefaultDnsRecordId"
+    patch:
+      tags:
+        - dns
+      summary: Update a default DNS record
+      description: >-
+        Updates a default DNS record, all fields are optional.
+      operationId: updateDefaultDnsRecord
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDefaultDnsRecord"
+      responses:
+        "200":
+          description: Updated
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    delete:
+      tags:
+        - dns
+      parameters:
+        - in: path
+          name: record_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      summary: Delete a default DNS record
+      description: >-
+        Delete a default DNS record.  Will not remove from existing zones.
+      operationId: deleteDefaultDnsRecord
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Deleted
         "400":
           description: Invalid input
         "401":
@@ -1626,7 +1460,6 @@ paths:
         - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/ServerId"
-        - $ref: "#/components/parameters/Force"
       responses:
         "204":
           description: Deletion successful
@@ -1689,7 +1522,6 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
-
     post:
       tags:
         - servers
@@ -1940,6 +1772,31 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /servers/{server_id}/decommissioned:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    put:
+      tags:
+        - servers
+      summary: Set server to decommissioned
+      description: >-
+        If a server was decommissioned outside of Enhance, set its status to
+        decommissioned.  This will remove the server from any status checks,
+        will prevent website placement and will enable websites to be moved from
+        it to another server using backups if available.
+      operationId: setServerDecommissioned
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
 
   /servers/{server_id}/webserver:
     parameters:
@@ -1987,6 +1844,58 @@ paths:
       responses:
         "200":
           description: Web server kind successfully set
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /servers/{server_id}/webserver/config/reset:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    post:
+      tags:
+        - servers
+      summary: Reset the config for the web server to default.
+      description: >-
+        Will reset the config for the running web server to "known good"
+        defaults.  Currently only available for LiteSpeed.
+      operationId: resetWebServerConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Web server config reset
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /servers/{server_id}/webserver/litespeed/password:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    post:
+      tags:
+        - servers
+      summary: Set a new LiteSpeed admin password.
+      description: >-
+        Will reset the LiteSpeed or OpenLiteSpeed admin password.  The
+        username is always "admin".
+      operationId: setLiteSpeedAdminPassword
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: LiteSpeed password has been reset
         "401":
           description: Invalid session
         "403":
@@ -4703,6 +4612,9 @@ paths:
         be able to view an organization's plans on offer so that the viewer may
         decide to subscribe to a plan.
       operationId: getPlans
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/Offset"
         - $ref: "#/components/parameters/Limit"
@@ -6373,6 +6285,34 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/domains/{domain_id}/auth-ns:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - domains
+      summary: Get authoritative nameservers for domain.
+      description: >-
+        Get authoritative nameservers for domain and check if they match known DNS IPs
+        of the Enhance cluster
+      operationId: getDomainAuthNs
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Auth nameservers queried for domain
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthNsResponse"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/domains/{domain_id}/email-auth:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -6382,7 +6322,7 @@ paths:
         - emails
       summary: Get email authentication preferences
       description: >-
-        TODO
+        Fetch DKIM setting for the mailboxes on a given domain.
       operationId: getDomainEmailAuth
       security:
         - sessionCookie: []
@@ -6405,7 +6345,7 @@ paths:
         - emails
       summary: Update email authentication preferences
       description: >-
-        TODO
+        Update DKIM setting for the mailboxes on a given domain.
       operationId: updateDomainEmailAuth
       security:
         - sessionCookie: []
@@ -6428,7 +6368,33 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
+  /orgs/{org_id}/domains/{domain_id}/email-auth/validate:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - emails
+      summary: Validate email authentication DNS records
+      description: >-
+        Validate DKIM and SPF.
+      operationId: validateDomainEmailAuth
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Validation response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailAuthValidation"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/domains/{domain_id}/cloudflare:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -9037,6 +9003,70 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+
+  # ANCHOR: wordpress_config_key
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/WpOption"
+    get:
+      tags:
+        - wordpress
+      summary: Get the WP config value for a given option
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWordpressConfig
+      description: >-
+        Returns the value of a wp-config.php entry.
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WordpressConfig"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  # ANCHOR_END: wordpress_config_key
+
+  # ANCHOR: wordpress_config
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+    put:
+      tags:
+        - wordpress
+      summary: Set a single value of a wp-config.php entry.
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setWordpressConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WordpressConfig"
+      responses:
+        "204":
+          description: Successful
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  # ANCHOR_END: wordpress_config
+
   /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -9387,6 +9417,9 @@ paths:
         The sent out invite contains the following URL:
         http://{control_panel_domain}/invites/{invite_key}?email={user_email}
 
+        The invite is also returned as a string response for immediate display
+        to the creator of the invite.
+
         Where control panel domain is the domain name of the reseller's or the
         MO's control panel, the invite key is randomly generated, and the user
         email is the email address to which the invite is sent (and can be used
@@ -9416,6 +9449,10 @@ paths:
       responses:
         "201":
           description: Invite successfully created
+          content:
+            application/json:
+              schema:
+                type: string
         "400":
           description: Invalid input
         "401":
@@ -10530,6 +10567,36 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  /v2/import/scan:
+    get:
+      tags:
+        - importers
+      summary: Scan for manually uploaded cPanel backups.
+      description: |
+        Will scan /var/local/enhance/orchd/importer for files matching
+        cpmove*.tar.gz or backup*.tar.gz and will add them to the importer
+        database for analysis.  An array of migration IDs will be returned.
+        Master organisation only.
+      operationId: scanImportMigrations
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Migrations found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
 
   ###############################################################################
   # -- MO DNS
@@ -10752,6 +10819,226 @@ paths:
         "403":
           description: Insufficient privileges
 
+  ###############################################################################
+  # ----------------------- Nginx settings per-website -------------------------#
+  ###############################################################################
+
+  /v2/domains/{domain_id}/nginx_fastcgi:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - websites
+      summary: Get status of Nginx FastCGI enablement
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getDomainNginxFastCgi
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    put:
+      tags:
+        - websites
+      summary: Set Nginx FastCGI enablement
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setDomainNginxFastCgi
+      requestBody:
+        description: Boolean value, set true to enable and false to disable FastCGI cache.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: FastCGI enablement updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    delete:
+      tags:
+        - websites
+      summary: Clear FastCGI cache for domain
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: clearDomainNginxFastCgi
+      responses:
+        "200":
+          description: FastCGI cache cleared successfully
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - websites
+      summary: Get Nginx FastCGI excluded paths
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getDomainNginxFastCgiExcludedPaths
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    post:
+      tags:
+        - websites
+      summary: Add Nginx FastCGI excluded path
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: addDomainNginxFastCgiExcludedPath
+      requestBody:
+        description: Exclude the following path from nginx fastcgi cache.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: FastCGI excluded path added
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    delete:
+      parameters:
+        - in: query
+          name: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - websites
+      summary: Delete Nginx FastCGI excluded path
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteDomainNginxFastCgiExcludedPath
+      responses:
+        "200":
+          description: FastCGI excluded path deleted
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/domains/{domain_id}/webserver_rewrites:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - websites
+      summary: Get web server rewrites for specified domain
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getDomainWebserverRewrites
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WebServerRewrite"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    put:
+      tags:
+        - websites
+      summary: Set web server rewrite to file
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setDomainWebserverRewrite
+      requestBody:
+        description: Rewrite a path to a file
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebServerRewrite"
+      responses:
+        "200":
+          description: Rewrite added
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    delete:
+      parameters:
+        - in: query
+          name: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - websites
+      summary: Delete web server rewrite
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteDomainWebserverRewrite
+      responses:
+        "200":
+          description: Rewrite deleted
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/websites/{website_id}/webserver_kind:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get web server kind for a given website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsiteWebserverKind
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebserverKind"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
 ###############################################################################
 # --------------------------------- Components --------------------------------
 ###############################################################################
@@ -10845,6 +11132,13 @@ components:
       required: true
       schema:
         type: string
+    DefaultDnsRecordId:
+      name: record_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
     FtpUserId:
       name: user_id
       in: path
@@ -10959,6 +11253,13 @@ components:
       schema:
         type: string
         format: uuid
+    WpOption:
+      name: wp_option
+      in: path
+      description: The wordpress config option.
+      required: true
+      schema:
+        type: string
     WpUserId:
       name: user_id
       in: path
@@ -11299,6 +11600,16 @@ components:
   ###############################################################################
 
   schemas:
+    WebServerRewrite:
+      type: object
+      required:
+        - path
+        - destinationFile
+      properties:
+        path:
+          type: string
+        destinationFile:
+          type: string
     ResourceCheckConflict:
       type: object
       required:
@@ -12053,6 +12364,7 @@ components:
         - enabling
         - enabled
     FsQuotaLimit:
+      description: File system quota settings in bytes.
       type: object
       required:
         - totalAvailable
@@ -12060,6 +12372,7 @@ components:
         totalAvailable:
           type: number
     FsQuotaInfo:
+      description: File system quota info in bytes.
       type: object
       required:
         - totalAvailable
@@ -13059,6 +13372,7 @@ components:
         - roles
         - createdAt
         - controld
+        - isDecommissioned
       properties:
         id:
           type: string
@@ -13095,6 +13409,8 @@ components:
           format: semver
         dedicatedSubscription:
           $ref: "#/components/schemas/DedicatedSubscriptionInfo"
+        isDecommissioned:
+          type: boolean
     ServerInfoBrief:
       type: object
       required:
@@ -13108,6 +13424,7 @@ components:
         - roles
         - createdAt
         - controld
+        - isDecommissioned
       properties:
         id:
           type: string
@@ -13133,6 +13450,8 @@ components:
           type: string
         dedicatedSubscription:
           type: number
+        isDecommissioned:
+          type: boolean
     DedicatedSubscriptionInfo:
       required:
         - subscriptionId
@@ -13264,7 +13583,6 @@ components:
           type: object
           additionalProperties:
             $ref: "#/components/schemas/AuthNs"
-
     ServerConf:
       type: object
       properties:
@@ -13273,6 +13591,11 @@ components:
         group:
           type: string
           format: uuid
+    ServerStatusUpdate:
+      type: object
+      properties:
+        isDecommissioned:
+          type: boolean
     NewInvite:
       type: object
       required:
@@ -13940,10 +14263,9 @@ components:
         - address
         - aliases
         - status
-        - forwardersCount
         - autorespondersCount
-        - createdAt
-        - emailKind
+        - domainId
+        - websiteId
       properties:
         id:
           type: string
@@ -13975,6 +14297,9 @@ components:
         emailKind:
           type: string
           enum: ["normal", "internal"]
+        domainId:
+          type: string
+          format: uuid
     EmailDetailed:
       type: object
       required:
@@ -14518,6 +14843,60 @@ components:
           type: integer
         proxy:
           type: boolean
+    NewDefaultDnsRecord:
+      type: object
+      required:
+        - kind
+        - name
+        - value
+      properties:
+        kind:
+          $ref: "#/components/schemas/DnsRecordKind"
+        name:
+          type: string
+        value:
+          type: string
+        ttl:
+          type: integer
+        overrideConflicting:
+          type: boolean
+          default: false
+    UpdateDefaultDnsRecord:
+      type: object
+      properties:
+        kind:
+          $ref: "#/components/schemas/DnsRecordKind"
+        name:
+          type: string
+        value:
+          type: string
+        ttl:
+          type: integer
+        overrideConflicting:
+          type: boolean
+          default: false
+    DefaultDnsRecord:
+      type: object
+      required:
+        - id
+        - kind
+        - name
+        - value
+      properties:
+        id:
+          type: string
+          format: uuid
+        kind:
+          $ref: "#/components/schemas/DnsRecordKind"
+        name:
+          type: string
+        value:
+          type: string
+        ttl:
+          type: integer
+        overrideConflicting:
+          type: boolean
+          default: false
     DnsRecordKind:
       type: string
       enum: [A, AAAA, CNAME, TXT, SPF, SRV, NS, MX, PTR]
@@ -14591,7 +14970,16 @@ components:
           type: integer
         status:
           type: string
-          enum: [unprocessed, processed, queued, inProgress, failed, complete]
+          enum:
+            [
+              unprocessed,
+              processed,
+              queued,
+              analyzing,
+              inProgress,
+              failed,
+              complete,
+            ]
         importType:
           type: string
           enum: [cPanel]
@@ -14787,19 +15175,57 @@ components:
       type: object
       required:
         - dkim
-        - spif
       properties:
         dkim:
+          type: boolean
+        dkimPublicKey:
           type: string
-        spif:
-          type: string
+    EmailAuthValidation:
+      type: object
+      required:
+        - dkimIsValid
+        - spfIsValid
+        - foundTxtRecordsDkim
+      properties:
+        dkimIsValid:
+          type: boolean
+        spfIsValid:
+          type: boolean
+        foundTxtRecordsDkim:
+          type: array
+          items:
+            type: string
+        foundTxtRecordsSpf:
+          type: array
+          items:
+            type: string
     EmailAuthUpdate:
       type: object
       properties:
         dkim:
+          type: boolean
+    AuthNsResponse:
+      required:
+        - matchesPlatform
+        - authNs
+      properties:
+        matchesPlatform:
+          type: boolean
+        authNs:
+          type: array
+          items:
+            $ref: "#/components/schemas/AuthNsResponseNs"
+    AuthNsResponseNs:
+      required:
+        - name
+        - ips
+      properties:
+        name:
           type: string
-        spif:
-          type: string
+        ips:
+          type: array
+          items:
+            type: string
     AcceptInviteBody:
       type: object
       required:
@@ -16022,6 +16448,38 @@ components:
           $ref: "#/components/schemas/LogLevelLimit"
       required:
         - limit
+    WordpressConfig:
+      oneOf:
+        - $ref: "#/components/schemas/WpDebug"
+        - $ref: "#/components/schemas/WpDebugLog"
+        - $ref: "#/components/schemas/WpDebugDisplay"
+    WpDebug:
+      description: >-
+        Enable or disable debug mode.
+      type: object
+      properties:
+        WpDebug:
+          type: boolean
+      required:
+        - WpDebug
+    WpDebugLog:
+      description: >-
+        Enable or disable debug logging.
+      type: object
+      properties:
+        WpDebugLog:
+          type: boolean
+      required:
+        - WpDebugLog
+    WpDebugDisplay:
+      description: >-
+        Enable or disable debug display.
+      type: object
+      properties:
+        WpDebugDisplay:
+          type: boolean
+      required:
+        - WpDebugDisplay
     OrchdLoginPolicySettings:
       description: Settings for orchd login policy
       type: object
@@ -16030,17 +16488,17 @@ components:
           type: boolean
         emailQuota:
           type: integer
-        emailAutoBlock:
+        emailAutoBlockEnabled:
           type: boolean
-          minimum: 1
         emailAutoBlockThreshold:
           type: integer
+          minimum: 1
         emailAutoBlockDuration:
           type: integer
           minimum: 1
         ipQuota:
           type: integer
-        ipAutoBlock:
+        ipAutoBlockEnabled:
           type: boolean
         ipAutoBlockThreshold:
           type: integer
@@ -16064,35 +16522,6 @@ components:
           type: array
           items:
             type: string
-    OrchdLoginPolicyTemporaryIpList:
-      description: Ip white or black list for orchd login policy
-      type: object
-      properties:
-        ipList:
-          type: array
-          items:
-            type: object
-            properties:
-              net:
-                type: string
-              valid:
-                type: string
-                format: date-time
-    OrchdLoginPolicyTemporaryEmailList:
-      description: Email white or black list for orchd login policy
-      type: object
-      properties:
-        emailList:
-          type: array
-          items:
-            type: object
-            properties:
-              email:
-                type: string
-                format: email
-              valid:
-                type: string
-                format: date-time
     Outcome:
       type: string
       enum: [success, restartRequired, updateNotApplied]
@@ -16367,7 +16796,7 @@ components:
           type: string
     WebserverKind:
       type: string
-      enum: ["liteSpeed", "openLiteSpeed", "dummyWebServer", "apache"]
+      enum: ["liteSpeed", "openLiteSpeed", "dummyWebServer", "apache", "nginx"]
     SetWebserverKind:
       type: object
       required:

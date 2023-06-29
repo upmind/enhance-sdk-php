@@ -12,6 +12,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getImportMigrationData()**](ImportersApi.md#getImportMigrationData) | **GET** /v2/orgs/{org_id}/import/{import_migration_id}/analyze | Get import migration information |
 | [**getImportMigrationLog()**](ImportersApi.md#getImportMigrationLog) | **GET** /v2/orgs/{org_id}/import/{import_migration_id}/log | Get the log for an import migration |
 | [**getImportMigrations()**](ImportersApi.md#getImportMigrations) | **GET** /v2/orgs/{org_id}/import | List all import migrations |
+| [**scanImportMigrations()**](ImportersApi.md#scanImportMigrations) | **GET** /v2/import/scan | Scan for manually uploaded cPanel backups. |
 | [**uploadImportMigration()**](ImportersApi.md#uploadImportMigration) | **POST** /v2/orgs/{org_id}/import/upload/{import_migration_kind} | Upload file for analyzing and processing. |
 
 
@@ -532,6 +533,68 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\ImportMigrationFullListing**](../Model/ImportMigrationFullListing.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `scanImportMigrations()`
+
+```php
+scanImportMigrations(): string[]
+```
+
+Scan for manually uploaded cPanel backups.
+
+Will scan /var/local/enhance/orchd/importer for files matching cpmove*.tar.gz or backup*.tar.gz and will add them to the importer database for analysis.  An array of migration IDs will be returned. Master organisation only.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ImportersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->scanImportMigrations();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ImportersApi->scanImportMigrations: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**string[]**
 
 ### Authorization
 

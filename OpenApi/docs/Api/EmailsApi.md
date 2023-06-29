@@ -19,6 +19,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**updateDomainEmailAuth()**](EmailsApi.md#updateDomainEmailAuth) | **PUT** /orgs/{org_id}/domains/{domain_id}/email-auth | Update email authentication preferences |
 | [**updateWebsiteEmail()**](EmailsApi.md#updateWebsiteEmail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Update website email |
 | [**updateWebsiteEmailAutoresponder()**](EmailsApi.md#updateWebsiteEmailAutoresponder) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders/{autoresponder_id} | Update website email autoresponder |
+| [**validateDomainEmailAuth()**](EmailsApi.md#validateDomainEmailAuth) | **GET** /orgs/{org_id}/domains/{domain_id}/email-auth/validate | Validate email authentication DNS records |
 
 
 ## `createWebsiteEmail()`
@@ -300,7 +301,7 @@ getDomainEmailAuth($org_id, $domain_id): \Upmind\EnhanceSdk\Model\EmailAuth
 
 Get email authentication preferences
 
-TODO
+Fetch DKIM setting for the mailboxes on a given domain.
 
 ### Example
 
@@ -874,7 +875,7 @@ updateDomainEmailAuth($org_id, $domain_id, $email_auth_update)
 
 Update email authentication preferences
 
-TODO
+Update DKIM setting for the mailboxes on a given domain.
 
 ### Example
 
@@ -1062,6 +1063,73 @@ void (empty response body)
 
 - **Content-Type**: `application/json`
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `validateDomainEmailAuth()`
+
+```php
+validateDomainEmailAuth($org_id, $domain_id): \Upmind\EnhanceSdk\Model\EmailAuthValidation
+```
+
+Validate email authentication DNS records
+
+Validate DKIM and SPF.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\EmailsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->validateDomainEmailAuth($org_id, $domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling EmailsApi->validateDomainEmailAuth: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\EmailAuthValidation**](../Model/EmailAuthValidation.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

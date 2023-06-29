@@ -51,6 +51,9 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteFpmSettings()**](ServersApi.md#getWebsiteFpmSettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website |
 | [**initAllServers()**](ServersApi.md#initAllServers) | **POST** /servers/init | Attempts to initialize all roles |
 | [**installServerRole()**](ServersApi.md#installServerRole) | **PUT** /servers/{server_id}/roles/{role} | Install server role |
+| [**resetWebServerConfig()**](ServersApi.md#resetWebServerConfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default. |
+| [**setLiteSpeedAdminPassword()**](ServersApi.md#setLiteSpeedAdminPassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password. |
+| [**setServerDecommissioned()**](ServersApi.md#setServerDecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned |
 | [**setServerStatus()**](ServersApi.md#setServerStatus) | **POST** /servers/{server_id}/status | Set the status of one server. |
 | [**setServiceSetting()**](ServersApi.md#setServiceSetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting |
 | [**setServiceStatus()**](ServersApi.md#setServiceStatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified. |
@@ -920,7 +923,7 @@ try {
 ## `deleteSlave()`
 
 ```php
-deleteSlave($server_id, $force)
+deleteSlave($server_id)
 ```
 
 Delete a (slave) server
@@ -950,10 +953,9 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$force = false; // bool
 
 try {
-    $apiInstance->deleteSlave($server_id, $force);
+    $apiInstance->deleteSlave($server_id);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->deleteSlave: ', $e->getMessage(), PHP_EOL;
 }
@@ -964,7 +966,6 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **force** | **bool**|  | [optional] [default to false] |
 
 ### Return type
 
@@ -3078,6 +3079,200 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `resetWebServerConfig()`
+
+```php
+resetWebServerConfig($server_id)
+```
+
+Reset the config for the web server to default.
+
+Will reset the config for the running web server to \"known good\" defaults.  Currently only available for LiteSpeed.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $apiInstance->resetWebServerConfig($server_id);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->resetWebServerConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setLiteSpeedAdminPassword()`
+
+```php
+setLiteSpeedAdminPassword($server_id, $body)
+```
+
+Set a new LiteSpeed admin password.
+
+Will reset the LiteSpeed or OpenLiteSpeed admin password.  The username is always \"admin\".
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->setLiteSpeedAdminPassword($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setLiteSpeedAdminPassword: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **string**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setServerDecommissioned()`
+
+```php
+setServerDecommissioned($server_id)
+```
+
+Set server to decommissioned
+
+If a server was decommissioned outside of Enhance, set its status to decommissioned.  This will remove the server from any status checks, will prevent website placement and will enable websites to be moved from it to another server using backups if available.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $apiInstance->setServerDecommissioned($server_id);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setServerDecommissioned: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

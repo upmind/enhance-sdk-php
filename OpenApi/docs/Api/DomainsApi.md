@@ -13,6 +13,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWebsiteDomainMapping()**](DomainsApi.md#deleteWebsiteDomainMapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping |
 | [**getCloudflareApiKeyDomain()**](DomainsApi.md#getCloudflareApiKeyDomain) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare | Get CloudFlare API key, domain level |
 | [**getCloudflareNameServers()**](DomainsApi.md#getCloudflareNameServers) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare/nameservers | Get CloudFlare name servers |
+| [**getDomainAuthNs()**](DomainsApi.md#getDomainAuthNs) | **GET** /orgs/{org_id}/domains/{domain_id}/auth-ns | Get authoritative nameservers for domain. |
 | [**getDomains()**](DomainsApi.md#getDomains) | **GET** /orgs/{org_id}/domains | Get domains |
 | [**getWebsiteDomainDnsQuery()**](DomainsApi.md#getWebsiteDomainDnsQuery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain |
 | [**getWebsiteDomainMapping()**](DomainsApi.md#getWebsiteDomainMapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping |
@@ -609,6 +610,73 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\CloudFlareNameServers**](../Model/CloudFlareNameServers.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getDomainAuthNs()`
+
+```php
+getDomainAuthNs($org_id, $domain_id): \Upmind\EnhanceSdk\Model\AuthNsResponse
+```
+
+Get authoritative nameservers for domain.
+
+Get authoritative nameservers for domain and check if they match known DNS IPs of the Enhance cluster
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getDomainAuthNs($org_id, $domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->getDomainAuthNs: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\AuthNsResponse**](../Model/AuthNsResponse.md)
 
 ### Authorization
 

@@ -9,6 +9,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWordpressUser()**](WordpressApi.md#deleteWordpressUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user |
 | [**getDefaultWpSsoUser()**](WordpressApi.md#getDefaultWpSsoUser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default |  |
 | [**getWordpressAppVersion()**](WordpressApi.md#getWordpressAppVersion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version |
+| [**getWordpressConfig()**](WordpressApi.md#getWordpressConfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option |
 | [**getWordpressInstallations()**](WordpressApi.md#getWordpressInstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations |
 | [**getWordpressLatestVersion()**](WordpressApi.md#getWordpressLatestVersion) | **GET** /utils/wordpress/latest | Get WordPress latest available version |
 | [**getWordpressPlugins()**](WordpressApi.md#getWordpressPlugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins |
@@ -18,6 +19,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWordpressUsers()**](WordpressApi.md#getWordpressUsers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users |  |
 | [**installWordpressPlugin()**](WordpressApi.md#installWordpressPlugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin |
 | [**setDefaultWpSsoUser()**](WordpressApi.md#setDefaultWpSsoUser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website. |
+| [**setWordpressConfig()**](WordpressApi.md#setWordpressConfig) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config | Set a single value of a wp-config.php entry. |
 | [**updateWordpressAppVersion()**](WordpressApi.md#updateWordpressAppVersion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest |
 | [**updateWordpressPluginSettings()**](WordpressApi.md#updateWordpressPluginSettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings |
 | [**updateWordpressPluginToLatest()**](WordpressApi.md#updateWordpressPluginToLatest) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin}/version | Updates website WordPress plugin to latest version |
@@ -318,6 +320,77 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWordpressConfig()`
+
+```php
+getWordpressConfig($org_id, $website_id, $app_id, $wp_option): \Upmind\EnhanceSdk\Model\WordpressConfig
+```
+
+Get the WP config value for a given option
+
+Returns the value of a wp-config.php entry.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$wp_option = 'wp_option_example'; // string | The wordpress config option.
+
+try {
+    $result = $apiInstance->getWordpressConfig($org_id, $website_id, $app_id, $wp_option);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->getWordpressConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **wp_option** | **string**| The wordpress config option. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\WordpressConfig**](../Model/WordpressConfig.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -857,6 +930,74 @@ void (empty response body)
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWordpressConfig()`
+
+```php
+setWordpressConfig($org_id, $website_id, $app_id, $wordpress_config)
+```
+
+Set a single value of a wp-config.php entry.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$wordpress_config = new \Upmind\EnhanceSdk\Model\WordpressConfig(); // \Upmind\EnhanceSdk\Model\WordpressConfig
+
+try {
+    $apiInstance->setWordpressConfig($org_id, $website_id, $app_id, $wordpress_config);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->setWordpressConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **wordpress_config** | [**\Upmind\EnhanceSdk\Model\WordpressConfig**](../Model/WordpressConfig.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
