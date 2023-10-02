@@ -46,6 +46,8 @@ class PlanType
 
     public const DEDICATED = 'dedicated';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class PlanType
     {
         return [
             self::SHARED,
-            self::DEDICATED
+            self::DEDICATED,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

@@ -506,6 +506,8 @@ class CPLocale
 
     public const ZU_ZA = 'zu-ZA';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -744,7 +746,8 @@ class CPLocale
             self::ZH_SG,
             self::ZH_TW,
             self::ZU,
-            self::ZU_ZA
+            self::ZU_ZA,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

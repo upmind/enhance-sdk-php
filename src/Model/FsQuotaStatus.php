@@ -48,6 +48,8 @@ class FsQuotaStatus
 
     public const ENABLED = 'enabled';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -57,7 +59,8 @@ class FsQuotaStatus
         return [
             self::DISABLED,
             self::ENABLING,
-            self::ENABLED
+            self::ENABLED,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

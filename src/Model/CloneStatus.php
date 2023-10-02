@@ -52,6 +52,8 @@ class CloneStatus
 
     public const FAILED = 'failed';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -63,7 +65,8 @@ class CloneStatus
             self::CLONING_DATABASES,
             self::CLONING_HOME_DIR,
             self::SUCCEEDED,
-            self::FAILED
+            self::FAILED,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

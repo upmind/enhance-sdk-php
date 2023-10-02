@@ -46,6 +46,8 @@ class ServiceStatusAction
 
     public const FORCE_RESTART = 'forceRestart';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class ServiceStatusAction
     {
         return [
             self::GRACEFUL_RESTART,
-            self::FORCE_RESTART
+            self::FORCE_RESTART,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

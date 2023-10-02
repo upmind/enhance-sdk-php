@@ -57,6 +57,8 @@ class WebsiteLogStatus
 
     public const APP_SERVER_MISMATCH = 'appServerMismatch';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -70,7 +72,8 @@ class WebsiteLogStatus
             self::FAILED5XX,
             self::TIMEOUT,
             self::DNS_ZONE_NOT_FOUND,
-            self::APP_SERVER_MISMATCH
+            self::APP_SERVER_MISMATCH,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

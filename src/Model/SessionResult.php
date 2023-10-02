@@ -230,6 +230,7 @@ class SessionResult implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public const AUTH_METHOD_EMAIL = 'email';
     public const AUTH_METHOD_OTP = 'otp';
+    public const AUTH_METHOD_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -241,6 +242,7 @@ class SessionResult implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::AUTH_METHOD_EMAIL,
             self::AUTH_METHOD_OTP,
+            self::AUTH_METHOD_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

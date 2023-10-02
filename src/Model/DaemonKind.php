@@ -62,6 +62,8 @@ class DaemonKind
 
     public const PURE_FTP = 'pureFtp';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -78,7 +80,8 @@ class DaemonKind
             self::DOVCOT_IMAPS,
             self::DOVCOT_POP3,
             self::DOVCOT_POP3S,
-            self::PURE_FTP
+            self::PURE_FTP,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

@@ -46,6 +46,8 @@ class ResourceCheckManagerErrorKind
 
     public const RESOURCE_OUT_OF_QUOTA = 'resourceOutOfQuota';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class ResourceCheckManagerErrorKind
     {
         return [
             self::NON_EXISTENT_RESOURCE,
-            self::RESOURCE_OUT_OF_QUOTA
+            self::RESOURCE_OUT_OF_QUOTA,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

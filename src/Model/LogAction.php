@@ -48,6 +48,8 @@ class LogAction
 
     public const DELETE = 'delete';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -57,7 +59,8 @@ class LogAction
         return [
             self::CREATE,
             self::UPDATE,
-            self::DELETE
+            self::DELETE,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

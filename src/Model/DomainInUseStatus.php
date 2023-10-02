@@ -239,6 +239,7 @@ class DomainInUseStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     public const STATUS_IN_USE_CURRENT_ORG = 'inUseCurrentOrg';
     public const STATUS_IN_USE_ANOTHER_ORG = 'inUseAnotherOrg';
     public const STATUS_IN_USE_DELETED_SITE = 'inUseDeletedSite';
+    public const STATUS_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -253,6 +254,7 @@ class DomainInUseStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
             self::STATUS_IN_USE_CURRENT_ORG,
             self::STATUS_IN_USE_ANOTHER_ORG,
             self::STATUS_IN_USE_DELETED_SITE,
+            self::STATUS_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

@@ -54,6 +54,8 @@ class WebsiteKind
 
     public const SERVER_HOSTNAME = 'serverHostname';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -66,7 +68,8 @@ class WebsiteKind
             self::PHP_MY_ADMIN,
             self::ROUNDCUBE,
             self::STAGING,
-            self::SERVER_HOSTNAME
+            self::SERVER_HOSTNAME,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

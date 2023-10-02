@@ -52,6 +52,8 @@ class NetworkStatus
 
     public const CRITICAL = 'critical';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -63,7 +65,8 @@ class NetworkStatus
             self::ONLINE,
             self::RESTARTING,
             self::WARNING,
-            self::CRITICAL
+            self::CRITICAL,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

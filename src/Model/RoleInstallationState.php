@@ -48,6 +48,8 @@ class RoleInstallationState
 
     public const NOT_INSTALLED = 'notInstalled';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -57,7 +59,8 @@ class RoleInstallationState
         return [
             self::ENABLED,
             self::DISABLED,
-            self::NOT_INSTALLED
+            self::NOT_INSTALLED,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

@@ -71,6 +71,8 @@ class ResourceName
 
     public const SUBDOMAINS = 'subdomains';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -91,7 +93,8 @@ class ResourceName
             self::TRANSFER,
             self::WEBSITES,
             self::ADDON_DOMAINS,
-            self::SUBDOMAINS
+            self::SUBDOMAINS,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

@@ -76,6 +76,8 @@ class LogKind
 
     public const EMAIL_DATA_TRANSFER = 'emailDataTransfer';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -99,7 +101,8 @@ class LogKind
             self::EMAIL_FORWARDER,
             self::EMAIL_ACCOUNT,
             self::EMAIL_DATA,
-            self::EMAIL_DATA_TRANSFER
+            self::EMAIL_DATA_TRANSFER,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

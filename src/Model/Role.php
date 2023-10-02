@@ -55,6 +55,8 @@ class Role
 
     public const SYSADMIN = 'Sysadmin';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -67,7 +69,8 @@ class Role
             self::BUSINESS,
             self::SITE_ACCESS,
             self::SUPPORT,
-            self::SYSADMIN
+            self::SYSADMIN,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

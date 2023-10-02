@@ -46,6 +46,8 @@ class WPAutoUpdateCore
 
     public const MINOR = 'minor';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class WPAutoUpdateCore
     {
         return [
             self::MAJOR,
-            self::MINOR
+            self::MINOR,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

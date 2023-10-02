@@ -53,6 +53,8 @@ class LogLevelLimit
 
     public const DEBUG = 'debug';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -64,7 +66,8 @@ class LogLevelLimit
             self::WARN,
             self::INFO,
             self::TRACE,
-            self::DEBUG
+            self::DEBUG,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

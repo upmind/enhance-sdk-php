@@ -55,6 +55,8 @@ class LicenceStatus
 
     public const UNKNOWN = 'unknown';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -67,7 +69,8 @@ class LicenceStatus
             self::SUSPENDED,
             self::TRIAL,
             self::UNPAID,
-            self::UNKNOWN
+            self::UNKNOWN,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

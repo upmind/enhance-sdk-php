@@ -289,7 +289,9 @@ class ImportMigrationEntry implements ModelInterface, ArrayAccess, \JsonSerializ
     public const STATUS_IN_PROGRESS = 'inProgress';
     public const STATUS_FAILED = 'failed';
     public const STATUS_COMPLETE = 'complete';
+    public const STATUS_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
     public const IMPORT_TYPE_C_PANEL = 'cPanel';
+    public const IMPORT_TYPE_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -306,6 +308,7 @@ class ImportMigrationEntry implements ModelInterface, ArrayAccess, \JsonSerializ
             self::STATUS_IN_PROGRESS,
             self::STATUS_FAILED,
             self::STATUS_COMPLETE,
+            self::STATUS_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 
@@ -318,6 +321,7 @@ class ImportMigrationEntry implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         return [
             self::IMPORT_TYPE_C_PANEL,
+            self::IMPORT_TYPE_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

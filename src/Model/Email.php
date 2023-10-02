@@ -302,6 +302,7 @@ class Email implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public const EMAIL_KIND_NORMAL = 'normal';
     public const EMAIL_KIND_INTERNAL = 'internal';
+    public const EMAIL_KIND_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -313,6 +314,7 @@ class Email implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::EMAIL_KIND_NORMAL,
             self::EMAIL_KIND_INTERNAL,
+            self::EMAIL_KIND_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

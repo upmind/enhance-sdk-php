@@ -236,6 +236,7 @@ class CloudFlareNameServers implements ModelInterface, ArrayAccess, \JsonSeriali
 
     public const STATUS_ACTIVE = 'active';
     public const STATUS_PENDING = 'pending';
+    public const STATUS_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -247,6 +248,7 @@ class CloudFlareNameServers implements ModelInterface, ArrayAccess, \JsonSeriali
         return [
             self::STATUS_ACTIVE,
             self::STATUS_PENDING,
+            self::STATUS_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

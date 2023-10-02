@@ -242,6 +242,7 @@ class InterfaceIp implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public const KIND_PRIMARY = 'primary';
     public const KIND_SECONDARY = 'secondary';
+    public const KIND_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -253,6 +254,7 @@ class InterfaceIp implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::KIND_PRIMARY,
             self::KIND_SECONDARY,
+            self::KIND_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

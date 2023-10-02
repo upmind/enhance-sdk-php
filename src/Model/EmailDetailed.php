@@ -308,6 +308,7 @@ class EmailDetailed implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public const SPAM_DELIVERY_SPAM_FOLDER = 'spamFolder';
     public const SPAM_DELIVERY_REJECT = 'reject';
+    public const SPAM_DELIVERY_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -319,6 +320,7 @@ class EmailDetailed implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::SPAM_DELIVERY_SPAM_FOLDER,
             self::SPAM_DELIVERY_REJECT,
+            self::SPAM_DELIVERY_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

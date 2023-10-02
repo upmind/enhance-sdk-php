@@ -46,6 +46,8 @@ class LocalRemote
 
     public const REMOTE = 'remote';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class LocalRemote
     {
         return [
             self::LOCAL,
-            self::REMOTE
+            self::REMOTE,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

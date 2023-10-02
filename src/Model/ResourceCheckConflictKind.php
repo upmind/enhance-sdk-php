@@ -54,6 +54,8 @@ class ResourceCheckConflictKind
 
     public const DOMAIN = 'domain';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -66,7 +68,8 @@ class ResourceCheckConflictKind
             self::FTP_USER,
             self::MAILBOX_FORWARDER,
             self::MAILBOX,
-            self::DOMAIN
+            self::DOMAIN,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

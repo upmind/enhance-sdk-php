@@ -46,6 +46,8 @@ class BackupAction
 
     public const RESTORE = 'restore';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class BackupAction
     {
         return [
             self::BACKUP,
-            self::RESTORE
+            self::RESTORE,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

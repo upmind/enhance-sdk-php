@@ -48,6 +48,8 @@ class Outcome
 
     public const UPDATE_NOT_APPLIED = 'updateNotApplied';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -57,7 +59,8 @@ class Outcome
         return [
             self::SUCCESS,
             self::RESTART_REQUIRED,
-            self::UPDATE_NOT_APPLIED
+            self::UPDATE_NOT_APPLIED,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

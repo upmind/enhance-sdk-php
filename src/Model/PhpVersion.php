@@ -60,6 +60,8 @@ class PhpVersion
 
     public const PHP82 = 'php82';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -75,7 +77,8 @@ class PhpVersion
             self::PHP74,
             self::PHP80,
             self::PHP81,
-            self::PHP82
+            self::PHP82,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

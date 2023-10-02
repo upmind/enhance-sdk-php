@@ -52,6 +52,8 @@ class DomainMappingKind
 
     public const SUBDOMAIN = 'subdomain';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -63,7 +65,8 @@ class DomainMappingKind
             self::PREVIEW,
             self::ADDON,
             self::ALIAS,
-            self::SUBDOMAIN
+            self::SUBDOMAIN,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

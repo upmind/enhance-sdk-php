@@ -55,6 +55,8 @@ class DnsStatus
 
     public const ERROR = 'Error';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -67,7 +69,8 @@ class DnsStatus
             self::FAILED,
             self::MIXED,
             self::UNKNOWN,
-            self::ERROR
+            self::ERROR,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

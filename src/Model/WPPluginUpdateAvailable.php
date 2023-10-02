@@ -46,6 +46,8 @@ class WPPluginUpdateAvailable
 
     public const NONE = 'none';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class WPPluginUpdateAvailable
     {
         return [
             self::AVAILABLE,
-            self::NONE
+            self::NONE,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

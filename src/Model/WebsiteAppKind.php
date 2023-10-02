@@ -44,6 +44,8 @@ class WebsiteAppKind
      */
     public const WORDPRESS = 'wordpress';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -51,7 +53,8 @@ class WebsiteAppKind
     public static function getAllowableEnumValues()
     {
         return [
-            self::WORDPRESS
+            self::WORDPRESS,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

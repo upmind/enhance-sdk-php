@@ -47,6 +47,8 @@ class MySQLAuthPlugin
 
     public const MYSQL_NATIVE_PASSWORD = 'mysql_native_password';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -55,7 +57,8 @@ class MySQLAuthPlugin
     {
         return [
             self::CACHING_SHA2_PASSWORD,
-            self::MYSQL_NATIVE_PASSWORD
+            self::MYSQL_NATIVE_PASSWORD,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

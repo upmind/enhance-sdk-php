@@ -254,6 +254,7 @@ class Disk implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public const KIND_SSD = 'ssd';
     public const KIND_HDD = 'hdd';
+    public const KIND_UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
 
     /**
      * Gets allowable values of the enum
@@ -265,6 +266,7 @@ class Disk implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::KIND_SSD,
             self::KIND_HDD,
+            self::KIND_UNKNOWN_DEFAULT_OPEN_API,
         ];
     }
 

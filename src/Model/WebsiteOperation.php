@@ -44,6 +44,8 @@ class WebsiteOperation
      */
     public const CHANGE_SUBSCRIPTION = 'changeSubscription';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -51,7 +53,8 @@ class WebsiteOperation
     public static function getAllowableEnumValues()
     {
         return [
-            self::CHANGE_SUBSCRIPTION
+            self::CHANGE_SUBSCRIPTION,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

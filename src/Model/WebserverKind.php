@@ -52,6 +52,8 @@ class WebserverKind
 
     public const NGINX = 'nginx';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -63,7 +65,8 @@ class WebserverKind
             self::OPEN_LITE_SPEED,
             self::DUMMY_WEB_SERVER,
             self::APACHE,
-            self::NGINX
+            self::NGINX,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

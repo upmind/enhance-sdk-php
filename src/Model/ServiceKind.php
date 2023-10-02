@@ -68,6 +68,8 @@ class ServiceKind
 
     public const FTPCD = 'ftpcd';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -87,7 +89,8 @@ class ServiceKind
             self::MTACD,
             self::IMAPCD,
             self::SPAMCD,
-            self::FTPCD
+            self::FTPCD,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

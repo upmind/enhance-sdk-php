@@ -52,6 +52,8 @@ class ServerRole
 
     public const DNS = 'dns';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -63,7 +65,8 @@ class ServerRole
             self::BACKUP,
             self::DATABASE,
             self::APPLICATION,
-            self::DNS
+            self::DNS,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

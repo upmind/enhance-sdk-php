@@ -46,6 +46,8 @@ class ServerStatusAction
 
     public const FORCE_REBOOT = 'forceReboot';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -54,7 +56,8 @@ class ServerStatusAction
     {
         return [
             self::GRACEFUL_REBOOT,
-            self::FORCE_REBOOT
+            self::FORCE_REBOOT,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }

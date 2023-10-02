@@ -50,6 +50,8 @@ class EmailStatus
 
     public const SUSPENDED = 'suspended';
 
+    public const UNKNOWN_DEFAULT_OPEN_API = 'unknown_default_open_api';
+
     /**
      * Gets allowable values of the enum
      * @return string[]
@@ -60,7 +62,8 @@ class EmailStatus
             self::ACTIVE,
             self::DISABLED,
             self::DELETED,
-            self::SUSPENDED
+            self::SUSPENDED,
+            self::UNKNOWN_DEFAULT_OPEN_API
         ];
     }
 }
