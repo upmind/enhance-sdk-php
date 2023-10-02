@@ -2,6 +2,11 @@
 
 All notable changes to the package will be documented in this file.
 
+## v9.9.1 - 2023-10-02
+
+- Update generate.sh to use a config file
+- Re-generate SDK with enumUnknownDefaultCase: true
+
 ## v9.9.0 - 2023-10-02
 
 - Update open-api.yml to Enhance v9.9.0 OpenAPI spec
