@@ -13,7 +13,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createPlanResources()**](OrgsApi.md#createPlanResources) | **POST** /orgs/{org_id}/plans/{plan_id}/resources | Create plan resources |
 | [**createPlanSelections()**](OrgsApi.md#createPlanSelections) | **POST** /orgs/{org_id}/plans/{plan_id}/selections | Create plan selections |
 | [**createTag()**](OrgsApi.md#createTag) | **POST** /orgs/{org_id}/tags | Create tag |
-| [**createWebsiteDomainLetsencryptCerts()**](OrgsApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
 | [**deleteCloudflareApiKey()**](OrgsApi.md#deleteCloudflareApiKey) | **DELETE** /orgs/{org_id}/cloudflare/{cloudflare_key} | Delete CloudFlare API key, org level |
 | [**deleteMember()**](OrgsApi.md#deleteMember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member |
 | [**deleteOrg()**](OrgsApi.md#deleteOrg) | **DELETE** /orgs/{org_id} | Delete organization |
@@ -22,8 +21,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deletePlan()**](OrgsApi.md#deletePlan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan |
 | [**deletePlanAllowance()**](OrgsApi.md#deletePlanAllowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance |
 | [**deleteWebsiteMySQLUserAccessHosts()**](OrgsApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts |
-| [**deleteWebsiteSslCert()**](OrgsApi.md#deleteWebsiteSslCert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate |
-| [**enableWebsiteSslCert()**](OrgsApi.md#enableWebsiteSslCert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain |
 | [**getCloudFlareKeyAffectedDomains()**](OrgsApi.md#getCloudFlareKeyAffectedDomains) | **GET** /orgs/{org_id}/cloudflare/{cloudflare_key} | Get affected domains for a CloudFlare key |
 | [**getCloudflareApiKeys()**](OrgsApi.md#getCloudflareApiKeys) | **GET** /orgs/{org_id}/cloudflare | Get CloudFlare API keys, org level |
 | [**getCustomersAdded()**](OrgsApi.md#getCustomersAdded) | **GET** /orgs/{org_id}/stats/customers/added | Get customers added over a given time period |
@@ -35,10 +32,10 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getPlan()**](OrgsApi.md#getPlan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan |
 | [**getPlans()**](OrgsApi.md#getPlans) | **GET** /orgs/{org_id}/plans | Get plans |
 | [**getTags()**](OrgsApi.md#getTags) | **GET** /orgs/{org_id}/tags | Get tags |
-| [**getWebsiteSslCert()**](OrgsApi.md#getWebsiteSslCert) | **GET** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Fetches a single SSL cert |
-| [**getWebsiteSslCerts()**](OrgsApi.md#getWebsiteSslCerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website |
+| [**getWebsiteDomainSslCert()**](OrgsApi.md#getWebsiteDomainSslCert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain |
 | [**getWebsitesAdded()**](OrgsApi.md#getWebsitesAdded) | **GET** /orgs/{org_id}/stats/websites/added | Get websites added over a given time period |
 | [**setOrgAvatar()**](OrgsApi.md#setOrgAvatar) | **PUT** /orgs/{org_id}/avatar | Set org avatar |
+| [**setWebsiteDomainForceSsl()**](OrgsApi.md#setWebsiteDomainForceSsl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping |
 | [**updateCloudflareApiKey()**](OrgsApi.md#updateCloudflareApiKey) | **PUT** /orgs/{org_id}/cloudflare/{cloudflare_key} | Update CloudFlare API key |
 | [**updateMember()**](OrgsApi.md#updateMember) | **PUT** /orgs/{org_id}/members/{member_id} | Overwrite organization member settings |
 | [**updateOrg()**](OrgsApi.md#updateOrg) | **PATCH** /orgs/{org_id} | Update organization |
@@ -47,7 +44,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**updatePlanAllowance()**](OrgsApi.md#updatePlanAllowance) | **PUT** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Update plan allowance |
 | [**updatePlanResource()**](OrgsApi.md#updatePlanResource) | **PUT** /orgs/{org_id}/plans/{plan_id}/resources/{name} | Update plan resource |
 | [**updatePlanSelection()**](OrgsApi.md#updatePlanSelection) | **PUT** /orgs/{org_id}/plans/{plan_id}/selections/{name} | Update plan selection |
-| [**uploadWebsiteSslCerts()**](OrgsApi.md#uploadWebsiteSslCerts) | **POST** /orgs/{org_id}/websites/{website_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website |
+| [**uploadWebsiteDomainSslCert()**](OrgsApi.md#uploadWebsiteDomainSslCert) | **POST** /v2/domains/{domain_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website |
 
 
 ## `createAccessToken()`
@@ -629,69 +626,6 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createWebsiteDomainLetsencryptCerts()`
-
-```php
-createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable)
-```
-
-Generate and setup letsencrypt ssl certificates for website's domain
-
-Generates letsencrypt certificates for the domain. This is a longer running task, that will do a complete ssl setup for a given domain. Once completed any given domain will get served over `https`. Given domain must be publicly accessible and being served from our service. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$domain_id = 'domain_id_example'; // string | The id of the domain.
-$dry_run = True; // bool | If not set or `dry_run=true` it will only verify domain ownership and get dummy certificates. To enable SSL on domain set `?dry_run=false`.
-$enable = True; // bool | Defaults to `enable=true` if not set. To only generate and save certificate in db set `enable=false`. It has no bearing if `dry_run=false` not set.
-
-try {
-    $apiInstance->createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable);
-} catch (Exception $e) {
-    echo 'Exception when calling OrgsApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **domain_id** | **string**| The id of the domain. | |
-| **dry_run** | **bool**| If not set or &#x60;dry_run&#x3D;true&#x60; it will only verify domain ownership and get dummy certificates. To enable SSL on domain set &#x60;?dry_run&#x3D;false&#x60;. | [optional] |
-| **enable** | **bool**| Defaults to &#x60;enable&#x3D;true&#x60; if not set. To only generate and save certificate in db set &#x60;enable&#x3D;false&#x60;. It has no bearing if &#x60;dry_run&#x3D;false&#x60; not set. | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `deleteCloudflareApiKey()`
 
 ```php
@@ -1191,128 +1125,6 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `deleteWebsiteSslCert()`
-
-```php
-deleteWebsiteSslCert($org_id, $website_id, $cert_id)
-```
-
-Deletes given ssl certificate
-
-Endpoint for deleting SSl certificate for a given website User can only delete a certificate if it is not enabled for any domain.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-
-try {
-    $apiInstance->deleteWebsiteSslCert($org_id, $website_id, $cert_id);
-} catch (Exception $e) {
-    echo 'Exception when calling OrgsApi->deleteWebsiteSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `enableWebsiteSslCert()`
-
-```php
-enableWebsiteSslCert($org_id, $website_id, $cert_id, $domain_id, $force_ssl)
-```
-
-Enables already stored certificate for a given domain
-
-Endpoint for applying SSl certificates for a given website's domain. Sets or updates the exiting cert mapping for the given domain.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-$domain_id = 'domain_id_example'; // string | The id of the domain.
-$force_ssl = True; // bool | Forced redirect to SSL for the given domain
-
-try {
-    $apiInstance->enableWebsiteSslCert($org_id, $website_id, $cert_id, $domain_id, $force_ssl);
-} catch (Exception $e) {
-    echo 'Exception when calling OrgsApi->enableWebsiteSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-| **domain_id** | **string**| The id of the domain. | |
-| **force_ssl** | **bool**| Forced redirect to SSL for the given domain | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -2083,15 +1895,15 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getWebsiteSslCert()`
+## `getWebsiteDomainSslCert()`
 
 ```php
-getWebsiteSslCert($org_id, $website_id, $cert_id): \Upmind\EnhanceSdk\Model\SslCertWithData
+getWebsiteDomainSslCert($domain_id): \Upmind\EnhanceSdk\Model\DomainSslCertWithData
 ```
 
-Fetches a single SSL cert
+Returns the SSL for this website domain
 
-Returns certificate data and mappings for a single certificate belonging to a website.
+Endpoint for retrieving SSL certificates for a given website including certificates generated by letsencrypt
 
 ### Example
 
@@ -2106,15 +1918,13 @@ $apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
 
 try {
-    $result = $apiInstance->getWebsiteSslCert($org_id, $website_id, $cert_id);
+    $result = $apiInstance->getWebsiteDomainSslCert($domain_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling OrgsApi->getWebsiteSslCert: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling OrgsApi->getWebsiteDomainSslCert: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -2122,71 +1932,11 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
+| **domain_id** | **string**| The id of the domain. | |
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\SslCertWithData**](../Model/SslCertWithData.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getWebsiteSslCerts()`
-
-```php
-getWebsiteSslCerts($org_id, $website_id): \Upmind\EnhanceSdk\Model\SslCertsFullListing
-```
-
-Returns all certificates data with domain mappings for a given website
-
-Endpoint for retreaving SSl certificates for a given website including certificates generated by letsencrypt
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-
-try {
-    $result = $apiInstance->getWebsiteSslCerts($org_id, $website_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling OrgsApi->getWebsiteSslCerts: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\SslCertsFullListing**](../Model/SslCertsFullListing.md)
+[**\Upmind\EnhanceSdk\Model\DomainSslCertWithData**](../Model/DomainSslCertWithData.md)
 
 ### Authorization
 
@@ -2330,6 +2080,61 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `multipart/form-data`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteDomainForceSsl()`
+
+```php
+setWebsiteDomainForceSsl($domain_id, $body)
+```
+
+Set \"force ssl\" status for domain mapping
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$body = True; // bool | Boolean \"force ssl\" setting
+
+try {
+    $apiInstance->setWebsiteDomainForceSsl($domain_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->setWebsiteDomainForceSsl: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **body** | **bool**| Boolean \&quot;force ssl\&quot; setting | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -2846,10 +2651,10 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `uploadWebsiteSslCerts()`
+## `uploadWebsiteDomainSslCert()`
 
 ```php
-uploadWebsiteSslCerts($org_id, $website_id, $ssl_certs): \Upmind\EnhanceSdk\Model\NewSslCert
+uploadWebsiteDomainSslCert($domain_id, $ssl_cert): \Upmind\EnhanceSdk\Model\NewSslCert
 ```
 
 Upload custom ssl certificate, key and optional fullchain for a given website
@@ -2869,15 +2674,14 @@ $apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$ssl_certs = new \Upmind\EnhanceSdk\Model\SslCerts(); // \Upmind\EnhanceSdk\Model\SslCerts | Cert, private key and optional fullchain.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$ssl_cert = new \Upmind\EnhanceSdk\Model\SslCert(); // \Upmind\EnhanceSdk\Model\SslCert | Cert, private key and optional fullchain.
 
 try {
-    $result = $apiInstance->uploadWebsiteSslCerts($org_id, $website_id, $ssl_certs);
+    $result = $apiInstance->uploadWebsiteDomainSslCert($domain_id, $ssl_cert);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling OrgsApi->uploadWebsiteSslCerts: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling OrgsApi->uploadWebsiteDomainSslCert: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -2885,9 +2689,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **ssl_certs** | [**\Upmind\EnhanceSdk\Model\SslCerts**](../Model/SslCerts.md)| Cert, private key and optional fullchain. | |
+| **domain_id** | **string**| The id of the domain. | |
+| **ssl_cert** | [**\Upmind\EnhanceSdk\Model\SslCert**](../Model/SslCert.md)| Cert, private key and optional fullchain. | |
 
 ### Return type
 

@@ -39,5 +39,6 @@ Name | Type | Description | Notes
 **db_server_name** | **string** |  | [optional]
 **email_server_name** | **string** |  | [optional]
 **backup_server_name** | **string** |  | [optional]
+**can_use** | [**\Upmind\EnhanceSdk\Model\CanUse**](CanUse.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -19,5 +19,6 @@ Name | Type | Description | Notes
 **emails_count** | **int** |  | [optional]
 **emails_size** | **int** |  | [optional]
 **kind** | [**\Upmind\EnhanceSdk\Model\BackupKind**](BackupKind.md) |  |
+**description** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

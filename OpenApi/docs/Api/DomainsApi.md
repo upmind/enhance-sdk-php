@@ -6,8 +6,8 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**checkDomain()**](DomainsApi.md#checkDomain) | **POST** /orgs/{org_id}/domains/check | Check if a domain can be created |
 | [**createDomain()**](DomainsApi.md#createDomain) | **POST** /orgs/{org_id}/domains | Create domain |
-| [**createWebsiteDomainAlias()**](DomainsApi.md#createWebsiteDomainAlias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias |
-| [**createWebsiteDomainLetsencryptCerts()**](DomainsApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteDomainLetsencryptCerts()**](DomainsApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteMappedDomain()**](DomainsApi.md#createWebsiteMappedDomain) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website mapped domain |
 | [**deleteCloudflareApiKeyId()**](DomainsApi.md#deleteCloudflareApiKeyId) | **DELETE** /orgs/{org_id}/domains/{domain_id}/cloudflare | Delete CloudFlare API key, domain level |
 | [**deleteDomain()**](DomainsApi.md#deleteDomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain |
 | [**deleteWebsiteDomainMapping()**](DomainsApi.md#deleteWebsiteDomainMapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping |
@@ -19,7 +19,10 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteDomainMapping()**](DomainsApi.md#getWebsiteDomainMapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping |
 | [**getWebsiteDomainMappingDnsStatus()**](DomainsApi.md#getWebsiteDomainMappingDnsStatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status |
 | [**getWebsiteDomainMappings()**](DomainsApi.md#getWebsiteDomainMappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains |
+| [**getWebsiteDomainModSecStatus()**](DomainsApi.md#getWebsiteDomainModSecStatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain |
+| [**performLetsEncryptPreflightCheck()**](DomainsApi.md#performLetsEncryptPreflightCheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check |
 | [**setCloudflareApiKeyId()**](DomainsApi.md#setCloudflareApiKeyId) | **PUT** /orgs/{org_id}/domains/{domain_id}/cloudflare | Set CloudFlare API key, domain level |
+| [**setWebsiteDomainModSecStatus()**](DomainsApi.md#setWebsiteDomainModSecStatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain |
 | [**updateWebsiteDomainMapping()**](DomainsApi.md#updateWebsiteDomainMapping) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Update website domain mapping |
 | [**updateWebsitePrimaryDomain()**](DomainsApi.md#updateWebsitePrimaryDomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping |
 
@@ -158,15 +161,70 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createWebsiteDomainAlias()`
+## `createWebsiteDomainLetsencryptCerts()`
 
 ```php
-createWebsiteDomainAlias($org_id, $website_id, $new_domain_alias): \Upmind\EnhanceSdk\Model\NewResourceUuid
+createWebsiteDomainLetsencryptCerts($domain_id)
 ```
 
-Create website domain alias
+Generate and setup letsencrypt ssl certificates for website's domain
 
-Creates a domain alias for the website. This operation creates the domain resource and the mapping between the domain and the website. It counts towards the website's subscription's domain alias quota and may only be performed if there is quota left. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+Generates letsencrypt certificates for the domain. This is a longer running task, that will do a complete ssl setup for a given domain. Once completed any given domain will get served over `https`. Given domain must be publicly accessible and being served from our service. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $apiInstance->createWebsiteDomainLetsencryptCerts($domain_id);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createWebsiteMappedDomain()`
+
+```php
+createWebsiteMappedDomain($org_id, $website_id, $new_mapped_domain): \Upmind\EnhanceSdk\Model\NewResourceUuid
+```
+
+Create website mapped domain
+
+Creates a domain mapping, where subscription resources are sufficient. The mapping kind will default to 'alias' if unspecified.
 
 ### Example
 
@@ -192,13 +250,13 @@ $apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$new_domain_alias = new \Upmind\EnhanceSdk\Model\NewDomainAlias(); // \Upmind\EnhanceSdk\Model\NewDomainAlias | Domain details.
+$new_mapped_domain = new \Upmind\EnhanceSdk\Model\NewMappedDomain(); // \Upmind\EnhanceSdk\Model\NewMappedDomain | Domain details.
 
 try {
-    $result = $apiInstance->createWebsiteDomainAlias($org_id, $website_id, $new_domain_alias);
+    $result = $apiInstance->createWebsiteMappedDomain($org_id, $website_id, $new_mapped_domain);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DomainsApi->createWebsiteDomainAlias: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DomainsApi->createWebsiteMappedDomain: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -208,7 +266,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **new_domain_alias** | [**\Upmind\EnhanceSdk\Model\NewDomainAlias**](../Model/NewDomainAlias.md)| Domain details. | |
+| **new_mapped_domain** | [**\Upmind\EnhanceSdk\Model\NewMappedDomain**](../Model/NewMappedDomain.md)| Domain details. | |
 
 ### Return type
 
@@ -222,69 +280,6 @@ try {
 
 - **Content-Type**: `application/json`
 - **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `createWebsiteDomainLetsencryptCerts()`
-
-```php
-createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable)
-```
-
-Generate and setup letsencrypt ssl certificates for website's domain
-
-Generates letsencrypt certificates for the domain. This is a longer running task, that will do a complete ssl setup for a given domain. Once completed any given domain will get served over `https`. Given domain must be publicly accessible and being served from our service. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$domain_id = 'domain_id_example'; // string | The id of the domain.
-$dry_run = True; // bool | If not set or `dry_run=true` it will only verify domain ownership and get dummy certificates. To enable SSL on domain set `?dry_run=false`.
-$enable = True; // bool | Defaults to `enable=true` if not set. To only generate and save certificate in db set `enable=false`. It has no bearing if `dry_run=false` not set.
-
-try {
-    $apiInstance->createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable);
-} catch (Exception $e) {
-    echo 'Exception when calling DomainsApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **domain_id** | **string**| The id of the domain. | |
-| **dry_run** | **bool**| If not set or &#x60;dry_run&#x3D;true&#x60; it will only verify domain ownership and get dummy certificates. To enable SSL on domain set &#x60;?dry_run&#x3D;false&#x60;. | [optional] |
-| **enable** | **bool**| Defaults to &#x60;enable&#x3D;true&#x60; if not set. To only generate and save certificate in db set &#x60;enable&#x3D;false&#x60;. It has no bearing if &#x60;dry_run&#x3D;false&#x60; not set. | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -1042,6 +1037,116 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteDomainModSecStatus()`
+
+```php
+getWebsiteDomainModSecStatus($domain_id): \Upmind\EnhanceSdk\Model\ModSecStatus
+```
+
+Get mod security status for a single domain
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getWebsiteDomainModSecStatus($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->getWebsiteDomainModSecStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `performLetsEncryptPreflightCheck()`
+
+```php
+performLetsEncryptPreflightCheck($domain_id): \Upmind\EnhanceSdk\Model\LetsEncryptPreflightResult
+```
+
+Perform the LetsEncrypt preflight check
+
+Will attempt to verify that the domain will successfully achieve a LetsEncrypt certificate if attempted.  Provides debug information.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->performLetsEncryptPreflightCheck($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->performLetsEncryptPreflightCheck: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\LetsEncryptPreflightResult**](../Model/LetsEncryptPreflightResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `setCloudflareApiKeyId()`
 
 ```php
@@ -1100,6 +1205,61 @@ void (empty response body)
 ### Authorization
 
 [sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteDomainModSecStatus()`
+
+```php
+setWebsiteDomainModSecStatus($domain_id, $mod_sec_status)
+```
+
+Set mod security status on a single domain
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$mod_sec_status = new \Upmind\EnhanceSdk\Model\ModSecStatus(); // \Upmind\EnhanceSdk\Model\ModSecStatus
+
+try {
+    $apiInstance->setWebsiteDomainModSecStatus($domain_id, $mod_sec_status);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->setWebsiteDomainModSecStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **mod_sec_status** | [**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

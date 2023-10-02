@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  |
-**common_name** | **string** |  |
+**cn** | **string** |  |
+**expires** | **string** |  |
+**issued** | **string** |  |
 **issuer** | **string** |  |
-**valid_from** | **\DateTime** |  |
-**valid_to** | **\DateTime** |  |
-**enabled** | **bool** |  |
+**sans** | **string[]** |  |
+**force_https** | **bool** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

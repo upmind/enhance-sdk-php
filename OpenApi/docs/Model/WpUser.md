@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  |
 **login** | **string** |  |
-**name** | **string** |  | [optional]
 **email** | **string** |  |
 **role** | [**\Upmind\EnhanceSdk\Model\WpUserRole**](WpUserRole.md) |  |
 

@@ -112,17 +112,18 @@ Class | Method | HTTP request | Description
 *DnsApi* | [**deleteDefaultDnsRecord**](docs/Api/DnsApi.md#deletedefaultdnsrecord) | **DELETE** /v2/settings/dns/default-records/{record_id} | Delete a default DNS record
 *DnsApi* | [**deleteDnsThirdPartyProvider**](docs/Api/DnsApi.md#deletednsthirdpartyprovider) | **DELETE** /dns/third-party-providers/{provider_id} | Deletes a third party dns provider.
 *DnsApi* | [**deleteWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#deletewebsitedomaindnszonerecord) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Delete dns zone record
+*DnsApi* | [**disableDomainDnsSec**](docs/Api/DnsApi.md#disabledomaindnssec) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/dnssec | Disable DNSSEC on this domain
+*DnsApi* | [**enableDomainDnsSec**](docs/Api/DnsApi.md#enabledomaindnssec) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/dnssec | Enable DNSSEC on this domain
 *DnsApi* | [**getDnsThirdPartyProviders**](docs/Api/DnsApi.md#getdnsthirdpartyproviders) | **GET** /dns/third-party-providers | Lists all third party providers.
 *DnsApi* | [**getWebsiteDomainDnsZone**](docs/Api/DnsApi.md#getwebsitedomaindnszone) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Get a dns zone for given domain
 *DnsApi* | [**listDefaultDnsRecords**](docs/Api/DnsApi.md#listdefaultdnsrecords) | **GET** /v2/settings/dns/default-records | List default DNS records
 *DnsApi* | [**updateDefaultDnsRecord**](docs/Api/DnsApi.md#updatedefaultdnsrecord) | **PATCH** /v2/settings/dns/default-records/{record_id} | Update a default DNS record
 *DnsApi* | [**updateWebsiteDomainDnsZone**](docs/Api/DnsApi.md#updatewebsitedomaindnszone) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Updates a dns zone SOA for website domain
 *DnsApi* | [**updateWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#updatewebsitedomaindnszonerecord) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Updates a dns record for given domain
-*DomainApi* | [**enableWebsiteSslCert**](docs/Api/DomainApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
 *DomainsApi* | [**checkDomain**](docs/Api/DomainsApi.md#checkdomain) | **POST** /orgs/{org_id}/domains/check | Check if a domain can be created
 *DomainsApi* | [**createDomain**](docs/Api/DomainsApi.md#createdomain) | **POST** /orgs/{org_id}/domains | Create domain
-*DomainsApi* | [**createWebsiteDomainAlias**](docs/Api/DomainsApi.md#createwebsitedomainalias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias
-*DomainsApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/DomainsApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*DomainsApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/DomainsApi.md#createwebsitedomainletsencryptcerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*DomainsApi* | [**createWebsiteMappedDomain**](docs/Api/DomainsApi.md#createwebsitemappeddomain) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website mapped domain
 *DomainsApi* | [**deleteCloudflareApiKeyId**](docs/Api/DomainsApi.md#deletecloudflareapikeyid) | **DELETE** /orgs/{org_id}/domains/{domain_id}/cloudflare | Delete CloudFlare API key, domain level
 *DomainsApi* | [**deleteDomain**](docs/Api/DomainsApi.md#deletedomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain
 *DomainsApi* | [**deleteWebsiteDomainMapping**](docs/Api/DomainsApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
@@ -134,7 +135,10 @@ Class | Method | HTTP request | Description
 *DomainsApi* | [**getWebsiteDomainMapping**](docs/Api/DomainsApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
 *DomainsApi* | [**getWebsiteDomainMappingDnsStatus**](docs/Api/DomainsApi.md#getwebsitedomainmappingdnsstatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status
 *DomainsApi* | [**getWebsiteDomainMappings**](docs/Api/DomainsApi.md#getwebsitedomainmappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains
+*DomainsApi* | [**getWebsiteDomainModSecStatus**](docs/Api/DomainsApi.md#getwebsitedomainmodsecstatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain
+*DomainsApi* | [**performLetsEncryptPreflightCheck**](docs/Api/DomainsApi.md#performletsencryptpreflightcheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check
 *DomainsApi* | [**setCloudflareApiKeyId**](docs/Api/DomainsApi.md#setcloudflareapikeyid) | **PUT** /orgs/{org_id}/domains/{domain_id}/cloudflare | Set CloudFlare API key, domain level
+*DomainsApi* | [**setWebsiteDomainModSecStatus**](docs/Api/DomainsApi.md#setwebsitedomainmodsecstatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain
 *DomainsApi* | [**updateWebsiteDomainMapping**](docs/Api/DomainsApi.md#updatewebsitedomainmapping) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Update website domain mapping
 *DomainsApi* | [**updateWebsitePrimaryDomain**](docs/Api/DomainsApi.md#updatewebsiteprimarydomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping
 *EmailClientApi* | [**createEmailAutoresponder**](docs/Api/EmailClientApi.md#createemailautoresponder) | **POST** /email-client/autoresponders | Create new email autoresponder
@@ -185,7 +189,8 @@ Class | Method | HTTP request | Description
 *InvitesApi* | [**acceptInvite**](docs/Api/InvitesApi.md#acceptinvite) | **POST** /invites/{invite_id} | Accept invite
 *InvitesApi* | [**createInvite**](docs/Api/InvitesApi.md#createinvite) | **POST** /orgs/{org_id}/invites | Create invite
 *InvitesApi* | [**validateInvite**](docs/Api/InvitesApi.md#validateinvite) | **POST** /invites/{invite_id}/validate | Validate invite
-*LetsencryptApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/LetsencryptApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*LetsencryptApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/LetsencryptApi.md#createwebsitedomainletsencryptcerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*LetsencryptApi* | [**performLetsEncryptPreflightCheck**](docs/Api/LetsencryptApi.md#performletsencryptpreflightcheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check
 *LicenceApi* | [**getLicenceInfo**](docs/Api/LicenceApi.md#getlicenceinfo) | **GET** /licence | Get current licence status
 *LicenceApi* | [**refreshLicence**](docs/Api/LicenceApi.md#refreshlicence) | **PUT** /licence | Updates licence key if provided, and refresh licence status by calling home servers. NOTE: calling without any licence_key body, only refreshes the current licence status
 *LoginsApi* | [**createLogin**](docs/Api/LoginsApi.md#createlogin) | **POST** /logins | Create a new login
@@ -248,7 +253,6 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**createPlanResources**](docs/Api/OrgsApi.md#createplanresources) | **POST** /orgs/{org_id}/plans/{plan_id}/resources | Create plan resources
 *OrgsApi* | [**createPlanSelections**](docs/Api/OrgsApi.md#createplanselections) | **POST** /orgs/{org_id}/plans/{plan_id}/selections | Create plan selections
 *OrgsApi* | [**createTag**](docs/Api/OrgsApi.md#createtag) | **POST** /orgs/{org_id}/tags | Create tag
-*OrgsApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/OrgsApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
 *OrgsApi* | [**deleteCloudflareApiKey**](docs/Api/OrgsApi.md#deletecloudflareapikey) | **DELETE** /orgs/{org_id}/cloudflare/{cloudflare_key} | Delete CloudFlare API key, org level
 *OrgsApi* | [**deleteMember**](docs/Api/OrgsApi.md#deletemember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member
 *OrgsApi* | [**deleteOrg**](docs/Api/OrgsApi.md#deleteorg) | **DELETE** /orgs/{org_id} | Delete organization
@@ -257,8 +261,6 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**deletePlan**](docs/Api/OrgsApi.md#deleteplan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan
 *OrgsApi* | [**deletePlanAllowance**](docs/Api/OrgsApi.md#deleteplanallowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance
 *OrgsApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/OrgsApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts
-*OrgsApi* | [**deleteWebsiteSslCert**](docs/Api/OrgsApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
-*OrgsApi* | [**enableWebsiteSslCert**](docs/Api/OrgsApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
 *OrgsApi* | [**getCloudFlareKeyAffectedDomains**](docs/Api/OrgsApi.md#getcloudflarekeyaffecteddomains) | **GET** /orgs/{org_id}/cloudflare/{cloudflare_key} | Get affected domains for a CloudFlare key
 *OrgsApi* | [**getCloudflareApiKeys**](docs/Api/OrgsApi.md#getcloudflareapikeys) | **GET** /orgs/{org_id}/cloudflare | Get CloudFlare API keys, org level
 *OrgsApi* | [**getCustomersAdded**](docs/Api/OrgsApi.md#getcustomersadded) | **GET** /orgs/{org_id}/stats/customers/added | Get customers added over a given time period
@@ -270,10 +272,10 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**getPlan**](docs/Api/OrgsApi.md#getplan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan
 *OrgsApi* | [**getPlans**](docs/Api/OrgsApi.md#getplans) | **GET** /orgs/{org_id}/plans | Get plans
 *OrgsApi* | [**getTags**](docs/Api/OrgsApi.md#gettags) | **GET** /orgs/{org_id}/tags | Get tags
-*OrgsApi* | [**getWebsiteSslCert**](docs/Api/OrgsApi.md#getwebsitesslcert) | **GET** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Fetches a single SSL cert
-*OrgsApi* | [**getWebsiteSslCerts**](docs/Api/OrgsApi.md#getwebsitesslcerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website
+*OrgsApi* | [**getWebsiteDomainSslCert**](docs/Api/OrgsApi.md#getwebsitedomainsslcert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain
 *OrgsApi* | [**getWebsitesAdded**](docs/Api/OrgsApi.md#getwebsitesadded) | **GET** /orgs/{org_id}/stats/websites/added | Get websites added over a given time period
 *OrgsApi* | [**setOrgAvatar**](docs/Api/OrgsApi.md#setorgavatar) | **PUT** /orgs/{org_id}/avatar | Set org avatar
+*OrgsApi* | [**setWebsiteDomainForceSsl**](docs/Api/OrgsApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
 *OrgsApi* | [**updateCloudflareApiKey**](docs/Api/OrgsApi.md#updatecloudflareapikey) | **PUT** /orgs/{org_id}/cloudflare/{cloudflare_key} | Update CloudFlare API key
 *OrgsApi* | [**updateMember**](docs/Api/OrgsApi.md#updatemember) | **PUT** /orgs/{org_id}/members/{member_id} | Overwrite organization member settings
 *OrgsApi* | [**updateOrg**](docs/Api/OrgsApi.md#updateorg) | **PATCH** /orgs/{org_id} | Update organization
@@ -282,7 +284,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**updatePlanAllowance**](docs/Api/OrgsApi.md#updateplanallowance) | **PUT** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Update plan allowance
 *OrgsApi* | [**updatePlanResource**](docs/Api/OrgsApi.md#updateplanresource) | **PUT** /orgs/{org_id}/plans/{plan_id}/resources/{name} | Update plan resource
 *OrgsApi* | [**updatePlanSelection**](docs/Api/OrgsApi.md#updateplanselection) | **PUT** /orgs/{org_id}/plans/{plan_id}/selections/{name} | Update plan selection
-*OrgsApi* | [**uploadWebsiteSslCerts**](docs/Api/OrgsApi.md#uploadwebsitesslcerts) | **POST** /orgs/{org_id}/websites/{website_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website
+*OrgsApi* | [**uploadWebsiteDomainSslCert**](docs/Api/OrgsApi.md#uploadwebsitedomainsslcert) | **POST** /v2/domains/{domain_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website
 *OwnerApi* | [**deleteOwner**](docs/Api/OwnerApi.md#deleteowner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner
 *OwnerApi* | [**updateOwner**](docs/Api/OwnerApi.md#updateowner) | **PUT** /orgs/{org_id}/owner | Update organization owner
 *PlansApi* | [**createPlan**](docs/Api/PlansApi.md#createplan) | **POST** /orgs/{org_id}/plans | Create plan
@@ -303,14 +305,11 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**createServerDomain**](docs/Api/ServersApi.md#createserverdomain) | **POST** /servers/{server_id}/domains | Create a domain which is mapped to a server
 *ServersApi* | [**createServerGroup**](docs/Api/ServersApi.md#createservergroup) | **POST** /servers/groups | Creates a new server group
 *ServersApi* | [**createServerNetworkInterfaceIp**](docs/Api/ServersApi.md#createservernetworkinterfaceip) | **POST** /servers/{server_id}/interfaces/{interface}/ips | Create server network interface secondary IP
-*ServersApi* | [**createServerSniMapping**](docs/Api/ServersApi.md#createserversnimapping) | **POST** /servers/{server_id}/sni | Create SNI mapping
 *ServersApi* | [**createSlave**](docs/Api/ServersApi.md#createslave) | **POST** /servers/slaves | Create a slave node
 *ServersApi* | [**deleteServerDomain**](docs/Api/ServersApi.md#deleteserverdomain) | **DELETE** /servers/{server_id}/domains/{domain_id} | Delete a mapped server domain
 *ServersApi* | [**deleteServerFromGroup**](docs/Api/ServersApi.md#deleteserverfromgroup) | **DELETE** /servers/{server_id}/group | Delete server from group
 *ServersApi* | [**deleteServerGroup**](docs/Api/ServersApi.md#deleteservergroup) | **DELETE** /servers/groups/{group_id} | Deletes an existing server group
 *ServersApi* | [**deleteServerNetworkInterfaceIp**](docs/Api/ServersApi.md#deleteservernetworkinterfaceip) | **DELETE** /servers/{server_id}/interfaces/{interface}/ips/{ip} | Delete server network interface secondary IP
-*ServersApi* | [**deleteServerSniMapping**](docs/Api/ServersApi.md#deleteserversnimapping) | **DELETE** /servers/{server_id}/sni/{cert_id}/{domain} | Delete a certificate SNI mapping
-*ServersApi* | [**deleteServerSslCert**](docs/Api/ServersApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
 *ServersApi* | [**deleteServiceSetting**](docs/Api/ServersApi.md#deleteservicesetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *ServersApi* | [**deleteSlave**](docs/Api/ServersApi.md#deleteslave) | **DELETE** /servers/{server_id} | Delete a (slave) server
 *ServersApi* | [**enableFsQuotaLimits**](docs/Api/ServersApi.md#enablefsquotalimits) | **POST** /servers/{server_id}/fs_quota_limits | Enable FS quota limits on the server
@@ -320,22 +319,22 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getFsQuotaStatus**](docs/Api/ServersApi.md#getfsquotastatus) | **GET** /servers/{server_id}/fs_quota_limits | Get whether FS quota was enabled on the server
 *ServersApi* | [**getHttpdStatus**](docs/Api/ServersApi.md#gethttpdstatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server.
 *ServersApi* | [**getInstallCmd**](docs/Api/ServersApi.md#getinstallcmd) | **GET** /servers/install-cmd | Get slave installation command
+*ServersApi* | [**getOwaspRulesVersion**](docs/Api/ServersApi.md#getowasprulesversion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules
 *ServersApi* | [**getRegistrationKey**](docs/Api/ServersApi.md#getregistrationkey) | **GET** /servers/registration-key | Get slave registration key
 *ServersApi* | [**getServerDiskUsage**](docs/Api/ServersApi.md#getserverdiskusage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage
-*ServersApi* | [**getServerDomains**](docs/Api/ServersApi.md#getserverdomains) | **GET** /servers/{server_id}/domains | Get domains which are mapped to a server
 *ServersApi* | [**getServerFpmSettings**](docs/Api/ServersApi.md#getserverfpmsettings) | **GET** /servers/{server_id}/php/fpm | Get php-fpm config for all the websites on a server
 *ServersApi* | [**getServerGroups**](docs/Api/ServersApi.md#getservergroups) | **GET** /servers/groups | Returns all server groups
+*ServersApi* | [**getServerHostnameWebsite**](docs/Api/ServersApi.md#getserverhostnamewebsite) | **GET** /servers/{server_id}/domains | Get domains which are mapped to a server
 *ServersApi* | [**getServerInfo**](docs/Api/ServersApi.md#getserverinfo) | **GET** /servers/{server_id} | Get server info
 *ServersApi* | [**getServerIowait**](docs/Api/ServersApi.md#getserveriowait) | **GET** /servers/{server_id}/iowait | Get server iowait
 *ServersApi* | [**getServerLoad**](docs/Api/ServersApi.md#getserverload) | **GET** /servers/{server_id}/load | Get server system load
 *ServersApi* | [**getServerMemoryUsage**](docs/Api/ServersApi.md#getservermemoryusage) | **GET** /servers/{server_id}/memory-usage | Get server memory usage
+*ServersApi* | [**getServerModSecurityConfig**](docs/Api/ServersApi.md#getservermodsecurityconfig) | **GET** /v2/servers/{server_id}/modsec_conf | Get mod security config
+*ServersApi* | [**getServerModSecurityStatus**](docs/Api/ServersApi.md#getservermodsecuritystatus) | **GET** /v2/servers/{server_id}/modsec_status | Get mod security status for a server
 *ServersApi* | [**getServerNetworkInterfaces**](docs/Api/ServersApi.md#getservernetworkinterfaces) | **GET** /servers/{server_id}/interfaces | Get server network interfaces
 *ServersApi* | [**getServerNetworkStats**](docs/Api/ServersApi.md#getservernetworkstats) | **GET** /servers/{server_id}/network-stats | Get server network stats
 *ServersApi* | [**getServerRole**](docs/Api/ServersApi.md#getserverrole) | **GET** /servers/{server_id}/roles/{role} | Get server role info
 *ServersApi* | [**getServerRoles**](docs/Api/ServersApi.md#getserverroles) | **GET** /servers/{server_id}/roles | Get server roles info
-*ServersApi* | [**getServerSniMappings**](docs/Api/ServersApi.md#getserversnimappings) | **GET** /servers/{server_id}/sni | Get SNI mappings
-*ServersApi* | [**getServerSslCert**](docs/Api/ServersApi.md#getserversslcert) | **GET** /servers/ssl/{cert_id} | Fetch a single SSL certificate
-*ServersApi* | [**getServerSslCerts**](docs/Api/ServersApi.md#getserversslcerts) | **GET** /servers/ssl | Returns service SSL certificates data for MO
 *ServersApi* | [**getServerStats**](docs/Api/ServersApi.md#getserverstats) | **GET** /servers/{server_id}/historic-stats | Get Server stats
 *ServersApi* | [**getServerStatus**](docs/Api/ServersApi.md#getserverstatus) | **GET** /servers/{server_id}/status | Get server status
 *ServersApi* | [**getServerUptime**](docs/Api/ServersApi.md#getserveruptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds
@@ -346,20 +345,23 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getWebsiteFpmSettings**](docs/Api/ServersApi.md#getwebsitefpmsettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website
 *ServersApi* | [**initAllServers**](docs/Api/ServersApi.md#initallservers) | **POST** /servers/init | Attempts to initialize all roles
 *ServersApi* | [**installServerRole**](docs/Api/ServersApi.md#installserverrole) | **PUT** /servers/{server_id}/roles/{role} | Install server role
+*ServersApi* | [**resetServerModSecurityConfig**](docs/Api/ServersApi.md#resetservermodsecurityconfig) | **DELETE** /v2/servers/{server_id}/modsec_conf | Delete custom mod_security config and reset to default
 *ServersApi* | [**resetWebServerConfig**](docs/Api/ServersApi.md#resetwebserverconfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default.
 *ServersApi* | [**setLiteSpeedAdminPassword**](docs/Api/ServersApi.md#setlitespeedadminpassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password.
 *ServersApi* | [**setServerDecommissioned**](docs/Api/ServersApi.md#setserverdecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned
+*ServersApi* | [**setServerModSecurityConfig**](docs/Api/ServersApi.md#setservermodsecurityconfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config
+*ServersApi* | [**setServerModSecurityStatus**](docs/Api/ServersApi.md#setservermodsecuritystatus) | **PUT** /v2/servers/{server_id}/modsec_status | Set mod security status for a server
 *ServersApi* | [**setServerStatus**](docs/Api/ServersApi.md#setserverstatus) | **POST** /servers/{server_id}/status | Set the status of one server.
 *ServersApi* | [**setServiceSetting**](docs/Api/ServersApi.md#setservicesetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting
 *ServersApi* | [**setServiceStatus**](docs/Api/ServersApi.md#setservicestatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified.
 *ServersApi* | [**setWebserverKind**](docs/Api/ServersApi.md#setwebserverkind) | **PUT** /servers/{server_id}/webserver | Set the web server kind for one server.
 *ServersApi* | [**uninstallServerRole**](docs/Api/ServersApi.md#uninstallserverrole) | **DELETE** /servers/{server_id}/roles/{role} | Uninstall a server role
+*ServersApi* | [**updateOwaspRules**](docs/Api/ServersApi.md#updateowasprules) | **POST** /v2/servers/{server_id}/owasp | Upgrade OWASP rules
 *ServersApi* | [**updateServerGroup**](docs/Api/ServersApi.md#updateservergroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name
 *ServersApi* | [**updateServerPrimaryIp**](docs/Api/ServersApi.md#updateserverprimaryip) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed.
 *ServersApi* | [**updateServerRole**](docs/Api/ServersApi.md#updateserverrole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role
 *ServersApi* | [**updateService**](docs/Api/ServersApi.md#updateservice) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version.
 *ServersApi* | [**updateSystemPackage**](docs/Api/ServersApi.md#updatesystempackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version.
-*ServersApi* | [**uploadServerSslCert**](docs/Api/ServersApi.md#uploadserversslcert) | **POST** /servers/ssl | Upload SSL certificate for server/service use
 *ServersApi* | [**validateRegistrationKey**](docs/Api/ServersApi.md#validateregistrationkey) | **POST** /servers/registration-key/validate | Validate slave registration key
 *SettingsApi* | [**addOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#addorchdloginpolicyemailblacklist) | **PUT** /settings/orchd/login-policy/email-blacklist | Set the orchd login policy email blacklist as a whole
 *SettingsApi* | [**addOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#addorchdloginpolicyemailwhitelist) | **PUT** /settings/orchd/login-policy/email-whitelist | Set the orchd login policy email whitelist as a whole
@@ -381,21 +383,17 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**getOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#getorchdloginpolicyipblacklist) | **GET** /settings/orchd/login-policy/ip-blacklist | Get the orchd login policy ip blacklist
 *SettingsApi* | [**getOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#getorchdloginpolicyipwhitelist) | **GET** /settings/orchd/login-policy/ip-whitelist | Get the orchd login policy ip whitelist
 *SettingsApi* | [**getOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#getorchdloginpolicysettings) | **GET** /settings/orchd/login-policy/settings | Get the orchd login policy settings
+*SettingsApi* | [**getProhibitedDomains**](docs/Api/SettingsApi.md#getprohibiteddomains) | **GET** /settings/orchd/prohibited_domains | Get the platform level prohibited domains as a newline separated list
 *SettingsApi* | [**getSetting**](docs/Api/SettingsApi.md#getsetting) | **GET** /settings/{name} | Get the specified setting
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /settings | Get all current settings
 *SettingsApi* | [**setDockerRegistry**](docs/Api/SettingsApi.md#setdockerregistry) | **PUT** /settings/registry | Updates the Docker registry credentials.
 *SettingsApi* | [**setGlobalServiceSetting**](docs/Api/SettingsApi.md#setglobalservicesetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting
 *SettingsApi* | [**setOrchdLogSettings**](docs/Api/SettingsApi.md#setorchdlogsettings) | **PUT** /settings/orchd/logs | Set the orchd log settings
+*SettingsApi* | [**setProhibitedDomains**](docs/Api/SettingsApi.md#setprohibiteddomains) | **PUT** /settings/orchd/prohibited_domains | Set the platform level prohibited domains
 *SettingsApi* | [**updateSetting**](docs/Api/SettingsApi.md#updatesetting) | **PUT** /settings/{name} | Create or update the specified setting
-*SslApi* | [**deleteServerSslCert**](docs/Api/SslApi.md#deleteserversslcert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate
-*SslApi* | [**deleteWebsiteSslCert**](docs/Api/SslApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
-*SslApi* | [**enableWebsiteSslCert**](docs/Api/SslApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
-*SslApi* | [**getServerSslCert**](docs/Api/SslApi.md#getserversslcert) | **GET** /servers/ssl/{cert_id} | Fetch a single SSL certificate
-*SslApi* | [**getServerSslCerts**](docs/Api/SslApi.md#getserversslcerts) | **GET** /servers/ssl | Returns service SSL certificates data for MO
-*SslApi* | [**getWebsiteSslCert**](docs/Api/SslApi.md#getwebsitesslcert) | **GET** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Fetches a single SSL cert
-*SslApi* | [**getWebsiteSslCerts**](docs/Api/SslApi.md#getwebsitesslcerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website
-*SslApi* | [**uploadServerSslCert**](docs/Api/SslApi.md#uploadserversslcert) | **POST** /servers/ssl | Upload SSL certificate for server/service use
-*SslApi* | [**uploadWebsiteSslCerts**](docs/Api/SslApi.md#uploadwebsitesslcerts) | **POST** /orgs/{org_id}/websites/{website_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website
+*SslApi* | [**getWebsiteDomainSslCert**](docs/Api/SslApi.md#getwebsitedomainsslcert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain
+*SslApi* | [**setWebsiteDomainForceSsl**](docs/Api/SslApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
+*SslApi* | [**uploadWebsiteDomainSslCert**](docs/Api/SslApi.md#uploadwebsitedomainsslcert) | **POST** /v2/domains/{domain_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website
 *SubscriptionsApi* | [**calculateResourceUsage**](docs/Api/SubscriptionsApi.md#calculateresourceusage) | **PUT** /orgs/{org_id}/subscriptions/{subscription_id}/calculate-resource-usage | Re-Calculates all subscription resources
 *SubscriptionsApi* | [**createCustomerSubscription**](docs/Api/SubscriptionsApi.md#createcustomersubscription) | **POST** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Create a subscriptions for a customer
 *SubscriptionsApi* | [**deleteSubscription**](docs/Api/SubscriptionsApi.md#deletesubscription) | **DELETE** /orgs/{org_id}/subscriptions/{subscription_id} | Delete subscription
@@ -412,8 +410,8 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**createFtpUser**](docs/Api/WebsitesApi.md#createftpuser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website
 *WebsitesApi* | [**createPreviewDomain**](docs/Api/WebsitesApi.md#createpreviewdomain) | **POST** /orgs/{org_id}/websites/{website_id}/preview | Create a preview domain
 *WebsitesApi* | [**createWebsite**](docs/Api/WebsitesApi.md#createwebsite) | **POST** /orgs/{org_id}/websites | Create a new website or clone an existing one.
-*WebsitesApi* | [**createWebsiteDomainAlias**](docs/Api/WebsitesApi.md#createwebsitedomainalias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias
-*WebsitesApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/WebsitesApi.md#createwebsitedomainletsencryptcerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*WebsitesApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/WebsitesApi.md#createwebsitedomainletsencryptcerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
+*WebsitesApi* | [**createWebsiteMappedDomain**](docs/Api/WebsitesApi.md#createwebsitemappeddomain) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website mapped domain
 *WebsitesApi* | [**createWebsiteMySQLDB**](docs/Api/WebsitesApi.md#createwebsitemysqldb) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website
 *WebsitesApi* | [**deleteDomainNginxFastCgiExcludedPath**](docs/Api/WebsitesApi.md#deletedomainnginxfastcgiexcludedpath) | **DELETE** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Delete Nginx FastCGI excluded path
 *WebsitesApi* | [**deleteDomainWebserverRewrite**](docs/Api/WebsitesApi.md#deletedomainwebserverrewrite) | **DELETE** /v2/domains/{domain_id}/webserver_rewrites | Delete web server rewrite
@@ -422,9 +420,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**deleteWebsite**](docs/Api/WebsitesApi.md#deletewebsite) | **DELETE** /orgs/{org_id}/websites/{website_id} | Delete website
 *WebsitesApi* | [**deleteWebsiteDomainMapping**](docs/Api/WebsitesApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
 *WebsitesApi* | [**deleteWebsiteSetting**](docs/Api/WebsitesApi.md#deletewebsitesetting) | **DELETE** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
-*WebsitesApi* | [**deleteWebsiteSslCert**](docs/Api/WebsitesApi.md#deletewebsitesslcert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate
 *WebsitesApi* | [**deleteWebsites**](docs/Api/WebsitesApi.md#deletewebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites
-*WebsitesApi* | [**enableWebsiteSslCert**](docs/Api/WebsitesApi.md#enablewebsitesslcert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain
 *WebsitesApi* | [**getDomainNginxFastCgi**](docs/Api/WebsitesApi.md#getdomainnginxfastcgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement
 *WebsitesApi* | [**getDomainNginxFastCgiExcludedPaths**](docs/Api/WebsitesApi.md#getdomainnginxfastcgiexcludedpaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths
 *WebsitesApi* | [**getDomainWebserverRewrites**](docs/Api/WebsitesApi.md#getdomainwebserverrewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain
@@ -440,23 +436,31 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteDomainMapping**](docs/Api/WebsitesApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
 *WebsitesApi* | [**getWebsiteDomainMappingDnsStatus**](docs/Api/WebsitesApi.md#getwebsitedomainmappingdnsstatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status
 *WebsitesApi* | [**getWebsiteDomainMappings**](docs/Api/WebsitesApi.md#getwebsitedomainmappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains
+*WebsitesApi* | [**getWebsiteDomainModSecStatus**](docs/Api/WebsitesApi.md#getwebsitedomainmodsecstatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain
+*WebsitesApi* | [**getWebsiteDomainSslCert**](docs/Api/WebsitesApi.md#getwebsitedomainsslcert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain
 *WebsitesApi* | [**getWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#getwebsitefsquotalimits) | **GET** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Get the active FS quoa limits for a website
 *WebsitesApi* | [**getWebsiteHtaccessIpsRule**](docs/Api/WebsitesApi.md#getwebsitehtaccessipsrule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs
 *WebsitesApi* | [**getWebsiteHtaccessRewrites**](docs/Api/WebsitesApi.md#getwebsitehtaccessrewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules
+*WebsitesApi* | [**getWebsiteIoncubeStatus**](docs/Api/WebsitesApi.md#getwebsiteioncubestatus) | **GET** /v2/websites/{website_id}/ioncube | Get ioncube status for an existing website
 *WebsitesApi* | [**getWebsiteMetrics**](docs/Api/WebsitesApi.md#getwebsitemetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics
 *WebsitesApi* | [**getWebsiteMySQLDBs**](docs/Api/WebsitesApi.md#getwebsitemysqldbs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases
+*WebsitesApi* | [**getWebsiteRedisState**](docs/Api/WebsitesApi.md#getwebsiteredisstate) | **GET** /v2/websites/{website_id}/redis | Get redis state for a website
 *WebsitesApi* | [**getWebsiteServerDomains**](docs/Api/WebsitesApi.md#getwebsiteserverdomains) | **GET** /orgs/{org_id}/websites/{website_id}/server_domains | Fetch website server domains
 *WebsitesApi* | [**getWebsiteSetting**](docs/Api/WebsitesApi.md#getwebsitesetting) | **GET** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind} | Get the value for a particular setting
 *WebsitesApi* | [**getWebsiteSshKeys**](docs/Api/WebsitesApi.md#getwebsitesshkeys) | **GET** /orgs/{org_id}/websites/{website_id}/ssh/keys | Get website&#39;s authorized SSH keys
-*WebsitesApi* | [**getWebsiteSslCert**](docs/Api/WebsitesApi.md#getwebsitesslcert) | **GET** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Fetches a single SSL cert
-*WebsitesApi* | [**getWebsiteSslCerts**](docs/Api/WebsitesApi.md#getwebsitesslcerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website
 *WebsitesApi* | [**getWebsiteWebserverKind**](docs/Api/WebsitesApi.md#getwebsitewebserverkind) | **GET** /v2/websites/{website_id}/webserver_kind | Get web server kind for a given website
 *WebsitesApi* | [**getWebsites**](docs/Api/WebsitesApi.md#getwebsites) | **GET** /orgs/{org_id}/websites | Get websites
+*WebsitesApi* | [**performLetsEncryptPreflightCheck**](docs/Api/WebsitesApi.md#performletsencryptpreflightcheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check
 *WebsitesApi* | [**pushWebsiteLive**](docs/Api/WebsitesApi.md#pushwebsitelive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live
+*WebsitesApi* | [**restartWebsitePhp**](docs/Api/WebsitesApi.md#restartwebsitephp) | **POST** /v2/websites/{website_id}/restart_php | Restart PHP container for a website
 *WebsitesApi* | [**setDomainNginxFastCgi**](docs/Api/WebsitesApi.md#setdomainnginxfastcgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement
 *WebsitesApi* | [**setDomainWebserverRewrite**](docs/Api/WebsitesApi.md#setdomainwebserverrewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file
 *WebsitesApi* | [**setWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#setwebsitecgrouplimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only)
+*WebsitesApi* | [**setWebsiteDomainForceSsl**](docs/Api/WebsitesApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
+*WebsitesApi* | [**setWebsiteDomainModSecStatus**](docs/Api/WebsitesApi.md#setwebsitedomainmodsecstatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain
 *WebsitesApi* | [**setWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#setwebsitefsquotalimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only)
+*WebsitesApi* | [**setWebsiteIoncubeStatus**](docs/Api/WebsitesApi.md#setwebsiteioncubestatus) | **PUT** /v2/websites/{website_id}/ioncube | Set ioncube status for an existing website
+*WebsitesApi* | [**setWebsiteRedisState**](docs/Api/WebsitesApi.md#setwebsiteredisstate) | **PUT** /v2/websites/{website_id}/redis | Set Redis state for an existing website
 *WebsitesApi* | [**setWebsiteSetting**](docs/Api/WebsitesApi.md#setwebsitesetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting
 *WebsitesApi* | [**takeScreenshot**](docs/Api/WebsitesApi.md#takescreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot
 *WebsitesApi* | [**unauthorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#unauthorizewebsitesshkey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID.
@@ -468,12 +472,13 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**updateWebsiteHtaccessRewrites**](docs/Api/WebsitesApi.md#updatewebsitehtaccessrewrites) | **PATCH** /orgs/{org_id}/websites/{website_id}/htaccess | Updates rewrite rules
 *WebsitesApi* | [**updateWebsitePrimaryDomain**](docs/Api/WebsitesApi.md#updatewebsiteprimarydomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping
 *WebsitesApi* | [**updateWebsiteSshKey**](docs/Api/WebsitesApi.md#updatewebsitesshkey) | **PATCH** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Update an existing website public SSH key.
-*WebsitesApi* | [**uploadWebsiteSslCerts**](docs/Api/WebsitesApi.md#uploadwebsitesslcerts) | **POST** /orgs/{org_id}/websites/{website_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website
+*WebsitesApi* | [**uploadWebsiteDomainSslCert**](docs/Api/WebsitesApi.md#uploadwebsitedomainsslcert) | **POST** /v2/domains/{domain_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website
 *WebsitesApi* | [**validateWebsiteOperation**](docs/Api/WebsitesApi.md#validatewebsiteoperation) | **POST** /orgs/{org_id}/websites/{website_id}/validate-operation | Validate whether a website operation is allowed
 *WordpressApi* | [**createWordpressUser**](docs/Api/WordpressApi.md#createwordpressuser) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | Create website WordPress user
 *WordpressApi* | [**deleteWordpressPlugin**](docs/Api/WordpressApi.md#deletewordpressplugin) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Delete website WordPress plugin
 *WordpressApi* | [**deleteWordpressUser**](docs/Api/WordpressApi.md#deletewordpressuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user
 *WordpressApi* | [**getDefaultWpSsoUser**](docs/Api/WordpressApi.md#getdefaultwpssouser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | 
+*WordpressApi* | [**getWordPressSiteurl**](docs/Api/WordpressApi.md#getwordpresssiteurl) | **GET** /v2/apps/{app_id}/wordpress/url | Fetches the site URL for a WordPress installation
 *WordpressApi* | [**getWordpressAppVersion**](docs/Api/WordpressApi.md#getwordpressappversion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version
 *WordpressApi* | [**getWordpressConfig**](docs/Api/WordpressApi.md#getwordpressconfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option
 *WordpressApi* | [**getWordpressInstallations**](docs/Api/WordpressApi.md#getwordpressinstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations
@@ -485,6 +490,7 @@ Class | Method | HTTP request | Description
 *WordpressApi* | [**getWordpressUsers**](docs/Api/WordpressApi.md#getwordpressusers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | 
 *WordpressApi* | [**installWordpressPlugin**](docs/Api/WordpressApi.md#installwordpressplugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin
 *WordpressApi* | [**setDefaultWpSsoUser**](docs/Api/WordpressApi.md#setdefaultwpssouser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website.
+*WordpressApi* | [**setWordPressSiteurl**](docs/Api/WordpressApi.md#setwordpresssiteurl) | **PUT** /v2/apps/{app_id}/wordpress/url | Sets the site URL for a WordPress installation
 *WordpressApi* | [**setWordpressConfig**](docs/Api/WordpressApi.md#setwordpressconfig) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config | Set a single value of a wp-config.php entry.
 *WordpressApi* | [**updateWordpressAppVersion**](docs/Api/WordpressApi.md#updatewordpressappversion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest
 *WordpressApi* | [**updateWordpressPluginSettings**](docs/Api/WordpressApi.md#updatewordpresspluginsettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings
@@ -511,10 +517,10 @@ Class | Method | HTTP request | Description
 - [BackupRoleInfo](docs/Model/BackupRoleInfo.md)
 - [BackupStatus](docs/Model/BackupStatus.md)
 - [BackupsFullListing](docs/Model/BackupsFullListing.md)
-- [BaseSslCert](docs/Model/BaseSslCert.md)
 - [Blocked](docs/Model/Blocked.md)
 - [Branding](docs/Model/Branding.md)
 - [CPLocale](docs/Model/CPLocale.md)
+- [CanUse](docs/Model/CanUse.md)
 - [CanonicalRedirect](docs/Model/CanonicalRedirect.md)
 - [CgroupLimits](docs/Model/CgroupLimits.md)
 - [ChangeSubscriptionParams](docs/Model/ChangeSubscriptionParams.md)
@@ -555,6 +561,8 @@ Class | Method | HTTP request | Description
 - [DomainMappingUpdate](docs/Model/DomainMappingUpdate.md)
 - [DomainMappingsFullListing](docs/Model/DomainMappingsFullListing.md)
 - [DomainSslCert](docs/Model/DomainSslCert.md)
+- [DomainSslCertWithData](docs/Model/DomainSslCertWithData.md)
+- [DomainWithUuid](docs/Model/DomainWithUuid.md)
 - [DomainsListing](docs/Model/DomainsListing.md)
 - [Email](docs/Model/Email.md)
 - [EmailAddress](docs/Model/EmailAddress.md)
@@ -598,6 +606,7 @@ Class | Method | HTTP request | Description
 - [InstallableWebsiteAppsFullListing](docs/Model/InstallableWebsiteAppsFullListing.md)
 - [InterfaceIp](docs/Model/InterfaceIp.md)
 - [InviteValidation](docs/Model/InviteValidation.md)
+- [LetsEncryptPreflightResult](docs/Model/LetsEncryptPreflightResult.md)
 - [LicenceInfo](docs/Model/LicenceInfo.md)
 - [LicenceKey](docs/Model/LicenceKey.md)
 - [LicenceStatus](docs/Model/LicenceStatus.md)
@@ -625,6 +634,7 @@ Class | Method | HTTP request | Description
 - [MigrationLog](docs/Model/MigrationLog.md)
 - [MigrationStatus](docs/Model/MigrationStatus.md)
 - [MigrationsListing](docs/Model/MigrationsListing.md)
+- [ModSecStatus](docs/Model/ModSecStatus.md)
 - [ModelUnset](docs/Model/ModelUnset.md)
 - [MySQLAuthPlugin](docs/Model/MySQLAuthPlugin.md)
 - [MySQLDB](docs/Model/MySQLDB.md)
@@ -647,10 +657,10 @@ Class | Method | HTTP request | Description
 - [NewDnsRecord](docs/Model/NewDnsRecord.md)
 - [NewDnsThirdPartyProvider](docs/Model/NewDnsThirdPartyProvider.md)
 - [NewDomain](docs/Model/NewDomain.md)
-- [NewDomainAlias](docs/Model/NewDomainAlias.md)
 - [NewEmail](docs/Model/NewEmail.md)
 - [NewFtpUser](docs/Model/NewFtpUser.md)
 - [NewInvite](docs/Model/NewInvite.md)
+- [NewMappedDomain](docs/Model/NewMappedDomain.md)
 - [NewMember](docs/Model/NewMember.md)
 - [NewMigrationDetails](docs/Model/NewMigrationDetails.md)
 - [NewMySQLDB](docs/Model/NewMySQLDB.md)
@@ -680,6 +690,7 @@ Class | Method | HTTP request | Description
 - [OrgOwnerUpdate](docs/Model/OrgOwnerUpdate.md)
 - [OrgUpdate](docs/Model/OrgUpdate.md)
 - [Outcome](docs/Model/Outcome.md)
+- [OwaspVersion](docs/Model/OwaspVersion.md)
 - [PhpIni](docs/Model/PhpIni.md)
 - [PhpVersion](docs/Model/PhpVersion.md)
 - [Plan](docs/Model/Plan.md)
@@ -713,10 +724,10 @@ Class | Method | HTTP request | Description
 - [Selection](docs/Model/Selection.md)
 - [ServerConf](docs/Model/ServerConf.md)
 - [ServerDiskUsage](docs/Model/ServerDiskUsage.md)
-- [ServerDomain](docs/Model/ServerDomain.md)
 - [ServerGroup](docs/Model/ServerGroup.md)
 - [ServerGroupUpdate](docs/Model/ServerGroupUpdate.md)
 - [ServerGroups](docs/Model/ServerGroups.md)
+- [ServerHostnameWebsite](docs/Model/ServerHostnameWebsite.md)
 - [ServerInfo](docs/Model/ServerInfo.md)
 - [ServerInfoBrief](docs/Model/ServerInfoBrief.md)
 - [ServerIowait](docs/Model/ServerIowait.md)
@@ -743,11 +754,6 @@ Class | Method | HTTP request | Description
 - [ServiceLogStatus](docs/Model/ServiceLogStatus.md)
 - [ServiceLogsFullListing](docs/Model/ServiceLogsFullListing.md)
 - [ServiceSettingValue](docs/Model/ServiceSettingValue.md)
-- [ServiceSslCert](docs/Model/ServiceSslCert.md)
-- [ServiceSslCertMapping](docs/Model/ServiceSslCertMapping.md)
-- [ServiceSslCertMappings](docs/Model/ServiceSslCertMappings.md)
-- [ServiceSslCertWithData](docs/Model/ServiceSslCertWithData.md)
-- [ServiceSslCertsFullListing](docs/Model/ServiceSslCertsFullListing.md)
 - [ServiceStatusAction](docs/Model/ServiceStatusAction.md)
 - [Session](docs/Model/Session.md)
 - [SessionResult](docs/Model/SessionResult.md)
@@ -769,12 +775,7 @@ Class | Method | HTTP request | Description
 - [SshKey](docs/Model/SshKey.md)
 - [SshKeyFullListing](docs/Model/SshKeyFullListing.md)
 - [SshKeyUpdate](docs/Model/SshKeyUpdate.md)
-- [SslCertData](docs/Model/SslCertData.md)
-- [SslCertMapping](docs/Model/SslCertMapping.md)
-- [SslCertMappings](docs/Model/SslCertMappings.md)
-- [SslCertWithData](docs/Model/SslCertWithData.md)
-- [SslCerts](docs/Model/SslCerts.md)
-- [SslCertsFullListing](docs/Model/SslCertsFullListing.md)
+- [SslCert](docs/Model/SslCert.md)
 - [StagingDomain](docs/Model/StagingDomain.md)
 - [Status](docs/Model/Status.md)
 - [Subscription](docs/Model/Subscription.md)
@@ -833,6 +834,7 @@ Class | Method | HTTP request | Description
 - [WebServerRewrite](docs/Model/WebServerRewrite.md)
 - [WebserverKind](docs/Model/WebserverKind.md)
 - [Website](docs/Model/Website.md)
+- [WebsiteAndDomainUuid](docs/Model/WebsiteAndDomainUuid.md)
 - [WebsiteApp](docs/Model/WebsiteApp.md)
 - [WebsiteAppKind](docs/Model/WebsiteAppKind.md)
 - [WebsiteAppsFullListing](docs/Model/WebsiteAppsFullListing.md)
@@ -896,5 +898,5 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `9.4.0`
+- API version: `9.9.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

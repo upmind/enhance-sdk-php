@@ -8,6 +8,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWordpressPlugin()**](WordpressApi.md#deleteWordpressPlugin) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Delete website WordPress plugin |
 | [**deleteWordpressUser()**](WordpressApi.md#deleteWordpressUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user |
 | [**getDefaultWpSsoUser()**](WordpressApi.md#getDefaultWpSsoUser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default |  |
+| [**getWordPressSiteurl()**](WordpressApi.md#getWordPressSiteurl) | **GET** /v2/apps/{app_id}/wordpress/url | Fetches the site URL for a WordPress installation |
 | [**getWordpressAppVersion()**](WordpressApi.md#getWordpressAppVersion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version |
 | [**getWordpressConfig()**](WordpressApi.md#getWordpressConfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option |
 | [**getWordpressInstallations()**](WordpressApi.md#getWordpressInstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations |
@@ -19,6 +20,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWordpressUsers()**](WordpressApi.md#getWordpressUsers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users |  |
 | [**installWordpressPlugin()**](WordpressApi.md#installWordpressPlugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin |
 | [**setDefaultWpSsoUser()**](WordpressApi.md#setDefaultWpSsoUser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website. |
+| [**setWordPressSiteurl()**](WordpressApi.md#setWordPressSiteurl) | **PUT** /v2/apps/{app_id}/wordpress/url | Sets the site URL for a WordPress installation |
 | [**setWordpressConfig()**](WordpressApi.md#setWordpressConfig) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config | Set a single value of a wp-config.php entry. |
 | [**updateWordpressAppVersion()**](WordpressApi.md#updateWordpressAppVersion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest |
 | [**updateWordpressPluginSettings()**](WordpressApi.md#updateWordpressPluginSettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings |
@@ -256,6 +258,60 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\WpUser**](../Model/WpUser.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWordPressSiteurl()`
+
+```php
+getWordPressSiteurl($app_id): string
+```
+
+Fetches the site URL for a WordPress installation
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$app_id = 'app_id_example'; // string | The id of the app.
+
+try {
+    $result = $apiInstance->getWordPressSiteurl($app_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->getWordPressSiteurl: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **app_id** | **string**| The id of the app. | |
+
+### Return type
+
+**string**
 
 ### Authorization
 
@@ -697,7 +753,7 @@ No authorization required
 ## `getWordpressUserSsoUrl()`
 
 ```php
-getWordpressUserSsoUrl($org_id, $website_id, $app_id, $user_id): string
+getWordpressUserSsoUrl($org_id, $website_id, $app_id, $user_id, $should_redirect): string
 ```
 
 Get SSO URL for a WP user
@@ -721,9 +777,10 @@ $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $app_id = 'app_id_example'; // string | The id of the app.
 $user_id = 56; // int | The id of the wordpress user.
+$should_redirect = True; // bool | If set to true, the endpoint will send a 307 redirect to the SSO URL.
 
 try {
-    $result = $apiInstance->getWordpressUserSsoUrl($org_id, $website_id, $app_id, $user_id);
+    $result = $apiInstance->getWordpressUserSsoUrl($org_id, $website_id, $app_id, $user_id, $should_redirect);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling WordpressApi->getWordpressUserSsoUrl: ', $e->getMessage(), PHP_EOL;
@@ -738,6 +795,7 @@ try {
 | **website_id** | **string**| The id of the website. | |
 | **app_id** | **string**| The id of the app. | |
 | **user_id** | **int**| The id of the wordpress user. | |
+| **should_redirect** | **bool**| If set to true, the endpoint will send a 307 redirect to the SSO URL. | [optional] |
 
 ### Return type
 
@@ -922,6 +980,61 @@ try {
 | **website_id** | **string**| The id of the website. | |
 | **app_id** | **string**| The id of the app. | |
 | **body** | **float**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWordPressSiteurl()`
+
+```php
+setWordPressSiteurl($app_id, $body)
+```
+
+Sets the site URL for a WordPress installation
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$app_id = 'app_id_example'; // string | The id of the app.
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->setWordPressSiteurl($app_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->setWordPressSiteurl: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **app_id** | **string**| The id of the app. | |
+| **body** | **string**|  | |
 
 ### Return type
 

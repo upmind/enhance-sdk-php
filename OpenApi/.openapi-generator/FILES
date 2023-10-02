@@ -8,7 +8,6 @@ docs/Api/BackupsApi.md
 docs/Api/BrandingApi.md
 docs/Api/CustomersApi.md
 docs/Api/DnsApi.md
-docs/Api/DomainApi.md
 docs/Api/DomainsApi.md
 docs/Api/EmailClientApi.md
 docs/Api/EmailsApi.md
@@ -51,10 +50,10 @@ docs/Model/BackupRestoreOptions.md
 docs/Model/BackupRoleInfo.md
 docs/Model/BackupStatus.md
 docs/Model/BackupsFullListing.md
-docs/Model/BaseSslCert.md
 docs/Model/Blocked.md
 docs/Model/Branding.md
 docs/Model/CPLocale.md
+docs/Model/CanUse.md
 docs/Model/CanonicalRedirect.md
 docs/Model/CgroupLimits.md
 docs/Model/ChangeSubscriptionParams.md
@@ -95,6 +94,8 @@ docs/Model/DomainMappingKind.md
 docs/Model/DomainMappingUpdate.md
 docs/Model/DomainMappingsFullListing.md
 docs/Model/DomainSslCert.md
+docs/Model/DomainSslCertWithData.md
+docs/Model/DomainWithUuid.md
 docs/Model/DomainsListing.md
 docs/Model/Email.md
 docs/Model/EmailAddress.md
@@ -138,6 +139,7 @@ docs/Model/InstallableWebsiteApp.md
 docs/Model/InstallableWebsiteAppsFullListing.md
 docs/Model/InterfaceIp.md
 docs/Model/InviteValidation.md
+docs/Model/LetsEncryptPreflightResult.md
 docs/Model/LicenceInfo.md
 docs/Model/LicenceKey.md
 docs/Model/LicenceStatus.md
@@ -165,6 +167,7 @@ docs/Model/MigrationDetails.md
 docs/Model/MigrationLog.md
 docs/Model/MigrationStatus.md
 docs/Model/MigrationsListing.md
+docs/Model/ModSecStatus.md
 docs/Model/ModelUnset.md
 docs/Model/MySQLAuthPlugin.md
 docs/Model/MySQLDB.md
@@ -187,10 +190,10 @@ docs/Model/NewDefaultDnsRecord.md
 docs/Model/NewDnsRecord.md
 docs/Model/NewDnsThirdPartyProvider.md
 docs/Model/NewDomain.md
-docs/Model/NewDomainAlias.md
 docs/Model/NewEmail.md
 docs/Model/NewFtpUser.md
 docs/Model/NewInvite.md
+docs/Model/NewMappedDomain.md
 docs/Model/NewMember.md
 docs/Model/NewMigrationDetails.md
 docs/Model/NewMySQLDB.md
@@ -220,6 +223,7 @@ docs/Model/OrgAccessToken.md
 docs/Model/OrgOwnerUpdate.md
 docs/Model/OrgUpdate.md
 docs/Model/Outcome.md
+docs/Model/OwaspVersion.md
 docs/Model/PhpIni.md
 docs/Model/PhpVersion.md
 docs/Model/Plan.md
@@ -253,10 +257,10 @@ docs/Model/RolesSummary.md
 docs/Model/Selection.md
 docs/Model/ServerConf.md
 docs/Model/ServerDiskUsage.md
-docs/Model/ServerDomain.md
 docs/Model/ServerGroup.md
 docs/Model/ServerGroupUpdate.md
 docs/Model/ServerGroups.md
+docs/Model/ServerHostnameWebsite.md
 docs/Model/ServerInfo.md
 docs/Model/ServerInfoBrief.md
 docs/Model/ServerIowait.md
@@ -283,11 +287,6 @@ docs/Model/ServiceLogMetadata.md
 docs/Model/ServiceLogStatus.md
 docs/Model/ServiceLogsFullListing.md
 docs/Model/ServiceSettingValue.md
-docs/Model/ServiceSslCert.md
-docs/Model/ServiceSslCertMapping.md
-docs/Model/ServiceSslCertMappings.md
-docs/Model/ServiceSslCertWithData.md
-docs/Model/ServiceSslCertsFullListing.md
 docs/Model/ServiceStatusAction.md
 docs/Model/Session.md
 docs/Model/SessionResult.md
@@ -309,12 +308,7 @@ docs/Model/SpaceUsage.md
 docs/Model/SshKey.md
 docs/Model/SshKeyFullListing.md
 docs/Model/SshKeyUpdate.md
-docs/Model/SslCertData.md
-docs/Model/SslCertMapping.md
-docs/Model/SslCertMappings.md
-docs/Model/SslCertWithData.md
-docs/Model/SslCerts.md
-docs/Model/SslCertsFullListing.md
+docs/Model/SslCert.md
 docs/Model/StagingDomain.md
 docs/Model/Status.md
 docs/Model/Subscription.md
@@ -373,6 +367,7 @@ docs/Model/WPPluginUpdateAvailable.md
 docs/Model/WebServerRewrite.md
 docs/Model/WebserverKind.md
 docs/Model/Website.md
+docs/Model/WebsiteAndDomainUuid.md
 docs/Model/WebsiteApp.md
 docs/Model/WebsiteAppKind.md
 docs/Model/WebsiteAppsFullListing.md
@@ -410,7 +405,6 @@ lib/Api/BackupsApi.php
 lib/Api/BrandingApi.php
 lib/Api/CustomersApi.php
 lib/Api/DnsApi.php
-lib/Api/DomainApi.php
 lib/Api/DomainsApi.php
 lib/Api/EmailClientApi.php
 lib/Api/EmailsApi.php
@@ -456,10 +450,10 @@ lib/Model/BackupRestoreOptions.php
 lib/Model/BackupRoleInfo.php
 lib/Model/BackupStatus.php
 lib/Model/BackupsFullListing.php
-lib/Model/BaseSslCert.php
 lib/Model/Blocked.php
 lib/Model/Branding.php
 lib/Model/CPLocale.php
+lib/Model/CanUse.php
 lib/Model/CanonicalRedirect.php
 lib/Model/CgroupLimits.php
 lib/Model/ChangeSubscriptionParams.php
@@ -500,6 +494,8 @@ lib/Model/DomainMappingKind.php
 lib/Model/DomainMappingUpdate.php
 lib/Model/DomainMappingsFullListing.php
 lib/Model/DomainSslCert.php
+lib/Model/DomainSslCertWithData.php
+lib/Model/DomainWithUuid.php
 lib/Model/DomainsListing.php
 lib/Model/Email.php
 lib/Model/EmailAddress.php
@@ -543,6 +539,7 @@ lib/Model/InstallableWebsiteApp.php
 lib/Model/InstallableWebsiteAppsFullListing.php
 lib/Model/InterfaceIp.php
 lib/Model/InviteValidation.php
+lib/Model/LetsEncryptPreflightResult.php
 lib/Model/LicenceInfo.php
 lib/Model/LicenceKey.php
 lib/Model/LicenceStatus.php
@@ -570,6 +567,7 @@ lib/Model/MigrationDetails.php
 lib/Model/MigrationLog.php
 lib/Model/MigrationStatus.php
 lib/Model/MigrationsListing.php
+lib/Model/ModSecStatus.php
 lib/Model/ModelInterface.php
 lib/Model/ModelUnset.php
 lib/Model/MySQLAuthPlugin.php
@@ -593,10 +591,10 @@ lib/Model/NewDefaultDnsRecord.php
 lib/Model/NewDnsRecord.php
 lib/Model/NewDnsThirdPartyProvider.php
 lib/Model/NewDomain.php
-lib/Model/NewDomainAlias.php
 lib/Model/NewEmail.php
 lib/Model/NewFtpUser.php
 lib/Model/NewInvite.php
+lib/Model/NewMappedDomain.php
 lib/Model/NewMember.php
 lib/Model/NewMigrationDetails.php
 lib/Model/NewMySQLDB.php
@@ -626,6 +624,7 @@ lib/Model/OrgAccessToken.php
 lib/Model/OrgOwnerUpdate.php
 lib/Model/OrgUpdate.php
 lib/Model/Outcome.php
+lib/Model/OwaspVersion.php
 lib/Model/PhpIni.php
 lib/Model/PhpVersion.php
 lib/Model/Plan.php
@@ -659,10 +658,10 @@ lib/Model/RolesSummary.php
 lib/Model/Selection.php
 lib/Model/ServerConf.php
 lib/Model/ServerDiskUsage.php
-lib/Model/ServerDomain.php
 lib/Model/ServerGroup.php
 lib/Model/ServerGroupUpdate.php
 lib/Model/ServerGroups.php
+lib/Model/ServerHostnameWebsite.php
 lib/Model/ServerInfo.php
 lib/Model/ServerInfoBrief.php
 lib/Model/ServerIowait.php
@@ -689,11 +688,6 @@ lib/Model/ServiceLogMetadata.php
 lib/Model/ServiceLogStatus.php
 lib/Model/ServiceLogsFullListing.php
 lib/Model/ServiceSettingValue.php
-lib/Model/ServiceSslCert.php
-lib/Model/ServiceSslCertMapping.php
-lib/Model/ServiceSslCertMappings.php
-lib/Model/ServiceSslCertWithData.php
-lib/Model/ServiceSslCertsFullListing.php
 lib/Model/ServiceStatusAction.php
 lib/Model/Session.php
 lib/Model/SessionResult.php
@@ -715,12 +709,7 @@ lib/Model/SpaceUsage.php
 lib/Model/SshKey.php
 lib/Model/SshKeyFullListing.php
 lib/Model/SshKeyUpdate.php
-lib/Model/SslCertData.php
-lib/Model/SslCertMapping.php
-lib/Model/SslCertMappings.php
-lib/Model/SslCertWithData.php
-lib/Model/SslCerts.php
-lib/Model/SslCertsFullListing.php
+lib/Model/SslCert.php
 lib/Model/StagingDomain.php
 lib/Model/Status.php
 lib/Model/Subscription.php
@@ -779,6 +768,7 @@ lib/Model/WPPluginUpdateAvailable.php
 lib/Model/WebServerRewrite.php
 lib/Model/WebserverKind.php
 lib/Model/Website.php
+lib/Model/WebsiteAndDomainUuid.php
 lib/Model/WebsiteApp.php
 lib/Model/WebsiteAppKind.php
 lib/Model/WebsiteAppsFullListing.php
@@ -817,7 +807,6 @@ test/Api/BackupsApiTest.php
 test/Api/BrandingApiTest.php
 test/Api/CustomersApiTest.php
 test/Api/DnsApiTest.php
-test/Api/DomainApiTest.php
 test/Api/DomainsApiTest.php
 test/Api/EmailClientApiTest.php
 test/Api/EmailsApiTest.php
@@ -860,10 +849,10 @@ test/Model/BackupRoleInfoTest.php
 test/Model/BackupStatusTest.php
 test/Model/BackupTest.php
 test/Model/BackupsFullListingTest.php
-test/Model/BaseSslCertTest.php
 test/Model/BlockedTest.php
 test/Model/BrandingTest.php
 test/Model/CPLocaleTest.php
+test/Model/CanUseTest.php
 test/Model/CanonicalRedirectTest.php
 test/Model/CgroupLimitsTest.php
 test/Model/ChangeSubscriptionParamsSubscriptionIdTest.php
@@ -903,7 +892,9 @@ test/Model/DomainMappingTest.php
 test/Model/DomainMappingUpdateTest.php
 test/Model/DomainMappingsFullListingTest.php
 test/Model/DomainSslCertTest.php
+test/Model/DomainSslCertWithDataTest.php
 test/Model/DomainTest.php
+test/Model/DomainWithUuidTest.php
 test/Model/DomainsListingTest.php
 test/Model/EmailAddressTest.php
 test/Model/EmailAuthTest.php
@@ -947,6 +938,7 @@ test/Model/InstallableWebsiteAppTest.php
 test/Model/InstallableWebsiteAppsFullListingTest.php
 test/Model/InterfaceIpTest.php
 test/Model/InviteValidationTest.php
+test/Model/LetsEncryptPreflightResultTest.php
 test/Model/LicenceInfoTest.php
 test/Model/LicenceKeyTest.php
 test/Model/LicenceStatusTest.php
@@ -974,6 +966,7 @@ test/Model/MigrationDetailsTest.php
 test/Model/MigrationLogTest.php
 test/Model/MigrationStatusTest.php
 test/Model/MigrationsListingTest.php
+test/Model/ModSecStatusTest.php
 test/Model/ModelUnsetTest.php
 test/Model/MySQLAuthPluginTest.php
 test/Model/MySQLDBTest.php
@@ -995,11 +988,11 @@ test/Model/NewCustomerTest.php
 test/Model/NewDefaultDnsRecordTest.php
 test/Model/NewDnsRecordTest.php
 test/Model/NewDnsThirdPartyProviderTest.php
-test/Model/NewDomainAliasTest.php
 test/Model/NewDomainTest.php
 test/Model/NewEmailTest.php
 test/Model/NewFtpUserTest.php
 test/Model/NewInviteTest.php
+test/Model/NewMappedDomainTest.php
 test/Model/NewMemberTest.php
 test/Model/NewMigrationDetailsTest.php
 test/Model/NewMySQLDBTest.php
@@ -1029,6 +1022,7 @@ test/Model/OrgOwnerUpdateTest.php
 test/Model/OrgTest.php
 test/Model/OrgUpdateTest.php
 test/Model/OutcomeTest.php
+test/Model/OwaspVersionTest.php
 test/Model/PhpIniTest.php
 test/Model/PhpVersionTest.php
 test/Model/PlanTest.php
@@ -1062,10 +1056,10 @@ test/Model/RolesSummaryTest.php
 test/Model/SelectionTest.php
 test/Model/ServerConfTest.php
 test/Model/ServerDiskUsageTest.php
-test/Model/ServerDomainTest.php
 test/Model/ServerGroupTest.php
 test/Model/ServerGroupUpdateTest.php
 test/Model/ServerGroupsTest.php
+test/Model/ServerHostnameWebsiteTest.php
 test/Model/ServerInfoBriefTest.php
 test/Model/ServerInfoTest.php
 test/Model/ServerIowaitTest.php
@@ -1092,11 +1086,6 @@ test/Model/ServiceLogStatusTest.php
 test/Model/ServiceLogTest.php
 test/Model/ServiceLogsFullListingTest.php
 test/Model/ServiceSettingValueTest.php
-test/Model/ServiceSslCertMappingTest.php
-test/Model/ServiceSslCertMappingsTest.php
-test/Model/ServiceSslCertTest.php
-test/Model/ServiceSslCertWithDataTest.php
-test/Model/ServiceSslCertsFullListingTest.php
 test/Model/ServiceStatusActionTest.php
 test/Model/SessionResultTest.php
 test/Model/SessionTest.php
@@ -1118,12 +1107,7 @@ test/Model/SpaceUsageTest.php
 test/Model/SshKeyFullListingTest.php
 test/Model/SshKeyTest.php
 test/Model/SshKeyUpdateTest.php
-test/Model/SslCertDataTest.php
-test/Model/SslCertMappingTest.php
-test/Model/SslCertMappingsTest.php
-test/Model/SslCertWithDataTest.php
-test/Model/SslCertsFullListingTest.php
-test/Model/SslCertsTest.php
+test/Model/SslCertTest.php
 test/Model/StagingDomainTest.php
 test/Model/StatusTest.php
 test/Model/SubscriptionDedicatedServerTest.php
@@ -1181,6 +1165,7 @@ test/Model/WPPluginStatusTest.php
 test/Model/WPPluginUpdateAvailableTest.php
 test/Model/WebServerRewriteTest.php
 test/Model/WebserverKindTest.php
+test/Model/WebsiteAndDomainUuidTest.php
 test/Model/WebsiteAppKindTest.php
 test/Model/WebsiteAppTest.php
 test/Model/WebsiteAppsFullListingTest.php

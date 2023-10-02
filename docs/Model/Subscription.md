@@ -16,5 +16,8 @@ Name | Type | Description | Notes
 **selections** | [**\Upmind\EnhanceSdk\Model\Selection[]**](Selection.md) |  |
 **dedicated_servers** | [**\Upmind\EnhanceSdk\Model\SubscriptionDedicatedServersInfo**](SubscriptionDedicatedServersInfo.md) |  | [optional]
 **plan_type** | [**\Upmind\EnhanceSdk\Model\PlanType**](PlanType.md) |  |
+**allowed_php_versions** | [**\Upmind\EnhanceSdk\Model\PhpVersion[]**](PhpVersion.md) |  |
+**default_php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  |
+**redis_allowed** | **bool** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

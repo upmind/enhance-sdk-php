@@ -11,8 +11,8 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createFtpUser()**](WebsitesApi.md#createFtpUser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website |
 | [**createPreviewDomain()**](WebsitesApi.md#createPreviewDomain) | **POST** /orgs/{org_id}/websites/{website_id}/preview | Create a preview domain |
 | [**createWebsite()**](WebsitesApi.md#createWebsite) | **POST** /orgs/{org_id}/websites | Create a new website or clone an existing one. |
-| [**createWebsiteDomainAlias()**](WebsitesApi.md#createWebsiteDomainAlias) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website domain alias |
-| [**createWebsiteDomainLetsencryptCerts()**](WebsitesApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteDomainLetsencryptCerts()**](WebsitesApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteMappedDomain()**](WebsitesApi.md#createWebsiteMappedDomain) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website mapped domain |
 | [**createWebsiteMySQLDB()**](WebsitesApi.md#createWebsiteMySQLDB) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website |
 | [**deleteDomainNginxFastCgiExcludedPath()**](WebsitesApi.md#deleteDomainNginxFastCgiExcludedPath) | **DELETE** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Delete Nginx FastCGI excluded path |
 | [**deleteDomainWebserverRewrite()**](WebsitesApi.md#deleteDomainWebserverRewrite) | **DELETE** /v2/domains/{domain_id}/webserver_rewrites | Delete web server rewrite |
@@ -21,9 +21,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWebsite()**](WebsitesApi.md#deleteWebsite) | **DELETE** /orgs/{org_id}/websites/{website_id} | Delete website |
 | [**deleteWebsiteDomainMapping()**](WebsitesApi.md#deleteWebsiteDomainMapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping |
 | [**deleteWebsiteSetting()**](WebsitesApi.md#deleteWebsiteSetting) | **DELETE** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
-| [**deleteWebsiteSslCert()**](WebsitesApi.md#deleteWebsiteSslCert) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Deletes given ssl certificate |
 | [**deleteWebsites()**](WebsitesApi.md#deleteWebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites |
-| [**enableWebsiteSslCert()**](WebsitesApi.md#enableWebsiteSslCert) | **PUT** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id} | Enables already stored certificate for a given domain |
 | [**getDomainNginxFastCgi()**](WebsitesApi.md#getDomainNginxFastCgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement |
 | [**getDomainNginxFastCgiExcludedPaths()**](WebsitesApi.md#getDomainNginxFastCgiExcludedPaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths |
 | [**getDomainWebserverRewrites()**](WebsitesApi.md#getDomainWebserverRewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain |
@@ -39,23 +37,31 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteDomainMapping()**](WebsitesApi.md#getWebsiteDomainMapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping |
 | [**getWebsiteDomainMappingDnsStatus()**](WebsitesApi.md#getWebsiteDomainMappingDnsStatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status |
 | [**getWebsiteDomainMappings()**](WebsitesApi.md#getWebsiteDomainMappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains |
+| [**getWebsiteDomainModSecStatus()**](WebsitesApi.md#getWebsiteDomainModSecStatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain |
+| [**getWebsiteDomainSslCert()**](WebsitesApi.md#getWebsiteDomainSslCert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain |
 | [**getWebsiteFsQuotaLimits()**](WebsitesApi.md#getWebsiteFsQuotaLimits) | **GET** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Get the active FS quoa limits for a website |
 | [**getWebsiteHtaccessIpsRule()**](WebsitesApi.md#getWebsiteHtaccessIpsRule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs |
 | [**getWebsiteHtaccessRewrites()**](WebsitesApi.md#getWebsiteHtaccessRewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules |
+| [**getWebsiteIoncubeStatus()**](WebsitesApi.md#getWebsiteIoncubeStatus) | **GET** /v2/websites/{website_id}/ioncube | Get ioncube status for an existing website |
 | [**getWebsiteMetrics()**](WebsitesApi.md#getWebsiteMetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics |
 | [**getWebsiteMySQLDBs()**](WebsitesApi.md#getWebsiteMySQLDBs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases |
+| [**getWebsiteRedisState()**](WebsitesApi.md#getWebsiteRedisState) | **GET** /v2/websites/{website_id}/redis | Get redis state for a website |
 | [**getWebsiteServerDomains()**](WebsitesApi.md#getWebsiteServerDomains) | **GET** /orgs/{org_id}/websites/{website_id}/server_domains | Fetch website server domains |
 | [**getWebsiteSetting()**](WebsitesApi.md#getWebsiteSetting) | **GET** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind} | Get the value for a particular setting |
 | [**getWebsiteSshKeys()**](WebsitesApi.md#getWebsiteSshKeys) | **GET** /orgs/{org_id}/websites/{website_id}/ssh/keys | Get website&#39;s authorized SSH keys |
-| [**getWebsiteSslCert()**](WebsitesApi.md#getWebsiteSslCert) | **GET** /orgs/{org_id}/websites/{website_id}/ssl/{cert_id} | Fetches a single SSL cert |
-| [**getWebsiteSslCerts()**](WebsitesApi.md#getWebsiteSslCerts) | **GET** /orgs/{org_id}/websites/{website_id}/ssl | Returns all certificates data with domain mappings for a given website |
 | [**getWebsiteWebserverKind()**](WebsitesApi.md#getWebsiteWebserverKind) | **GET** /v2/websites/{website_id}/webserver_kind | Get web server kind for a given website |
 | [**getWebsites()**](WebsitesApi.md#getWebsites) | **GET** /orgs/{org_id}/websites | Get websites |
+| [**performLetsEncryptPreflightCheck()**](WebsitesApi.md#performLetsEncryptPreflightCheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check |
 | [**pushWebsiteLive()**](WebsitesApi.md#pushWebsiteLive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live |
+| [**restartWebsitePhp()**](WebsitesApi.md#restartWebsitePhp) | **POST** /v2/websites/{website_id}/restart_php | Restart PHP container for a website |
 | [**setDomainNginxFastCgi()**](WebsitesApi.md#setDomainNginxFastCgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement |
 | [**setDomainWebserverRewrite()**](WebsitesApi.md#setDomainWebserverRewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file |
 | [**setWebsiteCgroupLimits()**](WebsitesApi.md#setWebsiteCgroupLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only) |
+| [**setWebsiteDomainForceSsl()**](WebsitesApi.md#setWebsiteDomainForceSsl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping |
+| [**setWebsiteDomainModSecStatus()**](WebsitesApi.md#setWebsiteDomainModSecStatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain |
 | [**setWebsiteFsQuotaLimits()**](WebsitesApi.md#setWebsiteFsQuotaLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only) |
+| [**setWebsiteIoncubeStatus()**](WebsitesApi.md#setWebsiteIoncubeStatus) | **PUT** /v2/websites/{website_id}/ioncube | Set ioncube status for an existing website |
+| [**setWebsiteRedisState()**](WebsitesApi.md#setWebsiteRedisState) | **PUT** /v2/websites/{website_id}/redis | Set Redis state for an existing website |
 | [**setWebsiteSetting()**](WebsitesApi.md#setWebsiteSetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting |
 | [**takeScreenshot()**](WebsitesApi.md#takeScreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/screenshot/take | Sends command to take website screenshot |
 | [**unauthorizeWebsiteSshKey()**](WebsitesApi.md#unauthorizeWebsiteSshKey) | **DELETE** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Unauthorize the public SSH key with the given ID. |
@@ -67,7 +73,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**updateWebsiteHtaccessRewrites()**](WebsitesApi.md#updateWebsiteHtaccessRewrites) | **PATCH** /orgs/{org_id}/websites/{website_id}/htaccess | Updates rewrite rules |
 | [**updateWebsitePrimaryDomain()**](WebsitesApi.md#updateWebsitePrimaryDomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping |
 | [**updateWebsiteSshKey()**](WebsitesApi.md#updateWebsiteSshKey) | **PATCH** /orgs/{org_id}/websites/{website_id}/ssh/keys/{key_id} | Update an existing website public SSH key. |
-| [**uploadWebsiteSslCerts()**](WebsitesApi.md#uploadWebsiteSslCerts) | **POST** /orgs/{org_id}/websites/{website_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website |
+| [**uploadWebsiteDomainSslCert()**](WebsitesApi.md#uploadWebsiteDomainSslCert) | **POST** /v2/domains/{domain_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website |
 | [**validateWebsiteOperation()**](WebsitesApi.md#validateWebsiteOperation) | **POST** /orgs/{org_id}/websites/{website_id}/validate-operation | Validate whether a website operation is allowed |
 
 
@@ -536,15 +542,70 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createWebsiteDomainAlias()`
+## `createWebsiteDomainLetsencryptCerts()`
 
 ```php
-createWebsiteDomainAlias($org_id, $website_id, $new_domain_alias): \Upmind\EnhanceSdk\Model\NewResourceUuid
+createWebsiteDomainLetsencryptCerts($domain_id)
 ```
 
-Create website domain alias
+Generate and setup letsencrypt ssl certificates for website's domain
 
-Creates a domain alias for the website. This operation creates the domain resource and the mapping between the domain and the website. It counts towards the website's subscription's domain alias quota and may only be performed if there is quota left. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+Generates letsencrypt certificates for the domain. This is a longer running task, that will do a complete ssl setup for a given domain. Once completed any given domain will get served over `https`. Given domain must be publicly accessible and being served from our service. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $apiInstance->createWebsiteDomainLetsencryptCerts($domain_id);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createWebsiteMappedDomain()`
+
+```php
+createWebsiteMappedDomain($org_id, $website_id, $new_mapped_domain): \Upmind\EnhanceSdk\Model\NewResourceUuid
+```
+
+Create website mapped domain
+
+Creates a domain mapping, where subscription resources are sufficient. The mapping kind will default to 'alias' if unspecified.
 
 ### Example
 
@@ -570,13 +631,13 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$new_domain_alias = new \Upmind\EnhanceSdk\Model\NewDomainAlias(); // \Upmind\EnhanceSdk\Model\NewDomainAlias | Domain details.
+$new_mapped_domain = new \Upmind\EnhanceSdk\Model\NewMappedDomain(); // \Upmind\EnhanceSdk\Model\NewMappedDomain | Domain details.
 
 try {
-    $result = $apiInstance->createWebsiteDomainAlias($org_id, $website_id, $new_domain_alias);
+    $result = $apiInstance->createWebsiteMappedDomain($org_id, $website_id, $new_mapped_domain);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->createWebsiteDomainAlias: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling WebsitesApi->createWebsiteMappedDomain: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -586,7 +647,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **new_domain_alias** | [**\Upmind\EnhanceSdk\Model\NewDomainAlias**](../Model/NewDomainAlias.md)| Domain details. | |
+| **new_mapped_domain** | [**\Upmind\EnhanceSdk\Model\NewMappedDomain**](../Model/NewMappedDomain.md)| Domain details. | |
 
 ### Return type
 
@@ -600,69 +661,6 @@ try {
 
 - **Content-Type**: `application/json`
 - **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `createWebsiteDomainLetsencryptCerts()`
-
-```php
-createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable)
-```
-
-Generate and setup letsencrypt ssl certificates for website's domain
-
-Generates letsencrypt certificates for the domain. This is a longer running task, that will do a complete ssl setup for a given domain. Once completed any given domain will get served over `https`. Given domain must be publicly accessible and being served from our service. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$domain_id = 'domain_id_example'; // string | The id of the domain.
-$dry_run = True; // bool | If not set or `dry_run=true` it will only verify domain ownership and get dummy certificates. To enable SSL on domain set `?dry_run=false`.
-$enable = True; // bool | Defaults to `enable=true` if not set. To only generate and save certificate in db set `enable=false`. It has no bearing if `dry_run=false` not set.
-
-try {
-    $apiInstance->createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **domain_id** | **string**| The id of the domain. | |
-| **dry_run** | **bool**| If not set or &#x60;dry_run&#x3D;true&#x60; it will only verify domain ownership and get dummy certificates. To enable SSL on domain set &#x60;?dry_run&#x3D;false&#x60;. | [optional] |
-| **enable** | **bool**| Defaults to &#x60;enable&#x3D;true&#x60; if not set. To only generate and save certificate in db set &#x60;enable&#x3D;false&#x60;. It has no bearing if &#x60;dry_run&#x3D;false&#x60; not set. | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -1189,65 +1187,6 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `deleteWebsiteSslCert()`
-
-```php
-deleteWebsiteSslCert($org_id, $website_id, $cert_id)
-```
-
-Deletes given ssl certificate
-
-Endpoint for deleting SSl certificate for a given website User can only delete a certificate if it is not enabled for any domain.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-
-try {
-    $apiInstance->deleteWebsiteSslCert($org_id, $website_id, $cert_id);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->deleteWebsiteSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `deleteWebsites()`
 
 ```php
@@ -1299,69 +1238,6 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `enableWebsiteSslCert()`
-
-```php
-enableWebsiteSslCert($org_id, $website_id, $cert_id, $domain_id, $force_ssl)
-```
-
-Enables already stored certificate for a given domain
-
-Endpoint for applying SSl certificates for a given website's domain. Sets or updates the exiting cert mapping for the given domain.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-$domain_id = 'domain_id_example'; // string | The id of the domain.
-$force_ssl = True; // bool | Forced redirect to SSL for the given domain
-
-try {
-    $apiInstance->enableWebsiteSslCert($org_id, $website_id, $cert_id, $domain_id, $force_ssl);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->enableWebsiteSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-| **domain_id** | **string**| The id of the domain. | |
-| **force_ssl** | **bool**| Forced redirect to SSL for the given domain | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -2362,6 +2238,116 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteDomainModSecStatus()`
+
+```php
+getWebsiteDomainModSecStatus($domain_id): \Upmind\EnhanceSdk\Model\ModSecStatus
+```
+
+Get mod security status for a single domain
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getWebsiteDomainModSecStatus($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteDomainModSecStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteDomainSslCert()`
+
+```php
+getWebsiteDomainSslCert($domain_id): \Upmind\EnhanceSdk\Model\DomainSslCertWithData
+```
+
+Returns the SSL for this website domain
+
+Endpoint for retrieving SSL certificates for a given website including certificates generated by letsencrypt
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getWebsiteDomainSslCert($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteDomainSslCert: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\DomainSslCertWithData**](../Model/DomainSslCertWithData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebsiteFsQuotaLimits()`
 
 ```php
@@ -2561,6 +2547,69 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteIoncubeStatus()`
+
+```php
+getWebsiteIoncubeStatus($website_id): bool
+```
+
+Get ioncube status for an existing website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsiteIoncubeStatus($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteIoncubeStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebsiteMetrics()`
 
 ```php
@@ -2673,6 +2722,69 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteRedisState()`
+
+```php
+getWebsiteRedisState($website_id): bool
+```
+
+Get redis state for a website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsiteRedisState($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteRedisState: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2888,124 +3000,6 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getWebsiteSslCert()`
-
-```php
-getWebsiteSslCert($org_id, $website_id, $cert_id): \Upmind\EnhanceSdk\Model\SslCertWithData
-```
-
-Fetches a single SSL cert
-
-Returns certificate data and mappings for a single certificate belonging to a website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-
-try {
-    $result = $apiInstance->getWebsiteSslCert($org_id, $website_id, $cert_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->getWebsiteSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\SslCertWithData**](../Model/SslCertWithData.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getWebsiteSslCerts()`
-
-```php
-getWebsiteSslCerts($org_id, $website_id): \Upmind\EnhanceSdk\Model\SslCertsFullListing
-```
-
-Returns all certificates data with domain mappings for a given website
-
-Endpoint for retreaving SSl certificates for a given website including certificates generated by letsencrypt
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-
-try {
-    $result = $apiInstance->getWebsiteSslCerts($org_id, $website_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->getWebsiteSslCerts: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\SslCertsFullListing**](../Model/SslCertsFullListing.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `getWebsiteWebserverKind()`
 
 ```php
@@ -3164,6 +3158,62 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `performLetsEncryptPreflightCheck()`
+
+```php
+performLetsEncryptPreflightCheck($domain_id): \Upmind\EnhanceSdk\Model\LetsEncryptPreflightResult
+```
+
+Perform the LetsEncrypt preflight check
+
+Will attempt to verify that the domain will successfully achieve a LetsEncrypt certificate if attempted.  Provides debug information.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->performLetsEncryptPreflightCheck($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->performLetsEncryptPreflightCheck: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\LetsEncryptPreflightResult**](../Model/LetsEncryptPreflightResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `pushWebsiteLive()`
 
 ```php
@@ -3211,6 +3261,68 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `restartWebsitePhp()`
+
+```php
+restartWebsitePhp($website_id)
+```
+
+Restart PHP container for a website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $apiInstance->restartWebsitePhp($website_id);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->restartWebsitePhp: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
 | **website_id** | **string**| The id of the website. | |
 
 ### Return type
@@ -3424,6 +3536,116 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWebsiteDomainForceSsl()`
+
+```php
+setWebsiteDomainForceSsl($domain_id, $body)
+```
+
+Set \"force ssl\" status for domain mapping
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$body = True; // bool | Boolean \"force ssl\" setting
+
+try {
+    $apiInstance->setWebsiteDomainForceSsl($domain_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteDomainForceSsl: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **body** | **bool**| Boolean \&quot;force ssl\&quot; setting | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteDomainModSecStatus()`
+
+```php
+setWebsiteDomainModSecStatus($domain_id, $mod_sec_status)
+```
+
+Set mod security status on a single domain
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$mod_sec_status = new \Upmind\EnhanceSdk\Model\ModSecStatus(); // \Upmind\EnhanceSdk\Model\ModSecStatus
+
+try {
+    $apiInstance->setWebsiteDomainModSecStatus($domain_id, $mod_sec_status);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteDomainModSecStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **mod_sec_status** | [**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `setWebsiteFsQuotaLimits()`
 
 ```php
@@ -3472,6 +3694,134 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **fs_quota_limit** | [**\Upmind\EnhanceSdk\Model\FsQuotaLimit**](../Model/FsQuotaLimit.md)| FS quota limits. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteIoncubeStatus()`
+
+```php
+setWebsiteIoncubeStatus($website_id, $body)
+```
+
+Set ioncube status for an existing website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+$body = True; // bool
+
+try {
+    $apiInstance->setWebsiteIoncubeStatus($website_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteIoncubeStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+| **body** | **bool**|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteRedisState()`
+
+```php
+setWebsiteRedisState($website_id, $body)
+```
+
+Set Redis state for an existing website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+$body = True; // bool
+
+try {
+    $apiInstance->setWebsiteRedisState($website_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteRedisState: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+| **body** | **bool**|  | [optional] |
 
 ### Return type
 
@@ -4219,10 +4569,10 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `uploadWebsiteSslCerts()`
+## `uploadWebsiteDomainSslCert()`
 
 ```php
-uploadWebsiteSslCerts($org_id, $website_id, $ssl_certs): \Upmind\EnhanceSdk\Model\NewSslCert
+uploadWebsiteDomainSslCert($domain_id, $ssl_cert): \Upmind\EnhanceSdk\Model\NewSslCert
 ```
 
 Upload custom ssl certificate, key and optional fullchain for a given website
@@ -4242,15 +4592,14 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$ssl_certs = new \Upmind\EnhanceSdk\Model\SslCerts(); // \Upmind\EnhanceSdk\Model\SslCerts | Cert, private key and optional fullchain.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$ssl_cert = new \Upmind\EnhanceSdk\Model\SslCert(); // \Upmind\EnhanceSdk\Model\SslCert | Cert, private key and optional fullchain.
 
 try {
-    $result = $apiInstance->uploadWebsiteSslCerts($org_id, $website_id, $ssl_certs);
+    $result = $apiInstance->uploadWebsiteDomainSslCert($domain_id, $ssl_cert);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling WebsitesApi->uploadWebsiteSslCerts: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling WebsitesApi->uploadWebsiteDomainSslCert: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -4258,9 +4607,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **ssl_certs** | [**\Upmind\EnhanceSdk\Model\SslCerts**](../Model/SslCerts.md)| Cert, private key and optional fullchain. | |
+| **domain_id** | **string**| The id of the domain. | |
+| **ssl_cert** | [**\Upmind\EnhanceSdk\Model\SslCert**](../Model/SslCert.md)| Cert, private key and optional fullchain. | |
 
 ### Return type
 

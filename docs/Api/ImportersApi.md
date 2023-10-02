@@ -24,7 +24,7 @@ analyzeImportMigration($org_id, $import_migration_id)
 
 Analyze imported migration
 
-Analyze import and store results into database.
+Analyze import and store results into database.  Note: the endpoint returns immediately, and you have to poll status via `getImportMigration` endpoint. If you want to see detailed error, please call `getImportMigrationLog`.
 
 ### Example
 

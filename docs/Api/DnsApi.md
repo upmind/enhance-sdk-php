@@ -10,6 +10,8 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteDefaultDnsRecord()**](DnsApi.md#deleteDefaultDnsRecord) | **DELETE** /v2/settings/dns/default-records/{record_id} | Delete a default DNS record |
 | [**deleteDnsThirdPartyProvider()**](DnsApi.md#deleteDnsThirdPartyProvider) | **DELETE** /dns/third-party-providers/{provider_id} | Deletes a third party dns provider. |
 | [**deleteWebsiteDomainDnsZoneRecord()**](DnsApi.md#deleteWebsiteDomainDnsZoneRecord) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Delete dns zone record |
+| [**disableDomainDnsSec()**](DnsApi.md#disableDomainDnsSec) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/dnssec | Disable DNSSEC on this domain |
+| [**enableDomainDnsSec()**](DnsApi.md#enableDomainDnsSec) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/dnssec | Enable DNSSEC on this domain |
 | [**getDnsThirdPartyProviders()**](DnsApi.md#getDnsThirdPartyProviders) | **GET** /dns/third-party-providers | Lists all third party providers. |
 | [**getWebsiteDomainDnsZone()**](DnsApi.md#getWebsiteDomainDnsZone) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Get a dns zone for given domain |
 | [**listDefaultDnsRecords()**](DnsApi.md#listDefaultDnsRecords) | **GET** /v2/settings/dns/default-records | List default DNS records |
@@ -411,6 +413,143 @@ void (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `disableDomainDnsSec()`
+
+```php
+disableDomainDnsSec($org_id, $website_id, $domain_id)
+```
+
+Disable DNSSEC on this domain
+
+Will disable DNSSEC on this domain.  The DS records must be removed from the upstream DNS provider first to avoid downtime.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $apiInstance->disableDomainDnsSec($org_id, $website_id, $domain_id);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->disableDomainDnsSec: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `enableDomainDnsSec()`
+
+```php
+enableDomainDnsSec($org_id, $website_id, $domain_id): string
+```
+
+Enable DNSSEC on this domain
+
+Will enable DNSSEC and return the relevant DS records
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->enableDomainDnsSec($org_id, $website_id, $domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->enableDomainDnsSec: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

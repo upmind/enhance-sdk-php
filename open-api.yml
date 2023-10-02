@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 9.4.0
+  version: 9.9.0
   title: orchd
 tags:
   - name: install
@@ -363,6 +363,50 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/OrchdLogSettings"
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /settings/orchd/prohibited_domains:
+    get:
+      tags:
+        - settings
+      summary: Get the platform level prohibited domains as a newline separated list
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getProhibitedDomains
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set the platform level prohibited domains
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setProhibitedDomains
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
       responses:
         "204":
           description: Successful
@@ -1264,127 +1308,6 @@ paths:
         "403":
           description: Insufficient privileges
 
-  /servers/ssl:
-    post:
-      tags:
-        - servers
-        - ssl
-      summary: Upload SSL certificate for server/service use
-      description: >-
-        Endpoint for uploading custom SSl certificate for server/secvice.
-        Verifies the key/cert pair returns an error if it is a mismatch.
-        Certificates uploaded via this endpoint belong to the MO.
-
-        Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-      operationId: uploadServerSslCert
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        description: Cert, private key and optional fullchain.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SslCerts"
-      responses:
-        "201":
-          description: SSL Cert successfully uploaded
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NewSslCert"
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    get:
-      tags:
-        - servers
-        - ssl
-      summary: Returns service SSL certificates data for MO
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      description: >-
-        Endpoint for retreaving all Service SSl certificates for the MO along with
-        service ids if mapped to any.
-      operationId: getServerSslCerts
-      responses:
-        "200":
-          description: SSL Certs with server mappings
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceSslCertsFullListing"
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  /servers/ssl/{cert_id}:
-    parameters:
-      - $ref: "#/components/parameters/SslCertId"
-    delete:
-      tags:
-        - servers
-        - ssl
-      summary: Delete ssl certificate
-      description: >-
-        Endpoint for deleting service SSl certificate for MO.
-        A Cert can only be deleted if it hasn't been applied to any service yet.
-
-        Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-      operationId: deleteServerSslCert
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "204":
-          description: Successful
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    get:
-      tags:
-        - servers
-        - ssl
-      summary: Fetch a single SSL certificate
-      description: >-
-        Fetches a single SSL certificate along with its certificate data
-      operationId: getServerSslCert
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: SSL cert with cert data
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServiceSslCertWithData"
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
   /servers/{server_id}:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -1506,8 +1429,8 @@ paths:
         - servers
       summary: Get domains which are mapped to a server
       description: >-
-        Returns all domains mapped to the specified server
-      operationId: getServerDomains
+        Returns the server hostname website for this server
+      operationId: getServerHostnameWebsite
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -1517,7 +1440,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ServerDomainListing"
+                $ref: "#/components/schemas/ServerHostnameWebsite"
         "401":
           description: Invalid session
         "403":
@@ -1527,11 +1450,11 @@ paths:
         - servers
       summary: Create a domain which is mapped to a server
       description: >-
-        Creates a new domain and maps it to the given server.  If the domain
-        already exists and is not currently mapped it will be updated.  Creates
-        various default records pointing to the server such as pop, imap, smtp,
-        etc.  Creates a self signed SSL which will later be replaced with a
-        LetsEncrypt.
+        Maps a hostname to a server by creating a special kind of website with
+        kind `ServerHostname`.  This can be used for POP/IMAP/SMTP as well as HTTP.
+        LetsEncrypt certificates will be issued if the DNS resolves.  Only one
+        server hostname website will be created, additional domains will be added as
+        aliases.
       operationId: createServerDomain
       security:
         - sessionCookie: []
@@ -1548,7 +1471,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/NewResourceUuid"
+                $ref: "#/components/schemas/WebsiteAndDomainUuid"
         "401":
           description: Invalid session
         "403":
@@ -1572,79 +1495,6 @@ paths:
       responses:
         "204":
           description: Server domain deleted
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  /servers/{server_id}/sni:
-    parameters:
-      - $ref: "#/components/parameters/ServerId"
-    get:
-      tags:
-        - servers
-      summary: Get SNI mappings
-      description: >-
-        Returns a list of all SNI mappings for the given server
-      operationId: getServerSniMappings
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Query successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ServerSniMappingListing"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-    post:
-      tags:
-        - servers
-      summary: Create SNI mapping
-      description: >-
-        Creates a new SNI mapping for a given certificate using a given hostname
-      operationId: createServerSniMapping
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ServerSniMappingBody"
-      responses:
-        "201":
-          description: Created
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
-  /servers/{server_id}/sni/{cert_id}/{domain}:
-    parameters:
-      - $ref: "#/components/parameters/ServerId"
-      - $ref: "#/components/parameters/SslCertId"
-      - $ref: "#/components/parameters/Domain"
-    delete:
-      tags:
-        - servers
-      summary: Delete a certificate SNI mapping
-      description: >-
-        Deletes the mapping of a certificate to a server on a particular hostname
-      operationId: deleteServerSniMapping
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "204":
-          description: Mapping deleted
         "401":
           description: Invalid session
         "403":
@@ -1896,6 +1746,168 @@ paths:
       responses:
         "200":
           description: LiteSpeed password has been reset
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /v2/servers/{server_id}/modsec_status:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    put:
+      tags:
+        - servers
+      summary: Set mod security status for a server
+      description: >-
+        If enabled, all websites on this server by default will
+        have mod security enabled, unless explicitly disabled.
+      operationId: setServerModSecurityStatus
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModSecStatus"
+      responses:
+        "200":
+          description: mod_security status updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - servers
+      summary: Get mod security status for a server
+      operationId: getServerModSecurityStatus
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: mod_security status successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModSecStatus"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/servers/{server_id}/owasp:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    post:
+      tags:
+        - servers
+      summary: Upgrade OWASP rules
+      description: >-
+        Will update the owasp rules to the latest version.  If the current version
+        is the latest, it will be reinstalled.
+      operationId: updateOwaspRules
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OWASP rules updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - servers
+      summary: Get the current and available version of the OWASP rules
+      operationId: getOwaspRulesVersion
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OWASP version successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OwaspVersion"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/servers/{server_id}/modsec_conf:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    put:
+      tags:
+        - servers
+      summary: Set mod security config
+      description: >-
+        This config is included in the web server config when
+        mod_security is enabled.
+      operationId: setServerModSecurityConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: mod_security config updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - servers
+      summary: Get mod security config
+      operationId: getServerModSecurityConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: mod_security config successfully queried
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - servers
+      summary: Delete custom mod_security config and reset to default
+      operationId: resetServerModSecurityConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: mod_security config customisations deleted
         "401":
           description: Invalid session
         "403":
@@ -6593,17 +6605,11 @@ paths:
       tags:
         - domains
         - websites
-      summary: Create website domain alias
+      summary: Create website mapped domain
       description: >-
-        Creates a domain alias for the website.
-
-        This operation creates the domain resource and the mapping between the
-        domain and the website. It counts towards the website's subscription's
-        domain alias quota and may only be performed if there is quota left.
-
-        Session holder must be at least a `SuperAdmin` in this org or a parent
-        org, or be a member in this org that has access to the website.
-      operationId: createWebsiteDomainAlias
+        Creates a domain mapping, where subscription resources are sufficient.
+        The mapping kind will default to 'alias' if unspecified.
+      operationId: createWebsiteMappedDomain
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -6613,7 +6619,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewDomainAlias"
+              $ref: "#/components/schemas/NewMappedDomain"
       responses:
         "201":
           description: Successful
@@ -6982,6 +6988,58 @@ paths:
       responses:
         "204":
           description: Record successfully deleted
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/dnssec:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DomainId"
+    post:
+      tags:
+        - dns
+      summary: Enable DNSSEC on this domain
+      description: >-
+        Will enable DNSSEC and return the relevant DS records
+      operationId: enableDomainDnsSec
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: DNSSEC enabled
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - dns
+      summary: Disable DNSSEC on this domain
+      description: >-
+        Will disable DNSSEC on this domain.  The DS records must be removed
+        from the upstream DNS provider first to avoid downtime.
+      operationId: disableDomainDnsSec
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: DNSSEC disabled
+        "400":
+          description: Invalid input
         "401":
           description: Invalid session
         "403":
@@ -7568,14 +7626,11 @@ paths:
   # -- ssl
   ###############################################################################
 
-  /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt:
+  /v2/domains/{domain_id}/letsencrypt:
     parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/DomainId"
     post:
       tags:
-        - orgs
         - websites
         - domains
         - letsencrypt
@@ -7591,23 +7646,6 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: createWebsiteDomainLetsencryptCerts
-      parameters:
-        - name: dryRun
-          in: query
-          description: >-
-            If not set or `dry_run=true` it will only verify domain ownership and get dummy certificates.
-            To enable SSL on domain set `?dry_run=false`.
-          required: false
-          schema:
-            type: boolean
-        - name: enable
-          in: query
-          description: >-
-            Defaults to `enable=true` if not set. To only generate and save certificate in db set `enable=false`.
-            It has no bearing if `dry_run=false` not set.
-          required: false
-          schema:
-            type: boolean
       responses:
         "201":
           description: SSL Certs successfully created
@@ -7619,30 +7657,56 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-        "409":
-          description: Trying to update valid certs
 
-  /orgs/{org_id}/websites/{website_id}/ssl:
+  /v2/domains/{domain_id}/letsencrypt_preflight:
     parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DomainId"
+    post:
+      tags:
+        - websites
+        - domains
+        - letsencrypt
+      summary: Perform the LetsEncrypt preflight check
+      description: >-
+        Will attempt to verify that the domain will successfully achieve a
+        LetsEncrypt certificate if attempted.  Provides debug information.
+      operationId: performLetsEncryptPreflightCheck
+      responses:
+        "200":
+          description: Preflight check completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LetsEncryptPreflightResult"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /v2/domains/{domain_id}/ssl:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
     get:
       tags:
         - orgs
         - websites
         - ssl
-      summary: Returns all certificates data with domain mappings for a given website
+      summary: Returns the SSL for this website domain
       description: >-
-        Endpoint for retreaving SSl certificates for a given website
+        Endpoint for retrieving SSL certificates for a given website
         including certificates generated by letsencrypt
-      operationId: getWebsiteSslCerts
+      operationId: getWebsiteDomainSslCert
       responses:
         "200":
-          description: SSL Certs with list of domain mappings
+          description: SSL details
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SslCertsFullListing"
+                $ref: "#/components/schemas/DomainSslCertWithData"
         "400":
           description: Invalid input
         "401":
@@ -7664,14 +7728,14 @@ paths:
 
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
-      operationId: uploadWebsiteSslCerts
+      operationId: uploadWebsiteDomainSslCert
       requestBody:
         description: Cert, private key and optional fullchain.
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SslCerts"
+              $ref: "#/components/schemas/SslCert"
       responses:
         "201":
           description: SSL Cert successfully uploaded, returns list of applicable domains
@@ -7687,27 +7751,54 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
-  /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}:
+  /v2/domains/{domain_id}/ssl/force_ssl:
     parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/SslCertId"
-    delete:
+      - $ref: "#/components/parameters/DomainId"
+    put:
       tags:
         - orgs
         - websites
         - ssl
-      summary: Deletes given ssl certificate
-      description: >-
-        Endpoint for deleting SSl certificate for a given website
-        User can only delete a certificate if it is not enabled for any domain.
-      operationId: deleteWebsiteSslCert
+      summary: Set "force ssl" status for domain mapping
+      operationId: setWebsiteDomainForceSsl
+      requestBody:
+        description: Boolean "force ssl" setting
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
       responses:
-        "204":
-          description: SSL Cert successfully deleted
+        "201":
+          description: Setting updated
         "400":
-          description: Certificate in use
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/domains/{domain_id}/modsec_status:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    put:
+      tags:
+        - websites
+        - domains
+      summary: Set mod security status on a single domain
+      operationId: setWebsiteDomainModSecStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModSecStatus"
+      responses:
+        "200":
+          description: Modsec status updated
+        "400":
+          description: Invalid input
         "401":
           description: Invalid session
         "403":
@@ -7716,49 +7807,17 @@ paths:
           description: Not found
     get:
       tags:
-        - orgs
         - websites
-        - ssl
-      summary: Fetches a single SSL cert
-      description: >-
-        Returns certificate data and mappings for a single certificate belonging
-        to a website.
-      operationId: getWebsiteSslCert
+        - domains
+      summary: Get mod security status for a single domain
+      operationId: getWebsiteDomainModSecStatus
       responses:
         "200":
-          description: SSL Cert successfully uploaded, returns list of applicable domains
+          description: Modsec status queried
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SslCertWithData"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  /orgs/{org_id}/websites/{website_id}/ssl/{cert_id}/domains/{domain_id}:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/SslCertId"
-      - $ref: "#/components/parameters/DomainId"
-      - $ref: "#/components/parameters/ForceSsl"
-    put:
-      tags:
-        - orgs
-        - websites
-        - ssl
-        - domain
-      summary: Enables already stored certificate for a given domain
-      description: >-
-        Endpoint for applying SSl certificates for a given website's domain.
-        Sets or updates the exiting cert mapping for the given domain.
-      operationId: enableWebsiteSslCert
-      responses:
-        "200":
-          description: SSL Certs successfully enabled for domain
+                $ref: "#/components/schemas/ModSecStatus"
         "400":
           description: Invalid input
         "401":
@@ -8065,6 +8124,7 @@ paths:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/DbId"
+      - $ref: "#/components/parameters/ShouldRedirect"
     get:
       tags:
         - mysql
@@ -8985,6 +9045,7 @@ paths:
       - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/AppId"
       - $ref: "#/components/parameters/WpUserId"
+      - $ref: "#/components/parameters/ShouldRedirect"
     get:
       tags:
         - wordpress
@@ -9205,6 +9266,47 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /v2/apps/{app_id}/wordpress/url:
+    parameters:
+      - $ref: "#/components/parameters/AppId"
+    get:
+      tags:
+        - wordpress
+      summary: Fetches the site URL for a WordPress installation
+      operationId: getWordPressSiteurl
+      responses:
+        "200":
+          description: Successfully fetched site url
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - wordpress
+      summary: Sets the site URL for a WordPress installation
+      operationId: setWordPressSiteurl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Successfully updated WordPress site URL
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
 
   ###############################################################################
   # -- website backups
@@ -9228,6 +9330,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: getWebsiteBackups
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       responses:
         "200":
           description: Successful
@@ -9277,6 +9382,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: backupWebsite
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       parameters:
         - name: includeEmails
           in: query
@@ -9319,6 +9427,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: getWebsiteBackup
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       responses:
         "200":
           description: Successful
@@ -9351,6 +9462,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: restoreWebsite
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       requestBody:
         description: >-
           The options used to define what will be restored from the backup
@@ -9382,6 +9496,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: deleteWebsiteBackup
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       responses:
         "204":
           description: Successful
@@ -10493,6 +10610,10 @@ paths:
       summary: Analyze imported migration
       description: |
         Analyze import and store results into database.
+
+        Note: the endpoint returns immediately, and you have to poll status
+        via `getImportMigration` endpoint. If you want to see detailed error,
+        please call `getImportMigrationLog`.
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -11034,6 +11155,108 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/WebserverKind"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/websites/{website_id}/ioncube:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get ioncube status for an existing website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsiteIoncubeStatus
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    put:
+      tags:
+        - websites
+      summary: Set ioncube status for an existing website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setWebsiteIoncubeStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: Status updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/websites/{website_id}/redis:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get redis state for a website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsiteRedisState
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    put:
+      tags:
+        - websites
+      summary: Set Redis state for an existing website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setWebsiteRedisState
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: Status updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /v2/websites/{website_id}/restart_php:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    post:
+      tags:
+        - websites
+      summary: Restart PHP container for a website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: restartWebsitePhp
+      responses:
+        "200":
+          description: PHP restarted successfully
         "401":
           description: Invalid session
         "403":
@@ -11594,12 +11817,35 @@ components:
       schema:
         type: string
         enum: [cpanel]
+    ShouldRedirect:
+      name: shouldRedirect
+      in: query
+      description: If set to true, the endpoint will send a 307 redirect to the SSO URL.
+      schema:
+        type: boolean
 
   ###############################################################################
   # -- schemas
   ###############################################################################
 
   schemas:
+    ModSecStatus:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          type: boolean
+    OwaspVersion:
+      type: object
+      required:
+        - current
+        - available
+      properties:
+        current:
+          type: string
+        available:
+          type: string
     WebServerRewrite:
       type: object
       required:
@@ -11993,22 +12239,7 @@ components:
         - emailDataTransfer
     DomainMappingKind:
       type: string
-      enum: ["primary", "secondary", "preview"]
-    ServerDomainListing:
-      type: array
-      items:
-        $ref: "#/components/schemas/ServerDomain"
-    ServerDomain:
-      type: object
-      required:
-        - domainId
-        - domain
-      properties:
-        domainId:
-          type: string
-          format: uuid
-        domain:
-          type: string
+      enum: ["primary", "preview", "addon", "alias", "subdomain"]
     WebsiteServerDomains:
       type: object
       required:
@@ -12320,6 +12551,14 @@ components:
           $ref: "#/components/schemas/CgroupLimits"
         fsQuotaLimit:
           $ref: "#/components/schemas/FsQuotaLimit"
+        allowedPhpVersions:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhpVersion"
+        defaultPhpVersion:
+          $ref: "#/components/schemas/PhpVersion"
+        redisAllowed:
+          type: boolean
     CgroupLimits:
       type: object
       required:
@@ -12396,6 +12635,9 @@ components:
         - subscriptionsCount
         - createdAt
         - planType
+        - allowedPhpVersions
+        - defaultPhpVersion
+        - redisAllowed
       properties:
         id:
           type: integer
@@ -12429,6 +12671,14 @@ components:
           $ref: "#/components/schemas/CgroupLimits"
         fsQuotaLimit:
           $ref: "#/components/schemas/FsQuotaLimit"
+        allowedPhpVersions:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhpVersion"
+        defaultPhpVersion:
+          $ref: "#/components/schemas/PhpVersion"
+        redisAllowed:
+          type: boolean
     UpdatePlan:
       type: object
       properties:
@@ -12443,6 +12693,14 @@ components:
           $ref: "#/components/schemas/CgroupLimits"
         fsQuotaLimit:
           $ref: "#/components/schemas/FsQuotaLimit"
+        allowedPhpVersions:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhpVersion"
+        defaultPhpVersion:
+          $ref: "#/components/schemas/PhpVersion"
+        redisAllowed:
+          type: boolean
     Resource:
       type: object
       required:
@@ -12478,6 +12736,8 @@ components:
         - stagingWebsites
         - transfer
         - websites
+        - addonDomains
+        - subdomains
     Allowance:
       type: object
       required:
@@ -12525,6 +12785,9 @@ components:
         - allowances
         - selections
         - planType
+        - allowedPhpVersions
+        - defaultPhpVersion
+        - redisAllowed
       properties:
         id:
           type: integer
@@ -12557,6 +12820,14 @@ components:
           $ref: "#/components/schemas/SubscriptionDedicatedServersInfo"
         planType:
           $ref: "#/components/schemas/PlanType"
+        allowedPhpVersions:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhpVersion"
+        defaultPhpVersion:
+          $ref: "#/components/schemas/PhpVersion"
+        redisAllowed:
+          type: boolean
     UpdateSubscription:
       type: object
       properties:
@@ -12689,149 +12960,17 @@ components:
       type: array
       items:
         type: string
-    SslCertsFullListing:
-      type: object
-      required:
-        - items
-      properties:
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/NewSslCert"
-    ServiceSslCertsFullListing:
-      type: object
-      required:
-        - items
-      properties:
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/ServiceSslCert"
-    DomainSslCert:
-      type: object
-      required:
-        - id
-        - commonName
-        - issuer
-        - validFrom
-        - validTo
-        - enabled
-      properties:
-        id:
-          type: string
-          format: uuid
-        commonName:
-          type: string
-        issuer:
-          type: string
-        validFrom:
-          type: string
-          format: date
-        validTo:
-          type: string
-          format: date
-        enabled:
-          type: boolean
     NewSslCert:
       type: object
-      anyOf:
-        - $ref: "#/components/schemas/BaseSslCert"
-        - $ref: "#/components/schemas/SslCertMappings"
-    SslCertWithData:
-      type: object
-      anyOf:
-        - $ref: "#/components/schemas/BaseSslCert"
-        - $ref: "#/components/schemas/SslCertMappings"
-        - $ref: "#/components/schemas/SslCertData"
-    ServiceSslCert:
-      type: object
-      anyOf:
-        - $ref: "#/components/schemas/BaseSslCert"
-        - $ref: "#/components/schemas/ServiceSslCertMappings"
-    ServiceSslCertWithData:
-      type: object
-      anyOf:
-        - $ref: "#/components/schemas/BaseSslCert"
-        - $ref: "#/components/schemas/ServiceSslCertMappings"
-        - $ref: "#/components/schemas/SslCertData"
-    BaseSslCert:
-      type: object
       required:
-        - id
-        - commonName
-        - issuer
-        - organizationName
-        - validFrom
-        - validTo
-        - altNames
-        - kind
+        - key
+        - cert
       properties:
-        id:
+        cert:
           type: string
-          format: uuid
-        commonName:
+        key:
           type: string
-        issuer:
-          type: string
-        organizationName:
-          type: string
-        validFrom:
-          type: string
-          format: date
-        validTo:
-          type: string
-          format: date
-        altNames:
-          type: array
-          items:
-            type: string
-        kind:
-          type: string
-          enum: [selfsigned, letsencrypt, custom]
-    SslCertMappings:
-      type: object
-      properties:
-        mappings:
-          type: array
-          items:
-            $ref: "#/components/schemas/SslCertMapping"
-    SslCertMapping:
-      description: Ssl cert Mappings for Website domains
-      type: object
-      required:
-        - domainId
-        - enabled
-      properties:
-        domainId:
-          type: string
-          format: uuid
-        enabled:
-          type: boolean
-        forceSsl:
-          type: boolean
-    ServiceSslCertMappings:
-      type: object
-      properties:
-        mappings:
-          type: array
-          items:
-            $ref: "#/components/schemas/ServiceSslCertMapping"
-    ServiceSslCertMapping:
-      description: Ssl cert Mappings for Role/Services
-      type: object
-      required:
-        - domain
-        - serverId
-        - serverFriendlyName
-      properties:
-        domain:
-          type: string
-        serverId:
-          type: string
-          format: uuid
-        serverFriendlyName:
-          type: string
-    SslCerts:
+    SslCert:
       type: object
       required:
         - cert
@@ -12839,27 +12978,7 @@ components:
       properties:
         cert:
           type: string
-        pkey:
-          type: string
-        fullchain:
-          type: string
-        selfsigned:
-          description: >-
-            If set to true, then the uploaded certificate will be marked as such
-            Certificate auto renewal process will then replace this certificate
-            as soon as a new one can be generated with letsencrypt.
-          type: boolean
-    SslCertData:
-      type: object
-      required:
-        - cert
-        - pkey
-      properties:
-        cert:
-          type: string
-        pkey:
-          type: string
-        fullchain:
+        key:
           type: string
     NewFtpUser:
       type: object
@@ -12954,6 +13073,8 @@ components:
             $ref: "#/components/schemas/Role"
         tokenExpires:
           type: string
+        friendlyName:
+          type: string
     NewAccessToken:
       type: object
       required:
@@ -12966,6 +13087,8 @@ components:
         tokenExpires:
           type: string
           format: date-time
+        friendlyName:
+          type: string
     NewAccessTokenResponse:
       type: object
       required:
@@ -13227,9 +13350,12 @@ components:
           type: string
         backupServerName:
           type: string
+        canUse:
+          $ref: "#/components/schemas/CanUse"
     WebsiteKind:
       type: string
-      enum: [normal, controlPanel, phpMyAdmin, roundcube, staging]
+      enum:
+        [normal, controlPanel, phpMyAdmin, roundcube, staging, serverHostname]
       default: normal
     SettingKind:
       type: string
@@ -13634,7 +13760,7 @@ components:
         domain:
           type: string
           format: domain
-    NewDomainAlias:
+    NewMappedDomain:
       type: object
       required:
         - domain
@@ -13644,11 +13770,15 @@ components:
           format: domain
         documentRoot:
           type: string
+        kind:
+          $ref: "#/components/schemas/DomainMappingKind"
     DomainMappingUpdate:
       type: object
       properties:
         documentRoot:
           type: string
+        kind:
+          $ref: "#/components/schemas/DomainMappingKind"
     Domain:
       type: object
       required:
@@ -13731,10 +13861,8 @@ components:
           $ref: "#/components/schemas/DomainMappingKind"
         documentRoot:
           type: string
-        certs:
-          type: array
-          items:
-            $ref: "#/components/schemas/DomainSslCert"
+        cert:
+          $ref: "#/components/schemas/DomainSslCert"
         cloudflareStatus:
           $ref: "#/components/schemas/CloudFlareStatus"
         cloudflareFriendlyName:
@@ -13940,6 +14068,8 @@ components:
           $ref: "#/components/schemas/ApplicationRoleInfo"
         dns:
           $ref: "#/components/schemas/DnsRoleInfo"
+        webserverKind:
+          $ref: "#/components/schemas/WebserverKind"
     ControlRoleInfo:
       type: object
       required:
@@ -14747,6 +14877,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DnsRecord"
+        dnssecDsRecords:
+          type: string
+        dnssecDnskeyRecords:
+          type: string
     DnsSoa:
       type: object
       required:
@@ -15294,7 +15428,6 @@ components:
       type: object
       required:
         - app
-        - version
         - adminUsername
         - adminPassword
         - adminEmail
@@ -15322,6 +15455,12 @@ components:
           type: string
           description: >-
             Sets the admin email address, required by some applications.
+        domainId:
+          type: string
+          format: uuid
+          description: >-
+            Install on a specific domain within this website.  Will default to
+            use the primary domain.
     UpdateWpSettings:
       type: object
       properties:
@@ -15424,8 +15563,6 @@ components:
         id:
           type: integer
         login:
-          type: string
-        name:
           type: string
         email:
           type: string
@@ -16168,6 +16305,8 @@ components:
           type: integer
         kind:
           $ref: "#/components/schemas/BackupKind"
+        description:
+          type: string
     BackupDetailed:
       type: object
       required:
@@ -16431,7 +16570,14 @@ components:
       properties:
         status:
           type: string
-          enum: [notInUse, inUseCurrentOrg, inUseAnotherOrg, inUseDeletedSite]
+          enum:
+            [
+              prohibited,
+              notInUse,
+              inUseCurrentOrg,
+              inUseAnotherOrg,
+              inUseDeletedSite,
+            ]
         websiteId:
           type: string
           format: uuid
@@ -16806,3 +16952,124 @@ components:
           $ref: "#/components/schemas/WebserverKind"
         serial:
           type: string
+    LetsEncryptPreflightResult:
+      type: object
+      required:
+        - canIssue
+      properties:
+        canIssue:
+          type: boolean
+        error:
+          type: string
+    DomainSslCert:
+      type: object
+      required:
+        - cn
+        - expires
+        - issued
+        - issuer
+        - sans
+        - forceHttps
+      properties:
+        cn:
+          type: string
+        expires:
+          type: string
+        issued:
+          type: string
+        issuer:
+          type: string
+        sans:
+          type: array
+          items:
+            type: string
+        forceHttps:
+          type: boolean
+    DomainSslCertWithData:
+      required:
+        - cn
+        - expires
+        - issued
+        - issuer
+        - sans
+        - cert
+        - key
+        - force_https
+      properties:
+        cn:
+          type: string
+        expires:
+          type: string
+        issued:
+          type: string
+        issuer:
+          type: string
+        sans:
+          type: array
+          items:
+            type: string
+        cert:
+          type: string
+        key:
+          type: string
+        forceHttps:
+          type: boolean
+    WebsiteAndDomainUuid:
+      type: object
+      required:
+        - websiteId
+        - domainId
+      properties:
+        websiteId:
+          type: string
+          format: uuid
+        domainId:
+          type: string
+          format: uuid
+    ServerHostnameWebsite:
+      type: object
+      required:
+        - websiteId
+        - domains
+      properties:
+        websiteId:
+          type: string
+          format: uuid
+        domains:
+          type: array
+          items:
+            $ref: "#/components/schemas/DomainWithUuid"
+    DomainWithUuid:
+      type: object
+      required:
+        - domainId
+        - domainName
+        - isPrimary
+      properties:
+        domainId:
+          type: string
+        domainName:
+          type: string
+        isPrimary:
+          type: boolean
+    CanUse:
+      type: object
+      required:
+        - ftp
+        - fileManager
+        - phpVersions
+        - redis
+        - modSec
+      properties:
+        ftp:
+          type: boolean
+        fileManager:
+          type: boolean
+        phpVersions:
+          type: array
+          items:
+            $ref: "#/components/schemas/PhpVersion"
+        redis:
+          type: boolean
+        modSec:
+          type: boolean

@@ -8,14 +8,11 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createServerDomain()**](ServersApi.md#createServerDomain) | **POST** /servers/{server_id}/domains | Create a domain which is mapped to a server |
 | [**createServerGroup()**](ServersApi.md#createServerGroup) | **POST** /servers/groups | Creates a new server group |
 | [**createServerNetworkInterfaceIp()**](ServersApi.md#createServerNetworkInterfaceIp) | **POST** /servers/{server_id}/interfaces/{interface}/ips | Create server network interface secondary IP |
-| [**createServerSniMapping()**](ServersApi.md#createServerSniMapping) | **POST** /servers/{server_id}/sni | Create SNI mapping |
 | [**createSlave()**](ServersApi.md#createSlave) | **POST** /servers/slaves | Create a slave node |
 | [**deleteServerDomain()**](ServersApi.md#deleteServerDomain) | **DELETE** /servers/{server_id}/domains/{domain_id} | Delete a mapped server domain |
 | [**deleteServerFromGroup()**](ServersApi.md#deleteServerFromGroup) | **DELETE** /servers/{server_id}/group | Delete server from group |
 | [**deleteServerGroup()**](ServersApi.md#deleteServerGroup) | **DELETE** /servers/groups/{group_id} | Deletes an existing server group |
 | [**deleteServerNetworkInterfaceIp()**](ServersApi.md#deleteServerNetworkInterfaceIp) | **DELETE** /servers/{server_id}/interfaces/{interface}/ips/{ip} | Delete server network interface secondary IP |
-| [**deleteServerSniMapping()**](ServersApi.md#deleteServerSniMapping) | **DELETE** /servers/{server_id}/sni/{cert_id}/{domain} | Delete a certificate SNI mapping |
-| [**deleteServerSslCert()**](ServersApi.md#deleteServerSslCert) | **DELETE** /servers/ssl/{cert_id} | Delete ssl certificate |
 | [**deleteServiceSetting()**](ServersApi.md#deleteServiceSetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
 | [**deleteSlave()**](ServersApi.md#deleteSlave) | **DELETE** /servers/{server_id} | Delete a (slave) server |
 | [**enableFsQuotaLimits()**](ServersApi.md#enableFsQuotaLimits) | **POST** /servers/{server_id}/fs_quota_limits | Enable FS quota limits on the server |
@@ -25,22 +22,22 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getFsQuotaStatus()**](ServersApi.md#getFsQuotaStatus) | **GET** /servers/{server_id}/fs_quota_limits | Get whether FS quota was enabled on the server |
 | [**getHttpdStatus()**](ServersApi.md#getHttpdStatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server. |
 | [**getInstallCmd()**](ServersApi.md#getInstallCmd) | **GET** /servers/install-cmd | Get slave installation command |
+| [**getOwaspRulesVersion()**](ServersApi.md#getOwaspRulesVersion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules |
 | [**getRegistrationKey()**](ServersApi.md#getRegistrationKey) | **GET** /servers/registration-key | Get slave registration key |
 | [**getServerDiskUsage()**](ServersApi.md#getServerDiskUsage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage |
-| [**getServerDomains()**](ServersApi.md#getServerDomains) | **GET** /servers/{server_id}/domains | Get domains which are mapped to a server |
 | [**getServerFpmSettings()**](ServersApi.md#getServerFpmSettings) | **GET** /servers/{server_id}/php/fpm | Get php-fpm config for all the websites on a server |
 | [**getServerGroups()**](ServersApi.md#getServerGroups) | **GET** /servers/groups | Returns all server groups |
+| [**getServerHostnameWebsite()**](ServersApi.md#getServerHostnameWebsite) | **GET** /servers/{server_id}/domains | Get domains which are mapped to a server |
 | [**getServerInfo()**](ServersApi.md#getServerInfo) | **GET** /servers/{server_id} | Get server info |
 | [**getServerIowait()**](ServersApi.md#getServerIowait) | **GET** /servers/{server_id}/iowait | Get server iowait |
 | [**getServerLoad()**](ServersApi.md#getServerLoad) | **GET** /servers/{server_id}/load | Get server system load |
 | [**getServerMemoryUsage()**](ServersApi.md#getServerMemoryUsage) | **GET** /servers/{server_id}/memory-usage | Get server memory usage |
+| [**getServerModSecurityConfig()**](ServersApi.md#getServerModSecurityConfig) | **GET** /v2/servers/{server_id}/modsec_conf | Get mod security config |
+| [**getServerModSecurityStatus()**](ServersApi.md#getServerModSecurityStatus) | **GET** /v2/servers/{server_id}/modsec_status | Get mod security status for a server |
 | [**getServerNetworkInterfaces()**](ServersApi.md#getServerNetworkInterfaces) | **GET** /servers/{server_id}/interfaces | Get server network interfaces |
 | [**getServerNetworkStats()**](ServersApi.md#getServerNetworkStats) | **GET** /servers/{server_id}/network-stats | Get server network stats |
 | [**getServerRole()**](ServersApi.md#getServerRole) | **GET** /servers/{server_id}/roles/{role} | Get server role info |
 | [**getServerRoles()**](ServersApi.md#getServerRoles) | **GET** /servers/{server_id}/roles | Get server roles info |
-| [**getServerSniMappings()**](ServersApi.md#getServerSniMappings) | **GET** /servers/{server_id}/sni | Get SNI mappings |
-| [**getServerSslCert()**](ServersApi.md#getServerSslCert) | **GET** /servers/ssl/{cert_id} | Fetch a single SSL certificate |
-| [**getServerSslCerts()**](ServersApi.md#getServerSslCerts) | **GET** /servers/ssl | Returns service SSL certificates data for MO |
 | [**getServerStats()**](ServersApi.md#getServerStats) | **GET** /servers/{server_id}/historic-stats | Get Server stats |
 | [**getServerStatus()**](ServersApi.md#getServerStatus) | **GET** /servers/{server_id}/status | Get server status |
 | [**getServerUptime()**](ServersApi.md#getServerUptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds |
@@ -51,20 +48,23 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteFpmSettings()**](ServersApi.md#getWebsiteFpmSettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website |
 | [**initAllServers()**](ServersApi.md#initAllServers) | **POST** /servers/init | Attempts to initialize all roles |
 | [**installServerRole()**](ServersApi.md#installServerRole) | **PUT** /servers/{server_id}/roles/{role} | Install server role |
+| [**resetServerModSecurityConfig()**](ServersApi.md#resetServerModSecurityConfig) | **DELETE** /v2/servers/{server_id}/modsec_conf | Delete custom mod_security config and reset to default |
 | [**resetWebServerConfig()**](ServersApi.md#resetWebServerConfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default. |
 | [**setLiteSpeedAdminPassword()**](ServersApi.md#setLiteSpeedAdminPassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password. |
 | [**setServerDecommissioned()**](ServersApi.md#setServerDecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned |
+| [**setServerModSecurityConfig()**](ServersApi.md#setServerModSecurityConfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config |
+| [**setServerModSecurityStatus()**](ServersApi.md#setServerModSecurityStatus) | **PUT** /v2/servers/{server_id}/modsec_status | Set mod security status for a server |
 | [**setServerStatus()**](ServersApi.md#setServerStatus) | **POST** /servers/{server_id}/status | Set the status of one server. |
 | [**setServiceSetting()**](ServersApi.md#setServiceSetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting |
 | [**setServiceStatus()**](ServersApi.md#setServiceStatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified. |
 | [**setWebserverKind()**](ServersApi.md#setWebserverKind) | **PUT** /servers/{server_id}/webserver | Set the web server kind for one server. |
 | [**uninstallServerRole()**](ServersApi.md#uninstallServerRole) | **DELETE** /servers/{server_id}/roles/{role} | Uninstall a server role |
+| [**updateOwaspRules()**](ServersApi.md#updateOwaspRules) | **POST** /v2/servers/{server_id}/owasp | Upgrade OWASP rules |
 | [**updateServerGroup()**](ServersApi.md#updateServerGroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name |
 | [**updateServerPrimaryIp()**](ServersApi.md#updateServerPrimaryIp) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed. |
 | [**updateServerRole()**](ServersApi.md#updateServerRole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role |
 | [**updateService()**](ServersApi.md#updateService) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version. |
 | [**updateSystemPackage()**](ServersApi.md#updateSystemPackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version. |
-| [**uploadServerSslCert()**](ServersApi.md#uploadServerSslCert) | **POST** /servers/ssl | Upload SSL certificate for server/service use |
 | [**validateRegistrationKey()**](ServersApi.md#validateRegistrationKey) | **POST** /servers/registration-key/validate | Validate slave registration key |
 
 
@@ -137,12 +137,12 @@ void (empty response body)
 ## `createServerDomain()`
 
 ```php
-createServerDomain($server_id, $body): \Upmind\EnhanceSdk\Model\NewResourceUuid
+createServerDomain($server_id, $body): \Upmind\EnhanceSdk\Model\WebsiteAndDomainUuid
 ```
 
 Create a domain which is mapped to a server
 
-Creates a new domain and maps it to the given server.  If the domain already exists and is not currently mapped it will be updated.  Creates various default records pointing to the server such as pop, imap, smtp, etc.  Creates a self signed SSL which will later be replaced with a LetsEncrypt.
+Maps a hostname to a server by creating a special kind of website with kind `ServerHostname`.  This can be used for POP/IMAP/SMTP as well as HTTP. LetsEncrypt certificates will be issued if the DNS resolves.  Only one server hostname website will be created, additional domains will be added as aliases.
 
 ### Example
 
@@ -186,7 +186,7 @@ try {
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\NewResourceUuid**](../Model/NewResourceUuid.md)
+[**\Upmind\EnhanceSdk\Model\WebsiteAndDomainUuid**](../Model/WebsiteAndDomainUuid.md)
 
 ### Authorization
 
@@ -316,72 +316,6 @@ try {
 | **server_id** | **string**| The UUID of the server | |
 | **interface** | **string**| The name of the network interface | |
 | **new_server_ip** | [**\Upmind\EnhanceSdk\Model\NewServerIp**](../Model/NewServerIp.md)|  | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `createServerSniMapping()`
-
-```php
-createServerSniMapping($server_id, $server_sni_mapping_body)
-```
-
-Create SNI mapping
-
-Creates a new SNI mapping for a given certificate using a given hostname
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$server_id = 'server_id_example'; // string | The UUID of the server
-$server_sni_mapping_body = new \Upmind\EnhanceSdk\Model\ServerSniMappingBody(); // \Upmind\EnhanceSdk\Model\ServerSniMappingBody
-
-try {
-    $apiInstance->createServerSniMapping($server_id, $server_sni_mapping_body);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->createServerSniMapping: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **server_id** | **string**| The UUID of the server | |
-| **server_sni_mapping_body** | [**\Upmind\EnhanceSdk\Model\ServerSniMappingBody**](../Model/ServerSniMappingBody.md)|  | |
 
 ### Return type
 
@@ -701,138 +635,6 @@ try {
 | **server_id** | **string**| The UUID of the server | |
 | **interface** | **string**| The name of the network interface | |
 | **ip** | **string**| The IP address in quad dot notation | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `deleteServerSniMapping()`
-
-```php
-deleteServerSniMapping($server_id, $cert_id, $domain)
-```
-
-Delete a certificate SNI mapping
-
-Deletes the mapping of a certificate to a server on a particular hostname
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$server_id = 'server_id_example'; // string | The UUID of the server
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-$domain = 'domain_example'; // string | The domain name.
-
-try {
-    $apiInstance->deleteServerSniMapping($server_id, $cert_id, $domain);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->deleteServerSniMapping: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **server_id** | **string**| The UUID of the server | |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-| **domain** | **string**| The domain name. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `deleteServerSslCert()`
-
-```php
-deleteServerSslCert($cert_id)
-```
-
-Delete ssl certificate
-
-Endpoint for deleting service SSl certificate for MO. A Cert can only be deleted if it hasn't been applied to any service yet. Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-
-try {
-    $apiInstance->deleteServerSslCert($cert_id);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->deleteServerSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **cert_id** | **string**| The id of the ssl certificate. | |
 
 ### Return type
 
@@ -1410,6 +1212,69 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getOwaspRulesVersion()`
+
+```php
+getOwaspRulesVersion($server_id): \Upmind\EnhanceSdk\Model\OwaspVersion
+```
+
+Get the current and available version of the OWASP rules
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getOwaspRulesVersion($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getOwaspRulesVersion: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OwaspVersion**](../Model/OwaspVersion.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getRegistrationKey()`
 
 ```php
@@ -1537,71 +1402,6 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getServerDomains()`
-
-```php
-getServerDomains($server_id): \Upmind\EnhanceSdk\Model\ServerDomain[]
-```
-
-Get domains which are mapped to a server
-
-Returns all domains mapped to the specified server
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$server_id = 'server_id_example'; // string | The UUID of the server
-
-try {
-    $result = $apiInstance->getServerDomains($server_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->getServerDomains: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **server_id** | **string**| The UUID of the server | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\ServerDomain[]**](../Model/ServerDomain.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `getServerFpmSettings()`
 
 ```php
@@ -1706,6 +1506,71 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\ServerGroups**](../Model/ServerGroups.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getServerHostnameWebsite()`
+
+```php
+getServerHostnameWebsite($server_id): \Upmind\EnhanceSdk\Model\ServerHostnameWebsite
+```
+
+Get domains which are mapped to a server
+
+Returns the server hostname website for this server
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getServerHostnameWebsite($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getServerHostnameWebsite: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ServerHostnameWebsite**](../Model/ServerHostnameWebsite.md)
 
 ### Authorization
 
@@ -1980,6 +1845,132 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getServerModSecurityConfig()`
+
+```php
+getServerModSecurityConfig($server_id): string
+```
+
+Get mod security config
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getServerModSecurityConfig($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getServerModSecurityConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getServerModSecurityStatus()`
+
+```php
+getServerModSecurityStatus($server_id): \Upmind\EnhanceSdk\Model\ModSecStatus
+```
+
+Get mod security status for a server
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getServerModSecurityStatus($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getServerModSecurityStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getServerNetworkInterfaces()`
 
 ```php
@@ -2232,198 +2223,6 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\RolesInfo**](../Model/RolesInfo.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getServerSniMappings()`
-
-```php
-getServerSniMappings($server_id): \Upmind\EnhanceSdk\Model\ServerSniMapping[]
-```
-
-Get SNI mappings
-
-Returns a list of all SNI mappings for the given server
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$server_id = 'server_id_example'; // string | The UUID of the server
-
-try {
-    $result = $apiInstance->getServerSniMappings($server_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->getServerSniMappings: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **server_id** | **string**| The UUID of the server | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\ServerSniMapping[]**](../Model/ServerSniMapping.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getServerSslCert()`
-
-```php
-getServerSslCert($cert_id): \Upmind\EnhanceSdk\Model\ServiceSslCertWithData
-```
-
-Fetch a single SSL certificate
-
-Fetches a single SSL certificate along with its certificate data
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$cert_id = 'cert_id_example'; // string | The id of the ssl certificate.
-
-try {
-    $result = $apiInstance->getServerSslCert($cert_id);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->getServerSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **cert_id** | **string**| The id of the ssl certificate. | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\ServiceSslCertWithData**](../Model/ServiceSslCertWithData.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getServerSslCerts()`
-
-```php
-getServerSslCerts(): \Upmind\EnhanceSdk\Model\ServiceSslCertsFullListing
-```
-
-Returns service SSL certificates data for MO
-
-Endpoint for retreaving all Service SSl certificates for the MO along with service ids if mapped to any.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-
-try {
-    $result = $apiInstance->getServerSslCerts();
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->getServerSslCerts: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\ServiceSslCertsFullListing**](../Model/ServiceSslCertsFullListing.md)
 
 ### Authorization
 
@@ -3085,6 +2884,68 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `resetServerModSecurityConfig()`
+
+```php
+resetServerModSecurityConfig($server_id)
+```
+
+Delete custom mod_security config and reset to default
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $apiInstance->resetServerModSecurityConfig($server_id);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->resetServerModSecurityConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `resetWebServerConfig()`
 
 ```php
@@ -3273,6 +3134,138 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setServerModSecurityConfig()`
+
+```php
+setServerModSecurityConfig($server_id, $body)
+```
+
+Set mod security config
+
+This config is included in the web server config when mod_security is enabled.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->setServerModSecurityConfig($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setServerModSecurityConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **string**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setServerModSecurityStatus()`
+
+```php
+setServerModSecurityStatus($server_id, $mod_sec_status)
+```
+
+Set mod security status for a server
+
+If enabled, all websites on this server by default will have mod security enabled, unless explicitly disabled.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$mod_sec_status = new \Upmind\EnhanceSdk\Model\ModSecStatus(); // \Upmind\EnhanceSdk\Model\ModSecStatus
+
+try {
+    $apiInstance->setServerModSecurityStatus($server_id, $mod_sec_status);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setServerModSecurityStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **mod_sec_status** | [**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -3616,6 +3609,70 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `updateOwaspRules()`
+
+```php
+updateOwaspRules($server_id)
+```
+
+Upgrade OWASP rules
+
+Will update the owasp rules to the latest version.  If the current version is the latest, it will be reinstalled.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $apiInstance->updateOwaspRules($server_id);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->updateOwaspRules: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `updateServerGroup()`
 
 ```php
@@ -3934,71 +3991,6 @@ void (empty response body)
 
 - **Content-Type**: `application/json`
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `uploadServerSslCert()`
-
-```php
-uploadServerSslCert($ssl_certs): \Upmind\EnhanceSdk\Model\NewSslCert
-```
-
-Upload SSL certificate for server/service use
-
-Endpoint for uploading custom SSl certificate for server/secvice. Verifies the key/cert pair returns an error if it is a mismatch. Certificates uploaded via this endpoint belong to the MO. Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$ssl_certs = new \Upmind\EnhanceSdk\Model\SslCerts(); // \Upmind\EnhanceSdk\Model\SslCerts | Cert, private key and optional fullchain.
-
-try {
-    $result = $apiInstance->uploadServerSslCert($ssl_certs);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->uploadServerSslCert: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **ssl_certs** | [**\Upmind\EnhanceSdk\Model\SslCerts**](../Model/SslCerts.md)| Cert, private key and optional fullchain. | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\NewSslCert**](../Model/NewSslCert.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

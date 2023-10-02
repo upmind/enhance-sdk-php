@@ -24,11 +24,13 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getOrchdLoginPolicyIpBlacklist()**](SettingsApi.md#getOrchdLoginPolicyIpBlacklist) | **GET** /settings/orchd/login-policy/ip-blacklist | Get the orchd login policy ip blacklist |
 | [**getOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#getOrchdLoginPolicyIpWhitelist) | **GET** /settings/orchd/login-policy/ip-whitelist | Get the orchd login policy ip whitelist |
 | [**getOrchdLoginPolicySettings()**](SettingsApi.md#getOrchdLoginPolicySettings) | **GET** /settings/orchd/login-policy/settings | Get the orchd login policy settings |
+| [**getProhibitedDomains()**](SettingsApi.md#getProhibitedDomains) | **GET** /settings/orchd/prohibited_domains | Get the platform level prohibited domains as a newline separated list |
 | [**getSetting()**](SettingsApi.md#getSetting) | **GET** /settings/{name} | Get the specified setting |
 | [**getSettings()**](SettingsApi.md#getSettings) | **GET** /settings | Get all current settings |
 | [**setDockerRegistry()**](SettingsApi.md#setDockerRegistry) | **PUT** /settings/registry | Updates the Docker registry credentials. |
 | [**setGlobalServiceSetting()**](SettingsApi.md#setGlobalServiceSetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting |
 | [**setOrchdLogSettings()**](SettingsApi.md#setOrchdLogSettings) | **PUT** /settings/orchd/logs | Set the orchd log settings |
+| [**setProhibitedDomains()**](SettingsApi.md#setProhibitedDomains) | **PUT** /settings/orchd/prohibited_domains | Set the platform level prohibited domains |
 | [**updateSetting()**](SettingsApi.md#updateSetting) | **PUT** /settings/{name} | Create or update the specified setting |
 
 
@@ -1268,6 +1270,66 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getProhibitedDomains()`
+
+```php
+getProhibitedDomains(): string
+```
+
+Get the platform level prohibited domains as a newline separated list
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getProhibitedDomains();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getProhibitedDomains: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getSetting()`
 
 ```php
@@ -1568,6 +1630,68 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **orchd_log_settings** | [**\Upmind\EnhanceSdk\Model\OrchdLogSettings**](../Model/OrchdLogSettings.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setProhibitedDomains()`
+
+```php
+setProhibitedDomains($body)
+```
+
+Set the platform level prohibited domains
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->setProhibitedDomains($body);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->setProhibitedDomains: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **body** | **string**|  | |
 
 ### Return type
 

@@ -4,13 +4,14 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**createWebsiteDomainLetsencryptCerts()**](LetsencryptApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteDomainLetsencryptCerts()**](LetsencryptApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**performLetsEncryptPreflightCheck()**](LetsencryptApi.md#performLetsEncryptPreflightCheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check |
 
 
 ## `createWebsiteDomainLetsencryptCerts()`
 
 ```php
-createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable)
+createWebsiteDomainLetsencryptCerts($domain_id)
 ```
 
 Generate and setup letsencrypt ssl certificates for website's domain
@@ -30,14 +31,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\LetsencryptApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
 $domain_id = 'domain_id_example'; // string | The id of the domain.
-$dry_run = True; // bool | If not set or `dry_run=true` it will only verify domain ownership and get dummy certificates. To enable SSL on domain set `?dry_run=false`.
-$enable = True; // bool | Defaults to `enable=true` if not set. To only generate and save certificate in db set `enable=false`. It has no bearing if `dry_run=false` not set.
 
 try {
-    $apiInstance->createWebsiteDomainLetsencryptCerts($org_id, $website_id, $domain_id, $dry_run, $enable);
+    $apiInstance->createWebsiteDomainLetsencryptCerts($domain_id);
 } catch (Exception $e) {
     echo 'Exception when calling LetsencryptApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
 }
@@ -47,11 +44,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
 | **domain_id** | **string**| The id of the domain. | |
-| **dry_run** | **bool**| If not set or &#x60;dry_run&#x3D;true&#x60; it will only verify domain ownership and get dummy certificates. To enable SSL on domain set &#x60;?dry_run&#x3D;false&#x60;. | [optional] |
-| **enable** | **bool**| Defaults to &#x60;enable&#x3D;true&#x60; if not set. To only generate and save certificate in db set &#x60;enable&#x3D;false&#x60;. It has no bearing if &#x60;dry_run&#x3D;false&#x60; not set. | [optional] |
 
 ### Return type
 
@@ -65,6 +58,62 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `performLetsEncryptPreflightCheck()`
+
+```php
+performLetsEncryptPreflightCheck($domain_id): \Upmind\EnhanceSdk\Model\LetsEncryptPreflightResult
+```
+
+Perform the LetsEncrypt preflight check
+
+Will attempt to verify that the domain will successfully achieve a LetsEncrypt certificate if attempted.  Provides debug information.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LetsencryptApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->performLetsEncryptPreflightCheck($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LetsencryptApi->performLetsEncryptPreflightCheck: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\LetsEncryptPreflightResult**](../Model/LetsEncryptPreflightResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

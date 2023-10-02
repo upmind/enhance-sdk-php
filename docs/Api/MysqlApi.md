@@ -709,7 +709,7 @@ No authorization required
 ## `getPhpMyAdminSSOUrl()`
 
 ```php
-getPhpMyAdminSSOUrl($org_id, $website_id, $db_id): string
+getPhpMyAdminSSOUrl($org_id, $website_id, $db_id, $should_redirect): string
 ```
 
 Get phpMyAdmin SSO URL
@@ -732,9 +732,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $db_id = 'db_id_example'; // string | The id of the database.
+$should_redirect = True; // bool | If set to true, the endpoint will send a 307 redirect to the SSO URL.
 
 try {
-    $result = $apiInstance->getPhpMyAdminSSOUrl($org_id, $website_id, $db_id);
+    $result = $apiInstance->getPhpMyAdminSSOUrl($org_id, $website_id, $db_id, $should_redirect);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->getPhpMyAdminSSOUrl: ', $e->getMessage(), PHP_EOL;
@@ -748,6 +749,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **db_id** | **string**| The id of the database. | |
+| **should_redirect** | **bool**| If set to true, the endpoint will send a 307 redirect to the SSO URL. | [optional] |
 
 ### Return type
 
