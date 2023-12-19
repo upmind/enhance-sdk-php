@@ -2,6 +2,12 @@
 
 All notable changes to the package will be documented in this file.
 
+## v10.0.0 - 2023-12-19
+
+- Update open-api.yml to Enhance v10.0.0 OpenAPI spec
+- Re-generate SDK
+- Update README.md docs
+
 ## v9.9.1 - 2023-10-02
 
 - Update generate.sh to use a config file
