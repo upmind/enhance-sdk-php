@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **allowances** | [**\Upmind\EnhanceSdk\Model\Allowance[]**](Allowance.md) |  |
 **selections** | [**\Upmind\EnhanceSdk\Model\Selection[]**](Selection.md) |  |
 **server_group_id** | **string** |  | [optional]
+**server_group_ids** | **string[]** |  | [optional]
+**allow_server_group_selection** | **bool** |  | [optional]
 **plan_type** | [**\Upmind\EnhanceSdk\Model\PlanType**](PlanType.md) |  | [optional]
 **cgroup_limits** | [**\Upmind\EnhanceSdk\Model\CgroupLimits**](CgroupLimits.md) |  | [optional]
 **fs_quota_limit** | [**\Upmind\EnhanceSdk\Model\FsQuotaLimit**](FsQuotaLimit.md) |  | [optional]

@@ -20,6 +20,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteUserCrontab()**](WebsitesApi.md#deleteUserCrontab) | **DELETE** /orgs/{org_id}/websites/{website_id}/crontab | Delete user&#39;s crontab |
 | [**deleteWebsite()**](WebsitesApi.md#deleteWebsite) | **DELETE** /orgs/{org_id}/websites/{website_id} | Delete website |
 | [**deleteWebsiteDomainMapping()**](WebsitesApi.md#deleteWebsiteDomainMapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping |
+| [**deleteWebsiteDomainVhost()**](WebsitesApi.md#deleteWebsiteDomainVhost) | **DELETE** /v2/domains/{domain_id}/vhost | Deletes domain&#39;s custom vhost file if any |
 | [**deleteWebsiteSetting()**](WebsitesApi.md#deleteWebsiteSetting) | **DELETE** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
 | [**deleteWebsites()**](WebsitesApi.md#deleteWebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites |
 | [**getDomainNginxFastCgi()**](WebsitesApi.md#getDomainNginxFastCgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement |
@@ -39,6 +40,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteDomainMappings()**](WebsitesApi.md#getWebsiteDomainMappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains |
 | [**getWebsiteDomainModSecStatus()**](WebsitesApi.md#getWebsiteDomainModSecStatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain |
 | [**getWebsiteDomainSslCert()**](WebsitesApi.md#getWebsiteDomainSslCert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain |
+| [**getWebsiteDomainVhost()**](WebsitesApi.md#getWebsiteDomainVhost) | **GET** /v2/domains/{domain_id}/vhost | Get domain&#39;s custom vhost file, if the file does not exist return empty string |
 | [**getWebsiteFsQuotaLimits()**](WebsitesApi.md#getWebsiteFsQuotaLimits) | **GET** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Get the active FS quoa limits for a website |
 | [**getWebsiteHtaccessIpsRule()**](WebsitesApi.md#getWebsiteHtaccessIpsRule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs |
 | [**getWebsiteHtaccessRewrites()**](WebsitesApi.md#getWebsiteHtaccessRewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules |
@@ -59,6 +61,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**setWebsiteCgroupLimits()**](WebsitesApi.md#setWebsiteCgroupLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only) |
 | [**setWebsiteDomainForceSsl()**](WebsitesApi.md#setWebsiteDomainForceSsl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping |
 | [**setWebsiteDomainModSecStatus()**](WebsitesApi.md#setWebsiteDomainModSecStatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain |
+| [**setWebsiteDomainVhost()**](WebsitesApi.md#setWebsiteDomainVhost) | **PUT** /v2/domains/{domain_id}/vhost | Set a custom vhost file |
 | [**setWebsiteFsQuotaLimits()**](WebsitesApi.md#setWebsiteFsQuotaLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only) |
 | [**setWebsiteIoncubeStatus()**](WebsitesApi.md#setWebsiteIoncubeStatus) | **PUT** /v2/websites/{website_id}/ioncube | Set ioncube status for an existing website |
 | [**setWebsiteRedisState()**](WebsitesApi.md#setWebsiteRedisState) | **PUT** /v2/websites/{website_id}/redis | Set Redis state for an existing website |
@@ -1111,6 +1114,61 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteWebsiteDomainVhost()`
+
+```php
+deleteWebsiteDomainVhost($domain_id, $delete_website_domain_vhost_request)
+```
+
+Deletes domain's custom vhost file if any
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$delete_website_domain_vhost_request = new \Upmind\EnhanceSdk\Model\DeleteWebsiteDomainVhostRequest(); // \Upmind\EnhanceSdk\Model\DeleteWebsiteDomainVhostRequest
+
+try {
+    $apiInstance->deleteWebsiteDomainVhost($domain_id, $delete_website_domain_vhost_request);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->deleteWebsiteDomainVhost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **delete_website_domain_vhost_request** | [**\Upmind\EnhanceSdk\Model\DeleteWebsiteDomainVhostRequest**](../Model/DeleteWebsiteDomainVhostRequest.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -2334,6 +2392,60 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\DomainSslCertWithData**](../Model/DomainSslCertWithData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteDomainVhost()`
+
+```php
+getWebsiteDomainVhost($domain_id): \Upmind\EnhanceSdk\Model\Vhost
+```
+
+Get domain's custom vhost file, if the file does not exist return empty string
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getWebsiteDomainVhost($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteDomainVhost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\Vhost**](../Model/Vhost.md)
 
 ### Authorization
 
@@ -3628,6 +3740,61 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **domain_id** | **string**| The id of the domain. | |
 | **mod_sec_status** | [**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteDomainVhost()`
+
+```php
+setWebsiteDomainVhost($domain_id, $vhost)
+```
+
+Set a custom vhost file
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$vhost = new \Upmind\EnhanceSdk\Model\Vhost(); // \Upmind\EnhanceSdk\Model\Vhost
+
+try {
+    $apiInstance->setWebsiteDomainVhost($domain_id, $vhost);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteDomainVhost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **vhost** | [**\Upmind\EnhanceSdk\Model\Vhost**](../Model/Vhost.md)|  | |
 
 ### Return type
 

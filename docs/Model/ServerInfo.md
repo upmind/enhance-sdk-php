@@ -19,5 +19,6 @@ Name | Type | Description | Notes
 **controld_version** | **string** |  | [optional]
 **dedicated_subscription** | [**\Upmind\EnhanceSdk\Model\DedicatedSubscriptionInfo**](DedicatedSubscriptionInfo.md) |  | [optional]
 **is_decommissioned** | **bool** |  |
+**ipv6_addr** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

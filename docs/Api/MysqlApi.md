@@ -4,86 +4,21 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
-| [**createOrRestoreWebsiteMySQLDBBackup()**](MysqlApi.md#createOrRestoreWebsiteMySQLDBBackup) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/backups | Create or restore website MySQL database backup |
 | [**createWebsiteMySQLDB()**](MysqlApi.md#createWebsiteMySQLDB) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website |
 | [**createWebsiteMySQLUser()**](MysqlApi.md#createWebsiteMySQLUser) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users | Create website MySQL database user |
 | [**createWebsiteMySQLUserAccessHosts()**](MysqlApi.md#createWebsiteMySQLUserAccessHosts) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Create website MySQL database user access hosts |
-| [**createWebsiteMySQLUserPrivileges()**](MysqlApi.md#createWebsiteMySQLUserPrivileges) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Create website MySQL database user privileges |
 | [**deleteWebsiteMySQLDB()**](MysqlApi.md#deleteWebsiteMySQLDB) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id} | Delete website MySQL database |
 | [**deleteWebsiteMySQLUser()**](MysqlApi.md#deleteWebsiteMySQLUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Delete website MySQL database user |
 | [**deleteWebsiteMySQLUserAccessHosts()**](MysqlApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts |
-| [**deleteWebsiteMySQLUserPrivileges()**](MysqlApi.md#deleteWebsiteMySQLUserPrivileges) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Delete website MySQL database user privileges |
 | [**downloadSql()**](MysqlApi.md#downloadSql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Takes a backup of given database and returns it gziped |
 | [**getOrgMySQLDBs()**](MysqlApi.md#getOrgMySQLDBs) | **GET** /orgs/{org_id}/mysql-dbs | Get org&#39;s MySQL databases |
 | [**getPhpMyAdminSSOUrl()**](MysqlApi.md#getPhpMyAdminSSOUrl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sso | Get phpMyAdmin SSO URL |
 | [**getWebsiteMySQLDBs()**](MysqlApi.md#getWebsiteMySQLDBs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases |
 | [**getWebsiteMySQLUsers()**](MysqlApi.md#getWebsiteMySQLUsers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-users | Get website MySQL database users |
+| [**setWebsiteMySQLUserPrivileges()**](MysqlApi.md#setWebsiteMySQLUserPrivileges) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Create website MySQL database user privileges |
 | [**updateWebsiteMySQLUser()**](MysqlApi.md#updateWebsiteMySQLUser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Update website MySQL database user |
-| [**uploadSql()**](MysqlApi.md#uploadSql) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Uploads sql file and executes it against db |
+| [**uploadSql()**](MysqlApi.md#uploadSql) | **POST** /v2/mysql/{db_id}/sql | Uploads sql file and executes it against db |
 
-
-## `createOrRestoreWebsiteMySQLDBBackup()`
-
-```php
-createOrRestoreWebsiteMySQLDBBackup($org_id, $website_id, $db_id, $action, $filename)
-```
-
-Create or restore website MySQL database backup
-
-Create or restore website MySQL database backup. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
-$action = 'create'; // string | The action to take.
-$filename = 'filename_example'; // string | The filename of the backup file. Only applicable if the backup action is `restore`, otherwise this is ignored.
-
-try {
-    $apiInstance->createOrRestoreWebsiteMySQLDBBackup($org_id, $website_id, $db_id, $action, $filename);
-} catch (Exception $e) {
-    echo 'Exception when calling MysqlApi->createOrRestoreWebsiteMySQLDBBackup: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
-| **action** | **string**| The action to take. | [optional] [default to &#39;create&#39;] |
-| **filename** | **string**| The filename of the backup file. Only applicable if the backup action is &#x60;restore&#x60;, otherwise this is ignored. | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
 
 ## `createWebsiteMySQLDB()`
 
@@ -250,67 +185,6 @@ try {
 | **db_id** | **string**| The id of the database. | |
 | **user_id** | **string**| The id of the database user. | |
 | **my_sql_user_access_hosts** | [**\Upmind\EnhanceSdk\Model\MySQLUserAccessHosts**](../Model/MySQLUserAccessHosts.md)| User access hosts. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `createWebsiteMySQLUserPrivileges()`
-
-```php
-createWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants)
-```
-
-Create website MySQL database user privileges
-
-Adds for the given user new privileges to website's MySQL database. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of the database user.
-$my_sql_user_grants = new \Upmind\EnhanceSdk\Model\MySQLUserGrants(); // \Upmind\EnhanceSdk\Model\MySQLUserGrants | User privilege grants.
-
-try {
-    $apiInstance->createWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants);
-} catch (Exception $e) {
-    echo 'Exception when calling MysqlApi->createWebsiteMySQLUserPrivileges: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of the database user. | |
-| **my_sql_user_grants** | [**\Upmind\EnhanceSdk\Model\MySQLUserGrants**](../Model/MySQLUserGrants.md)| User privilege grants. | |
 
 ### Return type
 
@@ -510,76 +384,15 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `deleteWebsiteMySQLUserPrivileges()`
-
-```php
-deleteWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants)
-```
-
-Delete website MySQL database user privileges
-
-Removes from the given user privileges to website's MySQL database. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of the database user.
-$my_sql_user_grants = new \Upmind\EnhanceSdk\Model\MySQLUserGrants(); // \Upmind\EnhanceSdk\Model\MySQLUserGrants | User privilege grants.
-
-try {
-    $apiInstance->deleteWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants);
-} catch (Exception $e) {
-    echo 'Exception when calling MysqlApi->deleteWebsiteMySQLUserPrivileges: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of the database user. | |
-| **my_sql_user_grants** | [**\Upmind\EnhanceSdk\Model\MySQLUserGrants**](../Model/MySQLUserGrants.md)| User privilege grants. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `downloadSql()`
 
 ```php
-downloadSql($org_id, $website_id, $db_id): \SplFileObject
+downloadSql($org_id, $website_id, $db_id): string
 ```
 
 Takes a backup of given database and returns it gziped
 
-Performs a database backup into an sql, gzips the sql and sends the compressed binary as body.
+Performs a database backup into an sql, gzips the sql and returns the file system path for subsequent download with filerd.
 
 ### Example
 
@@ -625,7 +438,7 @@ try {
 
 ### Return type
 
-**\SplFileObject**
+**string**
 
 ### Authorization
 
@@ -634,7 +447,7 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/octet-stream`
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -884,6 +697,67 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWebsiteMySQLUserPrivileges()`
+
+```php
+setWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants)
+```
+
+Create website MySQL database user privileges
+
+Sets the privileges for a user on a given MySQL database.  This will override their current privileges. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$user_id = 'user_id_example'; // string | The id of the database user.
+$my_sql_user_grants = new \Upmind\EnhanceSdk\Model\MySQLUserGrants(); // \Upmind\EnhanceSdk\Model\MySQLUserGrants | User privilege grants.
+
+try {
+    $apiInstance->setWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants);
+} catch (Exception $e) {
+    echo 'Exception when calling MysqlApi->setWebsiteMySQLUserPrivileges: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **user_id** | **string**| The id of the database user. | |
+| **my_sql_user_grants** | [**\Upmind\EnhanceSdk\Model\MySQLUserGrants**](../Model/MySQLUserGrants.md)| User privilege grants. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `updateWebsiteMySQLUser()`
 
 ```php
@@ -948,12 +822,12 @@ No authorization required
 ## `uploadSql()`
 
 ```php
-uploadSql($org_id, $website_id, $db_id, $sql, $force)
+uploadSql($db_id, $sql, $force)
 ```
 
 Uploads sql file and executes it against db
 
-Uploads an sql file which is then executed against given db. Allowed file types are '.sql', '.gz' and '.zip'. The gzip-ed file must be a valid sql. The zip archive may contain only one '.sql' file, however the file can be within a directory. If the force flag is set to true (default is false), the SQL execution will not stop when an error is raised (corresponds to the --force option of mysql cli). The max allowed size is 100 MB.
+Uploads an sql file which is then executed against given db. Allowed file types are '.sql', '.gz' and '.zip'. The gzip-ed file must be a valid sql. The zip archive may contain only one '.sql' file, however the file can be within a directory. If the force flag is set to true (default is false), the SQL execution will not stop when an error is raised (corresponds to the --force option of mysql cli). The max allowed size is 500 MB.
 
 ### Example
 
@@ -977,14 +851,12 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
     new GuzzleHttp\Client(),
     $config
 );
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
 $db_id = 'db_id_example'; // string | The id of the database.
 $sql = "/path/to/file.txt"; // \SplFileObject | Upload either a raw sql file (must be utf8 valid string) or .zip or .gz file with the sql string.
 $force = false; // bool
 
 try {
-    $apiInstance->uploadSql($org_id, $website_id, $db_id, $sql, $force);
+    $apiInstance->uploadSql($db_id, $sql, $force);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->uploadSql: ', $e->getMessage(), PHP_EOL;
 }
@@ -994,8 +866,6 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
 | **db_id** | **string**| The id of the database. | |
 | **sql** | **\SplFileObject****\SplFileObject**| Upload either a raw sql file (must be utf8 valid string) or .zip or .gz file with the sql string. | |
 | **force** | **bool**|  | [optional] [default to false] |

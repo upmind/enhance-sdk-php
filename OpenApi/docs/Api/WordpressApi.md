@@ -693,7 +693,7 @@ No authorization required
 ## `getWordpressThemes()`
 
 ```php
-getWordpressThemes($org_id, $website_id, $app_id): \Upmind\EnhanceSdk\Model\WpThemesFullListing
+getWordpressThemes($org_id, $website_id, $app_id, $refresh_cache): \Upmind\EnhanceSdk\Model\WpThemesFullListing
 ```
 
 Get website WordPress themes
@@ -716,9 +716,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $app_id = 'app_id_example'; // string | The id of the app.
+$refresh_cache = True; // bool | If set to true, it will bypass internal caching.
 
 try {
-    $result = $apiInstance->getWordpressThemes($org_id, $website_id, $app_id);
+    $result = $apiInstance->getWordpressThemes($org_id, $website_id, $app_id, $refresh_cache);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling WordpressApi->getWordpressThemes: ', $e->getMessage(), PHP_EOL;
@@ -732,6 +733,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **app_id** | **string**| The id of the app. | |
+| **refresh_cache** | **bool**| If set to true, it will bypass internal caching. | [optional] |
 
 ### Return type
 

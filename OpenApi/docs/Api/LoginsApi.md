@@ -12,12 +12,14 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteSession()**](LoginsApi.md#deleteSession) | **DELETE** /login/sessions/{session_id} | Delete current session |
 | [**deleteSessions()**](LoginsApi.md#deleteSessions) | **DELETE** /login/sessions | Delete sessions |
 | [**finishPasswordRecovery()**](LoginsApi.md#finishPasswordRecovery) | **POST** /login/password-recovery | Finish a password recovery |
+| [**getCustomerLogins()**](LoginsApi.md#getCustomerLogins) | **GET** /v2/orgs/{org_id}/customers/logins | List customer logins for org |
 | [**getLogin()**](LoginsApi.md#getLogin) | **GET** /login | Get login info |
 | [**getLoginMemberships()**](LoginsApi.md#getLoginMemberships) | **GET** /login/memberships | Get login memberships |
 | [**getLogins()**](LoginsApi.md#getLogins) | **GET** /logins | Query all logins |
 | [**getOrgLogins()**](LoginsApi.md#getOrgLogins) | **GET** /orgs/{org_id}/logins | Query logins belonging to organization |
 | [**getSessions()**](LoginsApi.md#getSessions) | **GET** /login/sessions | Get all login sessions |
 | [**resendPin()**](LoginsApi.md#resendPin) | **POST** /login/2fa/resend-pin | Resends 2FA sign-in code. |
+| [**setCustomerLoginPassword()**](LoginsApi.md#setCustomerLoginPassword) | **PUT** /v2/logins/{login_id}/password | Set password for login |
 | [**setLoginAvatar()**](LoginsApi.md#setLoginAvatar) | **PUT** /login/avatar | Set login avatar |
 | [**startPasswordRecovery()**](LoginsApi.md#startPasswordRecovery) | **PUT** /login/password-recovery | Start a new password recovery for login |
 | [**updateLoginInfo()**](LoginsApi.md#updateLoginInfo) | **PATCH** /login | Update login info |
@@ -504,6 +506,77 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getCustomerLogins()`
+
+```php
+getCustomerLogins($org_id, $offset, $limit, $sort_order, $sort_by): \Upmind\EnhanceSdk\Model\LoginsListing
+```
+
+List customer logins for org
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$offset = 56; // int | The offset from which to return items.
+$limit = 56; // int | The maximum number of items to return.
+$sort_order = 'sort_order_example'; // string | The direction in which to sort. Possible values are 'asc' and 'desc', defaulting to 'asc'.
+$sort_by = 'sort_by_example'; // string | The field by which to sort.
+
+try {
+    $result = $apiInstance->getCustomerLogins($org_id, $offset, $limit, $sort_order, $sort_by);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginsApi->getCustomerLogins: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **offset** | **int**| The offset from which to return items. | [optional] |
+| **limit** | **int**| The maximum number of items to return. | [optional] |
+| **sort_order** | **string**| The direction in which to sort. Possible values are &#39;asc&#39; and &#39;desc&#39;, defaulting to &#39;asc&#39;. | [optional] |
+| **sort_by** | **string**| The field by which to sort. | [optional] |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\LoginsListing**](../Model/LoginsListing.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getLogin()`
 
 ```php
@@ -874,6 +947,72 @@ void (empty response body)
 ### Authorization
 
 [sessionCookie](../../README.md#sessionCookie)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setCustomerLoginPassword()`
+
+```php
+setCustomerLoginPassword($login_id, $new_password)
+```
+
+Set password for login
+
+This operation allows admins to reset the password for a login.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$login_id = 'login_id_example'; // string | The id of a login.
+$new_password = new \Upmind\EnhanceSdk\Model\NewPassword(); // \Upmind\EnhanceSdk\Model\NewPassword | The new unhashed password to set for the login
+
+try {
+    $apiInstance->setCustomerLoginPassword($login_id, $new_password);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginsApi->setCustomerLoginPassword: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **login_id** | **string**| The id of a login. | |
+| **new_password** | [**\Upmind\EnhanceSdk\Model\NewPassword**](../Model/NewPassword.md)| The new unhashed password to set for the login | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 

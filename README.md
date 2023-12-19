@@ -74,6 +74,7 @@ Class | Method | HTTP request | Description
 *BackupsApi* | [**deleteWebsiteBackup**](docs/Api/BackupsApi.md#deletewebsitebackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup
 *BackupsApi* | [**getWebsiteBackup**](docs/Api/BackupsApi.md#getwebsitebackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup
 *BackupsApi* | [**getWebsiteBackups**](docs/Api/BackupsApi.md#getwebsitebackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata
+*BackupsApi* | [**getWebsiteRestoreStatus**](docs/Api/BackupsApi.md#getwebsiterestorestatus) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/restore_status | Get the last detailed metadata of the restored website backup.
 *BackupsApi* | [**restoreWebsite**](docs/Api/BackupsApi.md#restorewebsite) | **PUT** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Restore website from a backup
 *BrandingApi* | [**createBrandingSettings**](docs/Api/BrandingApi.md#createbrandingsettings) | **POST** /orgs/{org_id}/branding/settings | Create branding settings
 *BrandingApi* | [**createNameServerDomain**](docs/Api/BrandingApi.md#createnameserverdomain) | **POST** /orgs/{org_id}/name-servers | Create reseller name server domain
@@ -118,6 +119,7 @@ Class | Method | HTTP request | Description
 *DomainsApi* | [**deleteCloudflareApiKeyId**](docs/Api/DomainsApi.md#deletecloudflareapikeyid) | **DELETE** /orgs/{org_id}/domains/{domain_id}/cloudflare | Delete CloudFlare API key, domain level
 *DomainsApi* | [**deleteDomain**](docs/Api/DomainsApi.md#deletedomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain
 *DomainsApi* | [**deleteWebsiteDomainMapping**](docs/Api/DomainsApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
+*DomainsApi* | [**deleteWebsiteDomainVhost**](docs/Api/DomainsApi.md#deletewebsitedomainvhost) | **DELETE** /v2/domains/{domain_id}/vhost | Deletes domain&#39;s custom vhost file if any
 *DomainsApi* | [**getCloudflareApiKeyDomain**](docs/Api/DomainsApi.md#getcloudflareapikeydomain) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare | Get CloudFlare API key, domain level
 *DomainsApi* | [**getCloudflareNameServers**](docs/Api/DomainsApi.md#getcloudflarenameservers) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare/nameservers | Get CloudFlare name servers
 *DomainsApi* | [**getDomainAuthNs**](docs/Api/DomainsApi.md#getdomainauthns) | **GET** /orgs/{org_id}/domains/{domain_id}/auth-ns | Get authoritative nameservers for domain.
@@ -127,9 +129,11 @@ Class | Method | HTTP request | Description
 *DomainsApi* | [**getWebsiteDomainMappingDnsStatus**](docs/Api/DomainsApi.md#getwebsitedomainmappingdnsstatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status
 *DomainsApi* | [**getWebsiteDomainMappings**](docs/Api/DomainsApi.md#getwebsitedomainmappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains
 *DomainsApi* | [**getWebsiteDomainModSecStatus**](docs/Api/DomainsApi.md#getwebsitedomainmodsecstatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain
+*DomainsApi* | [**getWebsiteDomainVhost**](docs/Api/DomainsApi.md#getwebsitedomainvhost) | **GET** /v2/domains/{domain_id}/vhost | Get domain&#39;s custom vhost file, if the file does not exist return empty string
 *DomainsApi* | [**performLetsEncryptPreflightCheck**](docs/Api/DomainsApi.md#performletsencryptpreflightcheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check
 *DomainsApi* | [**setCloudflareApiKeyId**](docs/Api/DomainsApi.md#setcloudflareapikeyid) | **PUT** /orgs/{org_id}/domains/{domain_id}/cloudflare | Set CloudFlare API key, domain level
 *DomainsApi* | [**setWebsiteDomainModSecStatus**](docs/Api/DomainsApi.md#setwebsitedomainmodsecstatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain
+*DomainsApi* | [**setWebsiteDomainVhost**](docs/Api/DomainsApi.md#setwebsitedomainvhost) | **PUT** /v2/domains/{domain_id}/vhost | Set a custom vhost file
 *DomainsApi* | [**updateWebsiteDomainMapping**](docs/Api/DomainsApi.md#updatewebsitedomainmapping) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Update website domain mapping
 *DomainsApi* | [**updateWebsitePrimaryDomain**](docs/Api/DomainsApi.md#updatewebsiteprimarydomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping
 *EmailClientApi* | [**createEmailAutoresponder**](docs/Api/EmailClientApi.md#createemailautoresponder) | **POST** /email-client/autoresponders | Create new email autoresponder
@@ -192,12 +196,14 @@ Class | Method | HTTP request | Description
 *LoginsApi* | [**deleteSession**](docs/Api/LoginsApi.md#deletesession) | **DELETE** /login/sessions/{session_id} | Delete current session
 *LoginsApi* | [**deleteSessions**](docs/Api/LoginsApi.md#deletesessions) | **DELETE** /login/sessions | Delete sessions
 *LoginsApi* | [**finishPasswordRecovery**](docs/Api/LoginsApi.md#finishpasswordrecovery) | **POST** /login/password-recovery | Finish a password recovery
+*LoginsApi* | [**getCustomerLogins**](docs/Api/LoginsApi.md#getcustomerlogins) | **GET** /v2/orgs/{org_id}/customers/logins | List customer logins for org
 *LoginsApi* | [**getLogin**](docs/Api/LoginsApi.md#getlogin) | **GET** /login | Get login info
 *LoginsApi* | [**getLoginMemberships**](docs/Api/LoginsApi.md#getloginmemberships) | **GET** /login/memberships | Get login memberships
 *LoginsApi* | [**getLogins**](docs/Api/LoginsApi.md#getlogins) | **GET** /logins | Query all logins
 *LoginsApi* | [**getOrgLogins**](docs/Api/LoginsApi.md#getorglogins) | **GET** /orgs/{org_id}/logins | Query logins belonging to organization
 *LoginsApi* | [**getSessions**](docs/Api/LoginsApi.md#getsessions) | **GET** /login/sessions | Get all login sessions
 *LoginsApi* | [**resendPin**](docs/Api/LoginsApi.md#resendpin) | **POST** /login/2fa/resend-pin | Resends 2FA sign-in code.
+*LoginsApi* | [**setCustomerLoginPassword**](docs/Api/LoginsApi.md#setcustomerloginpassword) | **PUT** /v2/logins/{login_id}/password | Set password for login
 *LoginsApi* | [**setLoginAvatar**](docs/Api/LoginsApi.md#setloginavatar) | **PUT** /login/avatar | Set login avatar
 *LoginsApi* | [**startPasswordRecovery**](docs/Api/LoginsApi.md#startpasswordrecovery) | **PUT** /login/password-recovery | Start a new password recovery for login
 *LoginsApi* | [**updateLoginInfo**](docs/Api/LoginsApi.md#updatelogininfo) | **PATCH** /login | Update login info
@@ -216,25 +222,25 @@ Class | Method | HTTP request | Description
 *MembersApi* | [**updateOwner**](docs/Api/MembersApi.md#updateowner) | **PUT** /orgs/{org_id}/owner | Update organization owner
 *MetricsApi* | [**getWebsiteMetrics**](docs/Api/MetricsApi.md#getwebsitemetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics
 *MigrationsApi* | [**createMigration**](docs/Api/MigrationsApi.md#createmigration) | **POST** /migrations | Create website role migration
+*MigrationsApi* | [**createMigrationSession**](docs/Api/MigrationsApi.md#createmigrationsession) | **POST** /migrations/sessions | Create bulk website role migrations
 *MigrationsApi* | [**getMigration**](docs/Api/MigrationsApi.md#getmigration) | **GET** /migrations/{migrationId} | Get a single migration
 *MigrationsApi* | [**getMigrationLog**](docs/Api/MigrationsApi.md#getmigrationlog) | **GET** /migrations/{migrationId}/log | Get the log for a migration
+*MigrationsApi* | [**getMigrationSessions**](docs/Api/MigrationsApi.md#getmigrationsessions) | **GET** /migrations/sessions | Get website role migration sessions
 *MigrationsApi* | [**getMigrations**](docs/Api/MigrationsApi.md#getmigrations) | **GET** /migrations | Get website role migrations
-*MysqlApi* | [**createOrRestoreWebsiteMySQLDBBackup**](docs/Api/MysqlApi.md#createorrestorewebsitemysqldbbackup) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/backups | Create or restore website MySQL database backup
 *MysqlApi* | [**createWebsiteMySQLDB**](docs/Api/MysqlApi.md#createwebsitemysqldb) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website
 *MysqlApi* | [**createWebsiteMySQLUser**](docs/Api/MysqlApi.md#createwebsitemysqluser) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users | Create website MySQL database user
 *MysqlApi* | [**createWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#createwebsitemysqluseraccesshosts) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Create website MySQL database user access hosts
-*MysqlApi* | [**createWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#createwebsitemysqluserprivileges) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Create website MySQL database user privileges
 *MysqlApi* | [**deleteWebsiteMySQLDB**](docs/Api/MysqlApi.md#deletewebsitemysqldb) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id} | Delete website MySQL database
 *MysqlApi* | [**deleteWebsiteMySQLUser**](docs/Api/MysqlApi.md#deletewebsitemysqluser) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Delete website MySQL database user
 *MysqlApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts
-*MysqlApi* | [**deleteWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#deletewebsitemysqluserprivileges) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Delete website MySQL database user privileges
 *MysqlApi* | [**downloadSql**](docs/Api/MysqlApi.md#downloadsql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Takes a backup of given database and returns it gziped
 *MysqlApi* | [**getOrgMySQLDBs**](docs/Api/MysqlApi.md#getorgmysqldbs) | **GET** /orgs/{org_id}/mysql-dbs | Get org&#39;s MySQL databases
 *MysqlApi* | [**getPhpMyAdminSSOUrl**](docs/Api/MysqlApi.md#getphpmyadminssourl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sso | Get phpMyAdmin SSO URL
 *MysqlApi* | [**getWebsiteMySQLDBs**](docs/Api/MysqlApi.md#getwebsitemysqldbs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases
 *MysqlApi* | [**getWebsiteMySQLUsers**](docs/Api/MysqlApi.md#getwebsitemysqlusers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-users | Get website MySQL database users
+*MysqlApi* | [**setWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#setwebsitemysqluserprivileges) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Create website MySQL database user privileges
 *MysqlApi* | [**updateWebsiteMySQLUser**](docs/Api/MysqlApi.md#updatewebsitemysqluser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Update website MySQL database user
-*MysqlApi* | [**uploadSql**](docs/Api/MysqlApi.md#uploadsql) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Uploads sql file and executes it against db
+*MysqlApi* | [**uploadSql**](docs/Api/MysqlApi.md#uploadsql) | **POST** /v2/mysql/{db_id}/sql | Uploads sql file and executes it against db
 *OrgsApi* | [**createAccessToken**](docs/Api/OrgsApi.md#createaccesstoken) | **POST** /orgs/{org_id}/access_tokens | Create organisation access token
 *OrgsApi* | [**createCloudflareApiKey**](docs/Api/OrgsApi.md#createcloudflareapikey) | **POST** /orgs/{org_id}/cloudflare | Set CloudFlare API key, org level
 *OrgsApi* | [**createCustomer**](docs/Api/OrgsApi.md#createcustomer) | **POST** /orgs/{org_id}/customers | Create a customer organization
@@ -301,15 +307,18 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**deleteServerFromGroup**](docs/Api/ServersApi.md#deleteserverfromgroup) | **DELETE** /servers/{server_id}/group | Delete server from group
 *ServersApi* | [**deleteServerGroup**](docs/Api/ServersApi.md#deleteservergroup) | **DELETE** /servers/groups/{group_id} | Deletes an existing server group
 *ServersApi* | [**deleteServerNetworkInterfaceIp**](docs/Api/ServersApi.md#deleteservernetworkinterfaceip) | **DELETE** /servers/{server_id}/interfaces/{interface}/ips/{ip} | Delete server network interface secondary IP
+*ServersApi* | [**deleteServerPrimaryIpv6**](docs/Api/ServersApi.md#deleteserverprimaryipv6) | **DELETE** /v2/servers/{server_id}/primary-ipv6 | Deletes/unsets the primary IPv6 address for a server.
 *ServersApi* | [**deleteServiceSetting**](docs/Api/ServersApi.md#deleteservicesetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *ServersApi* | [**deleteSlave**](docs/Api/ServersApi.md#deleteslave) | **DELETE** /servers/{server_id} | Delete a (slave) server
 *ServersApi* | [**enableFsQuotaLimits**](docs/Api/ServersApi.md#enablefsquotalimits) | **POST** /servers/{server_id}/fs_quota_limits | Enable FS quota limits on the server
 *ServersApi* | [**getAppcdVersion**](docs/Api/ServersApi.md#getappcdversion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd
 *ServersApi* | [**getClientIp**](docs/Api/ServersApi.md#getclientip) | **GET** /client_ip | Reflect back the IP of the API consumer
 *ServersApi* | [**getControlPanelRoleInfo**](docs/Api/ServersApi.md#getcontrolpanelroleinfo) | **GET** /servers/master/roles/control | Get master server control panel role info
+*ServersApi* | [**getDatabaseRoleMysqlKind**](docs/Api/ServersApi.md#getdatabaserolemysqlkind) | **GET** /v2/servers/{server_id}/database-role | Gets the MySQL kind for a given server.
 *ServersApi* | [**getFsQuotaStatus**](docs/Api/ServersApi.md#getfsquotastatus) | **GET** /servers/{server_id}/fs_quota_limits | Get whether FS quota was enabled on the server
 *ServersApi* | [**getHttpdStatus**](docs/Api/ServersApi.md#gethttpdstatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server.
 *ServersApi* | [**getInstallCmd**](docs/Api/ServersApi.md#getinstallcmd) | **GET** /servers/install-cmd | Get slave installation command
+*ServersApi* | [**getMysqlMyCnf**](docs/Api/ServersApi.md#getmysqlmycnf) | **GET** /v2/servers/{server_id}/my-cnf | Download my.cnf for a given server
 *ServersApi* | [**getOwaspRulesVersion**](docs/Api/ServersApi.md#getowasprulesversion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules
 *ServersApi* | [**getRegistrationKey**](docs/Api/ServersApi.md#getregistrationkey) | **GET** /servers/registration-key | Get slave registration key
 *ServersApi* | [**getServerDiskUsage**](docs/Api/ServersApi.md#getserverdiskusage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage
@@ -335,9 +344,12 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getWebserverKind**](docs/Api/ServersApi.md#getwebserverkind) | **GET** /servers/{server_id}/webserver | Get web server
 *ServersApi* | [**getWebsiteFpmSettings**](docs/Api/ServersApi.md#getwebsitefpmsettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website
 *ServersApi* | [**initAllServers**](docs/Api/ServersApi.md#initallservers) | **POST** /servers/init | Attempts to initialize all roles
+*ServersApi* | [**installDatabaseRole**](docs/Api/ServersApi.md#installdatabaserole) | **PUT** /v2/servers/{server_id}/database-role | Enables the database role on a given ServerUuid
 *ServersApi* | [**installServerRole**](docs/Api/ServersApi.md#installserverrole) | **PUT** /servers/{server_id}/roles/{role} | Install server role
 *ServersApi* | [**resetServerModSecurityConfig**](docs/Api/ServersApi.md#resetservermodsecurityconfig) | **DELETE** /v2/servers/{server_id}/modsec_conf | Delete custom mod_security config and reset to default
 *ServersApi* | [**resetWebServerConfig**](docs/Api/ServersApi.md#resetwebserverconfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default.
+*ServersApi* | [**restartMysql**](docs/Api/ServersApi.md#restartmysql) | **POST** /v2/servers/{server_id}/database-role/restart | Restart MySQL gracefully
+*ServersApi* | [**saveMysqlMyCnf**](docs/Api/ServersApi.md#savemysqlmycnf) | **PUT** /v2/servers/{server_id}/my-cnf | Save a new my.cnf
 *ServersApi* | [**setLiteSpeedAdminPassword**](docs/Api/ServersApi.md#setlitespeedadminpassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password.
 *ServersApi* | [**setServerDecommissioned**](docs/Api/ServersApi.md#setserverdecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned
 *ServersApi* | [**setServerModSecurityConfig**](docs/Api/ServersApi.md#setservermodsecurityconfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config
@@ -350,6 +362,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**updateOwaspRules**](docs/Api/ServersApi.md#updateowasprules) | **POST** /v2/servers/{server_id}/owasp | Upgrade OWASP rules
 *ServersApi* | [**updateServerGroup**](docs/Api/ServersApi.md#updateservergroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name
 *ServersApi* | [**updateServerPrimaryIp**](docs/Api/ServersApi.md#updateserverprimaryip) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed.
+*ServersApi* | [**updateServerPrimaryIpv6**](docs/Api/ServersApi.md#updateserverprimaryipv6) | **PUT** /v2/servers/{server_id}/primary-ipv6 | Updates or sets the primary ipv6 address of the server.  This endpoint will not change existing websites&#39; DNS but the new record will be applied to all future zones.
 *ServersApi* | [**updateServerRole**](docs/Api/ServersApi.md#updateserverrole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role
 *ServersApi* | [**updateService**](docs/Api/ServersApi.md#updateservice) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version.
 *ServersApi* | [**updateSystemPackage**](docs/Api/ServersApi.md#updatesystempackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version.
@@ -359,13 +372,17 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**addOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#addorchdloginpolicyipblacklist) | **PUT** /settings/orchd/login-policy/ip-blacklist | Set the orchd login policy ip blacklist as a whole
 *SettingsApi* | [**addOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#addorchdloginpolicyipwhitelist) | **PUT** /settings/orchd/login-policy/ip-whitelist | Set the orchd login policy ip whitelist as a whole
 *SettingsApi* | [**addOrchdLoginPolicySettings**](docs/Api/SettingsApi.md#addorchdloginpolicysettings) | **PUT** /settings/orchd/login-policy/settings | Set a single orchd login policy setting
+*SettingsApi* | [**createBackupRemoteStorageS3**](docs/Api/SettingsApi.md#createbackupremotestorages3) | **POST** /v2/settings/backup/remote_storage/s3 | Create S3 object storage settings at platform level.
 *SettingsApi* | [**createSettings**](docs/Api/SettingsApi.md#createsettings) | **POST** /settings | Create settings
+*SettingsApi* | [**deleteBackupRemoteStorageS3**](docs/Api/SettingsApi.md#deletebackupremotestorages3) | **DELETE** /v2/settings/backup/remote_storage/s3 | Delete S3 object storage settings at platform level.
 *SettingsApi* | [**deleteGlobalServiceSetting**](docs/Api/SettingsApi.md#deleteglobalservicesetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting
 *SettingsApi* | [**deleteOrchdLoginPolicyEmailBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyemailblacklist) | **DELETE** /settings/orchd/login-policy/email-blacklist | Delete an orchd login policy email blacklist
 *SettingsApi* | [**deleteOrchdLoginPolicyEmailWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyemailwhitelist) | **DELETE** /settings/orchd/login-policy/email-whitelist | Delete an orchd login policy email whitelist
 *SettingsApi* | [**deleteOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipblacklist) | **DELETE** /settings/orchd/login-policy/ip-blacklist | Delete an orchd login policy ip blacklist
 *SettingsApi* | [**deleteOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipwhitelist) | **DELETE** /settings/orchd/login-policy/ip-whitelist | Delete an orchd login policy ip whitelist
 *SettingsApi* | [**deleteSetting**](docs/Api/SettingsApi.md#deletesetting) | **DELETE** /settings/{name} | Remove the specified setting
+*SettingsApi* | [**getBackupRemoteStorageS3**](docs/Api/SettingsApi.md#getbackupremotestorages3) | **GET** /v2/settings/backup/remote_storage/s3 | Get S3 object storage settings at platform level.
+*SettingsApi* | [**getDemoMode**](docs/Api/SettingsApi.md#getdemomode) | **GET** /v2/settings/demo_mode | Get the demo mode status of the orchd service
 *SettingsApi* | [**getDockerRegistry**](docs/Api/SettingsApi.md#getdockerregistry) | **GET** /settings/registry | Gets the Docker registry credentials.
 *SettingsApi* | [**getGlobalServiceSetting**](docs/Api/SettingsApi.md#getglobalservicesetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting
 *SettingsApi* | [**getOrchdLogSettings**](docs/Api/SettingsApi.md#getorchdlogsettings) | **GET** /settings/orchd/logs | Get the orchd log settings
@@ -381,6 +398,7 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**setGlobalServiceSetting**](docs/Api/SettingsApi.md#setglobalservicesetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting
 *SettingsApi* | [**setOrchdLogSettings**](docs/Api/SettingsApi.md#setorchdlogsettings) | **PUT** /settings/orchd/logs | Set the orchd log settings
 *SettingsApi* | [**setProhibitedDomains**](docs/Api/SettingsApi.md#setprohibiteddomains) | **PUT** /settings/orchd/prohibited_domains | Set the platform level prohibited domains
+*SettingsApi* | [**updateBackupRemoteStorageS3**](docs/Api/SettingsApi.md#updatebackupremotestorages3) | **PATCH** /v2/settings/backup/remote_storage/s3 | Update S3 object storage settings at platform level.
 *SettingsApi* | [**updateSetting**](docs/Api/SettingsApi.md#updatesetting) | **PUT** /settings/{name} | Create or update the specified setting
 *SslApi* | [**getWebsiteDomainSslCert**](docs/Api/SslApi.md#getwebsitedomainsslcert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain
 *SslApi* | [**setWebsiteDomainForceSsl**](docs/Api/SslApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
@@ -390,6 +408,7 @@ Class | Method | HTTP request | Description
 *SubscriptionsApi* | [**deleteSubscription**](docs/Api/SubscriptionsApi.md#deletesubscription) | **DELETE** /orgs/{org_id}/subscriptions/{subscription_id} | Delete subscription
 *SubscriptionsApi* | [**getCustomerSubscriptions**](docs/Api/SubscriptionsApi.md#getcustomersubscriptions) | **GET** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Get customer subscriptions
 *SubscriptionsApi* | [**getSubscription**](docs/Api/SubscriptionsApi.md#getsubscription) | **GET** /orgs/{org_id}/subscriptions/{subscription_id} | Get subscription
+*SubscriptionsApi* | [**getSubscriptionBandwidthUsage**](docs/Api/SubscriptionsApi.md#getsubscriptionbandwidthusage) | **GET** /orgs/{org_id}/subscriptions/{subscription_id}/bandwidth | Get subscription bandwidth
 *SubscriptionsApi* | [**getSubscriptionsToParent**](docs/Api/SubscriptionsApi.md#getsubscriptionstoparent) | **GET** /orgs/{org_id}/subscriptions | Get subscriptions to parent
 *SubscriptionsApi* | [**updateSubscription**](docs/Api/SubscriptionsApi.md#updatesubscription) | **PATCH** /orgs/{org_id}/subscriptions/{subscription_id} | Update subscription
 *TagsApi* | [**createTag**](docs/Api/TagsApi.md#createtag) | **POST** /orgs/{org_id}/tags | Create tag
@@ -410,6 +429,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**deleteUserCrontab**](docs/Api/WebsitesApi.md#deleteusercrontab) | **DELETE** /orgs/{org_id}/websites/{website_id}/crontab | Delete user&#39;s crontab
 *WebsitesApi* | [**deleteWebsite**](docs/Api/WebsitesApi.md#deletewebsite) | **DELETE** /orgs/{org_id}/websites/{website_id} | Delete website
 *WebsitesApi* | [**deleteWebsiteDomainMapping**](docs/Api/WebsitesApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
+*WebsitesApi* | [**deleteWebsiteDomainVhost**](docs/Api/WebsitesApi.md#deletewebsitedomainvhost) | **DELETE** /v2/domains/{domain_id}/vhost | Deletes domain&#39;s custom vhost file if any
 *WebsitesApi* | [**deleteWebsiteSetting**](docs/Api/WebsitesApi.md#deletewebsitesetting) | **DELETE** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *WebsitesApi* | [**deleteWebsites**](docs/Api/WebsitesApi.md#deletewebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites
 *WebsitesApi* | [**getDomainNginxFastCgi**](docs/Api/WebsitesApi.md#getdomainnginxfastcgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement
@@ -429,6 +449,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteDomainMappings**](docs/Api/WebsitesApi.md#getwebsitedomainmappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains
 *WebsitesApi* | [**getWebsiteDomainModSecStatus**](docs/Api/WebsitesApi.md#getwebsitedomainmodsecstatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain
 *WebsitesApi* | [**getWebsiteDomainSslCert**](docs/Api/WebsitesApi.md#getwebsitedomainsslcert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain
+*WebsitesApi* | [**getWebsiteDomainVhost**](docs/Api/WebsitesApi.md#getwebsitedomainvhost) | **GET** /v2/domains/{domain_id}/vhost | Get domain&#39;s custom vhost file, if the file does not exist return empty string
 *WebsitesApi* | [**getWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#getwebsitefsquotalimits) | **GET** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Get the active FS quoa limits for a website
 *WebsitesApi* | [**getWebsiteHtaccessIpsRule**](docs/Api/WebsitesApi.md#getwebsitehtaccessipsrule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs
 *WebsitesApi* | [**getWebsiteHtaccessRewrites**](docs/Api/WebsitesApi.md#getwebsitehtaccessrewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules
@@ -449,6 +470,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**setWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#setwebsitecgrouplimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteDomainForceSsl**](docs/Api/WebsitesApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
 *WebsitesApi* | [**setWebsiteDomainModSecStatus**](docs/Api/WebsitesApi.md#setwebsitedomainmodsecstatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain
+*WebsitesApi* | [**setWebsiteDomainVhost**](docs/Api/WebsitesApi.md#setwebsitedomainvhost) | **PUT** /v2/domains/{domain_id}/vhost | Set a custom vhost file
 *WebsitesApi* | [**setWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#setwebsitefsquotalimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteIoncubeStatus**](docs/Api/WebsitesApi.md#setwebsiteioncubestatus) | **PUT** /v2/websites/{website_id}/ioncube | Set ioncube status for an existing website
 *WebsitesApi* | [**setWebsiteRedisState**](docs/Api/WebsitesApi.md#setwebsiteredisstate) | **PUT** /v2/websites/{website_id}/redis | Set Redis state for an existing website
@@ -504,9 +526,11 @@ Class | Method | HTTP request | Description
 - [BackupDetailed](docs/Model/BackupDetailed.md)
 - [BackupKind](docs/Model/BackupKind.md)
 - [BackupOptions](docs/Model/BackupOptions.md)
+- [BackupRemoteStorageS3](docs/Model/BackupRemoteStorageS3.md)
 - [BackupRestoreOptions](docs/Model/BackupRestoreOptions.md)
 - [BackupRoleInfo](docs/Model/BackupRoleInfo.md)
 - [BackupStatus](docs/Model/BackupStatus.md)
+- [BackupStorageKind](docs/Model/BackupStorageKind.md)
 - [BackupsFullListing](docs/Model/BackupsFullListing.md)
 - [Blocked](docs/Model/Blocked.md)
 - [Branding](docs/Model/Branding.md)
@@ -522,6 +546,7 @@ Class | Method | HTTP request | Description
 - [CloudFlareStatus](docs/Model/CloudFlareStatus.md)
 - [ControlRoleInfo](docs/Model/ControlRoleInfo.md)
 - [CoreServiceInfo](docs/Model/CoreServiceInfo.md)
+- [CreateBackupRemoteStorageS3](docs/Model/CreateBackupRemoteStorageS3.md)
 - [CrontabFullListing](docs/Model/CrontabFullListing.md)
 - [CrontabValue](docs/Model/CrontabValue.md)
 - [CrontabValueCmd](docs/Model/CrontabValueCmd.md)
@@ -533,6 +558,8 @@ Class | Method | HTTP request | Description
 - [DatabaseRoleInfo](docs/Model/DatabaseRoleInfo.md)
 - [DedicatedSubscriptionInfo](docs/Model/DedicatedSubscriptionInfo.md)
 - [DefaultDnsRecord](docs/Model/DefaultDnsRecord.md)
+- [DeleteWebsiteDomainVhostRequest](docs/Model/DeleteWebsiteDomainVhostRequest.md)
+- [DemoMode](docs/Model/DemoMode.md)
 - [DeviceKind](docs/Model/DeviceKind.md)
 - [Disk](docs/Model/Disk.md)
 - [DnsQueryOutcome](docs/Model/DnsQueryOutcome.md)
@@ -621,8 +648,14 @@ Class | Method | HTTP request | Description
 - [Member](docs/Model/Member.md)
 - [MembersListing](docs/Model/MembersListing.md)
 - [MetricsEntry](docs/Model/MetricsEntry.md)
+- [MigrationCreationOutcome](docs/Model/MigrationCreationOutcome.md)
+- [MigrationCreationOutcomeError](docs/Model/MigrationCreationOutcomeError.md)
 - [MigrationDetails](docs/Model/MigrationDetails.md)
 - [MigrationLog](docs/Model/MigrationLog.md)
+- [MigrationSessionCreationError](docs/Model/MigrationSessionCreationError.md)
+- [MigrationSessionCreationOk](docs/Model/MigrationSessionCreationOk.md)
+- [MigrationSessionDetails](docs/Model/MigrationSessionDetails.md)
+- [MigrationSessionsListing](docs/Model/MigrationSessionsListing.md)
 - [MigrationStatus](docs/Model/MigrationStatus.md)
 - [MigrationsListing](docs/Model/MigrationsListing.md)
 - [ModSecStatus](docs/Model/ModSecStatus.md)
@@ -636,6 +669,8 @@ Class | Method | HTTP request | Description
 - [MySQLUserGrants](docs/Model/MySQLUserGrants.md)
 - [MySQLUserUpdate](docs/Model/MySQLUserUpdate.md)
 - [MySQLUsersFullListing](docs/Model/MySQLUsersFullListing.md)
+- [MysqlInfo](docs/Model/MysqlInfo.md)
+- [MysqlKind](docs/Model/MysqlKind.md)
 - [NetworkInterface](docs/Model/NetworkInterface.md)
 - [NetworkStatus](docs/Model/NetworkStatus.md)
 - [NewAccessToken](docs/Model/NewAccessToken.md)
@@ -690,6 +725,7 @@ Class | Method | HTTP request | Description
 - [ProcessInfo](docs/Model/ProcessInfo.md)
 - [Quota](docs/Model/Quota.md)
 - [Recursion](docs/Model/Recursion.md)
+- [RemoteStoragePurpose](docs/Model/RemoteStoragePurpose.md)
 - [RequireIpsRule](docs/Model/RequireIpsRule.md)
 - [RequireIpsRuleKind](docs/Model/RequireIpsRuleKind.md)
 - [ResendPin](docs/Model/ResendPin.md)
@@ -701,6 +737,7 @@ Class | Method | HTTP request | Description
 - [ResourceCheckManagerErrorKind](docs/Model/ResourceCheckManagerErrorKind.md)
 - [ResourceCountByInterval](docs/Model/ResourceCountByInterval.md)
 - [ResourceName](docs/Model/ResourceName.md)
+- [RestoreDetailed](docs/Model/RestoreDetailed.md)
 - [RewriteChain](docs/Model/RewriteChain.md)
 - [RewriteChainCondsInner](docs/Model/RewriteChainCondsInner.md)
 - [RewriteChainFullListing](docs/Model/RewriteChainFullListing.md)
@@ -782,6 +819,7 @@ Class | Method | HTTP request | Description
 - [UnixTimestamp](docs/Model/UnixTimestamp.md)
 - [UpdateApplicationRole](docs/Model/UpdateApplicationRole.md)
 - [UpdateAutoresponder](docs/Model/UpdateAutoresponder.md)
+- [UpdateBackupRemoteStorageS3](docs/Model/UpdateBackupRemoteStorageS3.md)
 - [UpdateBackupRole](docs/Model/UpdateBackupRole.md)
 - [UpdateCloudFlareApiKey](docs/Model/UpdateCloudFlareApiKey.md)
 - [UpdateCrontabFullListing](docs/Model/UpdateCrontabFullListing.md)
@@ -818,6 +856,8 @@ Class | Method | HTTP request | Description
 - [UuidListing](docs/Model/UuidListing.md)
 - [ValidatedPasswordRecovery](docs/Model/ValidatedPasswordRecovery.md)
 - [ValidationResult](docs/Model/ValidationResult.md)
+- [Vhost](docs/Model/Vhost.md)
+- [VhostWebserverKind](docs/Model/VhostWebserverKind.md)
 - [WPAutoUpdateCore](docs/Model/WPAutoUpdateCore.md)
 - [WPPluginAutoUpdateStatus](docs/Model/WPPluginAutoUpdateStatus.md)
 - [WPPluginStatus](docs/Model/WPPluginStatus.md)
@@ -855,7 +895,6 @@ Class | Method | HTTP request | Description
 - [WpTheme](docs/Model/WpTheme.md)
 - [WpThemesFullListing](docs/Model/WpThemesFullListing.md)
 - [WpUser](docs/Model/WpUser.md)
-- [WpUserRole](docs/Model/WpUserRole.md)
 - [WpUsersFullListing](docs/Model/WpUsersFullListing.md)
 
 ## Tests

@@ -9,13 +9,17 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**addOrchdLoginPolicyIpBlacklist()**](SettingsApi.md#addOrchdLoginPolicyIpBlacklist) | **PUT** /settings/orchd/login-policy/ip-blacklist | Set the orchd login policy ip blacklist as a whole |
 | [**addOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#addOrchdLoginPolicyIpWhitelist) | **PUT** /settings/orchd/login-policy/ip-whitelist | Set the orchd login policy ip whitelist as a whole |
 | [**addOrchdLoginPolicySettings()**](SettingsApi.md#addOrchdLoginPolicySettings) | **PUT** /settings/orchd/login-policy/settings | Set a single orchd login policy setting |
+| [**createBackupRemoteStorageS3()**](SettingsApi.md#createBackupRemoteStorageS3) | **POST** /v2/settings/backup/remote_storage/s3 | Create S3 object storage settings at platform level. |
 | [**createSettings()**](SettingsApi.md#createSettings) | **POST** /settings | Create settings |
+| [**deleteBackupRemoteStorageS3()**](SettingsApi.md#deleteBackupRemoteStorageS3) | **DELETE** /v2/settings/backup/remote_storage/s3 | Delete S3 object storage settings at platform level. |
 | [**deleteGlobalServiceSetting()**](SettingsApi.md#deleteGlobalServiceSetting) | **DELETE** /settings/service/{setting_kind}/{setting_key} | Delete a single global service setting |
 | [**deleteOrchdLoginPolicyEmailBlacklist()**](SettingsApi.md#deleteOrchdLoginPolicyEmailBlacklist) | **DELETE** /settings/orchd/login-policy/email-blacklist | Delete an orchd login policy email blacklist |
 | [**deleteOrchdLoginPolicyEmailWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyEmailWhitelist) | **DELETE** /settings/orchd/login-policy/email-whitelist | Delete an orchd login policy email whitelist |
 | [**deleteOrchdLoginPolicyIpBlacklist()**](SettingsApi.md#deleteOrchdLoginPolicyIpBlacklist) | **DELETE** /settings/orchd/login-policy/ip-blacklist | Delete an orchd login policy ip blacklist |
 | [**deleteOrchdLoginPolicyIpWhitelist()**](SettingsApi.md#deleteOrchdLoginPolicyIpWhitelist) | **DELETE** /settings/orchd/login-policy/ip-whitelist | Delete an orchd login policy ip whitelist |
 | [**deleteSetting()**](SettingsApi.md#deleteSetting) | **DELETE** /settings/{name} | Remove the specified setting |
+| [**getBackupRemoteStorageS3()**](SettingsApi.md#getBackupRemoteStorageS3) | **GET** /v2/settings/backup/remote_storage/s3 | Get S3 object storage settings at platform level. |
+| [**getDemoMode()**](SettingsApi.md#getDemoMode) | **GET** /v2/settings/demo_mode | Get the demo mode status of the orchd service |
 | [**getDockerRegistry()**](SettingsApi.md#getDockerRegistry) | **GET** /settings/registry | Gets the Docker registry credentials. |
 | [**getGlobalServiceSetting()**](SettingsApi.md#getGlobalServiceSetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting |
 | [**getOrchdLogSettings()**](SettingsApi.md#getOrchdLogSettings) | **GET** /settings/orchd/logs | Get the orchd log settings |
@@ -31,6 +35,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**setGlobalServiceSetting()**](SettingsApi.md#setGlobalServiceSetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting |
 | [**setOrchdLogSettings()**](SettingsApi.md#setOrchdLogSettings) | **PUT** /settings/orchd/logs | Set the orchd log settings |
 | [**setProhibitedDomains()**](SettingsApi.md#setProhibitedDomains) | **PUT** /settings/orchd/prohibited_domains | Set the platform level prohibited domains |
+| [**updateBackupRemoteStorageS3()**](SettingsApi.md#updateBackupRemoteStorageS3) | **PATCH** /v2/settings/backup/remote_storage/s3 | Update S3 object storage settings at platform level. |
 | [**updateSetting()**](SettingsApi.md#updateSetting) | **PUT** /settings/{name} | Create or update the specified setting |
 
 
@@ -344,6 +349,68 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `createBackupRemoteStorageS3()`
+
+```php
+createBackupRemoteStorageS3($create_backup_remote_storage_s3)
+```
+
+Create S3 object storage settings at platform level.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$create_backup_remote_storage_s3 = new \Upmind\EnhanceSdk\Model\CreateBackupRemoteStorageS3(); // \Upmind\EnhanceSdk\Model\CreateBackupRemoteStorageS3
+
+try {
+    $apiInstance->createBackupRemoteStorageS3($create_backup_remote_storage_s3);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->createBackupRemoteStorageS3: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **create_backup_remote_storage_s3** | [**\Upmind\EnhanceSdk\Model\CreateBackupRemoteStorageS3**](../Model/CreateBackupRemoteStorageS3.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `createSettings()`
 
 ```php
@@ -400,6 +467,65 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteBackupRemoteStorageS3()`
+
+```php
+deleteBackupRemoteStorageS3()
+```
+
+Delete S3 object storage settings at platform level.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $apiInstance->deleteBackupRemoteStorageS3();
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->deleteBackupRemoteStorageS3: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -778,6 +904,117 @@ void (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getBackupRemoteStorageS3()`
+
+```php
+getBackupRemoteStorageS3(): \Upmind\EnhanceSdk\Model\BackupRemoteStorageS3
+```
+
+Get S3 object storage settings at platform level.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getBackupRemoteStorageS3();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getBackupRemoteStorageS3: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\BackupRemoteStorageS3**](../Model/BackupRemoteStorageS3.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getDemoMode()`
+
+```php
+getDemoMode(): \Upmind\EnhanceSdk\Model\DemoMode
+```
+
+Get the demo mode status of the orchd service
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+
+try {
+    $result = $apiInstance->getDemoMode();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->getDemoMode: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\DemoMode**](../Model/DemoMode.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -1692,6 +1929,68 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **body** | **string**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateBackupRemoteStorageS3()`
+
+```php
+updateBackupRemoteStorageS3($update_backup_remote_storage_s3)
+```
+
+Update S3 object storage settings at platform level.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$update_backup_remote_storage_s3 = new \Upmind\EnhanceSdk\Model\UpdateBackupRemoteStorageS3(); // \Upmind\EnhanceSdk\Model\UpdateBackupRemoteStorageS3
+
+try {
+    $apiInstance->updateBackupRemoteStorageS3($update_backup_remote_storage_s3);
+} catch (Exception $e) {
+    echo 'Exception when calling SettingsApi->updateBackupRemoteStorageS3: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **update_backup_remote_storage_s3** | [**\Upmind\EnhanceSdk\Model\UpdateBackupRemoteStorageS3**](../Model/UpdateBackupRemoteStorageS3.md)|  | |
 
 ### Return type
 

@@ -11,7 +11,9 @@ Name | Type | Description | Notes
 **allowances** | [**\Upmind\EnhanceSdk\Model\Allowance[]**](Allowance.md) |  |
 **selections** | [**\Upmind\EnhanceSdk\Model\Selection[]**](Selection.md) |  |
 **subscriptions_count** | **int** | The number of subscriptions to this plan. |
-**server_group_id** | **string** |  | [optional]
+**server_group_id** | **string** | Use serverGroupIds instead | [optional]
+**server_group_ids** | **string[]** |  | [optional]
+**allow_server_group_selection** | **bool** | Whether the customer can select the server group for their websites. | [optional]
 **created_at** | **string** |  |
 **plan_type** | [**\Upmind\EnhanceSdk\Model\PlanType**](PlanType.md) |  |
 **cgroup_limits** | [**\Upmind\EnhanceSdk\Model\CgroupLimits**](CgroupLimits.md) |  | [optional]

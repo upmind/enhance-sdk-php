@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 9.9.0
+  version: 10.0.0
   title: orchd
 tags:
   - name: install
@@ -1077,6 +1077,111 @@ paths:
         "403":
           description: Insufficient privileges
 
+  /v2/settings/backup/remote_storage/s3:
+    post:
+      tags:
+        - settings
+      summary: Create S3 object storage settings at platform level.
+      operationId: createBackupRemoteStorageS3
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBackupRemoteStorageS3"
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    get:
+      tags:
+        - settings
+      summary: Get S3 object storage settings at platform level.
+      operationId: getBackupRemoteStorageS3
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BackupRemoteStorageS3"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - settings
+      summary: Delete S3 object storage settings at platform level.
+      operationId: deleteBackupRemoteStorageS3
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    patch:
+      tags:
+        - settings
+      summary: Update S3 object storage settings at platform level.
+      operationId: updateBackupRemoteStorageS3
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBackupRemoteStorageS3"
+      responses:
+        "204":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/settings/demo_mode:
+    get:
+      tags:
+        - settings
+      summary: Get the demo mode status of the orchd service
+      operationId: getDemoMode
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DemoMode"
+
   ###############################################################################
   # -- Reports
   ###############################################################################
@@ -1533,7 +1638,165 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
+  /v2/servers/{server_id}/primary-ipv6:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    put:
+      tags:
+        - servers
+      summary: >-
+        Updates or sets the primary ipv6 address of the server.  This endpoint
+        will not change existing websites' DNS but the new record will be
+        applied to all future zones.
+      operationId: updateServerPrimaryIpv6
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: ipv6
+      responses:
+        "200":
+          description: Update successful
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - servers
+      summary: >-
+        Deletes/unsets the primary IPv6 address for a server.
+      operationId: deleteServerPrimaryIpv6
+      responses:
+        "204":
+          description: IPv6 address delete
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/servers/{server_id}/database-role:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+      - name: mysqlKind
+        in: query
+        schema:
+          $ref: "#/components/schemas/MysqlKind"
+    put:
+      tags:
+        - servers
+      summary: >-
+        Enables the database role on a given ServerUuid
+      operationId: installDatabaseRole
+      responses:
+        "200":
+          description: Role enabled successfully
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - servers
+      summary: >-
+        Gets the MySQL kind for a given server.
+      operationId: getDatabaseRoleMysqlKind
+      responses:
+        "200":
+          description: Role enabled successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MysqlKind"
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/servers/{server_id}/database-role/restart:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    post:
+      tags:
+        - servers
+      summary: >-
+        Restart MySQL gracefully
+      operationId: restartMysql
+      responses:
+        "200":
+          description: Mysql restart initiated
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /v2/servers/{server_id}/my-cnf:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: >-
+        Download my.cnf for a given server
+      operationId: getMysqlMyCnf
+      responses:
+        "200":
+          description: my.cnf content returned
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: >-
+        Save a new my.cnf
+      operationId: saveMysqlMyCnf
+      requestBody:
+        description: New my.cnf to be applied
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: My.cnf updated
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /servers/{server_id}/group:
     delete:
       tags:
@@ -1803,6 +2066,7 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+
   /v2/servers/{server_id}/owasp:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -3972,6 +4236,44 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SubscriptionsListing"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/subscriptions/{subscription_id}/bandwidth:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/SubscriptionId"
+      - $ref: "#/components/parameters/CacheControl"
+    get:
+      tags:
+        - subscriptions
+      summary: Get subscription bandwidth
+      description: >-
+        Queries the organization's subscription bandwidth for the current month.
+        This includes all customer subscriptions if this subscription is a
+        reseller.
+
+        By default the usage is cached for 12 hours unless `refreshCache` is `true`.
+
+        The value is in bytes.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent org.
+      operationId: getSubscriptionBandwidthUsage
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: integer
         "400":
           description: Invalid input
         "401":
@@ -7779,6 +8081,7 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+
   /v2/domains/{domain_id}/modsec_status:
     parameters:
       - $ref: "#/components/parameters/DomainId"
@@ -7818,6 +8121,83 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ModSecStatus"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /v2/domains/{domain_id}/vhost:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - websites
+        - domains
+      summary: >
+        Get domain's custom vhost file, if the file does not exist return empty string
+      operationId: getWebsiteDomainVhost
+      responses:
+        "200":
+          description: Vhost file queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vhost"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - websites
+        - domains
+      summary: Set a custom vhost file
+      operationId: setWebsiteDomainVhost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vhost"
+      responses:
+        "200":
+          description: Vhost file updated
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - websites
+        - domains
+      summary: Deletes domain's custom vhost file if any
+      operationId: deleteWebsiteDomainVhost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - webserver
+              properties:
+                webserver:
+                  $ref: "#/components/schemas/VhostWebserverKind"
+      responses:
+        "200":
+          description: Vhost deleted
         "400":
           description: Invalid input
         "401":
@@ -8146,53 +8526,8 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/backups:
+  /v2/mysql/{db_id}/sql:
     parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
-    post:
-      tags:
-        - mysql
-      summary: Create or restore website MySQL database backup
-      description: >-
-        Create or restore website MySQL database backup.
-
-        Session holder must be at least a `SuperAdmin` in this org or a parent
-        org, or be a member in this org that has access to the website.
-      operationId: createOrRestoreWebsiteMySQLDBBackup
-      parameters:
-        - name: action
-          in: query
-          description: The action to take.
-          required: false
-          schema:
-            type: string
-            enum: [create, restore]
-            default: create
-        - name: filename
-          in: query
-          description: >-
-            The filename of the backup file. Only applicable if the backup action
-            is `restore`, otherwise this is ignored.
-          required: false
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Database backup successfully created or restored
-        "400":
-          description: Invalid input
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-        "409":
-          description: Already exists
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/DbId"
     post:
       tags:
@@ -8208,7 +8543,7 @@ paths:
         will not stop when an error is raised (corresponds to the --force option
         of mysql cli).
 
-        The max allowed size is 100 MB.
+        The max allowed size is 500 MB.
       operationId: uploadSql
       parameters:
         - $ref: "#/components/parameters/Force"
@@ -8231,25 +8566,29 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DbId"
     get:
       tags:
         - mysql
       summary: Takes a backup of given database and returns it gziped
       description: >-
-        Performs a database backup into an sql, gzips the sql and sends the
-        compressed binary as body.
+        Performs a database backup into an sql, gzips the sql and returns the
+        file system path for subsequent download with filerd.
       operationId: downloadSql
       security:
         - sessionCookie: []
         - bearerAuth: []
       responses:
         "200":
-          description: A gzipped sql file
+          description: Path to SQL file relative to the website's home dir
           content:
-            application/octet-stream:
+            application/json:
               schema:
                 type: string
-                format: binary
         "400":
           description: Invalid input
         "401":
@@ -8372,16 +8711,17 @@ paths:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/DbUserId"
-    post:
+    put:
       tags:
         - mysql
       summary: Create website MySQL database user privileges
       description: >-
-        Adds for the given user new privileges to website's MySQL database.
+        Sets the privileges for a user on a given MySQL database.  This will override
+        their current privileges.
 
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
-      operationId: createWebsiteMySQLUserPrivileges
+      operationId: setWebsiteMySQLUserPrivileges
       requestBody:
         description: User privilege grants.
         required: true
@@ -8400,32 +8740,6 @@ paths:
           description: Not found
         "409":
           description: Already exists
-    delete:
-      tags:
-        - mysql
-      summary: Delete website MySQL database user privileges
-      description: >-
-        Removes from the given user privileges to website's MySQL database.
-
-        Session holder must be at least a `SuperAdmin` in this org or a parent
-        org, or be a member in this org that has access to the website.
-      operationId: deleteWebsiteMySQLUserPrivileges
-      requestBody:
-        description: User privilege grants.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/MySQLUserGrants"
-      responses:
-        "204":
-          description: Database user privileges successfully deleted
-        "400":
-          description: Invalid input
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
   /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -8850,6 +9164,7 @@ paths:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/CacheControl"
     get:
       tags:
         - wordpress
@@ -9502,6 +9817,34 @@ paths:
       responses:
         "204":
           description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/restore_status:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/BackupId"
+    get:
+      tags:
+        - backups
+      summary: Get the last detailed metadata of the restored website backup.
+      description: >-
+        Returns the last detailed information about the restored backup.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: getWebsiteRestoreStatus
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestoreDetailed"
         "400":
           description: Invalid input
         "403":
@@ -10719,6 +11062,72 @@ paths:
         "403":
           description: Insufficient privileges
 
+  /v2/orgs/{org_id}/customers/logins:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - logins
+      summary: List customer logins for org
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getCustomerLogins
+      parameters:
+        - $ref: "#/components/parameters/Offset"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/SortOrder"
+        - name: sortBy
+          in: query
+          description: >-
+            The field by which to sort.
+          required: false
+          schema:
+            type: string
+            enum: [email, name, registrationDate]
+      responses:
+        "200":
+          description: Logins successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginsListing"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /v2/logins/{login_id}/password:
+    parameters:
+      - $ref: "#/components/parameters/LoginId"
+    put:
+      tags:
+        - logins
+      summary: Set password for login
+      description: >-
+        This operation allows admins to reset the password for a login.
+      operationId: setCustomerLoginPassword
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: The new unhashed password to set for the login
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPassword"
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   ###############################################################################
   # -- MO DNS
   ###############################################################################
@@ -10847,6 +11256,14 @@ paths:
             enum: [websitePrimaryDomain, websiteId, createdAt, lastUpdated]
         - $ref: "#/components/parameters/SearchDomain"
         - $ref: "#/components/parameters/FilterMigrationStatus"
+        - name: sessionId
+          in: query
+          description: >-
+            Filter for a specific migration session.
+          required: false
+          schema:
+            type: string
+            format: uuid
       responses:
         "200":
           description: Query successful
@@ -10859,11 +11276,13 @@ paths:
         "403":
           description: Insufficient privileges
     post:
+      deprecated: true
       tags:
         - migrations
       summary: Create website role migration
       description: >-
         Create a new role website migration from one server to another.
+        Deprecated in favor of createMigrationSession.
       operationId: createMigration
       security:
         - sessionCookie: []
@@ -10888,6 +11307,7 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+
   /migrations/{migrationId}:
     get:
       tags:
@@ -10935,6 +11355,100 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MigrationLog"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /migrations/sessions:
+    get:
+      tags:
+        - migrations
+      summary: Get website role migration sessions
+      description: >-
+        Migration sessions group server migrations together under one id.
+        This endpoint lists sessions, when were they created and when was any
+        migration in the session last updated.
+
+        If searching by domain, the resulting migrationCount is the number of
+        migrations in the session that match the search criteria.
+
+        If searching with createdBy, you can search by the email of the user
+        who created the session. If the session was created with an API key,
+        createdBy will be set to "via API".
+        Legacy migrations created with deprecated "createMigration" endpoint
+        are assigned under session that has createdBy set to "legacy migrations"
+      operationId: getMigrationSessions
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Offset"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/SortOrder"
+        - name: sortBy
+          in: query
+          description: >-
+            The field by which to sort.
+          required: false
+          schema:
+            type: string
+            enum: [createdAt, updatedAt]
+        - $ref: "#/components/parameters/CreatedBy"
+        - $ref: "#/components/parameters/SearchDomain"
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationSessionsListing"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    post:
+      tags:
+        - migrations
+      summary: Create bulk website role migrations
+      description: >-
+        Create many new role website migration from one server to another.
+        The migrations are grouped with a session id.
+        If any migration fails to schedule, 206 is returned.
+        If all migrations fail to schedule, 400 is returned.
+        See the body for error messages in both cases.
+      operationId: createMigrationSession
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Migrations details.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/NewMigrationDetails"
+      responses:
+        "201":
+          description: All migrations created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationSessionCreationOk"
+        "206":
+          description: Some migrations failed to create, see body for details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationSessionCreationOk"
+        "400":
+          description: All migrations failed to create, see body for details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationSessionCreationError"
         "401":
           description: Invalid session
         "403":
@@ -11330,6 +11844,14 @@ components:
       schema:
         type: string
         format: uuid
+    LoginId:
+      name: login_id
+      in: path
+      description: The id of a login.
+      required: true
+      schema:
+        type: string
+        format: uuid
     WebsiteId:
       name: website_id
       in: path
@@ -11689,6 +12211,13 @@ components:
       required: false
       schema:
         type: string
+    CreatedBy:
+      name: createdBy
+      in: query
+      description: Look for a specific session creator in the result set.
+      required: false
+      schema:
+        type: string
     Recursive:
       name: recursive
       in: query
@@ -11836,6 +12365,21 @@ components:
       properties:
         enabled:
           type: boolean
+    VhostWebserverKind:
+      type: string
+      enum:
+        - apache
+        - nginx
+    Vhost:
+      type: object
+      required:
+        - contents
+        - webserver
+      properties:
+        contents:
+          type: string
+        webserver:
+          $ref: "#/components/schemas/VhostWebserverKind"
     OwaspVersion:
       type: object
       required:
@@ -11846,6 +12390,11 @@ components:
           type: string
         available:
           type: string
+    BackupStorageKind:
+      type: string
+      enum:
+        - enhance
+        - s3
     WebServerRewrite:
       type: object
       required:
@@ -11856,6 +12405,70 @@ components:
           type: string
         destinationFile:
           type: string
+    UpdateBackupRemoteStorageS3:
+      type: object
+      properties:
+        region:
+          type: string
+        endpoint:
+          type: string
+        bucket:
+          type: string
+        accessKeyId:
+          type: string
+        accessKeySecret:
+          type: string
+    CreateBackupRemoteStorageS3:
+      type: object
+      required:
+        - purpose
+        - region
+        - endpoint
+        - bucket
+        - accessKeyId
+        - accessKeySecret
+        - prefix
+      properties:
+        purpose:
+          $ref: "#/components/schemas/RemoteStoragePurpose"
+        region:
+          type: string
+        endpoint:
+          type: string
+        bucket:
+          type: string
+        accessKeyId:
+          type: string
+        accessKeySecret:
+          type: string
+        prefix:
+          type: string
+    BackupRemoteStorageS3:
+      type: object
+      required:
+        - purpose
+        - region
+        - endpoint
+        - bucket
+        - accessKeyId
+        - prefix
+      properties:
+        purpose:
+          $ref: "#/components/schemas/RemoteStoragePurpose"
+        region:
+          type: string
+        endpoint:
+          type: string
+        bucket:
+          type: string
+        accessKeyId:
+          type: string
+        prefix:
+          type: string
+    RemoteStoragePurpose:
+      type: string
+      enum:
+        - backup
     ResourceCheckConflict:
       type: object
       required:
@@ -11989,9 +12602,11 @@ components:
           type: array
           items:
             type: object
-            required: [username]
+            required: [username, homedir]
             properties:
               username:
+                type: string
+              homedir:
                 type: string
         mailboxes:
           type: array
@@ -12073,6 +12688,16 @@ components:
     MigrationStatus:
       type: string
       enum: ["queued", "inProgress", "failed", "complete"]
+    DemoMode:
+      description: >-
+        Demo mode is a special mode that allows users to try out the
+        application without having to sign up.
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: boolean
     LicenceInfo:
       description: Enhance Licence information with its status and key (if set)
       type: object
@@ -12117,6 +12742,7 @@ components:
         - lastUpdated
         - websitePrimaryDomain
         - percentageComplete
+        - sessionId
       properties:
         id:
           type: string
@@ -12144,6 +12770,9 @@ components:
           type: string
         percentageComplete:
           type: integer
+        sessionId:
+          type: string
+          format: uuid
     MigrationsListing:
       required:
         - items
@@ -12206,6 +12835,86 @@ components:
           $ref: "#/components/schemas/LogAction"
         kind:
           $ref: "#/components/schemas/LogKind"
+    MigrationSessionDetails:
+      type: object
+      required:
+        - id
+        - createdBy
+        - createdAt
+        - updatedAt
+        - migrationsCount
+        - percentageComplete
+        - notReadyCount
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        migrationsCount:
+          type: integer
+        percentageComplete:
+          type: number
+        notReadyCount:
+          type: integer
+    MigrationSessionsListing:
+      required:
+        - items
+        - total
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/MigrationSessionDetails"
+        total:
+          type: integer
+    MigrationCreationOutcome:
+      type: object
+      description: error and migrationId are mutually exclusive
+      properties:
+        error:
+          type: object
+          required:
+            - code
+          properties:
+            code:
+              type: string
+            detail:
+              type: string
+            message:
+              type: string
+        migrationId:
+          type: string
+          format: uuid
+    MigrationSessionCreationOk:
+      type: object
+      required:
+        - sessionId
+        - migrations
+        - okCount
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        okCount:
+          type: integer
+        migrations:
+          type: array
+          items:
+            $ref: "#/components/schemas/MigrationCreationOutcome"
+    MigrationSessionCreationError:
+      type: object
+      required:
+        - migrations
+      properties:
+        migrations:
+          type: array
+          items:
+            $ref: "#/components/schemas/MigrationCreationOutcome"
     LogLevel:
       type: string
       enum:
@@ -12354,8 +13063,6 @@ components:
         - orgId
         - serverId
         - controlPanelWebsiteId
-        - phpMyAdminWebsiteId
-        - roundcubeWebsiteId
       properties:
         loginId:
           type: string
@@ -12370,12 +13077,6 @@ components:
           type: string
           format: uuid
         controlPanelWebsiteId:
-          type: string
-          format: uuid
-        phpMyAdminWebsiteId:
-          type: string
-          format: uuid
-        roundcubeWebsiteId:
           type: string
           format: uuid
     SlaveRegistration:
@@ -12545,6 +13246,15 @@ components:
             $ref: "#/components/schemas/Selection"
         serverGroupId:
           type: string
+          format: uuid
+          deprecated: true
+        serverGroupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        allowServerGroupSelection:
+          type: boolean
         planType:
           $ref: "#/components/schemas/PlanType"
         cgroupLimits:
@@ -12663,6 +13373,17 @@ components:
           description: The number of subscriptions to this plan.
         serverGroupId:
           type: string
+          deprecated: true
+          description: Use serverGroupIds instead
+        serverGroupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        allowServerGroupSelection:
+          type: boolean
+          description: >
+            Whether the customer can select the server group for their websites.
         createdAt:
           type: string
         planType:
@@ -12682,9 +13403,6 @@ components:
     UpdatePlan:
       type: object
       properties:
-        serverGroupId:
-          type: string
-          format: uuid
         name:
           type: string
         planType:
@@ -12701,6 +13419,19 @@ components:
           $ref: "#/components/schemas/PhpVersion"
         redisAllowed:
           type: boolean
+        serverGroupId:
+          type: string
+          format: uuid
+          deprecated: true
+        serverGroupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        allowServerGroupSelection:
+          type: boolean
+          description: >
+            Whether the customer can select the server group for their websites.
     Resource:
       type: object
       required:
@@ -12828,6 +13559,13 @@ components:
           $ref: "#/components/schemas/PhpVersion"
         redisAllowed:
           type: boolean
+        serverGroups:
+          type: array
+          description: >-
+            If this field is present, the customer is allowed to chose from
+            the server groups listed here when creating a website.
+          items:
+            $ref: "#/components/schemas/ServerGroup"
     UpdateSubscription:
       type: object
       properties:
@@ -13352,6 +14090,15 @@ components:
           type: string
         canUse:
           $ref: "#/components/schemas/CanUse"
+        appServerIpv6:
+          type: string
+          format: ipv6
+        dbServerIpv6:
+          type: string
+          format: ipv6
+        emailServerIpv6:
+          type: string
+          format: ipv6
     WebsiteKind:
       type: string
       enum:
@@ -13368,7 +14115,6 @@ components:
           sged,
           rspamd,
           dovecot,
-          myCnf,
           websiteBackup,
           screenshotd,
           hardDeleteGC,
@@ -13376,7 +14122,8 @@ components:
         ]
     PhpVersion:
       type: string
-      enum: [php56, php70, php71, php72, php73, php74, php80, php81, php82]
+      enum:
+        [php56, php70, php71, php72, php73, php74, php80, php81, php82, php83]
     SiteAccessMember:
       type: object
       required:
@@ -13476,6 +14223,7 @@ components:
       required:
         - id
         - name
+        - serverCount
         - createdAt
       properties:
         id:
@@ -13483,6 +14231,8 @@ components:
           format: uuid
         name:
           type: string
+        serverCount:
+          type: number
         createdAt:
           type: string
     ServerInfo:
@@ -13537,6 +14287,8 @@ components:
           $ref: "#/components/schemas/DedicatedSubscriptionInfo"
         isDecommissioned:
           type: boolean
+        ipv6Addr:
+          type: string
     ServerInfoBrief:
       type: object
       required:
@@ -13578,6 +14330,8 @@ components:
           type: number
         isDecommissioned:
           type: boolean
+        ipv6Addr:
+          type: string
     DedicatedSubscriptionInfo:
       required:
         - subscriptionId
@@ -14395,7 +15149,6 @@ components:
         - status
         - autorespondersCount
         - domainId
-        - websiteId
       properties:
         id:
           type: string
@@ -14776,8 +15529,6 @@ components:
           type: string
         authPlugin:
           $ref: "#/components/schemas/MySQLAuthPlugin"
-        isEphemeral:
-          $ref: "#/components/schemas/MySQLUserIsEphemeralFlag"
     MySQLUserUpdate:
       type: object
       required:
@@ -14837,8 +15588,9 @@ components:
           type: string
           format: uuid
         grants:
-          description: Table names mapped to a list of privileges on that table. The wildcard "*" means the privileges are granted for all tables.
-          type: object
+          type: array
+          items:
+            type: string
     MySQLUserAccessHosts:
       type: object
       required:
@@ -15550,8 +16302,6 @@ components:
           type: string
         email:
           type: string
-        role:
-          $ref: "#/components/schemas/WpUserRole"
     WpUser:
       type: object
       required:
@@ -15566,33 +16316,15 @@ components:
           type: string
         email:
           type: string
-        role:
-          $ref: "#/components/schemas/WpUserRole"
     UpdateWpUser:
       type: object
       properties:
         password:
           type: string
-        login:
-          type: string
         name:
           type: string
         email:
           type: string
-        role:
-          $ref: "#/components/schemas/WpUserRole"
-    WpUserRole:
-      type: string
-      enum:
-        [
-          administrator,
-          author,
-          contributor,
-          editor,
-          subscriber,
-          customer,
-          other,
-        ]
     WpUserId:
       type: number
     WpUsersFullListing:
@@ -15683,39 +16415,17 @@ components:
       description: >-
         Describes the theme directory name and additional theme information.
       required:
-        - dirName
         - name
+        - status
+        - version
       properties:
-        dirName:
-          type: string
         name:
           type: string
-        isActive:
-          type: boolean
-        uri:
-          type: string
-          format: url
-        description:
-          type: string
+        status:
+          $ref: "#/components/schemas/WPPluginStatus"
         version:
           type: string
-        minWpVersion:
-          type: string
-          format: semver
-        minPhpVersion:
-          type: string
-          format: semver
-        author:
-          type: string
-        authorUri:
-          type: string
-          format: url
-        license:
-          type: string
-        licenseUri:
-          type: string
-          format: url
-        textDomain:
+        update:
           type: string
     WpLatestVersion:
       type: object
@@ -16270,6 +16980,7 @@ components:
         - startedAt
         - snapshotDirName
         - kind
+        - storageKind
       properties:
         id:
           type: integer
@@ -16284,7 +16995,6 @@ components:
           format: datetime
         snapshotDirName:
           type: string
-          format: filename
         size:
           type: integer
         homeDirStatus:
@@ -16307,6 +17017,28 @@ components:
           $ref: "#/components/schemas/BackupKind"
         description:
           type: string
+        storageKind:
+          $ref: "#/components/schemas/BackupStorageKind"
+    RestoreDetailed:
+      type: object
+      required:
+        - backupId
+        - startedAt
+      properties:
+        backupId:
+          type: integer
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        homeDirStatus:
+          $ref: "#/components/schemas/OperationStatus"
+        mysqlDbsStatus:
+          $ref: "#/components/schemas/OperationStatus"
+        emailsStatus:
+          $ref: "#/components/schemas/OperationStatus"
     BackupDetailed:
       type: object
       required:
@@ -16315,6 +17047,7 @@ components:
         - startedAt
         - snapshotDirName
         - kind
+        - storageKind
       properties:
         id:
           type: integer
@@ -16323,13 +17056,12 @@ components:
           format: uuid
         startedAt:
           type: string
-          format: datetime
+          format: date-time
         finishedAt:
           type: string
-          format: datetime
+          format: date-time
         snapshotDirName:
           type: string
-          format: filename
         size:
           type: integer
         homeDirStatus:
@@ -16363,6 +17095,8 @@ components:
           $ref: "#/components/schemas/BackupKind"
         description:
           type: string
+        storageKind:
+          $ref: "#/components/schemas/BackupStorageKind"
     BackupKind:
       type: string
       enum: [manual, automatic]
@@ -16943,6 +17677,16 @@ components:
     WebserverKind:
       type: string
       enum: ["liteSpeed", "openLiteSpeed", "dummyWebServer", "apache", "nginx"]
+    MysqlInfo:
+      type: object
+      required:
+        - mysqlKind
+      properties:
+        mysqlKind:
+          $ref: "#/components/schemas/MysqlKind"
+    MysqlKind:
+      type: string
+      enum: ["mysql80", "mysql81", "mariaDbLts", "mariaDb11"]
     SetWebserverKind:
       type: object
       required:
@@ -17060,6 +17804,7 @@ components:
         - phpVersions
         - redis
         - modSec
+        - backup
       properties:
         ftp:
           type: boolean
@@ -17073,3 +17818,7 @@ components:
           type: boolean
         modSec:
           type: boolean
+        backup:
+          type: boolean
+        mysqlKind:
+          $ref: "#/components/schemas/MysqlKind"

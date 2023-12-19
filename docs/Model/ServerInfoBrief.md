@@ -15,5 +15,6 @@ Name | Type | Description | Notes
 **created_at** | **string** |  |
 **dedicated_subscription** | **float** |  | [optional]
 **is_decommissioned** | **bool** |  |
+**ipv6_addr** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

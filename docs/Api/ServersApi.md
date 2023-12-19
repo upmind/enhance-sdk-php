@@ -13,15 +13,18 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteServerFromGroup()**](ServersApi.md#deleteServerFromGroup) | **DELETE** /servers/{server_id}/group | Delete server from group |
 | [**deleteServerGroup()**](ServersApi.md#deleteServerGroup) | **DELETE** /servers/groups/{group_id} | Deletes an existing server group |
 | [**deleteServerNetworkInterfaceIp()**](ServersApi.md#deleteServerNetworkInterfaceIp) | **DELETE** /servers/{server_id}/interfaces/{interface}/ips/{ip} | Delete server network interface secondary IP |
+| [**deleteServerPrimaryIpv6()**](ServersApi.md#deleteServerPrimaryIpv6) | **DELETE** /v2/servers/{server_id}/primary-ipv6 | Deletes/unsets the primary IPv6 address for a server. |
 | [**deleteServiceSetting()**](ServersApi.md#deleteServiceSetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
 | [**deleteSlave()**](ServersApi.md#deleteSlave) | **DELETE** /servers/{server_id} | Delete a (slave) server |
 | [**enableFsQuotaLimits()**](ServersApi.md#enableFsQuotaLimits) | **POST** /servers/{server_id}/fs_quota_limits | Enable FS quota limits on the server |
 | [**getAppcdVersion()**](ServersApi.md#getAppcdVersion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd |
 | [**getClientIp()**](ServersApi.md#getClientIp) | **GET** /client_ip | Reflect back the IP of the API consumer |
 | [**getControlPanelRoleInfo()**](ServersApi.md#getControlPanelRoleInfo) | **GET** /servers/master/roles/control | Get master server control panel role info |
+| [**getDatabaseRoleMysqlKind()**](ServersApi.md#getDatabaseRoleMysqlKind) | **GET** /v2/servers/{server_id}/database-role | Gets the MySQL kind for a given server. |
 | [**getFsQuotaStatus()**](ServersApi.md#getFsQuotaStatus) | **GET** /servers/{server_id}/fs_quota_limits | Get whether FS quota was enabled on the server |
 | [**getHttpdStatus()**](ServersApi.md#getHttpdStatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server. |
 | [**getInstallCmd()**](ServersApi.md#getInstallCmd) | **GET** /servers/install-cmd | Get slave installation command |
+| [**getMysqlMyCnf()**](ServersApi.md#getMysqlMyCnf) | **GET** /v2/servers/{server_id}/my-cnf | Download my.cnf for a given server |
 | [**getOwaspRulesVersion()**](ServersApi.md#getOwaspRulesVersion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules |
 | [**getRegistrationKey()**](ServersApi.md#getRegistrationKey) | **GET** /servers/registration-key | Get slave registration key |
 | [**getServerDiskUsage()**](ServersApi.md#getServerDiskUsage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage |
@@ -47,9 +50,12 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebserverKind()**](ServersApi.md#getWebserverKind) | **GET** /servers/{server_id}/webserver | Get web server |
 | [**getWebsiteFpmSettings()**](ServersApi.md#getWebsiteFpmSettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website |
 | [**initAllServers()**](ServersApi.md#initAllServers) | **POST** /servers/init | Attempts to initialize all roles |
+| [**installDatabaseRole()**](ServersApi.md#installDatabaseRole) | **PUT** /v2/servers/{server_id}/database-role | Enables the database role on a given ServerUuid |
 | [**installServerRole()**](ServersApi.md#installServerRole) | **PUT** /servers/{server_id}/roles/{role} | Install server role |
 | [**resetServerModSecurityConfig()**](ServersApi.md#resetServerModSecurityConfig) | **DELETE** /v2/servers/{server_id}/modsec_conf | Delete custom mod_security config and reset to default |
 | [**resetWebServerConfig()**](ServersApi.md#resetWebServerConfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default. |
+| [**restartMysql()**](ServersApi.md#restartMysql) | **POST** /v2/servers/{server_id}/database-role/restart | Restart MySQL gracefully |
+| [**saveMysqlMyCnf()**](ServersApi.md#saveMysqlMyCnf) | **PUT** /v2/servers/{server_id}/my-cnf | Save a new my.cnf |
 | [**setLiteSpeedAdminPassword()**](ServersApi.md#setLiteSpeedAdminPassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password. |
 | [**setServerDecommissioned()**](ServersApi.md#setServerDecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned |
 | [**setServerModSecurityConfig()**](ServersApi.md#setServerModSecurityConfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config |
@@ -62,6 +68,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**updateOwaspRules()**](ServersApi.md#updateOwaspRules) | **POST** /v2/servers/{server_id}/owasp | Upgrade OWASP rules |
 | [**updateServerGroup()**](ServersApi.md#updateServerGroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name |
 | [**updateServerPrimaryIp()**](ServersApi.md#updateServerPrimaryIp) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed. |
+| [**updateServerPrimaryIpv6()**](ServersApi.md#updateServerPrimaryIpv6) | **PUT** /v2/servers/{server_id}/primary-ipv6 | Updates or sets the primary ipv6 address of the server.  This endpoint will not change existing websites&#39; DNS but the new record will be applied to all future zones. |
 | [**updateServerRole()**](ServersApi.md#updateServerRole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role |
 | [**updateService()**](ServersApi.md#updateService) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version. |
 | [**updateSystemPackage()**](ServersApi.md#updateSystemPackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version. |
@@ -653,6 +660,59 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `deleteServerPrimaryIpv6()`
+
+```php
+deleteServerPrimaryIpv6($server_id)
+```
+
+Deletes/unsets the primary IPv6 address for a server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $apiInstance->deleteServerPrimaryIpv6($server_id);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->deleteServerPrimaryIpv6: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `deleteServiceSetting()`
 
 ```php
@@ -1029,6 +1089,62 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getDatabaseRoleMysqlKind()`
+
+```php
+getDatabaseRoleMysqlKind($server_id, $mysql_kind): \Upmind\EnhanceSdk\Model\MysqlKind
+```
+
+Gets the MySQL kind for a given server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$mysql_kind = new \Upmind\EnhanceSdk\Model\MysqlKind(); // MysqlKind
+
+try {
+    $result = $apiInstance->getDatabaseRoleMysqlKind($server_id, $mysql_kind);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getDatabaseRoleMysqlKind: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **mysql_kind** | [**MysqlKind**](../Model/.md)|  | [optional] |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\MysqlKind**](../Model/MysqlKind.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getFsQuotaStatus()`
 
 ```php
@@ -1202,6 +1318,60 @@ This endpoint does not need any parameter.
 ### Authorization
 
 [sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getMysqlMyCnf()`
+
+```php
+getMysqlMyCnf($server_id): string
+```
+
+Download my.cnf for a given server
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getMysqlMyCnf($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getMysqlMyCnf: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 
@@ -2816,6 +2986,61 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `installDatabaseRole()`
+
+```php
+installDatabaseRole($server_id, $mysql_kind)
+```
+
+Enables the database role on a given ServerUuid
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$mysql_kind = new \Upmind\EnhanceSdk\Model\MysqlKind(); // MysqlKind
+
+try {
+    $apiInstance->installDatabaseRole($server_id, $mysql_kind);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->installDatabaseRole: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **mysql_kind** | [**MysqlKind**](../Model/.md)|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `installServerRole()`
 
 ```php
@@ -3004,6 +3229,114 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `restartMysql()`
+
+```php
+restartMysql($server_id)
+```
+
+Restart MySQL gracefully
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $apiInstance->restartMysql($server_id);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->restartMysql: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `saveMysqlMyCnf()`
+
+```php
+saveMysqlMyCnf($server_id, $body)
+```
+
+Save a new my.cnf
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 'body_example'; // string | New my.cnf to be applied
+
+try {
+    $apiInstance->saveMysqlMyCnf($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->saveMysqlMyCnf: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **string**| New my.cnf to be applied | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -3767,6 +4100,61 @@ try {
     $apiInstance->updateServerPrimaryIp($server_id, $body);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->updateServerPrimaryIp: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **string**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateServerPrimaryIpv6()`
+
+```php
+updateServerPrimaryIpv6($server_id, $body)
+```
+
+Updates or sets the primary ipv6 address of the server.  This endpoint will not change existing websites' DNS but the new record will be applied to all future zones.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->updateServerPrimaryIpv6($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->updateServerPrimaryIpv6: ', $e->getMessage(), PHP_EOL;
 }
 ```
 

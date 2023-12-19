@@ -15,5 +15,6 @@ Name | Type | Description | Notes
 **last_updated** | **string** |  |
 **website_primary_domain** | **string** |  |
 **percentage_complete** | **int** |  |
+**session_id** | **string** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

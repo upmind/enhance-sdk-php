@@ -11,6 +11,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteCloudflareApiKeyId()**](DomainsApi.md#deleteCloudflareApiKeyId) | **DELETE** /orgs/{org_id}/domains/{domain_id}/cloudflare | Delete CloudFlare API key, domain level |
 | [**deleteDomain()**](DomainsApi.md#deleteDomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain |
 | [**deleteWebsiteDomainMapping()**](DomainsApi.md#deleteWebsiteDomainMapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping |
+| [**deleteWebsiteDomainVhost()**](DomainsApi.md#deleteWebsiteDomainVhost) | **DELETE** /v2/domains/{domain_id}/vhost | Deletes domain&#39;s custom vhost file if any |
 | [**getCloudflareApiKeyDomain()**](DomainsApi.md#getCloudflareApiKeyDomain) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare | Get CloudFlare API key, domain level |
 | [**getCloudflareNameServers()**](DomainsApi.md#getCloudflareNameServers) | **GET** /orgs/{org_id}/domains/{domain_id}/cloudflare/nameservers | Get CloudFlare name servers |
 | [**getDomainAuthNs()**](DomainsApi.md#getDomainAuthNs) | **GET** /orgs/{org_id}/domains/{domain_id}/auth-ns | Get authoritative nameservers for domain. |
@@ -20,9 +21,11 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteDomainMappingDnsStatus()**](DomainsApi.md#getWebsiteDomainMappingDnsStatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status |
 | [**getWebsiteDomainMappings()**](DomainsApi.md#getWebsiteDomainMappings) | **GET** /orgs/{org_id}/websites/{website_id}/domains | Get website&#39;s mapped domains |
 | [**getWebsiteDomainModSecStatus()**](DomainsApi.md#getWebsiteDomainModSecStatus) | **GET** /v2/domains/{domain_id}/modsec_status | Get mod security status for a single domain |
+| [**getWebsiteDomainVhost()**](DomainsApi.md#getWebsiteDomainVhost) | **GET** /v2/domains/{domain_id}/vhost | Get domain&#39;s custom vhost file, if the file does not exist return empty string |
 | [**performLetsEncryptPreflightCheck()**](DomainsApi.md#performLetsEncryptPreflightCheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check |
 | [**setCloudflareApiKeyId()**](DomainsApi.md#setCloudflareApiKeyId) | **PUT** /orgs/{org_id}/domains/{domain_id}/cloudflare | Set CloudFlare API key, domain level |
 | [**setWebsiteDomainModSecStatus()**](DomainsApi.md#setWebsiteDomainModSecStatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain |
+| [**setWebsiteDomainVhost()**](DomainsApi.md#setWebsiteDomainVhost) | **PUT** /v2/domains/{domain_id}/vhost | Set a custom vhost file |
 | [**updateWebsiteDomainMapping()**](DomainsApi.md#updateWebsiteDomainMapping) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Update website domain mapping |
 | [**updateWebsitePrimaryDomain()**](DomainsApi.md#updateWebsitePrimaryDomain) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/primary | Update primary domain mapping |
 
@@ -479,6 +482,61 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteWebsiteDomainVhost()`
+
+```php
+deleteWebsiteDomainVhost($domain_id, $delete_website_domain_vhost_request)
+```
+
+Deletes domain's custom vhost file if any
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$delete_website_domain_vhost_request = new \Upmind\EnhanceSdk\Model\DeleteWebsiteDomainVhostRequest(); // \Upmind\EnhanceSdk\Model\DeleteWebsiteDomainVhostRequest
+
+try {
+    $apiInstance->deleteWebsiteDomainVhost($domain_id, $delete_website_domain_vhost_request);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->deleteWebsiteDomainVhost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **delete_website_domain_vhost_request** | [**\Upmind\EnhanceSdk\Model\DeleteWebsiteDomainVhostRequest**](../Model/DeleteWebsiteDomainVhostRequest.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -1091,6 +1149,60 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteDomainVhost()`
+
+```php
+getWebsiteDomainVhost($domain_id): \Upmind\EnhanceSdk\Model\Vhost
+```
+
+Get domain's custom vhost file, if the file does not exist return empty string
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getWebsiteDomainVhost($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->getWebsiteDomainVhost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\Vhost**](../Model/Vhost.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `performLetsEncryptPreflightCheck()`
 
 ```php
@@ -1252,6 +1364,61 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **domain_id** | **string**| The id of the domain. | |
 | **mod_sec_status** | [**\Upmind\EnhanceSdk\Model\ModSecStatus**](../Model/ModSecStatus.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteDomainVhost()`
+
+```php
+setWebsiteDomainVhost($domain_id, $vhost)
+```
+
+Set a custom vhost file
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$vhost = new \Upmind\EnhanceSdk\Model\Vhost(); // \Upmind\EnhanceSdk\Model\Vhost
+
+try {
+    $apiInstance->setWebsiteDomainVhost($domain_id, $vhost);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->setWebsiteDomainVhost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **vhost** | [**\Upmind\EnhanceSdk\Model\Vhost**](../Model/Vhost.md)|  | |
 
 ### Return type
 

@@ -8,6 +8,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWebsiteBackup()**](BackupsApi.md#deleteWebsiteBackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup |
 | [**getWebsiteBackup()**](BackupsApi.md#getWebsiteBackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup |
 | [**getWebsiteBackups()**](BackupsApi.md#getWebsiteBackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata |
+| [**getWebsiteRestoreStatus()**](BackupsApi.md#getWebsiteRestoreStatus) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/restore_status | Get the last detailed metadata of the restored website backup. |
 | [**restoreWebsite()**](BackupsApi.md#restoreWebsite) | **PUT** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Restore website from a backup |
 
 
@@ -276,6 +277,66 @@ try {
 ### Authorization
 
 [sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteRestoreStatus()`
+
+```php
+getWebsiteRestoreStatus($org_id, $website_id, $backup_id): \Upmind\EnhanceSdk\Model\RestoreDetailed
+```
+
+Get the last detailed metadata of the restored website backup.
+
+Returns the last detailed information about the restored backup. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\BackupsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$backup_id = 56; // int | The id of the backup.
+
+try {
+    $result = $apiInstance->getWebsiteRestoreStatus($org_id, $website_id, $backup_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling BackupsApi->getWebsiteRestoreStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **backup_id** | **int**| The id of the backup. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\RestoreDetailed**](../Model/RestoreDetailed.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

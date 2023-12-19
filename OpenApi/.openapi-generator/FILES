@@ -46,9 +46,11 @@ docs/Model/BackupAction.md
 docs/Model/BackupDetailed.md
 docs/Model/BackupKind.md
 docs/Model/BackupOptions.md
+docs/Model/BackupRemoteStorageS3.md
 docs/Model/BackupRestoreOptions.md
 docs/Model/BackupRoleInfo.md
 docs/Model/BackupStatus.md
+docs/Model/BackupStorageKind.md
 docs/Model/BackupsFullListing.md
 docs/Model/Blocked.md
 docs/Model/Branding.md
@@ -64,6 +66,7 @@ docs/Model/CloudFlareNameServers.md
 docs/Model/CloudFlareStatus.md
 docs/Model/ControlRoleInfo.md
 docs/Model/CoreServiceInfo.md
+docs/Model/CreateBackupRemoteStorageS3.md
 docs/Model/CrontabFullListing.md
 docs/Model/CrontabValue.md
 docs/Model/CrontabValueCmd.md
@@ -75,6 +78,8 @@ docs/Model/DaemonKind.md
 docs/Model/DatabaseRoleInfo.md
 docs/Model/DedicatedSubscriptionInfo.md
 docs/Model/DefaultDnsRecord.md
+docs/Model/DeleteWebsiteDomainVhostRequest.md
+docs/Model/DemoMode.md
 docs/Model/DeviceKind.md
 docs/Model/Disk.md
 docs/Model/DnsQueryOutcome.md
@@ -163,8 +168,14 @@ docs/Model/LoginsListing.md
 docs/Model/Member.md
 docs/Model/MembersListing.md
 docs/Model/MetricsEntry.md
+docs/Model/MigrationCreationOutcome.md
+docs/Model/MigrationCreationOutcomeError.md
 docs/Model/MigrationDetails.md
 docs/Model/MigrationLog.md
+docs/Model/MigrationSessionCreationError.md
+docs/Model/MigrationSessionCreationOk.md
+docs/Model/MigrationSessionDetails.md
+docs/Model/MigrationSessionsListing.md
 docs/Model/MigrationStatus.md
 docs/Model/MigrationsListing.md
 docs/Model/ModSecStatus.md
@@ -178,6 +189,8 @@ docs/Model/MySQLUserAccessHosts.md
 docs/Model/MySQLUserGrants.md
 docs/Model/MySQLUserUpdate.md
 docs/Model/MySQLUsersFullListing.md
+docs/Model/MysqlInfo.md
+docs/Model/MysqlKind.md
 docs/Model/NetworkInterface.md
 docs/Model/NetworkStatus.md
 docs/Model/NewAccessToken.md
@@ -232,6 +245,7 @@ docs/Model/PlansListing.md
 docs/Model/ProcessInfo.md
 docs/Model/Quota.md
 docs/Model/Recursion.md
+docs/Model/RemoteStoragePurpose.md
 docs/Model/RequireIpsRule.md
 docs/Model/RequireIpsRuleKind.md
 docs/Model/ResendPin.md
@@ -243,6 +257,7 @@ docs/Model/ResourceCheckManagerError.md
 docs/Model/ResourceCheckManagerErrorKind.md
 docs/Model/ResourceCountByInterval.md
 docs/Model/ResourceName.md
+docs/Model/RestoreDetailed.md
 docs/Model/RewriteChain.md
 docs/Model/RewriteChainCondsInner.md
 docs/Model/RewriteChainFullListing.md
@@ -324,6 +339,7 @@ docs/Model/TldNs.md
 docs/Model/UnixTimestamp.md
 docs/Model/UpdateApplicationRole.md
 docs/Model/UpdateAutoresponder.md
+docs/Model/UpdateBackupRemoteStorageS3.md
 docs/Model/UpdateBackupRole.md
 docs/Model/UpdateCloudFlareApiKey.md
 docs/Model/UpdateCrontabFullListing.md
@@ -360,6 +376,8 @@ docs/Model/UsedResourcesFullListing.md
 docs/Model/UuidListing.md
 docs/Model/ValidatedPasswordRecovery.md
 docs/Model/ValidationResult.md
+docs/Model/Vhost.md
+docs/Model/VhostWebserverKind.md
 docs/Model/WPAutoUpdateCore.md
 docs/Model/WPPluginAutoUpdateStatus.md
 docs/Model/WPPluginStatus.md
@@ -397,7 +415,6 @@ docs/Model/WpSettings.md
 docs/Model/WpTheme.md
 docs/Model/WpThemesFullListing.md
 docs/Model/WpUser.md
-docs/Model/WpUserRole.md
 docs/Model/WpUsersFullListing.md
 git_push.sh
 lib/Api/AppsApi.php
@@ -446,9 +463,11 @@ lib/Model/BackupAction.php
 lib/Model/BackupDetailed.php
 lib/Model/BackupKind.php
 lib/Model/BackupOptions.php
+lib/Model/BackupRemoteStorageS3.php
 lib/Model/BackupRestoreOptions.php
 lib/Model/BackupRoleInfo.php
 lib/Model/BackupStatus.php
+lib/Model/BackupStorageKind.php
 lib/Model/BackupsFullListing.php
 lib/Model/Blocked.php
 lib/Model/Branding.php
@@ -464,6 +483,7 @@ lib/Model/CloudFlareNameServers.php
 lib/Model/CloudFlareStatus.php
 lib/Model/ControlRoleInfo.php
 lib/Model/CoreServiceInfo.php
+lib/Model/CreateBackupRemoteStorageS3.php
 lib/Model/CrontabFullListing.php
 lib/Model/CrontabValue.php
 lib/Model/CrontabValueCmd.php
@@ -475,6 +495,8 @@ lib/Model/DaemonKind.php
 lib/Model/DatabaseRoleInfo.php
 lib/Model/DedicatedSubscriptionInfo.php
 lib/Model/DefaultDnsRecord.php
+lib/Model/DeleteWebsiteDomainVhostRequest.php
+lib/Model/DemoMode.php
 lib/Model/DeviceKind.php
 lib/Model/Disk.php
 lib/Model/DnsQueryOutcome.php
@@ -563,8 +585,14 @@ lib/Model/LoginsListing.php
 lib/Model/Member.php
 lib/Model/MembersListing.php
 lib/Model/MetricsEntry.php
+lib/Model/MigrationCreationOutcome.php
+lib/Model/MigrationCreationOutcomeError.php
 lib/Model/MigrationDetails.php
 lib/Model/MigrationLog.php
+lib/Model/MigrationSessionCreationError.php
+lib/Model/MigrationSessionCreationOk.php
+lib/Model/MigrationSessionDetails.php
+lib/Model/MigrationSessionsListing.php
 lib/Model/MigrationStatus.php
 lib/Model/MigrationsListing.php
 lib/Model/ModSecStatus.php
@@ -579,6 +607,8 @@ lib/Model/MySQLUserAccessHosts.php
 lib/Model/MySQLUserGrants.php
 lib/Model/MySQLUserUpdate.php
 lib/Model/MySQLUsersFullListing.php
+lib/Model/MysqlInfo.php
+lib/Model/MysqlKind.php
 lib/Model/NetworkInterface.php
 lib/Model/NetworkStatus.php
 lib/Model/NewAccessToken.php
@@ -633,6 +663,7 @@ lib/Model/PlansListing.php
 lib/Model/ProcessInfo.php
 lib/Model/Quota.php
 lib/Model/Recursion.php
+lib/Model/RemoteStoragePurpose.php
 lib/Model/RequireIpsRule.php
 lib/Model/RequireIpsRuleKind.php
 lib/Model/ResendPin.php
@@ -644,6 +675,7 @@ lib/Model/ResourceCheckManagerError.php
 lib/Model/ResourceCheckManagerErrorKind.php
 lib/Model/ResourceCountByInterval.php
 lib/Model/ResourceName.php
+lib/Model/RestoreDetailed.php
 lib/Model/RewriteChain.php
 lib/Model/RewriteChainCondsInner.php
 lib/Model/RewriteChainFullListing.php
@@ -725,6 +757,7 @@ lib/Model/TldNs.php
 lib/Model/UnixTimestamp.php
 lib/Model/UpdateApplicationRole.php
 lib/Model/UpdateAutoresponder.php
+lib/Model/UpdateBackupRemoteStorageS3.php
 lib/Model/UpdateBackupRole.php
 lib/Model/UpdateCloudFlareApiKey.php
 lib/Model/UpdateCrontabFullListing.php
@@ -761,6 +794,8 @@ lib/Model/UsedResourcesFullListing.php
 lib/Model/UuidListing.php
 lib/Model/ValidatedPasswordRecovery.php
 lib/Model/ValidationResult.php
+lib/Model/Vhost.php
+lib/Model/VhostWebserverKind.php
 lib/Model/WPAutoUpdateCore.php
 lib/Model/WPPluginAutoUpdateStatus.php
 lib/Model/WPPluginStatus.php
@@ -798,7 +833,6 @@ lib/Model/WpSettings.php
 lib/Model/WpTheme.php
 lib/Model/WpThemesFullListing.php
 lib/Model/WpUser.php
-lib/Model/WpUserRole.php
 lib/Model/WpUsersFullListing.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
@@ -844,9 +878,11 @@ test/Model/BackupActionTest.php
 test/Model/BackupDetailedTest.php
 test/Model/BackupKindTest.php
 test/Model/BackupOptionsTest.php
+test/Model/BackupRemoteStorageS3Test.php
 test/Model/BackupRestoreOptionsTest.php
 test/Model/BackupRoleInfoTest.php
 test/Model/BackupStatusTest.php
+test/Model/BackupStorageKindTest.php
 test/Model/BackupTest.php
 test/Model/BackupsFullListingTest.php
 test/Model/BlockedTest.php
@@ -863,6 +899,7 @@ test/Model/CloudFlareNameServersTest.php
 test/Model/CloudFlareStatusTest.php
 test/Model/ControlRoleInfoTest.php
 test/Model/CoreServiceInfoTest.php
+test/Model/CreateBackupRemoteStorageS3Test.php
 test/Model/CrontabFullListingTest.php
 test/Model/CrontabValueCmdCronCmdTest.php
 test/Model/CrontabValueCmdTest.php
@@ -874,6 +911,8 @@ test/Model/DaemonKindTest.php
 test/Model/DatabaseRoleInfoTest.php
 test/Model/DedicatedSubscriptionInfoTest.php
 test/Model/DefaultDnsRecordTest.php
+test/Model/DeleteWebsiteDomainVhostRequestTest.php
+test/Model/DemoModeTest.php
 test/Model/DeviceKindTest.php
 test/Model/DiskTest.php
 test/Model/DnsQueryOutcomeTest.php
@@ -962,8 +1001,14 @@ test/Model/LoginsListingTest.php
 test/Model/MemberTest.php
 test/Model/MembersListingTest.php
 test/Model/MetricsEntryTest.php
+test/Model/MigrationCreationOutcomeErrorTest.php
+test/Model/MigrationCreationOutcomeTest.php
 test/Model/MigrationDetailsTest.php
 test/Model/MigrationLogTest.php
+test/Model/MigrationSessionCreationErrorTest.php
+test/Model/MigrationSessionCreationOkTest.php
+test/Model/MigrationSessionDetailsTest.php
+test/Model/MigrationSessionsListingTest.php
 test/Model/MigrationStatusTest.php
 test/Model/MigrationsListingTest.php
 test/Model/ModSecStatusTest.php
@@ -977,6 +1022,8 @@ test/Model/MySQLUserGrantsTest.php
 test/Model/MySQLUserTest.php
 test/Model/MySQLUserUpdateTest.php
 test/Model/MySQLUsersFullListingTest.php
+test/Model/MysqlInfoTest.php
+test/Model/MysqlKindTest.php
 test/Model/NetworkInterfaceTest.php
 test/Model/NetworkStatusTest.php
 test/Model/NewAccessTokenResponseTest.php
@@ -1031,6 +1078,7 @@ test/Model/PlansListingTest.php
 test/Model/ProcessInfoTest.php
 test/Model/QuotaTest.php
 test/Model/RecursionTest.php
+test/Model/RemoteStoragePurposeTest.php
 test/Model/RequireIpsRuleKindTest.php
 test/Model/RequireIpsRuleTest.php
 test/Model/ResendPinTest.php
@@ -1042,6 +1090,7 @@ test/Model/ResourceCheckManagerErrorTest.php
 test/Model/ResourceCountByIntervalTest.php
 test/Model/ResourceNameTest.php
 test/Model/ResourceTest.php
+test/Model/RestoreDetailedTest.php
 test/Model/RewriteChainCondsInnerTest.php
 test/Model/RewriteChainFullListingTest.php
 test/Model/RewriteChainRuleTest.php
@@ -1123,6 +1172,7 @@ test/Model/TldNsTest.php
 test/Model/UnixTimestampTest.php
 test/Model/UpdateApplicationRoleTest.php
 test/Model/UpdateAutoresponderTest.php
+test/Model/UpdateBackupRemoteStorageS3Test.php
 test/Model/UpdateBackupRoleTest.php
 test/Model/UpdateCloudFlareApiKeyTest.php
 test/Model/UpdateCrontabFullListingTest.php
@@ -1159,6 +1209,8 @@ test/Model/UsedResourcesFullListingTest.php
 test/Model/UuidListingTest.php
 test/Model/ValidatedPasswordRecoveryTest.php
 test/Model/ValidationResultTest.php
+test/Model/VhostTest.php
+test/Model/VhostWebserverKindTest.php
 test/Model/WPAutoUpdateCoreTest.php
 test/Model/WPPluginAutoUpdateStatusTest.php
 test/Model/WPPluginStatusTest.php
@@ -1195,6 +1247,5 @@ test/Model/WpPluginsFullListingTest.php
 test/Model/WpSettingsTest.php
 test/Model/WpThemeTest.php
 test/Model/WpThemesFullListingTest.php
-test/Model/WpUserRoleTest.php
 test/Model/WpUserTest.php
 test/Model/WpUsersFullListingTest.php

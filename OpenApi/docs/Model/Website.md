@@ -40,5 +40,8 @@ Name | Type | Description | Notes
 **email_server_name** | **string** |  | [optional]
 **backup_server_name** | **string** |  | [optional]
 **can_use** | [**\Upmind\EnhanceSdk\Model\CanUse**](CanUse.md) |  | [optional]
+**app_server_ipv6** | **string** |  | [optional]
+**db_server_ipv6** | **string** |  | [optional]
+**email_server_ipv6** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

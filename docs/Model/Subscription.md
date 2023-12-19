@@ -19,5 +19,6 @@ Name | Type | Description | Notes
 **allowed_php_versions** | [**\Upmind\EnhanceSdk\Model\PhpVersion[]**](PhpVersion.md) |  |
 **default_php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  |
 **redis_allowed** | **bool** |  |
+**server_groups** | [**\Upmind\EnhanceSdk\Model\ServerGroup[]**](ServerGroup.md) | If this field is present, the customer is allowed to chose from the server groups listed here when creating a website. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

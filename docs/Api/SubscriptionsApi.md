@@ -9,6 +9,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteSubscription()**](SubscriptionsApi.md#deleteSubscription) | **DELETE** /orgs/{org_id}/subscriptions/{subscription_id} | Delete subscription |
 | [**getCustomerSubscriptions()**](SubscriptionsApi.md#getCustomerSubscriptions) | **GET** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Get customer subscriptions |
 | [**getSubscription()**](SubscriptionsApi.md#getSubscription) | **GET** /orgs/{org_id}/subscriptions/{subscription_id} | Get subscription |
+| [**getSubscriptionBandwidthUsage()**](SubscriptionsApi.md#getSubscriptionBandwidthUsage) | **GET** /orgs/{org_id}/subscriptions/{subscription_id}/bandwidth | Get subscription bandwidth |
 | [**getSubscriptionsToParent()**](SubscriptionsApi.md#getSubscriptionsToParent) | **GET** /orgs/{org_id}/subscriptions | Get subscriptions to parent |
 | [**updateSubscription()**](SubscriptionsApi.md#updateSubscription) | **PATCH** /orgs/{org_id}/subscriptions/{subscription_id} | Update subscription |
 
@@ -345,6 +346,75 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\Subscription**](../Model/Subscription.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getSubscriptionBandwidthUsage()`
+
+```php
+getSubscriptionBandwidthUsage($org_id, $subscription_id, $refresh_cache): int
+```
+
+Get subscription bandwidth
+
+Queries the organization's subscription bandwidth for the current month. This includes all customer subscriptions if this subscription is a reseller. By default the usage is cached for 12 hours unless `refreshCache` is `true`. The value is in bytes. Session holder must be at least a `SuperAdmin` in this org or a parent org.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\SubscriptionsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$subscription_id = 3.4; // float | The id of the subscription.
+$refresh_cache = True; // bool | If set to true, it will bypass internal caching.
+
+try {
+    $result = $apiInstance->getSubscriptionBandwidthUsage($org_id, $subscription_id, $refresh_cache);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SubscriptionsApi->getSubscriptionBandwidthUsage: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **subscription_id** | **float**| The id of the subscription. | |
+| **refresh_cache** | **bool**| If set to true, it will bypass internal caching. | [optional] |
+
+### Return type
+
+**int**
 
 ### Authorization
 
