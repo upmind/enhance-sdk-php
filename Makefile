@@ -8,7 +8,7 @@ help:
 	@echo "   make setup-php82           : Start the dev environment with PHP 8.2"
 	@echo "   make setup-php83           : Start the dev environment with PHP 8.3"
 	@echo "   make shell                 : Get an interactive shell on the PHP container"
-	@echo "   make unit-test                  : Run Tests (PHPUnit)"
+	@echo "   make unit-test             : Run Tests (PHPUnit)"
 	@echo "   make static-analysis       : Run Static Analysis (PHPStan)"
 	@echo "   make coding-standards      : Run Coding Standards (PHP-CS-Fixer)"
 	@echo "   make start-containers      : Start the dev environment"
