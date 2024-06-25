@@ -1,7 +1,8 @@
 # ref: https://github.com/github/gitignore/blob/master/Composer.gitignore
 
 composer.phar
-/vendor/
+composer.lock
+vendor/
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
@@ -11,5 +12,22 @@ composer.phar
 .php_cs.cache
 .php-cs-fixer.cache
 
-# PHPUnit cache
+# PHPUnit
 .phpunit.result.cache
+.phpunit.cache/
+phpunit.xml
+
+# PHP Stan
+phpstan.neon
+
+# Docker
+.docker/Dockerfile
+docker-compose.yml
+
+# IDE
+.vscode/
+.idea/
+
+# System
+.DS_Store
+error_log

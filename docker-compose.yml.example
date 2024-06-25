@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    container_name: enhance-sdk-php
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /usr/src/lib
+    volumes:
+      - ./:/usr/src/lib
+    networks:
+      - enhance-sdk-php-network
+
+#Docker Networks
+networks:
+  enhance-sdk-php-network:
+    driver: bridge
