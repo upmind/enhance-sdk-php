@@ -87,7 +87,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\InstallApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
-$service_kind = new \Upmind\EnhanceSdk\Model\ServiceKind(); // ServiceKind | The service type of the role.
+$service_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServiceKind(); // \Upmind\EnhanceSdk\Model\ServiceKind | The service type of the role.
 
 try {
     $result = $apiInstance->getServiceKindLatestVersion($service_kind);
@@ -101,7 +101,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **service_kind** | [**ServiceKind**](../Model/.md)| The service type of the role. | |
+| **service_kind** | [**\Upmind\EnhanceSdk\Model\ServiceKind**](../Model/.md)| The service type of the role. | |
 
 ### Return type
 

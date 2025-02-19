@@ -509,7 +509,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $new_website = new \Upmind\EnhanceSdk\Model\NewWebsite(); // \Upmind\EnhanceSdk\Model\NewWebsite | New website details. If the organization is the MO, they need not have a subscription to create a website. In all other cases organization needs to be subscribed to a plan that allows creating websites.
 $clone_from = 'clone_from_example'; // string | The ID of the website to clone. Note that a website cannot be cloned from another website if the kind parameter is specified and different from `normal`.
-$kind = new \Upmind\EnhanceSdk\Model\WebsiteKind(); // WebsiteKind | The kind of a *special* website that needs to be created. Whether this website is to be a *control panel* website or a *phpMyAdmin* website. Note: in order to create a new *phpMyAdmin* website the control panel website needs to be created first, since the new phpMyAdmin website will be under the control panel domain.
+$kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\WebsiteKind(); // \Upmind\EnhanceSdk\Model\WebsiteKind | The kind of a *special* website that needs to be created. Whether this website is to be a *control panel* website or a *phpMyAdmin* website. Note: in order to create a new *phpMyAdmin* website the control panel website needs to be created first, since the new phpMyAdmin website will be under the control panel domain.
 
 try {
     $result = $apiInstance->createWebsite($org_id, $new_website, $clone_from, $kind);
@@ -526,7 +526,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **new_website** | [**\Upmind\EnhanceSdk\Model\NewWebsite**](../Model/NewWebsite.md)| New website details. If the organization is the MO, they need not have a subscription to create a website. In all other cases organization needs to be subscribed to a plan that allows creating websites. | |
 | **clone_from** | **string**| The ID of the website to clone. Note that a website cannot be cloned from another website if the kind parameter is specified and different from &#x60;normal&#x60;. | [optional] |
-| **kind** | [**WebsiteKind**](../Model/.md)| The kind of a *special* website that needs to be created. Whether this website is to be a *control panel* website or a *phpMyAdmin* website. Note: in order to create a new *phpMyAdmin* website the control panel website needs to be created first, since the new phpMyAdmin website will be under the control panel domain. | [optional] |
+| **kind** | [**\Upmind\EnhanceSdk\Model\WebsiteKind**](../Model/.md)| The kind of a *special* website that needs to be created. Whether this website is to be a *control panel* website or a *phpMyAdmin* website. Note: in order to create a new *phpMyAdmin* website the control panel website needs to be created first, since the new phpMyAdmin website will be under the control panel domain. | [optional] |
 
 ### Return type
 
@@ -1209,7 +1209,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
+$setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
 $setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 
 try {
@@ -1225,7 +1225,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
+| **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
 | **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 
 ### Return type
@@ -2747,8 +2747,8 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$start = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Start datetime UTC.
-$end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | End datetime UTC.
+$start = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | Start datetime UTC.
+$end = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | End datetime UTC.
 $granularity = 'granularity_example'; // string | Takes one of `hour`, `day`, defaults to `day`
 
 try {
@@ -3008,7 +3008,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
+$setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
 
 try {
     $result = $apiInstance->getWebsiteSetting($org_id, $website_id, $setting_kind);
@@ -3024,7 +3024,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
+| **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
 
 ### Return type
 
@@ -3213,14 +3213,14 @@ $limit = 56; // int | The maximum number of items to return.
 $sort_by = 'sort_by_example'; // string | The field by which to sort.
 $sort_order = 'sort_order_example'; // string | The direction in which to sort. Possible values are 'asc' and 'desc', defaulting to 'asc'.
 $search = 'search_example'; // string | Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website's uuid.
-$recursion = new \Upmind\EnhanceSdk\Model\Recursion(); // Recursion | If set to directCustomers then websites belonging to direct customers of the orgId will be returned.  If set to infinite then websites belonging to customers of customers (and so on) will be returned.  If unset then no recursion will be performed.
+$recursion = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\Recursion(); // \Upmind\EnhanceSdk\Model\Recursion | If set to directCustomers then websites belonging to direct customers of the orgId will be returned.  If set to infinite then websites belonging to customers of customers (and so on) will be returned.  If unset then no recursion will be performed.
 $plan_id = 56; // int | Limit the result set to resources under subscriptions to the plan.
 $subscription_id = 56; // int | Limit the result set to resources under subscription.
-$status = new \Upmind\EnhanceSdk\Model\WebsiteStatus(); // WebsiteStatus | Limit the result set to websites with the specified status. Only applicable if `recursive` is set to true.
+$status = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\WebsiteStatus(); // \Upmind\EnhanceSdk\Model\WebsiteStatus | Limit the result set to websites with the specified status. Only applicable if `recursive` is set to true.
 $is_suspended = True; // bool | Limit the result set to websites which are currently suspended or not suspended.
 $roles = array(new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole()); // \Upmind\EnhanceSdk\Model\ServerRole[] | Limit the result set to websites having one of these roles assigned to a server.
 $servers = array('servers_example'); // string[] | Limit the result set to websites having one of the selected roles (or all roles) on one of these servers.
-$kind = new \Upmind\EnhanceSdk\Model\WebsiteKind(); // WebsiteKind | Limit the results to websites of the specified type.
+$kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\WebsiteKind(); // \Upmind\EnhanceSdk\Model\WebsiteKind | Limit the results to websites of the specified type.
 $show_deleted = True; // bool | Filters out deleted websites, which are otherwise returned in the result. Defaults to `showDeleted=true` if not set. Can only be set by MO, if set by others, a 403 is returned.
 $show_aliases = True; // bool | Includes domain aliases in search results and listings in addition to the website's primary domain.
 
@@ -3242,14 +3242,14 @@ try {
 | **sort_by** | **string**| The field by which to sort. | [optional] |
 | **sort_order** | **string**| The direction in which to sort. Possible values are &#39;asc&#39; and &#39;desc&#39;, defaulting to &#39;asc&#39;. | [optional] |
 | **search** | **string**| Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website&#39;s uuid. | [optional] |
-| **recursion** | [**Recursion**](../Model/.md)| If set to directCustomers then websites belonging to direct customers of the orgId will be returned.  If set to infinite then websites belonging to customers of customers (and so on) will be returned.  If unset then no recursion will be performed. | [optional] |
+| **recursion** | [**\Upmind\EnhanceSdk\Model\Recursion**](../Model/.md)| If set to directCustomers then websites belonging to direct customers of the orgId will be returned.  If set to infinite then websites belonging to customers of customers (and so on) will be returned.  If unset then no recursion will be performed. | [optional] |
 | **plan_id** | **int**| Limit the result set to resources under subscriptions to the plan. | [optional] |
 | **subscription_id** | **int**| Limit the result set to resources under subscription. | [optional] |
-| **status** | [**WebsiteStatus**](../Model/.md)| Limit the result set to websites with the specified status. Only applicable if &#x60;recursive&#x60; is set to true. | [optional] |
+| **status** | [**\Upmind\EnhanceSdk\Model\WebsiteStatus**](../Model/.md)| Limit the result set to websites with the specified status. Only applicable if &#x60;recursive&#x60; is set to true. | [optional] |
 | **is_suspended** | **bool**| Limit the result set to websites which are currently suspended or not suspended. | [optional] |
 | **roles** | [**\Upmind\EnhanceSdk\Model\ServerRole[]**](../Model/\Upmind\EnhanceSdk\Model\ServerRole.md)| Limit the result set to websites having one of these roles assigned to a server. | [optional] |
 | **servers** | [**string[]**](../Model/string.md)| Limit the result set to websites having one of the selected roles (or all roles) on one of these servers. | [optional] |
-| **kind** | [**WebsiteKind**](../Model/.md)| Limit the results to websites of the specified type. | [optional] |
+| **kind** | [**\Upmind\EnhanceSdk\Model\WebsiteKind**](../Model/.md)| Limit the results to websites of the specified type. | [optional] |
 | **show_deleted** | **bool**| Filters out deleted websites, which are otherwise returned in the result. Defaults to &#x60;showDeleted&#x3D;true&#x60; if not set. Can only be set by MO, if set by others, a 403 is returned. | [optional] |
 | **show_aliases** | **bool**| Includes domain aliases in search results and listings in addition to the website&#39;s primary domain. | [optional] |
 
@@ -4041,7 +4041,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
+$setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
 $setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
@@ -4058,7 +4058,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
+| **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
 | **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 

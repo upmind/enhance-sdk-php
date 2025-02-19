@@ -384,7 +384,7 @@ $limit = 56; // int | The maximum number of items to return.
 $sort_order = 'sort_order_example'; // string | The direction in which to sort. Possible values are 'asc' and 'desc', defaulting to 'asc'.
 $sort_by = 'sort_by_example'; // string | The field by which to sort.
 $search_domain = 'search_domain_example'; // string | Look for a specific domain in the result set.
-$migration_status = new \Upmind\EnhanceSdk\Model\MigrationStatus(); // MigrationStatus | Filter by a particular migration status
+$migration_status = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\MigrationStatus(); // \Upmind\EnhanceSdk\Model\MigrationStatus | Filter by a particular migration status
 $session_id = 'session_id_example'; // string | Filter for a specific migration session.
 
 try {
@@ -404,7 +404,7 @@ try {
 | **sort_order** | **string**| The direction in which to sort. Possible values are &#39;asc&#39; and &#39;desc&#39;, defaulting to &#39;asc&#39;. | [optional] |
 | **sort_by** | **string**| The field by which to sort. | [optional] |
 | **search_domain** | **string**| Look for a specific domain in the result set. | [optional] |
-| **migration_status** | [**MigrationStatus**](../Model/.md)| Filter by a particular migration status | [optional] |
+| **migration_status** | [**\Upmind\EnhanceSdk\Model\MigrationStatus**](../Model/.md)| Filter by a particular migration status | [optional] |
 | **session_id** | **string**| Filter for a specific migration session. | [optional] |
 
 ### Return type

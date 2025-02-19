@@ -752,7 +752,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
     $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
-$favicon = "/path/to/file.txt"; // \SplFileObject
+$favicon = '/path/to/file.txt'; // \SplFileObject
 
 try {
     $apiInstance->setBrandFavicon($org_id, $favicon);
@@ -818,7 +818,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
     $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
-$logo = "/path/to/file.txt"; // \SplFileObject
+$logo = '/path/to/file.txt'; // \SplFileObject
 
 try {
     $apiInstance->setBrandInverseLogo($org_id, $logo);
@@ -884,7 +884,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
     $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
-$login_image = "/path/to/file.txt"; // \SplFileObject
+$login_image = '/path/to/file.txt'; // \SplFileObject
 
 try {
     $apiInstance->setBrandLoginImage($org_id, $login_image);
@@ -950,7 +950,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
     $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
-$logo = "/path/to/file.txt"; // \SplFileObject
+$logo = '/path/to/file.txt'; // \SplFileObject
 
 try {
     $apiInstance->setBrandLogo($org_id, $logo);

@@ -746,7 +746,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
+$setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
 $setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 
 try {
@@ -762,7 +762,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
+| **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
 | **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 
 ### Return type
@@ -1111,7 +1111,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     new GuzzleHttp\Client()
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$mysql_kind = new \Upmind\EnhanceSdk\Model\MysqlKind(); // MysqlKind
+$mysql_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\MysqlKind(); // \Upmind\EnhanceSdk\Model\MysqlKind
 
 try {
     $result = $apiInstance->getDatabaseRoleMysqlKind($server_id, $mysql_kind);
@@ -1126,7 +1126,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **mysql_kind** | [**MysqlKind**](../Model/.md)|  | [optional] |
+| **mysql_kind** | [**\Upmind\EnhanceSdk\Model\MysqlKind**](../Model/.md)|  | [optional] |
 
 ### Return type
 
@@ -1232,7 +1232,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     new GuzzleHttp\Client()
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$role = new \Upmind\EnhanceSdk\Model\ServerRole(); // ServerRole | The role of the server.
+$role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
 
 try {
     $result = $apiInstance->getHttpdStatus($server_id, $role);
@@ -1247,7 +1247,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **role** | [**ServerRole**](../Model/.md)| The role of the server. | |
+| **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
 
 ### Return type
 
@@ -2304,7 +2304,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$role = new \Upmind\EnhanceSdk\Model\ServerRole(); // ServerRole | The role of the server.
+$role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
 $fetch_processes = True; // bool | Should we fetch service processes.
 
 try {
@@ -2320,7 +2320,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **role** | [**ServerRole**](../Model/.md)| The role of the server. | |
+| **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
 | **fetch_processes** | **bool**| Should we fetch service processes. | [optional] |
 
 ### Return type
@@ -2431,8 +2431,8 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     new GuzzleHttp\Client()
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$start = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Start datetime UTC.
-$end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | End datetime UTC.
+$start = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | Start datetime UTC.
+$end = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | End datetime UTC.
 
 try {
     $result = $apiInstance->getServerStats($server_id, $start, $end);
@@ -2701,7 +2701,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
+$setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
 
 try {
     $result = $apiInstance->getServiceSetting($server_id, $setting_kind);
@@ -2716,7 +2716,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
+| **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
 
 ### Return type
 
@@ -2768,7 +2768,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$system_package_name = new \Upmind\EnhanceSdk\Model\SystemPackageName(); // SystemPackageName
+$system_package_name = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SystemPackageName(); // \Upmind\EnhanceSdk\Model\SystemPackageName
 
 try {
     $result = $apiInstance->getSystemPackageUpdateInfo($server_id, $system_package_name);
@@ -2783,7 +2783,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **system_package_name** | [**SystemPackageName**](../Model/.md)|  | [optional] |
+| **system_package_name** | [**\Upmind\EnhanceSdk\Model\SystemPackageName**](../Model/.md)|  | [optional] |
 
 ### Return type
 
@@ -3008,7 +3008,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     new GuzzleHttp\Client()
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$mysql_kind = new \Upmind\EnhanceSdk\Model\MysqlKind(); // MysqlKind
+$mysql_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\MysqlKind(); // \Upmind\EnhanceSdk\Model\MysqlKind
 
 try {
     $apiInstance->installDatabaseRole($server_id, $mysql_kind);
@@ -3022,7 +3022,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **mysql_kind** | [**MysqlKind**](../Model/.md)|  | [optional] |
+| **mysql_kind** | [**\Upmind\EnhanceSdk\Model\MysqlKind**](../Model/.md)|  | [optional] |
 
 ### Return type
 
@@ -3074,7 +3074,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$role = new \Upmind\EnhanceSdk\Model\ServerRole(); // ServerRole | The role of the server.
+$role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
 $new_backup_role = new \Upmind\EnhanceSdk\Model\NewBackupRole(); // \Upmind\EnhanceSdk\Model\NewBackupRole | Information for the backup role.
 
 try {
@@ -3089,7 +3089,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **role** | [**ServerRole**](../Model/.md)| The role of the server. | |
+| **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
 | **new_backup_role** | [**\Upmind\EnhanceSdk\Model\NewBackupRole**](../Model/NewBackupRole.md)| Information for the backup role. | [optional] |
 
 ### Return type
@@ -3704,7 +3704,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$setting_kind = new \Upmind\EnhanceSdk\Model\SettingKind(); // SettingKind | The type of setting being applied
+$setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
 $setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
@@ -3721,7 +3721,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **setting_kind** | [**SettingKind**](../Model/.md)| The type of setting being applied | |
+| **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
 | **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 
@@ -3909,7 +3909,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$role = new \Upmind\EnhanceSdk\Model\ServerRole(); // ServerRole | The role of the server.
+$role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
 
 try {
     $apiInstance->uninstallServerRole($server_id, $role);
@@ -3923,7 +3923,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **role** | [**ServerRole**](../Model/.md)| The role of the server. | |
+| **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
 
 ### Return type
 
@@ -4215,7 +4215,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$role = new \Upmind\EnhanceSdk\Model\ServerRole(); // ServerRole | The role of the server.
+$role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
 $update_server_role_request = new \Upmind\EnhanceSdk\Model\UpdateServerRoleRequest(); // \Upmind\EnhanceSdk\Model\UpdateServerRoleRequest | Info for updating the server role.
 
 try {
@@ -4230,7 +4230,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **role** | [**ServerRole**](../Model/.md)| The role of the server. | |
+| **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
 | **update_server_role_request** | [**\Upmind\EnhanceSdk\Model\UpdateServerRoleRequest**](../Model/UpdateServerRoleRequest.md)| Info for updating the server role. | |
 
 ### Return type
@@ -4350,7 +4350,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $system_package = new \Upmind\EnhanceSdk\Model\SystemPackage(); // \Upmind\EnhanceSdk\Model\SystemPackage | Package to be updated.
-$system_package_name = new \Upmind\EnhanceSdk\Model\SystemPackageName(); // SystemPackageName
+$system_package_name = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SystemPackageName(); // \Upmind\EnhanceSdk\Model\SystemPackageName
 
 try {
     $apiInstance->updateSystemPackage($server_id, $system_package, $system_package_name);
@@ -4365,7 +4365,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **system_package** | [**\Upmind\EnhanceSdk\Model\SystemPackage**](../Model/SystemPackage.md)| Package to be updated. | |
-| **system_package_name** | [**SystemPackageName**](../Model/.md)|  | [optional] |
+| **system_package_name** | [**\Upmind\EnhanceSdk\Model\SystemPackageName**](../Model/.md)|  | [optional] |
 
 ### Return type
 

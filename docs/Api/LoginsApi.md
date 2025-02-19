@@ -1055,7 +1055,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$avatar = "/path/to/file.txt"; // \SplFileObject
+$avatar = '/path/to/file.txt'; // \SplFileObject
 
 try {
     $apiInstance->setLoginAvatar($avatar);

@@ -469,7 +469,7 @@ $sort_order = 'sort_order_example'; // string | The direction in which to sort. 
 $search = 'search_example'; // string | Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website's uuid.
 $recursive = True; // bool | If set to true, the endpoint will return resources in some hierarchy recursively, that is, several or all levels of the hierarchy, depending on whether `maxDepth` is set. E.g. for customers this means direct and indirect customers are returned. For websites, this returns websites of all direct and indirect customers.
 $max_depth = 56; // int | If recursive is set to true, this can be specified to limit the recursion depth. By default there is no recursion bound.
-$status = new \Upmind\EnhanceSdk\Model\WebsiteStatus(); // WebsiteStatus | Limit the result set to emails with the specified status. Only applicable if `recursive` is set to true.
+$status = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\WebsiteStatus(); // \Upmind\EnhanceSdk\Model\WebsiteStatus | Limit the result set to emails with the specified status. Only applicable if `recursive` is set to true.
 $domain_id = 'domain_id_example'; // string | Limit the result set to emails under domain.
 $plan_id = 56; // int | Limit the result set to resources under subscriptions to the plan.
 $subscription_id = 56; // int | Limit the result set to resources under subscription.
@@ -496,7 +496,7 @@ try {
 | **search** | **string**| Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website&#39;s uuid. | [optional] |
 | **recursive** | **bool**| If set to true, the endpoint will return resources in some hierarchy recursively, that is, several or all levels of the hierarchy, depending on whether &#x60;maxDepth&#x60; is set. E.g. for customers this means direct and indirect customers are returned. For websites, this returns websites of all direct and indirect customers. | [optional] |
 | **max_depth** | **int**| If recursive is set to true, this can be specified to limit the recursion depth. By default there is no recursion bound. | [optional] |
-| **status** | [**WebsiteStatus**](../Model/.md)| Limit the result set to emails with the specified status. Only applicable if &#x60;recursive&#x60; is set to true. | [optional] |
+| **status** | [**\Upmind\EnhanceSdk\Model\WebsiteStatus**](../Model/.md)| Limit the result set to emails with the specified status. Only applicable if &#x60;recursive&#x60; is set to true. | [optional] |
 | **domain_id** | **string**| Limit the result set to emails under domain. | [optional] |
 | **plan_id** | **int**| Limit the result set to resources under subscriptions to the plan. | [optional] |
 | **subscription_id** | **int**| Limit the result set to resources under subscription. | [optional] |

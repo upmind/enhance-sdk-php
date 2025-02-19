@@ -643,7 +643,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ImportersApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $import_migration_kind = 'import_migration_kind_example'; // string | The type of migration file being uploaded.
-$backup = "/path/to/file.txt"; // \SplFileObject
+$backup = '/path/to/file.txt'; // \SplFileObject
 
 try {
     $result = $apiInstance->uploadImportMigration($org_id, $import_migration_kind, $backup);

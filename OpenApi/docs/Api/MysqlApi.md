@@ -852,7 +852,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
     $config
 );
 $db_id = 'db_id_example'; // string | The id of the database.
-$sql = "/path/to/file.txt"; // \SplFileObject | Upload either a raw sql file (must be utf8 valid string) or .zip or .gz file with the sql string.
+$sql = '/path/to/file.txt'; // \SplFileObject | Upload either a raw sql file (must be utf8 valid string) or .zip or .gz file with the sql string.
 $force = false; // bool
 
 try {
