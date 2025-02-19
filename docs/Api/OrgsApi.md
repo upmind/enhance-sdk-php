@@ -20,7 +20,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteOwner()**](OrgsApi.md#deleteOwner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner |
 | [**deletePlan()**](OrgsApi.md#deletePlan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan |
 | [**deletePlanAllowance()**](OrgsApi.md#deletePlanAllowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance |
-| [**deleteWebsiteMySQLUserAccessHosts()**](OrgsApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts |
+| [**deleteWebsiteMySQLUserAccessHosts()**](OrgsApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/access-hosts | Delete website MySQL database user access hosts |
 | [**getCloudFlareKeyAffectedDomains()**](OrgsApi.md#getCloudFlareKeyAffectedDomains) | **GET** /orgs/{org_id}/cloudflare/{cloudflare_key} | Get affected domains for a CloudFlare key |
 | [**getCloudflareApiKeys()**](OrgsApi.md#getCloudflareApiKeys) | **GET** /orgs/{org_id}/cloudflare | Get CloudFlare API keys, org level |
 | [**getCustomersAdded()**](OrgsApi.md#getCustomersAdded) | **GET** /orgs/{org_id}/stats/customers/added | Get customers added over a given time period |
@@ -28,11 +28,13 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getMember()**](OrgsApi.md#getMember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member |
 | [**getMembers()**](OrgsApi.md#getMembers) | **GET** /orgs/{org_id}/members | Get organization members |
 | [**getOrg()**](OrgsApi.md#getOrg) | **GET** /orgs/{org_id} | Get organization info |
+| [**getOrgActivities()**](OrgsApi.md#getOrgActivities) | **GET** /v2/orgs/{org_id}/activities | Get organization&#39;s activity log. |
 | [**getOrgMemberLogin()**](OrgsApi.md#getOrgMemberLogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member |
 | [**getPlan()**](OrgsApi.md#getPlan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan |
 | [**getPlans()**](OrgsApi.md#getPlans) | **GET** /orgs/{org_id}/plans | Get plans |
 | [**getTags()**](OrgsApi.md#getTags) | **GET** /orgs/{org_id}/tags | Get tags |
 | [**getWebsiteDomainSslCert()**](OrgsApi.md#getWebsiteDomainSslCert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain |
+| [**getWebsiteMailDomainSslCert()**](OrgsApi.md#getWebsiteMailDomainSslCert) | **GET** /v2/domains/{domain_id}/mail_ssl | Returns the SSL for this website domain with the mail.prefix |
 | [**getWebsitesAdded()**](OrgsApi.md#getWebsitesAdded) | **GET** /orgs/{org_id}/stats/websites/added | Get websites added over a given time period |
 | [**setOrgAvatar()**](OrgsApi.md#setOrgAvatar) | **PUT** /orgs/{org_id}/avatar | Set org avatar |
 | [**setWebsiteDomainForceSsl()**](OrgsApi.md#setWebsiteDomainForceSsl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping |
@@ -45,6 +47,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**updatePlanResource()**](OrgsApi.md#updatePlanResource) | **PUT** /orgs/{org_id}/plans/{plan_id}/resources/{name} | Update plan resource |
 | [**updatePlanSelection()**](OrgsApi.md#updatePlanSelection) | **PUT** /orgs/{org_id}/plans/{plan_id}/selections/{name} | Update plan selection |
 | [**uploadWebsiteDomainSslCert()**](OrgsApi.md#uploadWebsiteDomainSslCert) | **POST** /v2/domains/{domain_id}/ssl | Upload custom ssl certificate, key and optional fullchain for a given website |
+| [**uploadWebsiteMailDomainSslCert()**](OrgsApi.md#uploadWebsiteMailDomainSslCert) | **POST** /v2/domains/{domain_id}/mail_ssl | Upload SSL for mail.customerdomain. |
 
 
 ## `createAccessToken()`
@@ -1071,7 +1074,7 @@ No authorization required
 ## `deleteWebsiteMySQLUserAccessHosts()`
 
 ```php
-deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $db_id, $user_id, $my_sql_user_access_hosts)
+deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $username, $my_sql_user_access_hosts)
 ```
 
 Delete website MySQL database user access hosts
@@ -1093,12 +1096,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
-$user_id = 'user_id_example'; // string | The id of the database user.
+$username = 'username_example'; // string | The user of the database user.
 $my_sql_user_access_hosts = new \Upmind\EnhanceSdk\Model\MySQLUserAccessHosts(); // \Upmind\EnhanceSdk\Model\MySQLUserAccessHosts | User access hosts.
 
 try {
-    $apiInstance->deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $db_id, $user_id, $my_sql_user_access_hosts);
+    $apiInstance->deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $username, $my_sql_user_access_hosts);
 } catch (Exception $e) {
     echo 'Exception when calling OrgsApi->deleteWebsiteMySQLUserAccessHosts: ', $e->getMessage(), PHP_EOL;
 }
@@ -1110,8 +1112,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
-| **user_id** | **string**| The id of the database user. | |
+| **username** | **string**| The user of the database user. | |
 | **my_sql_user_access_hosts** | [**\Upmind\EnhanceSdk\Model\MySQLUserAccessHosts**](../Model/MySQLUserAccessHosts.md)| User access hosts. | |
 
 ### Return type
@@ -1491,7 +1492,7 @@ try {
 ## `getMembers()`
 
 ```php
-getMembers($org_id, $offset, $limit, $sort_by, $sort_order, $search, $role, $site_access): \Upmind\EnhanceSdk\Model\MembersListing
+getMembers($org_id, $offset, $limit, $sort_by, $sort_order, $role, $site_access): \Upmind\EnhanceSdk\Model\MembersListing
 ```
 
 Get organization members
@@ -1525,12 +1526,11 @@ $offset = 56; // int | The offset from which to return items.
 $limit = 56; // int | The maximum number of items to return.
 $sort_by = 'sort_by_example'; // string | The field by which to sort.
 $sort_order = 'sort_order_example'; // string | The direction in which to sort. Possible values are 'asc' and 'desc', defaulting to 'asc'.
-$search = 'search_example'; // string | Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website's uuid.
 $role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\Role(); // \Upmind\EnhanceSdk\Model\Role | Return only members with this role.
 $site_access = 'site_access_example'; // string | Return only collaborator members that have access to this website. Note that super admins and owners are not returned because they implicitly have access.
 
 try {
-    $result = $apiInstance->getMembers($org_id, $offset, $limit, $sort_by, $sort_order, $search, $role, $site_access);
+    $result = $apiInstance->getMembers($org_id, $offset, $limit, $sort_by, $sort_order, $role, $site_access);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrgsApi->getMembers: ', $e->getMessage(), PHP_EOL;
@@ -1546,7 +1546,6 @@ try {
 | **limit** | **int**| The maximum number of items to return. | [optional] |
 | **sort_by** | **string**| The field by which to sort. | [optional] |
 | **sort_order** | **string**| The direction in which to sort. Possible values are &#39;asc&#39; and &#39;desc&#39;, defaulting to &#39;asc&#39;. | [optional] |
-| **search** | **string**| Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website&#39;s uuid. | [optional] |
 | **role** | [**\Upmind\EnhanceSdk\Model\Role**](../Model/.md)| Return only members with this role. | [optional] |
 | **site_access** | **string**| Return only collaborator members that have access to this website. Note that super admins and owners are not returned because they implicitly have access. | [optional] |
 
@@ -1618,6 +1617,87 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\Org**](../Model/Org.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrgActivities()`
+
+```php
+getOrgActivities($org_id, $offset, $limit, $created_before, $created_after, $activity_kinds, $any_entity_id, $entity_kind, $search): \Upmind\EnhanceSdk\Model\ActivitiesListing
+```
+
+Get organization's activity log.
+
+Returns organization's activity log which is a human readable list of events that happened in orchd. Only accessible to Owner, SuperAdmin and Sysadmin.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$offset = 56; // int | The offset from which to return items.
+$limit = 56; // int | The maximum number of items to return.
+$created_before = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | Only return resources which have been created earlier than provided date.
+$created_after = new \DateTime('2013-10-20T19:20:30+01:00'); // \DateTime | Only return resources which have been created after provided date.
+$activity_kinds = array(new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ActivityKind()); // \Upmind\EnhanceSdk\Model\ActivityKind[] | Select only activities matching the given kinds. If not provided or provided empty array, all kinds are selected as it makes no sense for an activity to not have a kind.
+$any_entity_id = array('any_entity_id_example'); // string[] | Filter activities maching any of the provided uuids. Since an activity can have 0 or more entities, providing an empty array is not the same as not providing this parameter. An empty array will match activities with 0 entities, while not providing this parameter will ignore this filter.
+$entity_kind = 'entity_kind_example'; // string | Activities which contain the given entity kind either as object or context entity.
+$search = 'search_example'; // string | Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website's uuid.
+
+try {
+    $result = $apiInstance->getOrgActivities($org_id, $offset, $limit, $created_before, $created_after, $activity_kinds, $any_entity_id, $entity_kind, $search);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->getOrgActivities: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **offset** | **int**| The offset from which to return items. | [optional] |
+| **limit** | **int**| The maximum number of items to return. | [optional] |
+| **created_before** | **\DateTime**| Only return resources which have been created earlier than provided date. | [optional] |
+| **created_after** | **\DateTime**| Only return resources which have been created after provided date. | [optional] |
+| **activity_kinds** | [**\Upmind\EnhanceSdk\Model\ActivityKind[]**](../Model/\Upmind\EnhanceSdk\Model\ActivityKind.md)| Select only activities matching the given kinds. If not provided or provided empty array, all kinds are selected as it makes no sense for an activity to not have a kind. | [optional] |
+| **any_entity_id** | [**string[]**](../Model/string.md)| Filter activities maching any of the provided uuids. Since an activity can have 0 or more entities, providing an empty array is not the same as not providing this parameter. An empty array will match activities with 0 entities, while not providing this parameter will ignore this filter. | [optional] |
+| **entity_kind** | **string**| Activities which contain the given entity kind either as object or context entity. | [optional] |
+| **search** | **string**| Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website&#39;s uuid. | [optional] |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ActivitiesListing**](../Model/ActivitiesListing.md)
 
 ### Authorization
 
@@ -1925,6 +2005,62 @@ try {
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrgsApi->getWebsiteDomainSslCert: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\DomainSslCertWithData**](../Model/DomainSslCertWithData.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteMailDomainSslCert()`
+
+```php
+getWebsiteMailDomainSslCert($domain_id): \Upmind\EnhanceSdk\Model\DomainSslCertWithData
+```
+
+Returns the SSL for this website domain with the mail.prefix
+
+Endpoint for retrieving SSL certificates for a given website including certificates generated by letsencrypt
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $result = $apiInstance->getWebsiteMailDomainSslCert($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->getWebsiteMailDomainSslCert: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -2682,6 +2818,62 @@ try {
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrgsApi->uploadWebsiteDomainSslCert: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+| **ssl_cert** | [**\Upmind\EnhanceSdk\Model\SslCert**](../Model/SslCert.md)| Cert, private key and optional fullchain. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\NewSslCert**](../Model/NewSslCert.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `uploadWebsiteMailDomainSslCert()`
+
+```php
+uploadWebsiteMailDomainSslCert($domain_id, $ssl_cert): \Upmind\EnhanceSdk\Model\NewSslCert
+```
+
+Upload SSL for mail.customerdomain.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+$ssl_cert = new \Upmind\EnhanceSdk\Model\SslCert(); // \Upmind\EnhanceSdk\Model\SslCert | Cert, private key and optional fullchain.
+
+try {
+    $result = $apiInstance->uploadWebsiteMailDomainSslCert($domain_id, $ssl_cert);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->uploadWebsiteMailDomainSslCert: ', $e->getMessage(), PHP_EOL;
 }
 ```
 

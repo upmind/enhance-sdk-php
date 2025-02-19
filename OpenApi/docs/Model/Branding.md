@@ -11,9 +11,10 @@ Name | Type | Description | Notes
 **roundcube_domain** | **string** |  | [optional]
 **logo_path** | **string** |  | [optional]
 **inverse_logo_path** | **string** |  | [optional]
+**inverse_icon_path** | **string** |  | [optional]
 **login_image_path** | **string** |  | [optional]
 **favicon_path** | **string** |  | [optional]
-**name_servers** | [**\Upmind\EnhanceSdk\Model\DomainIp[]**](DomainIp.md) |  | [optional]
+**name_servers** | **string[]** |  | [optional]
 **settings** | [**\Upmind\EnhanceSdk\Model\Setting[]**](Setting.md) |  |
 **staging_domain** | **string** |  | [optional]
 **locale** | [**\Upmind\EnhanceSdk\Model\CPLocale**](CPLocale.md) |  |

@@ -4,10 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  |
 **name** | **string** |  |
-**server_id** | **string** |  | [optional]
-**website_id** | **string** |  |
 **size** | **int** |  |
 **created_at** | **string** |  |
 

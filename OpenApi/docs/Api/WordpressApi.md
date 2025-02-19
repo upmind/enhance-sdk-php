@@ -4,10 +4,13 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**activateWordpressTheme()**](WordpressApi.md#activateWordpressTheme) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}/activate | Activate a WordPress theme |
 | [**createWordpressUser()**](WordpressApi.md#createWordpressUser) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users | Create website WordPress user |
 | [**deleteWordpressPlugin()**](WordpressApi.md#deleteWordpressPlugin) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Delete website WordPress plugin |
+| [**deleteWordpressTheme()**](WordpressApi.md#deleteWordpressTheme) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme} | Delete a WordPress theme |
 | [**deleteWordpressUser()**](WordpressApi.md#deleteWordpressUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Delete WordPress user |
 | [**getDefaultWpSsoUser()**](WordpressApi.md#getDefaultWpSsoUser) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default |  |
+| [**getWordPressMaintenanceMode()**](WordpressApi.md#getWordPressMaintenanceMode) | **GET** /v2/apps/{app_id}/wordpress/maintenance-mode | Gets the MaintenanceMode for a WordPress installation |
 | [**getWordPressSiteurl()**](WordpressApi.md#getWordPressSiteurl) | **GET** /v2/apps/{app_id}/wordpress/url | Fetches the site URL for a WordPress installation |
 | [**getWordpressAppVersion()**](WordpressApi.md#getWordpressAppVersion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version |
 | [**getWordpressConfig()**](WordpressApi.md#getWordpressConfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option |
@@ -19,15 +22,78 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWordpressUserSsoUrl()**](WordpressApi.md#getWordpressUserSsoUrl) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id}/sso | Get SSO URL for a WP user |
 | [**getWordpressUsers()**](WordpressApi.md#getWordpressUsers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users |  |
 | [**installWordpressPlugin()**](WordpressApi.md#installWordpressPlugin) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Install a plugin |
+| [**installWordpressTheme()**](WordpressApi.md#installWordpressTheme) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes | Install a WordPress theme |
 | [**setDefaultWpSsoUser()**](WordpressApi.md#setDefaultWpSsoUser) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/default | Set WP user as the default SSO user for that website. |
+| [**setWordPressMaintenanceMode()**](WordpressApi.md#setWordPressMaintenanceMode) | **PUT** /v2/apps/{app_id}/wordpress/maintenance-mode | Sets the MaintenanceMode for a WordPress installation |
 | [**setWordPressSiteurl()**](WordpressApi.md#setWordPressSiteurl) | **PUT** /v2/apps/{app_id}/wordpress/url | Sets the site URL for a WordPress installation |
 | [**setWordpressConfig()**](WordpressApi.md#setWordpressConfig) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config | Set a single value of a wp-config.php entry. |
+| [**setWordpressThemeAutoUpdateStatus()**](WordpressApi.md#setWordpressThemeAutoUpdateStatus) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}/auto_update | Set WordPress theme auto-update status |
 | [**updateWordpressAppVersion()**](WordpressApi.md#updateWordpressAppVersion) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Update website WP app to specific version or latest |
 | [**updateWordpressPluginSettings()**](WordpressApi.md#updateWordpressPluginSettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin} | Updates website WordPress plugin settings |
 | [**updateWordpressPluginToLatest()**](WordpressApi.md#updateWordpressPluginToLatest) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins/{plugin}/version | Updates website WordPress plugin to latest version |
 | [**updateWordpressSettings()**](WordpressApi.md#updateWordpressSettings) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress | Update Wordpress app settings |
+| [**updateWordpressTheme()**](WordpressApi.md#updateWordpressTheme) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}/update | Update a WordPress theme |
 | [**updateWordpressUser()**](WordpressApi.md#updateWordpressUser) | **PATCH** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users/{user_id} | Update WordPress user |
 
+
+## `activateWordpressTheme()`
+
+```php
+activateWordpressTheme($org_id, $website_id, $app_id, $theme)
+```
+
+Activate a WordPress theme
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$theme = 'theme_example'; // string | The name of the wordpress theme (not file name!).
+
+try {
+    $apiInstance->activateWordpressTheme($org_id, $website_id, $app_id, $theme);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->activateWordpressTheme: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **theme** | **string**| The name of the wordpress theme (not file name!). | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `createWordpressUser()`
 
@@ -133,6 +199,65 @@ try {
 | **website_id** | **string**| The id of the website. | |
 | **app_id** | **string**| The id of the app. | |
 | **plugin** | **string**| The name of the wordpress plugin (not file name!). | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteWordpressTheme()`
+
+```php
+deleteWordpressTheme($org_id, $website_id, $app_id, $theme)
+```
+
+Delete a WordPress theme
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$theme = 'theme_example'; // string | The name of the wordpress theme (not file name!).
+
+try {
+    $apiInstance->deleteWordpressTheme($org_id, $website_id, $app_id, $theme);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->deleteWordpressTheme: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **theme** | **string**| The name of the wordpress theme (not file name!). | |
 
 ### Return type
 
@@ -258,6 +383,60 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\WpUser**](../Model/WpUser.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWordPressMaintenanceMode()`
+
+```php
+getWordPressMaintenanceMode($app_id): \Upmind\EnhanceSdk\Model\MaintenanceModeStatus
+```
+
+Gets the MaintenanceMode for a WordPress installation
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$app_id = 'app_id_example'; // string | The id of the app.
+
+try {
+    $result = $apiInstance->getWordPressMaintenanceMode($app_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->getWordPressMaintenanceMode: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **app_id** | **string**| The id of the app. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\MaintenanceModeStatus**](../Model/MaintenanceModeStatus.md)
 
 ### Authorization
 
@@ -939,6 +1118,67 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `installWordpressTheme()`
+
+```php
+installWordpressTheme($org_id, $website_id, $app_id, $install_wp_theme_request, $refresh_cache)
+```
+
+Install a WordPress theme
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$install_wp_theme_request = new \Upmind\EnhanceSdk\Model\InstallWpThemeRequest(); // \Upmind\EnhanceSdk\Model\InstallWpThemeRequest
+$refresh_cache = True; // bool | If set to true, it will bypass internal caching.
+
+try {
+    $apiInstance->installWordpressTheme($org_id, $website_id, $app_id, $install_wp_theme_request, $refresh_cache);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->installWordpressTheme: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **install_wp_theme_request** | [**\Upmind\EnhanceSdk\Model\InstallWpThemeRequest**](../Model/InstallWpThemeRequest.md)|  | |
+| **refresh_cache** | **bool**| If set to true, it will bypass internal caching. | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `setDefaultWpSsoUser()`
 
 ```php
@@ -982,6 +1222,61 @@ try {
 | **website_id** | **string**| The id of the website. | |
 | **app_id** | **string**| The id of the app. | |
 | **body** | **float**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWordPressMaintenanceMode()`
+
+```php
+setWordPressMaintenanceMode($app_id, $body)
+```
+
+Sets the MaintenanceMode for a WordPress installation
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$app_id = 'app_id_example'; // string | The id of the app.
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->setWordPressMaintenanceMode($app_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->setWordPressMaintenanceMode: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **app_id** | **string**| The id of the app. | |
+| **body** | **string**|  | |
 
 ### Return type
 
@@ -1123,10 +1418,71 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWordpressThemeAutoUpdateStatus()`
+
+```php
+setWordpressThemeAutoUpdateStatus($org_id, $website_id, $app_id, $theme, $body)
+```
+
+Set WordPress theme auto-update status
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$theme = 'theme_example'; // string | The name of the wordpress theme (not file name!).
+$body = True; // bool
+
+try {
+    $apiInstance->setWordpressThemeAutoUpdateStatus($org_id, $website_id, $app_id, $theme, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->setWordpressThemeAutoUpdateStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **theme** | **string**| The name of the wordpress theme (not file name!). | |
+| **body** | **bool**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `updateWordpressAppVersion()`
 
 ```php
-updateWordpressAppVersion($org_id, $website_id, $app_id, $update_wp_app_to_version)
+updateWordpressAppVersion($org_id, $website_id, $app_id)
 ```
 
 Update website WP app to specific version or latest
@@ -1149,10 +1505,9 @@ $apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $app_id = 'app_id_example'; // string | The id of the app.
-$update_wp_app_to_version = new \Upmind\EnhanceSdk\Model\UpdateWpAppToVersion(); // \Upmind\EnhanceSdk\Model\UpdateWpAppToVersion
 
 try {
-    $apiInstance->updateWordpressAppVersion($org_id, $website_id, $app_id, $update_wp_app_to_version);
+    $apiInstance->updateWordpressAppVersion($org_id, $website_id, $app_id);
 } catch (Exception $e) {
     echo 'Exception when calling WordpressApi->updateWordpressAppVersion: ', $e->getMessage(), PHP_EOL;
 }
@@ -1165,7 +1520,6 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **app_id** | **string**| The id of the app. | |
-| **update_wp_app_to_version** | [**\Upmind\EnhanceSdk\Model\UpdateWpAppToVersion**](../Model/UpdateWpAppToVersion.md)|  | [optional] |
 
 ### Return type
 
@@ -1177,7 +1531,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: `application/json`
+- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -1363,6 +1717,65 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateWordpressTheme()`
+
+```php
+updateWordpressTheme($org_id, $website_id, $app_id, $theme)
+```
+
+Update a WordPress theme
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+$theme = 'theme_example'; // string | The name of the wordpress theme (not file name!).
+
+try {
+    $apiInstance->updateWordpressTheme($org_id, $website_id, $app_id, $theme);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->updateWordpressTheme: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+| **theme** | **string**| The name of the wordpress theme (not file name!). | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

@@ -4,11 +4,13 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**addSpamIpWhitelist()**](ServersApi.md#addSpamIpWhitelist) | **POST** /servers/{server_id}/spam/ip_whitelist | Add to the IP whitelist |
 | [**configureServer()**](ServersApi.md#configureServer) | **PATCH** /servers/{server_id} | Configure a server |
 | [**createServerDomain()**](ServersApi.md#createServerDomain) | **POST** /servers/{server_id}/domains | Create a domain which is mapped to a server |
 | [**createServerGroup()**](ServersApi.md#createServerGroup) | **POST** /servers/groups | Creates a new server group |
 | [**createServerNetworkInterfaceIp()**](ServersApi.md#createServerNetworkInterfaceIp) | **POST** /servers/{server_id}/interfaces/{interface}/ips | Create server network interface secondary IP |
 | [**createSlave()**](ServersApi.md#createSlave) | **POST** /servers/slaves | Create a slave node |
+| [**deleteFromSpamIpWhitelist()**](ServersApi.md#deleteFromSpamIpWhitelist) | **DELETE** /servers/{server_id}/spam/ip_whitelist | Delete from the IP whitelist |
 | [**deleteServerDomain()**](ServersApi.md#deleteServerDomain) | **DELETE** /servers/{server_id}/domains/{domain_id} | Delete a mapped server domain |
 | [**deleteServerFromGroup()**](ServersApi.md#deleteServerFromGroup) | **DELETE** /servers/{server_id}/group | Delete server from group |
 | [**deleteServerGroup()**](ServersApi.md#deleteServerGroup) | **DELETE** /servers/groups/{group_id} | Deletes an existing server group |
@@ -16,15 +18,18 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteServerPrimaryIpv6()**](ServersApi.md#deleteServerPrimaryIpv6) | **DELETE** /v2/servers/{server_id}/primary-ipv6 | Deletes/unsets the primary IPv6 address for a server. |
 | [**deleteServiceSetting()**](ServersApi.md#deleteServiceSetting) | **DELETE** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting |
 | [**deleteSlave()**](ServersApi.md#deleteSlave) | **DELETE** /servers/{server_id} | Delete a (slave) server |
-| [**enableFsQuotaLimits()**](ServersApi.md#enableFsQuotaLimits) | **POST** /servers/{server_id}/fs_quota_limits | Enable FS quota limits on the server |
+| [**enableFsQuotaLimits()**](ServersApi.md#enableFsQuotaLimits) | **POST** /servers/{server_id}/fs-quota-limits | Enable FS quota limits on the server |
+| [**getAppcdScreenshotConfig()**](ServersApi.md#getAppcdScreenshotConfig) | **GET** /servers/{server_id}/appcd/screenshot/config | Get the screenshot config of the running appcd |
 | [**getAppcdVersion()**](ServersApi.md#getAppcdVersion) | **GET** /servers/{server_id}/appcd/version | Get the version of the running appcd |
 | [**getClientIp()**](ServersApi.md#getClientIp) | **GET** /client_ip | Reflect back the IP of the API consumer |
-| [**getControlPanelRoleInfo()**](ServersApi.md#getControlPanelRoleInfo) | **GET** /servers/master/roles/control | Get master server control panel role info |
 | [**getDatabaseRoleMysqlKind()**](ServersApi.md#getDatabaseRoleMysqlKind) | **GET** /v2/servers/{server_id}/database-role | Gets the MySQL kind for a given server. |
-| [**getFsQuotaStatus()**](ServersApi.md#getFsQuotaStatus) | **GET** /servers/{server_id}/fs_quota_limits | Get whether FS quota was enabled on the server |
+| [**getDnsPoolIps()**](ServersApi.md#getDnsPoolIps) | **GET** /v2/servers/dns_pool | Get DNS pool IPs |
+| [**getEmailServerHostnameOverride()**](ServersApi.md#getEmailServerHostnameOverride) | **GET** /servers/{server_id}/email/hostname_override | Get the hostname override for the email server (postfix) if set |
+| [**getFsQuotaStatus()**](ServersApi.md#getFsQuotaStatus) | **GET** /servers/{server_id}/fs-quota-limits | Get whether FS quota was enabled on the server |
 | [**getHttpdStatus()**](ServersApi.md#getHttpdStatus) | **GET** /servers/{server_id}/roles/{role}/httpd_status | Get status of a running httpd server. |
 | [**getInstallCmd()**](ServersApi.md#getInstallCmd) | **GET** /servers/install-cmd | Get slave installation command |
 | [**getMysqlMyCnf()**](ServersApi.md#getMysqlMyCnf) | **GET** /v2/servers/{server_id}/my-cnf | Download my.cnf for a given server |
+| [**getOutboundSpamScanningSettings()**](ServersApi.md#getOutboundSpamScanningSettings) | **GET** /servers/{server_id}/email/spam/outbound_scanning | Get the status of outbound spam scanning |
 | [**getOwaspRulesVersion()**](ServersApi.md#getOwaspRulesVersion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules |
 | [**getRegistrationKey()**](ServersApi.md#getRegistrationKey) | **GET** /servers/registration-key | Get slave registration key |
 | [**getServerDiskUsage()**](ServersApi.md#getServerDiskUsage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage |
@@ -46,34 +51,103 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getServerUptime()**](ServersApi.md#getServerUptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds |
 | [**getServers()**](ServersApi.md#getServers) | **GET** /servers | Get installed servers |
 | [**getServiceSetting()**](ServersApi.md#getServiceSetting) | **GET** /servers/{server_id}/settings/{setting_kind} | Get the value for a particular setting |
+| [**getSmtpRateLimitHourly()**](ServersApi.md#getSmtpRateLimitHourly) | **GET** /servers/{server_id}/spam/smtp_rate_limit_hourly | Get the hourly SMTP rate limit |
+| [**getSpamIpWhitelist()**](ServersApi.md#getSpamIpWhitelist) | **GET** /servers/{server_id}/spam/ip_whitelist | Get the IP whitelist |
 | [**getSystemPackageUpdateInfo()**](ServersApi.md#getSystemPackageUpdateInfo) | **GET** /servers/{server_id}/packages/update | Returns a map of upgradable packages. |
 | [**getWebserverKind()**](ServersApi.md#getWebserverKind) | **GET** /servers/{server_id}/webserver | Get web server |
 | [**getWebsiteFpmSettings()**](ServersApi.md#getWebsiteFpmSettings) | **GET** /servers/{server_id}/php/fpm/{website_id} | Get php-fpm config for the specified website |
-| [**initAllServers()**](ServersApi.md#initAllServers) | **POST** /servers/init | Attempts to initialize all roles |
+| [**getWebsiteGeneratedRateLimitHourly()**](ServersApi.md#getWebsiteGeneratedRateLimitHourly) | **GET** /servers/{server_id}/spam/website_generated_rate_limit_hourly | Get the hourly website generated email rate limit |
 | [**installDatabaseRole()**](ServersApi.md#installDatabaseRole) | **PUT** /v2/servers/{server_id}/database-role | Enables the database role on a given ServerUuid |
 | [**installServerRole()**](ServersApi.md#installServerRole) | **PUT** /servers/{server_id}/roles/{role} | Install server role |
 | [**resetServerModSecurityConfig()**](ServersApi.md#resetServerModSecurityConfig) | **DELETE** /v2/servers/{server_id}/modsec_conf | Delete custom mod_security config and reset to default |
 | [**resetWebServerConfig()**](ServersApi.md#resetWebServerConfig) | **POST** /servers/{server_id}/webserver/config/reset | Reset the config for the web server to default. |
 | [**restartMysql()**](ServersApi.md#restartMysql) | **POST** /v2/servers/{server_id}/database-role/restart | Restart MySQL gracefully |
 | [**saveMysqlMyCnf()**](ServersApi.md#saveMysqlMyCnf) | **PUT** /v2/servers/{server_id}/my-cnf | Save a new my.cnf |
+| [**setEmailServerHostnameOverride()**](ServersApi.md#setEmailServerHostnameOverride) | **PUT** /servers/{server_id}/email/hostname_override | Set the hostname override for the email server (postfix) |
 | [**setLiteSpeedAdminPassword()**](ServersApi.md#setLiteSpeedAdminPassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password. |
+| [**setOutboundSpamScanningSettings()**](ServersApi.md#setOutboundSpamScanningSettings) | **PUT** /servers/{server_id}/email/spam/outbound_scanning | Set the settings for outbound spam scanning |
 | [**setServerDecommissioned()**](ServersApi.md#setServerDecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned |
 | [**setServerModSecurityConfig()**](ServersApi.md#setServerModSecurityConfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config |
 | [**setServerModSecurityStatus()**](ServersApi.md#setServerModSecurityStatus) | **PUT** /v2/servers/{server_id}/modsec_status | Set mod security status for a server |
 | [**setServerStatus()**](ServersApi.md#setServerStatus) | **POST** /servers/{server_id}/status | Set the status of one server. |
 | [**setServiceSetting()**](ServersApi.md#setServiceSetting) | **PUT** /servers/{server_id}/settings/{setting_kind}/{setting_key} | Set a single service setting |
-| [**setServiceStatus()**](ServersApi.md#setServiceStatus) | **POST** /servers/{server_id}/services/{service_id}/status | Set the status of one service installed in the server specified. |
+| [**setSmtpRateLimitHourly()**](ServersApi.md#setSmtpRateLimitHourly) | **PUT** /servers/{server_id}/spam/smtp_rate_limit_hourly | Set the hourly SMTP rate limit |
 | [**setWebserverKind()**](ServersApi.md#setWebserverKind) | **PUT** /servers/{server_id}/webserver | Set the web server kind for one server. |
+| [**setWebsiteGeneratedRateLimitHourly()**](ServersApi.md#setWebsiteGeneratedRateLimitHourly) | **PUT** /servers/{server_id}/spam/website_generated_rate_limit_hourly | Set the hourly SMTP rate limit |
 | [**uninstallServerRole()**](ServersApi.md#uninstallServerRole) | **DELETE** /servers/{server_id}/roles/{role} | Uninstall a server role |
+| [**updateAppcdScreenshotConfig()**](ServersApi.md#updateAppcdScreenshotConfig) | **PATCH** /servers/{server_id}/appcd/screenshot/config | Update the screenshot config of the running appcd |
 | [**updateOwaspRules()**](ServersApi.md#updateOwaspRules) | **POST** /v2/servers/{server_id}/owasp | Upgrade OWASP rules |
 | [**updateServerGroup()**](ServersApi.md#updateServerGroup) | **PUT** /servers/groups/{group_id} | Updates an existing server group&#39;s name |
 | [**updateServerPrimaryIp()**](ServersApi.md#updateServerPrimaryIp) | **PUT** /servers/{server_id}/primary-ip | Updates the primary IP of the server in the database and in-memory metadata. This operation will not affect the IP used for service communication until the next restart of orchd. The new IP will be used for creation of new resources such as websites on this server but existing websites will not have their IP changed. |
 | [**updateServerPrimaryIpv6()**](ServersApi.md#updateServerPrimaryIpv6) | **PUT** /v2/servers/{server_id}/primary-ipv6 | Updates or sets the primary ipv6 address of the server.  This endpoint will not change existing websites&#39; DNS but the new record will be applied to all future zones. |
 | [**updateServerRole()**](ServersApi.md#updateServerRole) | **PATCH** /servers/{server_id}/roles/{role} | Update server role |
-| [**updateService()**](ServersApi.md#updateService) | **PUT** /servers/{server_id}/services/{service_id}/update | Special endpoint to update a particular stopped service to its latest version. |
 | [**updateSystemPackage()**](ServersApi.md#updateSystemPackage) | **PUT** /servers/{server_id}/packages/update | Updates a system package to its latest version. |
 | [**validateRegistrationKey()**](ServersApi.md#validateRegistrationKey) | **POST** /servers/registration-key/validate | Validate slave registration key |
 
+
+## `addSpamIpWhitelist()`
+
+```php
+addSpamIpWhitelist($server_id, $body)
+```
+
+Add to the IP whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->addSpamIpWhitelist($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->addSpamIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **string**|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `configureServer()`
 
@@ -388,6 +462,70 @@ void (empty response body)
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteFromSpamIpWhitelist()`
+
+```php
+deleteFromSpamIpWhitelist($server_id, $body)
+```
+
+Delete from the IP whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 'body_example'; // string
+
+try {
+    $apiInstance->deleteFromSpamIpWhitelist($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->deleteFromSpamIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **string**|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -747,7 +885,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl
 
 try {
     $result = $apiInstance->deleteServiceSetting($server_id, $setting_kind, $setting_key);
@@ -763,7 +901,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl | |
 
 ### Return type
 
@@ -908,6 +1046,71 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getAppcdScreenshotConfig()`
+
+```php
+getAppcdScreenshotConfig($server_id): \Upmind\EnhanceSdk\Model\ScreenshotConfig
+```
+
+Get the screenshot config of the running appcd
+
+Returns the screenshot config of the running appcd instance on this server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getAppcdScreenshotConfig($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getAppcdScreenshotConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ScreenshotConfig**](../Model/ScreenshotConfig.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getAppcdVersion()`
 
 ```php
@@ -1024,71 +1227,6 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getControlPanelRoleInfo()`
-
-```php
-getControlPanelRoleInfo($fetch_processes): \Upmind\EnhanceSdk\Model\ControlRoleInfo
-```
-
-Get master server control panel role info
-
-Returns information about the control panel role. This includes generic information about the role as well as each control panel service (such as authd). Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$fetch_processes = True; // bool | Should we fetch service processes.
-
-try {
-    $result = $apiInstance->getControlPanelRoleInfo($fetch_processes);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->getControlPanelRoleInfo: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **fetch_processes** | **bool**| Should we fetch service processes. | [optional] |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\ControlRoleInfo**](../Model/ControlRoleInfo.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `getDatabaseRoleMysqlKind()`
 
 ```php
@@ -1135,6 +1273,122 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getDnsPoolIps()`
+
+```php
+getDnsPoolIps(): string[]
+```
+
+Get DNS pool IPs
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+
+try {
+    $result = $apiInstance->getDnsPoolIps();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getDnsPoolIps: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**string[]**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getEmailServerHostnameOverride()`
+
+```php
+getEmailServerHostnameOverride($server_id): \Upmind\EnhanceSdk\Model\EmailServerHostnameOverride
+```
+
+Get the hostname override for the email server (postfix) if set
+
+If unset, this defaults to the system hostname
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getEmailServerHostnameOverride($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getEmailServerHostnameOverride: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\EmailServerHostnameOverride**](../Model/EmailServerHostnameOverride.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1372,6 +1626,69 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOutboundSpamScanningSettings()`
+
+```php
+getOutboundSpamScanningSettings($server_id): \Upmind\EnhanceSdk\Model\OutboundSpamScanningSettings
+```
+
+Get the status of outbound spam scanning
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getOutboundSpamScanningSettings($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getOutboundSpamScanningSettings: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OutboundSpamScanningSettings**](../Model/OutboundSpamScanningSettings.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2274,7 +2591,7 @@ try {
 ## `getServerRole()`
 
 ```php
-getServerRole($server_id, $role, $fetch_processes): \Upmind\EnhanceSdk\Model\GetServerRole200Response
+getServerRole($server_id, $role): \Upmind\EnhanceSdk\Model\GetServerRole200Response
 ```
 
 Get server role info
@@ -2305,10 +2622,9 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
-$fetch_processes = True; // bool | Should we fetch service processes.
 
 try {
-    $result = $apiInstance->getServerRole($server_id, $role, $fetch_processes);
+    $result = $apiInstance->getServerRole($server_id, $role);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->getServerRole: ', $e->getMessage(), PHP_EOL;
@@ -2321,7 +2637,6 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
-| **fetch_processes** | **bool**| Should we fetch service processes. | [optional] |
 
 ### Return type
 
@@ -2343,7 +2658,7 @@ try {
 ## `getServerRoles()`
 
 ```php
-getServerRoles($server_id, $fetch_processes): \Upmind\EnhanceSdk\Model\RolesInfo
+getServerRoles($server_id): \Upmind\EnhanceSdk\Model\RolesInfo
 ```
 
 Get server roles info
@@ -2373,10 +2688,9 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$fetch_processes = True; // bool | Should we fetch service processes.
 
 try {
-    $result = $apiInstance->getServerRoles($server_id, $fetch_processes);
+    $result = $apiInstance->getServerRoles($server_id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->getServerRoles: ', $e->getMessage(), PHP_EOL;
@@ -2388,7 +2702,6 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **fetch_processes** | **bool**| Should we fetch service processes. | [optional] |
 
 ### Return type
 
@@ -2735,6 +3048,132 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getSmtpRateLimitHourly()`
+
+```php
+getSmtpRateLimitHourly($server_id): float
+```
+
+Get the hourly SMTP rate limit
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getSmtpRateLimitHourly($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getSmtpRateLimitHourly: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+**float**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getSpamIpWhitelist()`
+
+```php
+getSpamIpWhitelist($server_id): string[]
+```
+
+Get the IP whitelist
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getSpamIpWhitelist($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getSpamIpWhitelist: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+**string[]**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getSystemPackageUpdateInfo()`
 
 ```php
@@ -2925,15 +3364,13 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `initAllServers()`
+## `getWebsiteGeneratedRateLimitHourly()`
 
 ```php
-initAllServers()
+getWebsiteGeneratedRateLimitHourly($server_id): float
 ```
 
-Attempts to initialize all roles
-
-Attempts to initialize roles and other resources on all servers. Manual initialization (via this endpoint) shouldn't be necessary as usually even if some slave server is unavailable to `orchd` in the beginning, `orchd` periodically retries the role initialization. However, if something needs a manual intervention, then calling this endpoint is helpful to identify further issue and hasten up the full availability of `orchd`. This endpoint can be called multiple times and it will initialize resources at most once. Once this endpoint returns 200, there is no point in calling it again. Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
+Get the hourly website generated email rate limit
 
 ### Example
 
@@ -2957,21 +3394,25 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     new GuzzleHttp\Client(),
     $config
 );
+$server_id = 'server_id_example'; // string | The UUID of the server
 
 try {
-    $apiInstance->initAllServers();
+    $result = $apiInstance->getWebsiteGeneratedRateLimitHourly($server_id);
+    print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ServersApi->initAllServers: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ServersApi->getWebsiteGeneratedRateLimitHourly: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
 
 ### Return type
 
-void (empty response body)
+**float**
 
 ### Authorization
 
@@ -2980,7 +3421,7 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -3343,6 +3784,72 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setEmailServerHostnameOverride()`
+
+```php
+setEmailServerHostnameOverride($server_id, $email_server_hostname_override)
+```
+
+Set the hostname override for the email server (postfix)
+
+If unset, this defaults to the system hostname
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$email_server_hostname_override = new \Upmind\EnhanceSdk\Model\EmailServerHostnameOverride(); // \Upmind\EnhanceSdk\Model\EmailServerHostnameOverride | Hostname override or null
+
+try {
+    $apiInstance->setEmailServerHostnameOverride($server_id, $email_server_hostname_override);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setEmailServerHostnameOverride: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **email_server_hostname_override** | [**\Upmind\EnhanceSdk\Model\EmailServerHostnameOverride**](../Model/EmailServerHostnameOverride.md)| Hostname override or null | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `setLiteSpeedAdminPassword()`
 
 ```php
@@ -3391,6 +3898,70 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **body** | **string**|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setOutboundSpamScanningSettings()`
+
+```php
+setOutboundSpamScanningSettings($server_id, $outbound_spam_scanning_settings)
+```
+
+Set the settings for outbound spam scanning
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$outbound_spam_scanning_settings = new \Upmind\EnhanceSdk\Model\OutboundSpamScanningSettings(); // \Upmind\EnhanceSdk\Model\OutboundSpamScanningSettings | Outbound spam settings
+
+try {
+    $apiInstance->setOutboundSpamScanningSettings($server_id, $outbound_spam_scanning_settings);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setOutboundSpamScanningSettings: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **outbound_spam_scanning_settings** | [**\Upmind\EnhanceSdk\Model\OutboundSpamScanningSettings**](../Model/OutboundSpamScanningSettings.md)| Outbound spam settings | [optional] |
 
 ### Return type
 
@@ -3705,7 +4276,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
 try {
@@ -3722,7 +4293,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 
 ### Return type
@@ -3742,15 +4313,13 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `setServiceStatus()`
+## `setSmtpRateLimitHourly()`
 
 ```php
-setServiceStatus($server_id, $service_id, $set_service_status)
+setSmtpRateLimitHourly($server_id, $body)
 ```
 
-Set the status of one service installed in the server specified.
-
-Set the status of one service by restarting it for example.
+Set the hourly SMTP rate limit
 
 ### Example
 
@@ -3775,13 +4344,12 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
     $config
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
-$service_id = 'service_id_example'; // string | The UUID of the service
-$set_service_status = new \Upmind\EnhanceSdk\Model\SetServiceStatus(); // \Upmind\EnhanceSdk\Model\SetServiceStatus | The action to be taken for a specific service.
+$body = 3.4; // float
 
 try {
-    $apiInstance->setServiceStatus($server_id, $service_id, $set_service_status);
+    $apiInstance->setSmtpRateLimitHourly($server_id, $body);
 } catch (Exception $e) {
-    echo 'Exception when calling ServersApi->setServiceStatus: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ServersApi->setSmtpRateLimitHourly: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -3790,8 +4358,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
-| **service_id** | **string**| The UUID of the service | |
-| **set_service_status** | [**\Upmind\EnhanceSdk\Model\SetServiceStatus**](../Model/SetServiceStatus.md)| The action to be taken for a specific service. | |
+| **body** | **float**|  | [optional] |
 
 ### Return type
 
@@ -3876,6 +4443,70 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWebsiteGeneratedRateLimitHourly()`
+
+```php
+setWebsiteGeneratedRateLimitHourly($server_id, $body)
+```
+
+Set the hourly SMTP rate limit
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = 3.4; // float
+
+try {
+    $apiInstance->setWebsiteGeneratedRateLimitHourly($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setWebsiteGeneratedRateLimitHourly: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **float**|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `uninstallServerRole()`
 
 ```php
@@ -3936,6 +4567,72 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateAppcdScreenshotConfig()`
+
+```php
+updateAppcdScreenshotConfig($server_id, $screenshot_config_update)
+```
+
+Update the screenshot config of the running appcd
+
+Update the screenshot config of the running appcd instance on this server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$screenshot_config_update = new \Upmind\EnhanceSdk\Model\ScreenshotConfigUpdate(); // \Upmind\EnhanceSdk\Model\ScreenshotConfigUpdate
+
+try {
+    $apiInstance->updateAppcdScreenshotConfig($server_id, $screenshot_config_update);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->updateAppcdScreenshotConfig: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **screenshot_config_update** | [**\Upmind\EnhanceSdk\Model\ScreenshotConfigUpdate**](../Model/ScreenshotConfigUpdate.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -4244,72 +4941,6 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `updateService()`
-
-```php
-updateService($server_id, $service_id)
-```
-
-Special endpoint to update a particular stopped service to its latest version.
-
-This endpoint should not be used to for updates in general. Useful to update/recover from a broken/stopped service from previous update. NOTE: if service is already running, no changes are made.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$server_id = 'server_id_example'; // string | The UUID of the server
-$service_id = 'service_id_example'; // string | The UUID of the service
-
-try {
-    $apiInstance->updateService($server_id, $service_id);
-} catch (Exception $e) {
-    echo 'Exception when calling ServersApi->updateService: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **server_id** | **string**| The UUID of the server | |
-| **service_id** | **string**| The UUID of the service | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

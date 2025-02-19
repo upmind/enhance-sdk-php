@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **state** | [**\Upmind\EnhanceSdk\Model\ServerRoleState**](ServerRoleState.md) |  |
 **usage** | **int** |  |
 **filerd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
-**screenshotd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 **ftpcd** | [**\Upmind\EnhanceSdk\Model\ServiceInfo**](ServiceInfo.md) |  |
 **websites_count** | **int** | The number of websites that are assigned to be on this application role. |
 

@@ -18,11 +18,14 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getLogins()**](LoginsApi.md#getLogins) | **GET** /logins | Query all logins |
 | [**getOrgLogins()**](LoginsApi.md#getOrgLogins) | **GET** /orgs/{org_id}/logins | Query logins belonging to organization |
 | [**getSessions()**](LoginsApi.md#getSessions) | **GET** /login/sessions | Get all login sessions |
+| [**getUiPreferences()**](LoginsApi.md#getUiPreferences) | **GET** /logins/ui-preferences | Get UI prefereces for login |
 | [**resendPin()**](LoginsApi.md#resendPin) | **POST** /login/2fa/resend-pin | Resends 2FA sign-in code. |
 | [**setCustomerLoginPassword()**](LoginsApi.md#setCustomerLoginPassword) | **PUT** /v2/logins/{login_id}/password | Set password for login |
 | [**setLoginAvatar()**](LoginsApi.md#setLoginAvatar) | **PUT** /login/avatar | Set login avatar |
+| [**setUiPreferences()**](LoginsApi.md#setUiPreferences) | **POST** /logins/ui-preferences | Set new UI prefereces for login |
 | [**startPasswordRecovery()**](LoginsApi.md#startPasswordRecovery) | **PUT** /login/password-recovery | Start a new password recovery for login |
 | [**updateLoginInfo()**](LoginsApi.md#updateLoginInfo) | **PATCH** /login | Update login info |
+| [**updateUiPreferences()**](LoginsApi.md#updateUiPreferences) | **PATCH** /logins/ui-preferences | Update UI prefereces for login |
 | [**validatePasswordRecovery()**](LoginsApi.md#validatePasswordRecovery) | **POST** /login/password-recovery/validate | Validate a password recovery secret |
 | [**verify2FA()**](LoginsApi.md#verify2FA) | **POST** /login/2fa | Verifies 2FA sign-in code. |
 
@@ -896,6 +899,68 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getUiPreferences()`
+
+```php
+getUiPreferences(): \Upmind\EnhanceSdk\Model\UiPreferences
+```
+
+Get UI prefereces for login
+
+The operation allows users to get UI prefereces.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->getUiPreferences();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginsApi->getUiPreferences: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\UiPreferences**](../Model/UiPreferences.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `resendPin()`
 
 ```php
@@ -1087,6 +1152,70 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setUiPreferences()`
+
+```php
+setUiPreferences($new_ui_preferences)
+```
+
+Set new UI prefereces for login
+
+The operation allows users to set a new UI prefereces.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$new_ui_preferences = new \Upmind\EnhanceSdk\Model\NewUiPreferences(); // \Upmind\EnhanceSdk\Model\NewUiPreferences
+
+try {
+    $apiInstance->setUiPreferences($new_ui_preferences);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginsApi->setUiPreferences: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **new_ui_preferences** | [**\Upmind\EnhanceSdk\Model\NewUiPreferences**](../Model/NewUiPreferences.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `startPasswordRecovery()`
 
 ```php
@@ -1204,6 +1333,70 @@ try {
 
 - **Content-Type**: `application/json`
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateUiPreferences()`
+
+```php
+updateUiPreferences($update_ui_preferences)
+```
+
+Update UI prefereces for login
+
+The operation allows users to update UI prefereces.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LoginsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$update_ui_preferences = new \Upmind\EnhanceSdk\Model\UpdateUiPreferences(); // \Upmind\EnhanceSdk\Model\UpdateUiPreferences
+
+try {
+    $apiInstance->updateUiPreferences($update_ui_preferences);
+} catch (Exception $e) {
+    echo 'Exception when calling LoginsApi->updateUiPreferences: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **update_ui_preferences** | [**\Upmind\EnhanceSdk\Model\UpdateUiPreferences**](../Model/UpdateUiPreferences.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

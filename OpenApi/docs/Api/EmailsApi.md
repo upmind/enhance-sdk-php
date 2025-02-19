@@ -5,20 +5,21 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**createWebsiteEmail()**](EmailsApi.md#createWebsiteEmail) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/emails | Create an email under website&#39;s domain |
-| [**createWebsiteEmailAutoresponder()**](EmailsApi.md#createWebsiteEmailAutoresponder) | **POST** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders | Create new website email autoresponder |
+| [**createWebsiteEmailAutoresponder()**](EmailsApi.md#createWebsiteEmailAutoresponder) | **POST** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder | Create new website email autoresponder |
 | [**deleteWebsiteEmail()**](EmailsApi.md#deleteWebsiteEmail) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Delete website email |
-| [**deleteWebsiteEmailAutoresponder()**](EmailsApi.md#deleteWebsiteEmailAutoresponder) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders/{autoresponder_id} | Delete website email autoresponder |
+| [**deleteWebsiteEmailAutoresponder()**](EmailsApi.md#deleteWebsiteEmailAutoresponder) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder | Delete website email autoresponder |
 | [**getDomainEmailAuth()**](EmailsApi.md#getDomainEmailAuth) | **GET** /orgs/{org_id}/domains/{domain_id}/email-auth | Get email authentication preferences |
 | [**getDomainLocalRemote()**](EmailsApi.md#getDomainLocalRemote) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/local_remote | Get the current local/remote status |
+| [**getEmailSpamThresholds()**](EmailsApi.md#getEmailSpamThresholds) | **GET** /emails/{email_id}/spam_thresholds | Get spam thresholds for an email address |
 | [**getEmails()**](EmailsApi.md#getEmails) | **GET** /orgs/{org_id}/emails | Get org emails |
 | [**getWebsiteEmail()**](EmailsApi.md#getWebsiteEmail) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Get website email |
-| [**getWebsiteEmailAutoresponders()**](EmailsApi.md#getWebsiteEmailAutoresponders) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders | Get website email autoresponders |
+| [**getWebsiteEmailAutoresponder()**](EmailsApi.md#getWebsiteEmailAutoresponder) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder | Get website email autoresponder |
 | [**getWebsiteEmailClientConf()**](EmailsApi.md#getWebsiteEmailClientConf) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/client-conf | Get website email client configuration |
 | [**getWebsiteEmails()**](EmailsApi.md#getWebsiteEmails) | **GET** /orgs/{org_id}/websites/{website_id}/emails | Get website emails |
 | [**setDomainLocalRemote()**](EmailsApi.md#setDomainLocalRemote) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/local_remote | Update email local/remote status |
+| [**setEmailSpamThresholds()**](EmailsApi.md#setEmailSpamThresholds) | **PUT** /emails/{email_id}/spam_thresholds | Set spam thresholds for an email address |
 | [**updateDomainEmailAuth()**](EmailsApi.md#updateDomainEmailAuth) | **PUT** /orgs/{org_id}/domains/{domain_id}/email-auth | Update email authentication preferences |
 | [**updateWebsiteEmail()**](EmailsApi.md#updateWebsiteEmail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Update website email |
-| [**updateWebsiteEmailAutoresponder()**](EmailsApi.md#updateWebsiteEmailAutoresponder) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders/{autoresponder_id} | Update website email autoresponder |
 | [**validateDomainEmailAuth()**](EmailsApi.md#validateDomainEmailAuth) | **GET** /orgs/{org_id}/domains/{domain_id}/email-auth/validate | Validate email authentication DNS records |
 
 
@@ -226,7 +227,7 @@ void (empty response body)
 ## `deleteWebsiteEmailAutoresponder()`
 
 ```php
-deleteWebsiteEmailAutoresponder($org_id, $website_id, $email_id, $autoresponder_id)
+deleteWebsiteEmailAutoresponder($org_id, $website_id, $email_id)
 ```
 
 Delete website email autoresponder
@@ -258,10 +259,9 @@ $apiInstance = new Upmind\EnhanceSdk\Api\EmailsApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $email_id = 'email_id_example'; // string | The id of the email.
-$autoresponder_id = 56; // int | The id of the autoresponder.
 
 try {
-    $apiInstance->deleteWebsiteEmailAutoresponder($org_id, $website_id, $email_id, $autoresponder_id);
+    $apiInstance->deleteWebsiteEmailAutoresponder($org_id, $website_id, $email_id);
 } catch (Exception $e) {
     echo 'Exception when calling EmailsApi->deleteWebsiteEmailAutoresponder: ', $e->getMessage(), PHP_EOL;
 }
@@ -274,7 +274,6 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **email_id** | **string**| The id of the email. | |
-| **autoresponder_id** | **int**| The id of the autoresponder. | |
 
 ### Return type
 
@@ -415,6 +414,69 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\LocalRemoteBody**](../Model/LocalRemoteBody.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getEmailSpamThresholds()`
+
+```php
+getEmailSpamThresholds($email_id): \Upmind\EnhanceSdk\Model\SpamThresholds
+```
+
+Get spam thresholds for an email address
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\EmailsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$email_id = 'email_id_example'; // string | The id of the email.
+
+try {
+    $result = $apiInstance->getEmailSpamThresholds($email_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling EmailsApi->getEmailSpamThresholds: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **email_id** | **string**| The id of the email. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\SpamThresholds**](../Model/SpamThresholds.md)
 
 ### Authorization
 
@@ -580,13 +642,13 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getWebsiteEmailAutoresponders()`
+## `getWebsiteEmailAutoresponder()`
 
 ```php
-getWebsiteEmailAutoresponders($org_id, $website_id, $email_id): \Upmind\EnhanceSdk\Model\AutorespondersFullListing
+getWebsiteEmailAutoresponder($org_id, $website_id, $email_id): \Upmind\EnhanceSdk\Model\Autoresponder
 ```
 
-Get website email autoresponders
+Get website email autoresponder
 
 Returns autoresponders configured for the given email. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
 
@@ -617,10 +679,10 @@ $website_id = 'website_id_example'; // string | The id of the website.
 $email_id = 'email_id_example'; // string | The id of the email.
 
 try {
-    $result = $apiInstance->getWebsiteEmailAutoresponders($org_id, $website_id, $email_id);
+    $result = $apiInstance->getWebsiteEmailAutoresponder($org_id, $website_id, $email_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling EmailsApi->getWebsiteEmailAutoresponders: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling EmailsApi->getWebsiteEmailAutoresponder: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -634,7 +696,7 @@ try {
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\AutorespondersFullListing**](../Model/AutorespondersFullListing.md)
+[**\Upmind\EnhanceSdk\Model\Autoresponder**](../Model/Autoresponder.md)
 
 ### Authorization
 
@@ -867,6 +929,70 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setEmailSpamThresholds()`
+
+```php
+setEmailSpamThresholds($email_id, $spam_thresholds)
+```
+
+Set spam thresholds for an email address
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\EmailsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$email_id = 'email_id_example'; // string | The id of the email.
+$spam_thresholds = new \Upmind\EnhanceSdk\Model\SpamThresholds(); // \Upmind\EnhanceSdk\Model\SpamThresholds | Spam thresholds.
+
+try {
+    $apiInstance->setEmailSpamThresholds($email_id, $spam_thresholds);
+} catch (Exception $e) {
+    echo 'Exception when calling EmailsApi->setEmailSpamThresholds: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **email_id** | **string**| The id of the email. | |
+| **spam_thresholds** | [**\Upmind\EnhanceSdk\Model\SpamThresholds**](../Model/SpamThresholds.md)| Spam thresholds. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `updateDomainEmailAuth()`
 
 ```php
@@ -986,78 +1112,6 @@ void (empty response body)
 ### Authorization
 
 No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `updateWebsiteEmailAutoresponder()`
-
-```php
-updateWebsiteEmailAutoresponder($org_id, $website_id, $email_id, $autoresponder_id, $update_autoresponder)
-```
-
-Update website email autoresponder
-
-Updates the autoresponder belonging to the given website email. Session holder must be at least a `SuperAdmin` in this org or a parent org, or be a member in this org that has access to the website.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\EmailsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$website_id = 'website_id_example'; // string | The id of the website.
-$email_id = 'email_id_example'; // string | The id of the email.
-$autoresponder_id = 56; // int | The id of the autoresponder.
-$update_autoresponder = new \Upmind\EnhanceSdk\Model\UpdateAutoresponder(); // \Upmind\EnhanceSdk\Model\UpdateAutoresponder | Autoresponder update details.
-
-try {
-    $apiInstance->updateWebsiteEmailAutoresponder($org_id, $website_id, $email_id, $autoresponder_id, $update_autoresponder);
-} catch (Exception $e) {
-    echo 'Exception when calling EmailsApi->updateWebsiteEmailAutoresponder: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **website_id** | **string**| The id of the website. | |
-| **email_id** | **string**| The id of the email. | |
-| **autoresponder_id** | **int**| The id of the autoresponder. | |
-| **update_autoresponder** | [**\Upmind\EnhanceSdk\Model\UpdateAutoresponder**](../Model/UpdateAutoresponder.md)| Autoresponder update details. | |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 

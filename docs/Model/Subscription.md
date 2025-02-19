@@ -20,5 +20,7 @@ Name | Type | Description | Notes
 **default_php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  |
 **redis_allowed** | **bool** |  |
 **server_groups** | [**\Upmind\EnhanceSdk\Model\ServerGroup[]**](ServerGroup.md) | If this field is present, the customer is allowed to chose from the server groups listed here when creating a website. | [optional]
+**preinstall_wordpress_theme** | **string** | :&gt; When WordPress is installed on a website under this plan, the chosen theme will be preinstalled. | [optional]
+**friendly_name** | **string** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

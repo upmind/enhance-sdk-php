@@ -20,7 +20,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteSetting()**](SettingsApi.md#deleteSetting) | **DELETE** /settings/{name} | Remove the specified setting |
 | [**getBackupRemoteStorageS3()**](SettingsApi.md#getBackupRemoteStorageS3) | **GET** /v2/settings/backup/remote_storage/s3 | Get S3 object storage settings at platform level. |
 | [**getDemoMode()**](SettingsApi.md#getDemoMode) | **GET** /v2/settings/demo_mode | Get the demo mode status of the orchd service |
-| [**getDockerRegistry()**](SettingsApi.md#getDockerRegistry) | **GET** /settings/registry | Gets the Docker registry credentials. |
 | [**getGlobalServiceSetting()**](SettingsApi.md#getGlobalServiceSetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting |
 | [**getOrchdLogSettings()**](SettingsApi.md#getOrchdLogSettings) | **GET** /settings/orchd/logs | Get the orchd log settings |
 | [**getOrchdLoginPolicyEmailBlacklist()**](SettingsApi.md#getOrchdLoginPolicyEmailBlacklist) | **GET** /settings/orchd/login-policy/email-blacklist | Get the orchd login policy email blacklist |
@@ -31,7 +30,6 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getProhibitedDomains()**](SettingsApi.md#getProhibitedDomains) | **GET** /settings/orchd/prohibited_domains | Get the platform level prohibited domains as a newline separated list |
 | [**getSetting()**](SettingsApi.md#getSetting) | **GET** /settings/{name} | Get the specified setting |
 | [**getSettings()**](SettingsApi.md#getSettings) | **GET** /settings | Get all current settings |
-| [**setDockerRegistry()**](SettingsApi.md#setDockerRegistry) | **PUT** /settings/registry | Updates the Docker registry credentials. |
 | [**setGlobalServiceSetting()**](SettingsApi.md#setGlobalServiceSetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting |
 | [**setOrchdLogSettings()**](SettingsApi.md#setOrchdLogSettings) | **PUT** /settings/orchd/logs | Set the orchd log settings |
 | [**setProhibitedDomains()**](SettingsApi.md#setProhibitedDomains) | **PUT** /settings/orchd/prohibited_domains | Set the platform level prohibited domains |
@@ -565,7 +563,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     $config
 );
 $setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl
 
 try {
     $result = $apiInstance->deleteGlobalServiceSetting($setting_kind, $setting_key);
@@ -580,7 +578,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl | |
 
 ### Return type
 
@@ -1010,68 +1008,6 @@ This endpoint does not need any parameter.
 ### Authorization
 
 No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `getDockerRegistry()`
-
-```php
-getDockerRegistry(): \Upmind\EnhanceSdk\Model\DockerRegistry
-```
-
-Gets the Docker registry credentials.
-
-Gets the Docker registry credentials.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-
-try {
-    $result = $apiInstance->getDockerRegistry();
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling SettingsApi->getDockerRegistry: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\DockerRegistry**](../Model/DockerRegistry.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1690,70 +1626,6 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `setDockerRegistry()`
-
-```php
-setDockerRegistry($docker_registry)
-```
-
-Updates the Docker registry credentials.
-
-Sets the Docker registry credentials, overwriting any previous one if one exists.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$docker_registry = new \Upmind\EnhanceSdk\Model\DockerRegistry(); // \Upmind\EnhanceSdk\Model\DockerRegistry
-
-try {
-    $apiInstance->setDockerRegistry($docker_registry);
-} catch (Exception $e) {
-    echo 'Exception when calling SettingsApi->setDockerRegistry: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **docker_registry** | [**\Upmind\EnhanceSdk\Model\DockerRegistry**](../Model/DockerRegistry.md)|  | [optional] |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `setGlobalServiceSetting()`
 
 ```php
@@ -1787,7 +1659,7 @@ $apiInstance = new Upmind\EnhanceSdk\Api\SettingsApi(
     $config
 );
 $setting_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\SettingKind(); // \Upmind\EnhanceSdk\Model\SettingKind | The type of setting being applied
-$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup
+$setting_key = 'setting_key_example'; // string | A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl
 $service_setting_value = new \Upmind\EnhanceSdk\Model\ServiceSettingValue(); // \Upmind\EnhanceSdk\Model\ServiceSettingValue
 
 try {
@@ -1803,7 +1675,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **setting_kind** | [**\Upmind\EnhanceSdk\Model\SettingKind**](../Model/.md)| The type of setting being applied | |
-| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - myhostname - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup | |
+| **setting_key** | **string**| A key for updating an existing setting, some known values are - hard_delete_after_secs - letsencrypt_enabled - org_websites_same_server - screenshot_driver_pool_size - screenshot_interval - sged_smtp - smtp_smart_host - website_backup - default_dns_ttl | |
 | **service_setting_value** | [**\Upmind\EnhanceSdk\Model\ServiceSettingValue**](../Model/ServiceSettingValue.md)|  | |
 
 ### Return type

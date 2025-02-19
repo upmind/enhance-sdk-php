@@ -7,15 +7,18 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createBrandingSettings()**](BrandingApi.md#createBrandingSettings) | **POST** /orgs/{org_id}/branding/settings | Create branding settings |
 | [**createNameServerDomain()**](BrandingApi.md#createNameServerDomain) | **POST** /orgs/{org_id}/name-servers | Create reseller name server domain |
 | [**deleteBrandFavicon()**](BrandingApi.md#deleteBrandFavicon) | **DELETE** /orgs/{org_id}/branding/favicon | Delete brand favicon |
+| [**deleteBrandInverseIcon()**](BrandingApi.md#deleteBrandInverseIcon) | **DELETE** /orgs/{org_id}/branding/inverse-icon | Delete brand inverse icon |
 | [**deleteBrandLoginImage()**](BrandingApi.md#deleteBrandLoginImage) | **DELETE** /orgs/{org_id}/branding/login-image | Delete brand login image |
 | [**deleteBrandLogo()**](BrandingApi.md#deleteBrandLogo) | **DELETE** /orgs/{org_id}/branding/logo | Delete brand logo |
 | [**deleteBrandingSetting()**](BrandingApi.md#deleteBrandingSetting) | **DELETE** /orgs/{org_id}/branding/settings/{name} | Remove the specified setting |
 | [**deleteInverseBrandLogo()**](BrandingApi.md#deleteInverseBrandLogo) | **DELETE** /orgs/{org_id}/branding/inverse-logo | Delete brand inverse logo |
+| [**deleteNameServerDomain()**](BrandingApi.md#deleteNameServerDomain) | **DELETE** /orgs/{org_id}/name-servers/{domain} | Delete reseller name server domain name |
 | [**getBranding()**](BrandingApi.md#getBranding) | **GET** /branding | Get default branding |
 | [**getBrandingSetting()**](BrandingApi.md#getBrandingSetting) | **GET** /orgs/{org_id}/branding/settings/{name} | Get the specified setting |
 | [**getBrandingSettings()**](BrandingApi.md#getBrandingSettings) | **GET** /orgs/{org_id}/branding/settings | Get all current settings |
 | [**getStagingDomain()**](BrandingApi.md#getStagingDomain) | **GET** /orgs/{org_id}/staging-domain | Fetches the staging domain which is currently set |
 | [**setBrandFavicon()**](BrandingApi.md#setBrandFavicon) | **PUT** /orgs/{org_id}/branding/favicon | Set brand favicon |
+| [**setBrandInverseIcon()**](BrandingApi.md#setBrandInverseIcon) | **PUT** /orgs/{org_id}/branding/inverse-icon | Set brand inverse icon |
 | [**setBrandInverseLogo()**](BrandingApi.md#setBrandInverseLogo) | **PUT** /orgs/{org_id}/branding/inverse-logo | Set brand inverse logo |
 | [**setBrandLoginImage()**](BrandingApi.md#setBrandLoginImage) | **PUT** /orgs/{org_id}/branding/login-image | Set brand login image |
 | [**setBrandLogo()**](BrandingApi.md#setBrandLogo) | **PUT** /orgs/{org_id}/branding/logo | Set brand logo |
@@ -190,6 +193,70 @@ try {
     $apiInstance->deleteBrandFavicon($org_id);
 } catch (Exception $e) {
     echo 'Exception when calling BrandingApi->deleteBrandFavicon: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteBrandInverseIcon()`
+
+```php
+deleteBrandInverseIcon($org_id)
+```
+
+Delete brand inverse icon
+
+Deletes the brand's icon inverse image Session holder must be at least a `SuperAdmin` in this org or a parent org.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+
+try {
+    $apiInstance->deleteBrandInverseIcon($org_id);
+} catch (Exception $e) {
+    echo 'Exception when calling BrandingApi->deleteBrandInverseIcon: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -454,6 +521,70 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteNameServerDomain()`
+
+```php
+deleteNameServerDomain($org_id, $domain)
+```
+
+Delete reseller name server domain name
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$domain = 'domain_example'; // string | The domain name.
+
+try {
+    $apiInstance->deleteNameServerDomain($org_id, $domain);
+} catch (Exception $e) {
+    echo 'Exception when calling BrandingApi->deleteNameServerDomain: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **domain** | **string**| The domain name. | |
 
 ### Return type
 
@@ -767,6 +898,72 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **favicon** | **\SplFileObject****\SplFileObject**|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `multipart/form-data`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setBrandInverseIcon()`
+
+```php
+setBrandInverseIcon($org_id, $icon)
+```
+
+Set brand inverse icon
+
+Session holder must be at least a `SuperAdmin` in this org or a parent org.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\BrandingApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$icon = '/path/to/file.txt'; // \SplFileObject
+
+try {
+    $apiInstance->setBrandInverseIcon($org_id, $icon);
+} catch (Exception $e) {
+    echo 'Exception when calling BrandingApi->setBrandInverseIcon: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **icon** | **\SplFileObject****\SplFileObject**|  | [optional] |
 
 ### Return type
 

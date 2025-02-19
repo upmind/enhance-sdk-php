@@ -11,8 +11,6 @@ Name | Type | Description | Notes
 **has_mailbox** | **bool** |  | [optional]
 **status** | [**\Upmind\EnhanceSdk\Model\EmailStatus**](EmailStatus.md) |  | [optional]
 **quota** | **int** |  | [optional]
-**spam_threshold** | **int** |  | [optional]
-**spam_delivery** | **string** |  | [optional]
 **blacklist** | **string[]** |  | [optional]
 **whitelist** | **string[]** |  | [optional]
 

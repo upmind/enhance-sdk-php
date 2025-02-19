@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  |
-**website_id** | **string** |  |
 **started_at** | **string** |  |
 **finished_at** | **string** |  | [optional]
 **snapshot_dir_name** | **string** |  |

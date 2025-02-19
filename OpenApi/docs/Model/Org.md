@@ -18,5 +18,6 @@ Name | Type | Description | Notes
 **created_at** | **string** |  |
 **owner_avatar_path** | **string** |  | [optional]
 **locale** | [**\Upmind\EnhanceSdk\Model\CPLocale**](CPLocale.md) |  |
+**slack_notification_webhook_url** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

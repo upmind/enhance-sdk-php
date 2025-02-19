@@ -6,7 +6,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**createEmailAutoresponder()**](EmailClientApi.md#createEmailAutoresponder) | **POST** /email-client/autoresponders | Create new email autoresponder |
 | [**deleteEmailAutoresponder()**](EmailClientApi.md#deleteEmailAutoresponder) | **DELETE** /email-client/autoresponders/{autoresponder_id} | Delete email autoresponder |
-| [**getEmailAutoresponders()**](EmailClientApi.md#getEmailAutoresponders) | **GET** /email-client/autoresponders | Get email account autoresponders |
+| [**getEmailAutoresponders()**](EmailClientApi.md#getEmailAutoresponders) | **GET** /email-client/autoresponders | Get email account autoresponder |
 | [**getEmailForwarders()**](EmailClientApi.md#getEmailForwarders) | **GET** /email-client/forwarders | Returns email account&#39;s forwarders |
 | [**getEmailPublicIp()**](EmailClientApi.md#getEmailPublicIp) | **GET** /email-client/public-ip | Returns public Ip Address of the email server |
 | [**updateEmailAutoresponder()**](EmailClientApi.md#updateEmailAutoresponder) | **PUT** /email-client/autoresponders/{autoresponder_id} | Update email autoresponder |
@@ -79,7 +79,7 @@ No authorization required
 ## `deleteEmailAutoresponder()`
 
 ```php
-deleteEmailAutoresponder($authorization, $address, $password, $autoresponder_id)
+deleteEmailAutoresponder($authorization, $address, $password)
 ```
 
 Delete email autoresponder
@@ -102,10 +102,9 @@ $apiInstance = new Upmind\EnhanceSdk\Api\EmailClientApi(
 $authorization = 'authorization_example'; // string
 $address = 'address_example'; // string
 $password = 'password_example'; // string
-$autoresponder_id = 56; // int | The id of the autoresponder.
 
 try {
-    $apiInstance->deleteEmailAutoresponder($authorization, $address, $password, $autoresponder_id);
+    $apiInstance->deleteEmailAutoresponder($authorization, $address, $password);
 } catch (Exception $e) {
     echo 'Exception when calling EmailClientApi->deleteEmailAutoresponder: ', $e->getMessage(), PHP_EOL;
 }
@@ -118,7 +117,6 @@ try {
 | **authorization** | **string**|  | |
 | **address** | **string**|  | |
 | **password** | **string**|  | |
-| **autoresponder_id** | **int**| The id of the autoresponder. | |
 
 ### Return type
 
@@ -140,10 +138,10 @@ No authorization required
 ## `getEmailAutoresponders()`
 
 ```php
-getEmailAutoresponders($authorization, $address, $password): \Upmind\EnhanceSdk\Model\AutorespondersFullListing
+getEmailAutoresponders($authorization, $address, $password): \Upmind\EnhanceSdk\Model\Autoresponder
 ```
 
-Get email account autoresponders
+Get email account autoresponder
 
 Returns autoresponders configured for the given email. Client must send Authorization token, email address and its current password for authentication
 
@@ -182,7 +180,7 @@ try {
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\AutorespondersFullListing**](../Model/AutorespondersFullListing.md)
+[**\Upmind\EnhanceSdk\Model\Autoresponder**](../Model/Autoresponder.md)
 
 ### Authorization
 
@@ -318,7 +316,7 @@ No authorization required
 ## `updateEmailAutoresponder()`
 
 ```php
-updateEmailAutoresponder($authorization, $address, $password, $autoresponder_id, $update_autoresponder)
+updateEmailAutoresponder($authorization, $address, $password, $update_autoresponder)
 ```
 
 Update email autoresponder
@@ -341,11 +339,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\EmailClientApi(
 $authorization = 'authorization_example'; // string
 $address = 'address_example'; // string
 $password = 'password_example'; // string
-$autoresponder_id = 56; // int | The id of the autoresponder.
 $update_autoresponder = new \Upmind\EnhanceSdk\Model\UpdateAutoresponder(); // \Upmind\EnhanceSdk\Model\UpdateAutoresponder | Autoresponder update details.
 
 try {
-    $apiInstance->updateEmailAutoresponder($authorization, $address, $password, $autoresponder_id, $update_autoresponder);
+    $apiInstance->updateEmailAutoresponder($authorization, $address, $password, $update_autoresponder);
 } catch (Exception $e) {
     echo 'Exception when calling EmailClientApi->updateEmailAutoresponder: ', $e->getMessage(), PHP_EOL;
 }
@@ -358,7 +355,6 @@ try {
 | **authorization** | **string**|  | |
 | **address** | **string**|  | |
 | **password** | **string**|  | |
-| **autoresponder_id** | **int**| The id of the autoresponder. | |
 | **update_autoresponder** | [**\Upmind\EnhanceSdk\Model\UpdateAutoresponder**](../Model/UpdateAutoresponder.md)| Autoresponder update details. | |
 
 ### Return type

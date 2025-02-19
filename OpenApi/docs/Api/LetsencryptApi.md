@@ -5,6 +5,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**createWebsiteDomainLetsencryptCerts()**](LetsencryptApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteMailDomainLetsencryptCerts()**](LetsencryptApi.md#createWebsiteMailDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt_mail | Generate and setup letsencrypt ssl certificates for website&#39;s domain with mail. prefix. |
 | [**performLetsEncryptPreflightCheck()**](LetsencryptApi.md#performLetsEncryptPreflightCheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check |
 
 
@@ -37,6 +38,61 @@ try {
     $apiInstance->createWebsiteDomainLetsencryptCerts($domain_id);
 } catch (Exception $e) {
     echo 'Exception when calling LetsencryptApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createWebsiteMailDomainLetsencryptCerts()`
+
+```php
+createWebsiteMailDomainLetsencryptCerts($domain_id)
+```
+
+Generate and setup letsencrypt ssl certificates for website's domain with mail. prefix.
+
+Generates letsencrypt certificate for the mail server at mail.customerdomain.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\LetsencryptApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $apiInstance->createWebsiteMailDomainLetsencryptCerts($domain_id);
+} catch (Exception $e) {
+    echo 'Exception when calling LetsencryptApi->createWebsiteMailDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
 }
 ```
 

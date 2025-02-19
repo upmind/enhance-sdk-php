@@ -5,8 +5,8 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**checkDomain()**](DomainsApi.md#checkDomain) | **POST** /orgs/{org_id}/domains/check | Check if a domain can be created |
-| [**createDomain()**](DomainsApi.md#createDomain) | **POST** /orgs/{org_id}/domains | Create domain |
 | [**createWebsiteDomainLetsencryptCerts()**](DomainsApi.md#createWebsiteDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain |
+| [**createWebsiteMailDomainLetsencryptCerts()**](DomainsApi.md#createWebsiteMailDomainLetsencryptCerts) | **POST** /v2/domains/{domain_id}/letsencrypt_mail | Generate and setup letsencrypt ssl certificates for website&#39;s domain with mail. prefix. |
 | [**createWebsiteMappedDomain()**](DomainsApi.md#createWebsiteMappedDomain) | **POST** /orgs/{org_id}/websites/{website_id}/domains | Create website mapped domain |
 | [**deleteCloudflareApiKeyId()**](DomainsApi.md#deleteCloudflareApiKeyId) | **DELETE** /orgs/{org_id}/domains/{domain_id}/cloudflare | Delete CloudFlare API key, domain level |
 | [**deleteDomain()**](DomainsApi.md#deleteDomain) | **DELETE** /orgs/{org_id}/domains/{domain_id} | Delete domain |
@@ -97,73 +97,6 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `createDomain()`
-
-```php
-createDomain($org_id, $new_domain): \Upmind\EnhanceSdk\Model\NewResourceUuid
-```
-
-Create domain
-
-The MO may create domains without a subscription but all other customers need to pass with this request an id of one of their subscriptions to a plan that allows creating domain names.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure API key authorization: sessionCookie
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
-
-// Configure Bearer authorization: bearerAuth
-$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$new_domain = new \Upmind\EnhanceSdk\Model\NewDomain(); // \Upmind\EnhanceSdk\Model\NewDomain | Domain details.
-
-try {
-    $result = $apiInstance->createDomain($org_id, $new_domain);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DomainsApi->createDomain: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **new_domain** | [**\Upmind\EnhanceSdk\Model\NewDomain**](../Model/NewDomain.md)| Domain details. | |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\NewResourceUuid**](../Model/NewResourceUuid.md)
-
-### Authorization
-
-[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `createWebsiteDomainLetsencryptCerts()`
 
 ```php
@@ -193,6 +126,61 @@ try {
     $apiInstance->createWebsiteDomainLetsencryptCerts($domain_id);
 } catch (Exception $e) {
     echo 'Exception when calling DomainsApi->createWebsiteDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| The id of the domain. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createWebsiteMailDomainLetsencryptCerts()`
+
+```php
+createWebsiteMailDomainLetsencryptCerts($domain_id)
+```
+
+Generate and setup letsencrypt ssl certificates for website's domain with mail. prefix.
+
+Generates letsencrypt certificate for the mail server at mail.customerdomain.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$domain_id = 'domain_id_example'; // string | The id of the domain.
+
+try {
+    $apiInstance->createWebsiteMailDomainLetsencryptCerts($domain_id);
+} catch (Exception $e) {
+    echo 'Exception when calling DomainsApi->createWebsiteMailDomainLetsencryptCerts: ', $e->getMessage(), PHP_EOL;
 }
 ```
 

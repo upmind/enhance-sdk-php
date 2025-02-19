@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **mailbox_name** | **string** |  | [optional]
 **address** | **string** |  |
 **aliases** | **string[]** |  |
-**mailbox_id** | **string** |  | [optional]
+**has_mailbox** | **bool** |  | [optional]
 **status** | [**\Upmind\EnhanceSdk\Model\EmailStatus**](EmailStatus.md) |  |
 **quota** | [**\Upmind\EnhanceSdk\Model\Quota**](Quota.md) |  | [optional]
 **autoresponders_count** | **int** |  |

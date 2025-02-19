@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 10.0.0
+  version: 12.0.0
   title: orchd
 tags:
   - name: install
@@ -134,117 +134,6 @@ paths:
               schema:
                 type: string
                 format: ip
-
-  ###############################################################################
-  # -- Install
-  ###############################################################################
-
-  /install:
-    post:
-      tags:
-        - install
-      summary: Create the master organization owner
-      description: >-
-        Installs the control panel.
-
-        It creates the master org owner and sets the master org control panel
-        host. This procedure may only be invoked once, when the control panel is
-        first set up.
-
-        It also authenticates the new login and returns a session token as
-        a convenience step.
-      operationId: install
-      parameters:
-        - $ref: "#/components/parameters/RegistrationKey"
-      requestBody:
-        description: Master organization owner details.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Install"
-      responses:
-        "201":
-          description: Install successful
-          headers:
-            Set-Cookie:
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SetupResult"
-        "400":
-          description: Invalid registration key/input
-
-  /install/validate:
-    post:
-      tags:
-        - install
-      summary: Used to validate that the control panel has been initialized.
-      operationId: validateInstallation
-      responses:
-        "200":
-          description: Master org has been set up
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ValidationResult"
-
-  /install/update:
-    post:
-      tags:
-        - install
-      summary: Updates all services in the cluster.
-      description: >-
-        Updates the control panel.
-
-        Checks whether there are any compatible version releases for all
-        deployed services and performs an update if so. This endpoint blocks
-        while the updates are running.
-      operationId: updateEnhance
-      responses:
-        "200":
-          description: Successful
-
-  /install/compatible_versions/controld:
-    get:
-      tags:
-        - install
-      summary: Get the compatible controld version
-      operationId: controldVersion
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                type: string
-                format: semver
-                example: "2.1.1"
-
-  /install/latest_available_version/{service_kind}:
-    parameters:
-      - $ref: "#/components/parameters/ServiceKind"
-    get:
-      tags:
-        - install
-      summary: Get the latest available version of a given service kind
-      description: >-
-        Fetches the latest version of a given service kind from the docker
-        repository.  This version can then be installed using updateEnhance
-      operationId: getServiceKindLatestVersion
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                type: string
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
 
   ###############################################################################
   # -- Utils
@@ -913,56 +802,6 @@ paths:
         "404":
           description: Not found
 
-  /settings/registry:
-    put:
-      tags:
-        - settings
-      summary: Updates the Docker registry credentials.
-      description: >-
-        Sets the Docker registry credentials, overwriting any previous one if
-        one exists.
-      operationId: setDockerRegistry
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DockerRegistry"
-      responses:
-        "200":
-          description: Successful
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-    get:
-      tags:
-        - settings
-      summary: Gets the Docker registry credentials.
-      description: >-
-        Gets the Docker registry credentials.
-      operationId: getDockerRegistry
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DockerRegistry"
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
   /v2/settings/dns/default-records:
     post:
       tags:
@@ -1240,36 +1079,6 @@ paths:
   # -- Servers
   ###############################################################################
 
-  /servers/master/roles/control:
-    get:
-      tags:
-        - servers
-      summary: Get master server control panel role info
-      description: >-
-        Returns information about the control panel role.
-
-        This includes generic information about the role as well as each control
-        panel service (such as authd).
-
-        Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-      operationId: getControlPanelRoleInfo
-      parameters:
-        - $ref: "#/components/parameters/FetchProcesses"
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ControlRoleInfo"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
   /servers/slaves:
     post:
       tags:
@@ -1377,37 +1186,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ServersListing"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-
-  /servers/init:
-    post:
-      tags:
-        - servers
-      summary: Attempts to initialize all roles
-      description: >-
-        Attempts to initialize roles and other resources on all servers.
-        Manual initialization (via this endpoint) shouldn't be necessary as
-        usually even if some slave server is unavailable to `orchd` in the
-        beginning, `orchd` periodically retries the role initialization.
-        However, if something needs a manual intervention, then calling this
-        endpoint is helpful to identify further issue and hasten up the full
-        availability of `orchd`.
-
-        This endpoint can be called multiple times and it will initialize
-        resources at most once. Once this endpoint returns 200, there is no
-        point in calling it again.
-
-        Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
-      operationId: initAllServers
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Everything is initialized
         "401":
           description: Invalid session
         "403":
@@ -1521,6 +1299,56 @@ paths:
               schema:
                 type: string
                 format: semver
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /servers/{server_id}/appcd/screenshot/config:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the screenshot config of the running appcd
+      description: >-
+        Returns the screenshot config of the running appcd instance on this server.
+      operationId: getAppcdScreenshotConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScreenshotConfig"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    patch:
+      tags:
+        - servers
+      summary: Update the screenshot config of the running appcd
+      description: >-
+        Update the screenshot config of the running appcd instance on this server.
+      operationId: updateAppcdScreenshotConfig
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScreenshotConfigUpdate"
+      responses:
+        "200":
+          description: Query successful
+        "400":
+          description: Invalid input
         "401":
           description: Invalid session
         "403":
@@ -1797,6 +1625,29 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /v2/servers/dns_pool:
+    get:
+      tags:
+        - servers
+      summary: Get DNS pool IPs
+      operationId: getDnsPoolIps
+      responses:
+        "200":
+          description: A list of all DNS server IPs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "400":
+          description: Invalid argument
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /servers/{server_id}/group:
     delete:
       tags:
@@ -2015,6 +1866,265 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /servers/{server_id}/spam/ip_whitelist:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the IP whitelist
+      operationId: getSpamIpWhitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: IP whitelist returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - servers
+      summary: Add to the IP whitelist
+      operationId: addSpamIpWhitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: IP whitelist entry added
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - servers
+      summary: Delete from the IP whitelist
+      operationId: deleteFromSpamIpWhitelist
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: IP whitelist entry delete
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /servers/{server_id}/spam/smtp_rate_limit_hourly:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the hourly SMTP rate limit
+      operationId: getSmtpRateLimitHourly
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Rate limit returned
+          content:
+            application/json:
+              schema:
+                type: number
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: Set the hourly SMTP rate limit
+      operationId: setSmtpRateLimitHourly
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: number
+      responses:
+        "200":
+          description: Rate limit set
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /servers/{server_id}/spam/website_generated_rate_limit_hourly:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the hourly website generated email rate limit
+      operationId: getWebsiteGeneratedRateLimitHourly
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Rate limit returned
+          content:
+            application/json:
+              schema:
+                type: number
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: Set the hourly SMTP rate limit
+      operationId: setWebsiteGeneratedRateLimitHourly
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: number
+              nullable: true
+      responses:
+        "200":
+          description: Rate limit set
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /servers/{server_id}/email/hostname_override:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the hostname override for the email server (postfix) if set
+      description: If unset, this defaults to the system hostname
+      operationId: getEmailServerHostnameOverride
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Hostname override or null
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailServerHostnameOverride"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: Set the hostname override for the email server (postfix)
+      description: If unset, this defaults to the system hostname
+      operationId: setEmailServerHostnameOverride
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Hostname override or null
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmailServerHostnameOverride"
+      responses:
+        "200":
+          description: Hostname set
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /servers/{server_id}/email/spam/outbound_scanning:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get the status of outbound spam scanning
+      operationId: getOutboundSpamScanningSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Outbound spam scanning settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OutboundSpamScanningSettings"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - servers
+      summary: Set the settings for outbound spam scanning
+      operationId: setOutboundSpamScanningSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Outbound spam settings
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OutboundSpamScanningSettings"
+      responses:
+        "200":
+          description: Settings set
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
 
   /v2/servers/{server_id}/modsec_status:
     parameters:
@@ -2213,7 +2323,7 @@ paths:
         "404":
           description: Not found
 
-  /servers/{server_id}/fs_quota_limits:
+  /servers/{server_id}/fs-quota-limits:
     parameters:
       - $ref: "#/components/parameters/ServerId"
     get:
@@ -2600,7 +2710,6 @@ paths:
         - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/ServerId"
-        - $ref: "#/components/parameters/FetchProcesses"
       responses:
         "200":
           description: Successful
@@ -2631,8 +2740,6 @@ paths:
 
         Session holder must be an `Owner`, `SuperAdmin`, or `Sysadmin` in the MO.
       operationId: getServerRole
-      parameters:
-        - $ref: "#/components/parameters/FetchProcesses"
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -3036,63 +3143,6 @@ paths:
       responses:
         "200":
           description: Package Updated
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  /servers/{server_id}/services/{service_id}/status:
-    parameters:
-      - $ref: "#/components/parameters/ServerId"
-      - $ref: "#/components/parameters/ServiceId"
-    post:
-      tags:
-        - servers
-      summary: Set the status of one service installed in the server specified.
-      description: >-
-        Set the status of one service by restarting it for example.
-      operationId: setServiceStatus
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        description: The action to be taken for a specific service.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SetServiceStatus"
-      responses:
-        "200":
-          description: Service status successfully set
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  /servers/{server_id}/services/{service_id}/update:
-    parameters:
-      - $ref: "#/components/parameters/ServerId"
-      - $ref: "#/components/parameters/ServiceId"
-    put:
-      tags:
-        - servers
-      summary: Special endpoint to update a particular stopped service to its latest version.
-      description: >-
-        This endpoint should not be used to for updates in general. Useful to update/recover from a
-        broken/stopped service from previous update.
-        NOTE: if service is already running, no changes are made.
-      operationId: updateService
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Service updated successfully
         "401":
           description: Invalid session
         "403":
@@ -4103,6 +4153,47 @@ paths:
         "404":
           description: Not found
 
+  /v2/orgs/{org_id}/activities:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - orgs
+      summary: Get organization's activity log.
+      description: >-
+        Returns organization's activity log which is a human readable list of
+        events that happened in orchd.
+
+        Only accessible to Owner, SuperAdmin and Sysadmin.
+      parameters:
+        - $ref: "#/components/parameters/Offset"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/CreatedBefore"
+        - $ref: "#/components/parameters/CreatedAfter"
+        - $ref: "#/components/parameters/ActivityKindsFilter"
+        - $ref: "#/components/parameters/ActivityEntityIdsFilterAny"
+        - $ref: "#/components/parameters/ActivityEntityKind"
+        - $ref: "#/components/parameters/Search"
+      operationId: getOrgActivities
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivitiesListing"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
   ###############################################################################
   # -- customers
   ###############################################################################
@@ -4135,16 +4226,7 @@ paths:
           schema:
             type: string
             enum:
-              [
-                id,
-                name,
-                status,
-                owner,
-                ownerEmail,
-                subscriptionsCount,
-                websitesCount,
-                createdAt,
-              ]
+              [id, name, status, subscriptionsCount, websitesCount, createdAt]
         - $ref: "#/components/parameters/SortOrder"
         - $ref: "#/components/parameters/Recursive"
         - $ref: "#/components/parameters/MaxDepth"
@@ -4625,9 +4707,8 @@ paths:
           required: false
           schema:
             type: string
-            enum: [status, name, email, joinedAt]
+            enum: [status, joinedAt]
         - $ref: "#/components/parameters/SortOrder"
-        - $ref: "#/components/parameters/Search"
         - name: role
           in: query
           description: Return only members with this role.
@@ -5588,16 +5669,6 @@ paths:
         - sessionCookie: []
         - bearerAuth: []
       parameters:
-        - name: cloneFrom
-          in: query
-          description: >-
-            The ID of the website to clone. Note that a website cannot be cloned
-            from another website if the kind parameter is specified and different
-            from `normal`.
-          required: false
-          schema:
-            type: string
-            format: uuid
         - $ref: "#/components/parameters/NewWebsiteKind"
       requestBody:
         description: >-
@@ -5651,6 +5722,129 @@ paths:
         "404":
           description: Not found
 
+  /orgs/{org_id}/websites/clone:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - websites
+      summary: List website clones for given OrgId
+      description: >-
+        List of all webiste clones for the given OrgId.
+      operationId: getWebsiteClones
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebsiteCloneFullListing"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - websites
+      summary: Clone website or push live
+      description: >-
+        Clone a website or push live to overwrite an existing live website with content from the source website.
+        Operation is asynchronous and returns a clone id.
+
+        If includeDatabases is ommited, the all databases will be cloned from the source website.
+        If includeDatabaseUsers is ommited, the all database users will be cloned from the source website.
+      operationId: cloneWebsite
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebsiteCloneRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewResourceUuid"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/clone/{clone_id}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/CloneId"
+    get:
+      tags:
+        - websites
+      operationId: getWebsiteClone
+      summary: Get's detail about a single push live
+      description: >-
+        Fetches details about a single website clone. cloneWebsite call operation just
+        enqueues the request and returns immediately. Use this endpoint to monitor how
+        the clone finishes.
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebsiteCloneResponse"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/clone/{clone_id}/log:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/CloneId"
+    get:
+      tags:
+        - websites
+      summary: Get the log for a given clone id..
+      description: >-
+        Fetches the import migration log for a single website clone.
+      operationId: getWebsiteCloneLog
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebsiteCloneLogResponse"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/websites/{website_id}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -5761,49 +5955,6 @@ paths:
           description: Successful
         "400":
           description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  /orgs/{org_id}/websites/{website_id}/status/clones/{domain}:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-      - name: domain
-        in: path
-        description: The unique domain of the cloned website
-        required: true
-        schema:
-          type: string
-    summary: Endpoints for querying the status of a website clone
-    get:
-      tags:
-        - websites
-      operationId: getWebsiteClonesStatus
-      summary: Get the status of the clone operation of a given website
-      description: >-
-        Websites can be cloned, and cloning is a blocking operation that may
-        require a considerable amount of time depending on the size of the
-        website to clone as well as of the state of the network.
-
-        This endpoint provides a way to query what is the current status of the
-        clone operation of a given source website, given its ID and the new
-        domain of the cloned website.
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Successfully got the website clones status
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WebsiteCloneStatus"
-        "400":
-          description: Invalid arguments
         "401":
           description: Invalid session
         "403":
@@ -6276,58 +6427,6 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
-  /orgs/{org_id}/websites/{website_id}/screenshot/take:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-    post:
-      tags:
-        - websites
-      summary: Sends command to take website screenshot
-      description: >-
-        Sends Command to screenshotd service, to take website screenshot immediately
-      operationId: takeScreenshot
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Command sent successfully
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-  /orgs/{org_id}/websites/{website_id}/screenshot/timestamp:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-    get:
-      tags:
-        - websites
-      summary: Get last screeshot file's Timestamp
-      description: >-
-        Returns Unix Timestamp for the last screenshot png file, if no screenshot found
-        returns undefined
-      operationId: getScreenshotTimestamp
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Unix Timestamp if screenshot exists
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnixTimestamp"
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
   /orgs/{org_id}/websites/{website_id}/cgroup_limits:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -6532,40 +6631,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DomainsListing"
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-    post:
-      tags:
-        - domains
-      summary: Create domain
-      description: >-
-        The MO may create domains without a subscription but all other customers
-        need to pass with this request an id of one of their subscriptions to a
-        plan that allows creating domain names.
-      operationId: createDomain
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        description: Domain details.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/NewDomain"
-      responses:
-        "201":
-          description: Domain successfully created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NewResourceUuid"
         "400":
           description: Invalid input
         "401":
@@ -7348,7 +7413,59 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
+  /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/screenshot/take:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DomainId"
+    post:
+      tags:
+        - websites
+      summary: Take website screenshot immediately
+      description: >-
+        Take website screenshot immediately
+      operationId: takeScreenshot
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/screenshot/timestamp:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - websites
+      summary: Get last screeshot file's Timestamp
+      description: >-
+        Returns Unix Timestamp for the last screenshot png file, if no screenshot found
+        returns undefined
+      operationId: getScreenshotTimestamp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Unix Timestamp if screenshot exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnixTimestamp"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   ###############################################################################
   # -- website emails
   ###############################################################################
@@ -7624,7 +7741,7 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders:
+  /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
@@ -7632,23 +7749,23 @@ paths:
     get:
       tags:
         - emails
-      summary: Get website email autoresponders
+      summary: Get website email autoresponder
       description: >-
         Returns autoresponders configured for the given email.
 
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
-      operationId: getWebsiteEmailAutoresponders
+      operationId: getWebsiteEmailAutoresponder
       security:
         - sessionCookie: []
         - bearerAuth: []
       responses:
         "200":
-          description: Autoresponders successfully queried
+          description: Autoresponder successfully queried
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AutorespondersFullListing"
+                $ref: "#/components/schemas/Autoresponder"
         "401":
           description: Invalid session
         "403":
@@ -7690,48 +7807,6 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponders/{autoresponder_id}:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/EmailId"
-      - name: autoresponder_id
-        in: path
-        description: The id of the autoresponder.
-        required: true
-        schema:
-          type: integer
-    patch:
-      tags:
-        - emails
-      summary: Update website email autoresponder
-      description: >-
-        Updates the autoresponder belonging to the given website email.
-
-        Session holder must be at least a `SuperAdmin` in this org or a parent
-        org, or be a member in this org that has access to the website.
-      operationId: updateWebsiteEmailAutoresponder
-      security:
-        - sessionCookie: []
-        - bearerAuth: []
-      requestBody:
-        description: Autoresponder update details.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateAutoresponder"
-      responses:
-        "200":
-          description: Email successfully updated
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
     delete:
       tags:
         - emails
@@ -7754,7 +7829,58 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-
+  /emails/{email_id}/spam_thresholds:
+    parameters:
+      - $ref: "#/components/parameters/EmailId"
+    put:
+      tags:
+        - emails
+      summary: Set spam thresholds for an email address
+      operationId: setEmailSpamThresholds
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Spam thresholds.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpamThresholds"
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - emails
+      summary: Get spam thresholds for an email address
+      operationId: getEmailSpamThresholds
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpamThresholds"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   ###############################################################################
   # -- website ssh
   ###############################################################################
@@ -7959,6 +8085,29 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /v2/domains/{domain_id}/letsencrypt_mail:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    post:
+      tags:
+        - websites
+        - domains
+        - letsencrypt
+      summary: Generate and setup letsencrypt ssl certificates for website's domain with mail. prefix.
+      description: >-
+        Generates letsencrypt certificate for the mail server at mail.customerdomain.
+      operationId: createWebsiteMailDomainLetsencryptCerts
+      responses:
+        "201":
+          description: SSL Certs successfully created
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
 
   /v2/domains/{domain_id}/letsencrypt_preflight:
     parameters:
@@ -8053,6 +8202,63 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /v2/domains/{domain_id}/mail_ssl:
+    parameters:
+      - $ref: "#/components/parameters/DomainId"
+    get:
+      tags:
+        - orgs
+        - websites
+        - ssl
+      summary: Returns the SSL for this website domain with the mail.prefix
+      description: >-
+        Endpoint for retrieving SSL certificates for a given website
+        including certificates generated by letsencrypt
+      operationId: getWebsiteMailDomainSslCert
+      responses:
+        "200":
+          description: SSL details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DomainSslCertWithData"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - orgs
+        - websites
+        - ssl
+      summary: Upload SSL for mail.customerdomain.
+      operationId: uploadWebsiteMailDomainSslCert
+      requestBody:
+        description: Cert, private key and optional fullchain.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SslCert"
+      responses:
+        "201":
+          description: SSL Cert successfully uploaded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewSslCert"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /v2/domains/{domain_id}/ssl/force_ssl:
     parameters:
       - $ref: "#/components/parameters/DomainId"
@@ -8071,7 +8277,7 @@ paths:
             schema:
               type: boolean
       responses:
-        "201":
+        "200":
           description: Setting updated
         "400":
           description: Invalid input
@@ -8226,6 +8432,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: getFtpUsers
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       responses:
         "200":
           description: Ftp Users
@@ -8253,6 +8462,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: createFtpUser
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       parameters:
         - name: createHome
           in: query
@@ -8285,11 +8497,15 @@ paths:
           description: Not found
         "409":
           description: Already exists
-  /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id}:
+  /orgs/{org_id}/websites/{website_id}/ftp/users/{username}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/FtpUserId"
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
     delete:
       tags:
         - websites
@@ -8302,6 +8518,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: deleteFtpUser
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       parameters:
         - name: deleteHome
           in: query
@@ -8334,6 +8553,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: updateFtpUser
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       requestBody:
         description: FTP User
         required: true
@@ -8344,53 +8566,6 @@ paths:
       responses:
         "204":
           description: FTP user successfully updated
-        "400":
-          description: Invalid input
-        "401":
-          description: Invalid session
-        "403":
-          description: Insufficient privileges
-        "404":
-          description: Not found
-
-  ###############################################################################
-  # -- org mysql dbs
-  ###############################################################################
-
-  /orgs/{org_id}/mysql-dbs:
-    parameters:
-      - $ref: "#/components/parameters/OrgId"
-    get:
-      tags:
-        - mysql
-      summary: Get org's MySQL databases
-      description: >-
-        Returns all MySQL databases belonging to the given organization.
-
-        The results may optionally be filtered.
-
-        Session holder must be at least a `SuperAdmin` in this org or a parent
-        org.
-      operationId: getOrgMySQLDBs
-      parameters:
-        - $ref: "#/components/parameters/Offset"
-        - $ref: "#/components/parameters/Limit"
-        - name: sortBy
-          in: query
-          description: The field by which to sort.
-          required: false
-          schema:
-            type: string
-            enum: [name, domain, size]
-        - $ref: "#/components/parameters/SortOrder"
-        - $ref: "#/components/parameters/Search"
-      responses:
-        "200":
-          description: Databases successfully queried
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MySQLDBsListing"
         "400":
           description: Invalid input
         "401":
@@ -8459,10 +8634,6 @@ paths:
       responses:
         "201":
           description: Database successfully created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NewResourceUuid"
         "400":
           description: Invalid input
         "401":
@@ -8473,11 +8644,11 @@ paths:
           description: Not found
         "409":
           description: Already exists
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}:
+  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
+      - $ref: "#/components/parameters/DbName"
     delete:
       tags:
         - mysql
@@ -8499,11 +8670,11 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sso:
+  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sso:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
+      - $ref: "#/components/parameters/DbName"
       - $ref: "#/components/parameters/ShouldRedirect"
     get:
       tags:
@@ -8526,9 +8697,10 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /v2/mysql/{db_id}/sql:
+  /v2/websites/{websiteId}/mysql/{db_id}/sql:
     parameters:
-      - $ref: "#/components/parameters/DbId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DbName"
     post:
       tags:
         - mysql
@@ -8566,11 +8738,11 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql:
+  /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sql:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
+      - $ref: "#/components/parameters/DbName"
     get:
       tags:
         - mysql
@@ -8644,10 +8816,6 @@ paths:
       responses:
         "201":
           description: Database user successfully created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NewResourceUuid"
         "400":
           description: Invalid input
         "403":
@@ -8656,11 +8824,11 @@ paths:
           description: Not found
         "409":
           description: Already exists
-  /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}:
+  /orgs/{org_id}/websites/{website_id}/mysql-users/{username}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbUserId"
+      - $ref: "#/components/parameters/DbUserName"
     put:
       tags:
         - mysql
@@ -8706,11 +8874,11 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges:
+  /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/privileges:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbUserId"
+      - $ref: "#/components/parameters/DbUserName"
     put:
       tags:
         - mysql
@@ -8740,12 +8908,11 @@ paths:
           description: Not found
         "409":
           description: Already exists
-  /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts:
+  /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/access-hosts:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/DbId"
-      - $ref: "#/components/parameters/DbUserId"
+      - $ref: "#/components/parameters/DbUserName"
     post:
       tags:
         - mysql
@@ -9118,12 +9285,6 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: updateWordpressAppVersion
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateWpAppToVersion"
       responses:
         "200":
           description: >-
@@ -9188,6 +9349,113 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+    post:
+      tags:
+        - wordpress
+      summary: Install a WordPress theme
+      operationId: installWordpressTheme
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InstallWpThemeRequest"
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/ThemeName"
+    delete:
+      tags:
+        - wordpress
+      summary: Delete a WordPress theme
+      operationId: deleteWordpressTheme
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}/update:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/ThemeName"
+    post:
+      tags:
+        - wordpress
+      summary: Update a WordPress theme
+      operationId: updateWordpressTheme
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}/activate:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/ThemeName"
+    post:
+      tags:
+        - wordpress
+      summary: Activate a WordPress theme
+      operationId: activateWordpressTheme
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/themes/{theme}/auto_update:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - $ref: "#/components/parameters/ThemeName"
+    patch:
+      tags:
+        - wordpress
+      summary: Set WordPress theme auto-update status
+      operationId: setWordpressThemeAutoUpdateStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
   /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/users:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -9622,6 +9890,47 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /v2/apps/{app_id}/wordpress/maintenance-mode:
+    parameters:
+      - $ref: "#/components/parameters/AppId"
+    get:
+      tags:
+        - wordpress
+      summary: Gets the MaintenanceMode for a WordPress installation
+      operationId: getWordPressMaintenanceMode
+      responses:
+        "200":
+          description: Successfully returned WordPress MaintenanceMode
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MaintenanceModeStatus"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - wordpress
+      summary: Sets the MaintenanceMode for a WordPress installation
+      operationId: setWordPressMaintenanceMode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MaintenanceMode"
+      responses:
+        "200":
+          description: Successfully updated WordPress MaintenanceMode
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
 
   ###############################################################################
   # -- website backups
@@ -9732,6 +10041,7 @@ paths:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
       - $ref: "#/components/parameters/BackupId"
+      - $ref: "#/components/parameters/BackupStorageKind"
     get:
       tags:
         - backups
@@ -10138,7 +10448,7 @@ paths:
     get:
       tags:
         - email-client
-      summary: Get email account autoresponders
+      summary: Get email account autoresponder
       description: >-
         Returns autoresponders configured for the given email.
 
@@ -10151,7 +10461,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AutorespondersFullListing"
+                $ref: "#/components/schemas/Autoresponder"
         "401":
           description: Unauthorized
         "403":
@@ -10197,12 +10507,6 @@ paths:
       - $ref: "#/components/parameters/Authorization"
       - $ref: "#/components/parameters/Address"
       - $ref: "#/components/parameters/Password"
-      - name: autoresponder_id
-        in: path
-        description: The id of the autoresponder.
-        required: true
-        schema:
-          type: integer
     put:
       tags:
         - email-client
@@ -10534,6 +10838,67 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/branding/inverse-icon:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    put:
+      tags:
+        - branding
+      summary: Set brand inverse icon
+      description: >-
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org.
+      operationId: setBrandInverseIcon
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                icon:
+                  type: string
+                  format: binary
+            encoding:
+              icon:
+                contentType: image/png, image/jpeg, image/svg+xml, image/ico
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - branding
+      summary: Delete brand inverse icon
+      description: >-
+        Deletes the brand's icon inverse image
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org.
+      operationId: deleteBrandInverseIcon
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/branding/login-image:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -10730,6 +11095,25 @@ paths:
           description: Not found
         "409":
           description: Already exists
+    delete:
+      tags:
+        - branding
+      summary: Delete reseller name server domain name
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteNameServerDomain
+      responses:
+        "204":
+          description: Successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+        "409":
+          description: Already exists
 
   ###############################################################################
   # -- Staging domains
@@ -10782,7 +11166,270 @@ paths:
   ###############################################################################
   # --------------------------------- Importers -------------------------------
   ###############################################################################
+  /orgs/{org_id}/import/server/settings:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    post:
+      tags:
+        - importers
+      summary: Create settings for the server import
+      description: >-
+        Create settings for the server import.
+      operationId: createImportServerSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewImportServerSettings"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewResourceUuid"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    get:
+      tags:
+        - importers
+      summary: List all server import settings
+      operationId: listImportServerSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportServerSettingsFullListing"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /orgs/{org_id}/import/server/{server_id}/pull-domains:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - importers
+      summary: Pull domains form the remote server.
+      description: >-
+        Pull domains form the remote server, and cache them.
 
+        To get cached domains, use getImportServerDomainsCached.
+      operationId: getImportServerPullDomains
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportServerDomainsFullListing"
+
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/import/server/{server_id}/cached-domains:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - importers
+      summary: Returns cached domains
+      description: >-
+        Returns cached domains.
+      operationId: getImportServerDomainsCached
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Offset"
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/SortOrder"
+        - $ref: "#/components/parameters/SearchDomain"
+        - name: sortBy
+          in: query
+          description: The field by which to sort.
+          required: false
+          schema:
+            type: string
+            enum: [domain, user, kind]
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportServerDomainsListing"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/import/plesk-server/{server_id}/domain:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ServerId"
+    post:
+      tags:
+        - importers
+      summary: Transfer user account from remote cPanel server
+      description: >-
+        Transfer user account from remote Plesk server to Enhance server.
+
+        It's an async endpoint. To get transfer result, you have to call
+        getImportMigration.
+      operationId: transferPleskDomain
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransferPleskDomainReqBody"
+      responses:
+        "201":
+          description: Upload created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewResourceUuid"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/import/server/{server_id}/account/{user_id}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ServerId"
+      - $ref: "#/components/parameters/RemoteServerUserId"
+    post:
+      tags:
+        - importers
+      summary: Transfer user account from remote cPanel server
+      description: >-
+        Transfer user account from remote cPanel server to Enhance server.
+
+        It's an async endpoint. To get transfer result, you have to call
+        getImportMigration.
+      operationId: transferCPanelUserAccount
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransferUserAccountReqBody"
+      responses:
+        "201":
+          description: Upload created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewResourceUuid"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/import/server/{server_id}/settings:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - importers
+      summary: Get settings for the server import
+      description: >-
+        Get settings for the server import.
+
+        Note: returned data does not contain ssh private key or any passwords/tokens.
+      operationId: getImportServerSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportServerSettings"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    patch:
+      tags:
+        - importers
+      summary: Update settings for the server import
+      description: >-
+        Update settings for the server import.
+      operationId: updateImportServerSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateImportServerSettings"
+      responses:
+        "200":
+          description: Query successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - importers
+      summary: Delete settings for the server import
+      description: >-
+        Delete settings for the server import.
+      operationId: deleteImportServerSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /v2/orgs/{org_id}/import/{import_migration_id}/log:
     get:
       tags:
@@ -10980,7 +11627,7 @@ paths:
       summary: Upload file for analyzing and processing.
       description: |
         Uploads an import file. File must be in `tar.gz` format, and only cPanel
-        uploads are allowed.
+        and Plesk uploads are allowed.
 
         The max allowed size is 100 GB.
       operationId: uploadImportMigration
@@ -11128,6 +11775,88 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /logins/ui-preferences:
+    post:
+      tags:
+        - logins
+      summary: Set new UI prefereces for login
+      description: >-
+        The operation allows users to set a new UI prefereces.
+      operationId: setUiPreferences
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewUiPreferences"
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+        "409":
+          description: Already exists
+    get:
+      tags:
+        - logins
+      summary: Get UI prefereces for login
+      description: >-
+        The operation allows users to get UI prefereces.
+      operationId: getUiPreferences
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UiPreferences"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "404":
+          description: Not found
+        "403":
+          description: Insufficient privileges
+    patch:
+      tags:
+        - logins
+      summary: Update UI prefereces for login
+      description: >-
+        The operation allows users to update UI prefereces.
+      operationId: updateUiPreferences
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUiPreferences"
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "404":
+          description: Not found
+        "403":
+          description: Insufficient privileges
   ###############################################################################
   # -- MO DNS
   ###############################################################################
@@ -11775,6 +12504,95 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  /websites/{website_id}/php_extensions:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get enabled PHP extensions
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsiteEnabledPhpExtensions
+      responses:
+        "200":
+          description: Extensions returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    post:
+      tags:
+        - websites
+      summary: Enable a PHP extension
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: enableWebsitePhpExtension
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Extension enabled
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    delete:
+      tags:
+        - websites
+      summary: Disable a PHP extension
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: disableWebsitePhpExtension
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Extension disabled
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
+  /websites/{website_id}/available_php_extensions:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get available PHP extensions for a website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsiteAvailablePhpExtensions
+      responses:
+        "200":
+          description: Extensions returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
 
 ###############################################################################
 # --------------------------------- Components --------------------------------
@@ -11796,7 +12614,6 @@ components:
 
   parameters:
     # path parameters
-
     OrgId:
       name: org_id
       in: path
@@ -11860,6 +12677,14 @@ components:
       schema:
         type: string
         format: uuid
+    CloneId:
+      name: clone_id
+      in: path
+      description: The id of the website push live.
+      required: true
+      schema:
+        type: string
+        format: uuid
     SettingKey:
       name: setting_key
       in: path
@@ -11867,13 +12692,13 @@ components:
         A key for updating an existing setting, some known values are
         - hard_delete_after_secs
         - letsencrypt_enabled
-        - myhostname
         - org_websites_same_server
         - screenshot_driver_pool_size
         - screenshot_interval
         - sged_smtp
         - smtp_smart_host
         - website_backup
+        - default_dns_ttl
       required: true
       schema:
         type: string
@@ -11899,6 +12724,12 @@ components:
       required: true
       schema:
         type: integer
+    BackupStorageKind:
+      name: storageKind
+      in: query
+      description: The storage kind of the requested backup.
+      schema:
+        $ref: "#/components/schemas/BackupStorageKind"
     EmailId:
       name: email_id
       in: path
@@ -11907,6 +12738,13 @@ components:
       schema:
         type: string
         format: uuid
+    RemoteServerUserId:
+      name: user_id
+      in: path
+      description: The ID of the remote cPanel user
+      required: true
+      schema:
+        type: string
     ServerId:
       name: server_id
       in: path
@@ -11915,13 +12753,6 @@ components:
       schema:
         type: string
         format: uuid
-    FetchProcesses:
-      name: fetchProcesses
-      in: query
-      description: Should we fetch service processes.
-      required: false
-      schema:
-        type: boolean
     ServiceId:
       name: service_id
       in: path
@@ -11960,18 +12791,17 @@ components:
       required: true
       schema:
         type: string
-    DbId:
-      name: db_id
+    DbName:
+      name: db_name
       in: path
-      description: The id of the database.
+      description: The name of the database.
       required: true
       schema:
         type: string
-        format: uuid
-    DbUserId:
-      name: user_id
+    DbUserName:
+      name: username
       in: path
-      description: The id of the database user.
+      description: The user of the database user.
       required: true
       schema:
         type: string
@@ -12047,7 +12877,13 @@ components:
       required: true
       schema:
         type: string
-
+    ThemeName:
+      name: theme
+      in: path
+      description: The name of the wordpress theme (not file name!).
+      required: true
+      schema:
+        type: string
     # query parameters
     ForceSsl:
       name: forceSsl
@@ -12252,17 +13088,17 @@ components:
       required: false
       schema:
         type: integer
-    Since:
-      name: since
+    CreatedAfter:
+      name: createdAfter
       in: query
       description: >-
-        Only return resources which have been created on or after provided date.
+        Only return resources which have been created after provided date.
       required: false
       schema:
         type: string
         format: date
-    Until:
-      name: until
+    CreatedBefore:
+      name: createdBefore
       in: query
       description: >-
         Only return resources which have been created earlier than provided date.
@@ -12302,6 +13138,42 @@ components:
       schema:
         type: string
         enum: [hour, day, month]
+    ActivityKindsFilter:
+      name: activityKinds
+      in: query
+      description: >-
+        Select only activities matching the given kinds.
+        If not provided or provided empty array, all kinds are selected as it
+        makes no sense for an activity to not have a kind.
+      required: false
+      schema:
+        type: array
+        items:
+          $ref: "#/components/schemas/ActivityKind"
+    ActivityEntityIdsFilterAny:
+      name: anyEntityId
+      in: query
+      description: >-
+        Filter activities maching any of the provided uuids.
+        Since an activity can have 0 or more entities, providing an empty array
+        is not the same as not providing this parameter.
+        An empty array will match activities with 0 entities, while not
+        providing this parameter will ignore this filter.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          format: uuid
+    ActivityEntityKind:
+      name: entityKind
+      in: query
+      description: >-
+        Activities which contain the given entity kind either as object or
+        context entity.
+      schema:
+        type: string
+        enum: [website, login, org, domain]
 
     # header parameters
     Authorization:
@@ -12345,7 +13217,7 @@ components:
       required: true
       schema:
         type: string
-        enum: [cpanel]
+        enum: [cpanel, plesk]
     ShouldRedirect:
       name: shouldRedirect
       in: query
@@ -12358,6 +13230,317 @@ components:
   ###############################################################################
 
   schemas:
+    ImportKind:
+      type: string
+      enum: [cPanel, plesk, pleskStreaming]
+    ServerMigrationSettingsAuthType:
+      type: string
+      # FIXME: remove whmToken, cpanelToken
+      enum: [whmToken, cpanelToken, basic]
+    WebsiteCloneFullListing:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/WebsiteCloneResponse"
+    WebsiteCloneLogResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/WebsiteCloneLogEntry"
+    WebsiteCloneLogEntry:
+      type: object
+      required:
+        - createdAt
+        - message
+        - percentageComplete
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+        percentageComplete:
+          type: number
+    WebsiteCloneNewWebsite:
+      type: object
+      required:
+        - domain
+      properties:
+        domain:
+          type: string
+          description: >-
+            The domain of the new website.
+        subscriptionId:
+          type: integer
+        appServerId:
+          type: string
+          format: uuid
+        backupServerId:
+          type: string
+          format: uuid
+        dbServerId:
+          type: string
+          format: uuid
+        emailServerId:
+          type: string
+          format: uuid
+        serverGroupId:
+          type: string
+          format: uuid
+        phpVersion:
+          $ref: "#/components/schemas/PhpVersion"
+        kind:
+          $ref: "#/components/schemas/WebsiteKind"
+    WebsiteCloneRequest:
+      type: object
+      required:
+        - sourceWebsiteId
+        - excludePaths
+        - deleteFilesFromDestination
+        - syncPhpVersion
+      properties:
+        runWpSearchReplace:
+          type: boolean
+        sourceWebsiteId:
+          type: string
+          format: uuid
+        destWebsiteId:
+          type: string
+          format: uuid
+        excludePaths:
+          type: array
+          items:
+            type: string
+        includeDatabases:
+          type: array
+          items:
+            type: string
+        includeDatabaseUsers:
+          type: array
+          items:
+            type: string
+        deleteFilesFromDestination:
+          type: boolean
+        syncPhpVersion:
+          type: boolean
+        newWebsite:
+          $ref: "#/components/schemas/WebsiteCloneNewWebsite"
+    WebsiteCloneEnumStatus:
+      type: string
+      enum: ["queued", "inProgress", "failed", "complete"]
+    WebsiteCloneResponse:
+      type: object
+      required:
+        - id
+        - sourceWebsiteId
+        - excludePaths
+        - includeDatabases
+        - includeDatabaseUsers
+        - deleteFilesFromDestination
+        - status
+        - syncPhpVersion
+      properties:
+        id:
+          type: string
+          format: uuid
+        sourceWebsiteId:
+          type: string
+          format: uuid
+        destWebsiteId:
+          type: string
+          format: uuid
+        excludePaths:
+          type: array
+          items:
+            type: string
+        includeDatabases:
+          type: array
+          items:
+            type: string
+        includeDatabaseUsers:
+          type: array
+          items:
+            type: string
+        deleteFilesFromDestination:
+          type: boolean
+        status:
+          $ref: "#/components/schemas/WebsiteCloneEnumStatus"
+        syncPhpVersion:
+          type: boolean
+    ImportServerSettingsFullListing:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImportServerSettings"
+    ImportServerDomainsFullListing:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImportServerDomain"
+    ImportServerDomainsListing:
+      type: object
+      required:
+        - items
+        - total
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImportServerDomain"
+    ImportServerDomain:
+      type: object
+      required:
+        - importServerId
+        - domain
+        - kind
+        - user
+        - movable
+      properties:
+        importServerId:
+          type: string
+          format: uuid
+        domain:
+          type: string
+        kind:
+          $ref: "#/components/schemas/DomainMappingKind"
+        user:
+          type: string
+        movable:
+          type: boolean
+    UpdateImportServerSettings:
+      type: object
+      properties:
+        hostname:
+          type: string
+        friendlyName:
+          type: string
+        sshUser:
+          type: string
+        sshPublicKey:
+          type: string
+        sshPrivateKey:
+          type: string
+        authKind:
+          $ref: "#/components/schemas/ServerMigrationSettingsAuthType"
+        authUser:
+          type: string
+        sshPort:
+          type: number
+        apiPort:
+          type: number
+        allowPartialSync:
+          type: boolean
+        asUserRoot:
+          type: boolean
+    ImportServerSettings:
+      type: object
+      required:
+        - id
+        - hostname
+        - friendlyName
+        - sshUser
+        - sshPublicKey
+        - importType
+        - authKind
+        - authUser
+        - apiPort
+        - sshPort
+        - allowPartialSync
+        - asUserRoot
+      properties:
+        id:
+          type: string
+        hostname:
+          type: string
+        friendlyName:
+          type: string
+        sshUser:
+          type: string
+        sshPublicKey:
+          type: string
+        importType:
+          $ref: "#/components/schemas/ImportKind"
+        authKind:
+          $ref: "#/components/schemas/ServerMigrationSettingsAuthType"
+        authUser:
+          type: string
+        sshPort:
+          type: number
+        apiPort:
+          type: number
+        allowPartialSync:
+          type: boolean
+        asUserRoot:
+          type: boolean
+    NewImportServerSettings:
+      type: object
+      required:
+        - hostname
+        - friendlyName
+        - sshUser
+        - sshPort
+        - importType
+        - authKind
+        - authUser
+        - authPass
+        - apiPort
+      properties:
+        sshPrivateKey:
+          type: string
+        sshPublicKey:
+          type: string
+        allowPartialSync:
+          type: boolean
+        asUserRoot:
+          type: boolean
+        hostname:
+          type: string
+        friendlyName:
+          type: string
+        sshUser:
+          type: string
+        importType:
+          $ref: "#/components/schemas/ImportKind"
+        authKind:
+          $ref: "#/components/schemas/ServerMigrationSettingsAuthType"
+        authUser:
+          type: string
+        authPass:
+          type: string
+        sshPort:
+          type: number
+        apiPort:
+          type: number
+    ScreenshotConfigUpdate:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        interval:
+          type: int
+          minimum: 60
+    ScreenshotConfig:
+      type: object
+      required:
+        - isEnabled
+      properties:
+        isEnabled:
+          type: boolean
+        interval:
+          type: int
     ModSecStatus:
       type: object
       required:
@@ -12365,6 +13548,12 @@ components:
       properties:
         enabled:
           type: boolean
+    MaintenanceMode:
+      type: string
+      enum: [activate, deactivate]
+    MaintenanceModeStatus:
+      type: string
+      enum: [active, deactivated]
     VhostWebserverKind:
       type: string
       enum:
@@ -12526,6 +13715,36 @@ components:
       enum:
         - nonExistentResource
         - resourceOutOfQuota
+    TransferUserAccountReqBody:
+      type: object
+      properties:
+        subscriptionId:
+          type: integer
+        asUserRoot:
+          type: boolean
+        allowPartialSync:
+          type: boolean
+        appServerId:
+          type: string
+          format: uuid
+        backupServerId:
+          type: string
+          format: uuid
+        dbServerId:
+          type: string
+          format: uuid
+        emailServerId:
+          type: string
+          format: uuid
+    TransferPleskDomainReqBody:
+      allOf:
+        - $ref: "#/components/schemas/TransferUserAccountReqBody"
+        - type: object
+          required:
+            - domain
+          properties:
+            domain:
+              type: string
     ImporterMigrationReqBody:
       type: object
       properties:
@@ -12533,6 +13752,18 @@ components:
           type: integer
         forceQueue:
           type: boolean
+        appServerId:
+          type: string
+          format: uuid
+        backupServerId:
+          type: string
+          format: uuid
+        dbServerId:
+          type: string
+          format: uuid
+        emailServerId:
+          type: string
+          format: uuid
     ImporterAnalyzedData:
       type: object
       required:
@@ -12877,16 +14108,7 @@ components:
       description: error and migrationId are mutually exclusive
       properties:
         error:
-          type: object
-          required:
-            - code
-          properties:
-            code:
-              type: string
-            detail:
-              type: string
-            message:
-              type: string
+          $ref: "#/components/schemas/HttpError"
         migrationId:
           type: string
           format: uuid
@@ -12915,6 +14137,17 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MigrationCreationOutcome"
+    HttpError:
+      type: object
+      required:
+        - code
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        message:
+          type: string
     LogLevel:
       type: string
       enum:
@@ -13182,6 +14415,8 @@ components:
           format: path
         locale:
           $ref: "#/components/schemas/CPLocale"
+        slackNotificationWebhookUrl:
+          type: string
     Status:
       type: string
       enum: [active, deleted]
@@ -13269,6 +14504,21 @@ components:
           $ref: "#/components/schemas/PhpVersion"
         redisAllowed:
           type: boolean
+        defaultServerGroupId:
+          type: string
+          format: uuid
+          description: >
+            If set, servers from this server group are prioritized by placement
+            algorithm.
+            If no server from the default server group is available, servers
+            from other server groups are tried.
+            The defaultServerGroupId will be automatically added to
+            serverGroupIds if they do not contain it or are not provided.
+        preinstallWordpressTheme:
+          type: string
+          description: :>
+            When WordPress is installed on a website under this plan, the chosen
+            theme will be preinstalled.
     CgroupLimits:
       type: object
       required:
@@ -13400,6 +14650,11 @@ components:
           $ref: "#/components/schemas/PhpVersion"
         redisAllowed:
           type: boolean
+        preinstallWordpressTheme:
+          type: string
+          description: :>
+            When WordPress is installed on a website under this plan, the chosen
+            theme will be preinstalled.
     UpdatePlan:
       type: object
       properties:
@@ -13419,12 +14674,11 @@ components:
           $ref: "#/components/schemas/PhpVersion"
         redisAllowed:
           type: boolean
-        serverGroupId:
-          type: string
-          format: uuid
-          deprecated: true
         serverGroupIds:
           type: array
+          description: >
+            If provided as an empty array, removes all server groups from the
+            plan.
           items:
             type: string
             format: uuid
@@ -13432,6 +14686,26 @@ components:
           type: boolean
           description: >
             Whether the customer can select the server group for their websites.
+        defaultServerGroupId:
+          oneOf:
+            - type: string
+              format: uuid
+            - $ref: "#/components/schemas/Unset"
+          description: >
+            If set, servers from this server group are prioritized by placement
+            algorithm.
+            If no server from the default server group is available, servers
+            from other server groups are tried.
+            If both serverGroupIds and defaultServerGroupId is provided,
+            defaultServerGroupId will be added to serverGroupIds if not there.
+            If only defaultServerGroupId is provided, already existing plan's
+            serverGroupIds will be expanded with defaultServerGroupId if
+            not there yet.
+        preinstallWordpressTheme:
+          type: string
+          description: :>
+            When WordPress is installed on a website under this plan, the chosen
+            theme will be preinstalled.
     Resource:
       type: object
       required:
@@ -13498,6 +14772,8 @@ components:
           type: integer
         dedicatedServers:
           $ref: "#/components/schemas/SubscriptionDedicatedServers"
+        friendlyName:
+          type: string
     Subscription:
       description: >-
         An organization's subscription to a plan. This allows the subscriber to
@@ -13519,6 +14795,7 @@ components:
         - allowedPhpVersions
         - defaultPhpVersion
         - redisAllowed
+        - friendlyName
       properties:
         id:
           type: integer
@@ -13566,6 +14843,13 @@ components:
             the server groups listed here when creating a website.
           items:
             $ref: "#/components/schemas/ServerGroup"
+        preinstallWordpressTheme:
+          type: string
+          description: :>
+            When WordPress is installed on a website under this plan, the chosen
+            theme will be preinstalled.
+        friendlyName:
+          type: string
     UpdateSubscription:
       type: object
       properties:
@@ -13577,6 +14861,8 @@ components:
           type: integer
         dedicatedServers:
           $ref: "#/components/schemas/SubscriptionDedicatedServers"
+        friendlyName:
+          type: string
     UsedResource:
       type: object
       required:
@@ -13667,11 +14953,15 @@ components:
             If set to false, the backup restoration will not include
             the website home directory.
         restoreEmails:
+          type: array
+          items:
+            type: string
+            description: >-
+              Restore the specified mailboxes only.
+        restoreAllEmails:
           type: boolean
-          default: false
           description: >-
-            If set to false, the backup restoration will not include
-            the website emails.
+            Restore all the mailboxes from this backup.  Overrides the `restoreEmails` property.
         restoreDatabases:
           type: array
           items:
@@ -13734,14 +15024,9 @@ components:
     FtpUser:
       type: object
       required:
-        - id
         - account
         - homeDir
-        - websiteId
       properties:
-        id:
-          type: string
-          format: uuid
         account:
           type: string
         homeDir:
@@ -13749,9 +15034,6 @@ components:
             Homedir must be a relative path to the website's base dir. Set to
             empty string to use website base dir as FtpUser's home.
           type: string
-        websiteId:
-          type: string
-          format: uuid
     FtpUserUpdate:
       type: object
       properties:
@@ -14123,7 +15405,19 @@ components:
     PhpVersion:
       type: string
       enum:
-        [php56, php70, php71, php72, php73, php74, php80, php81, php82, php83]
+        [
+          php56,
+          php70,
+          php71,
+          php72,
+          php73,
+          php74,
+          php80,
+          php81,
+          php82,
+          php83,
+          php84,
+        ]
     SiteAccessMember:
       type: object
       required:
@@ -14249,6 +15543,7 @@ components:
         - createdAt
         - controld
         - isDecommissioned
+        - disks
       properties:
         id:
           type: string
@@ -14268,12 +15563,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServerIp"
-        disks:
-          type: array
-          items:
-            $ref: "#/components/schemas/Disk"
-        osUsage:
-          type: integer
         status:
           $ref: "#/components/schemas/NetworkStatus"
         roles:
@@ -14289,6 +15578,10 @@ components:
           type: boolean
         ipv6Addr:
           type: string
+        disks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Disk"
     ServerInfoBrief:
       type: object
       required:
@@ -14498,6 +15791,11 @@ components:
           type: array
           items:
             type: string
+        sendEmail:
+          description: >-
+            Whether to send an email to the invitee.
+            Defaults to true if not provided.
+          type: boolean
     StagingDomain:
       type: object
       required:
@@ -14871,7 +16169,6 @@ components:
         - usage
         - filerd
         - ftpcd
-        - screenshotd
         - websitesCount
       properties:
         state:
@@ -14879,8 +16176,6 @@ components:
         usage:
           type: integer
         filerd:
-          $ref: "#/components/schemas/ServiceInfo"
-        screenshotd:
           $ref: "#/components/schemas/ServiceInfo"
         ftpcd:
           $ref: "#/components/schemas/ServiceInfo"
@@ -14965,9 +16260,6 @@ components:
         - usage
         - mailboxCount
         - failedDeliveryCount
-        - mtacd
-        - imapcd
-        - spamcd
         - websitesCount
       properties:
         state:
@@ -14978,12 +16270,6 @@ components:
           type: integer
         failedDeliveryCount:
           type: integer
-        mtacd:
-          $ref: "#/components/schemas/ServiceInfo"
-        imapcd:
-          $ref: "#/components/schemas/ServiceInfo"
-        spamcd:
-          $ref: "#/components/schemas/ServiceInfo"
         websitesCount:
           type: integer
           description: >-
@@ -14991,25 +16277,14 @@ components:
             email role.
     NewBackupRole:
       type: object
-      description: The btrfs related information such as mount point and block device paths.
+      description: The path for backups to be stored.
       required:
-        - deviceType
-        - devicePath
-        - mountPoint
+        - path
       properties:
-        deviceType:
-          $ref: "#/components/schemas/DeviceKind"
-        devicePath:
-          description: The full path of the block device.
+        path:
+          description: The full path where the backups will be stored.
           type: string
           format: path
-        mountPoint:
-          description: The full path where the btrfs will be mounted.
-          type: string
-          format: path
-        deviceSize:
-          description: The size of the new device if created as a new sparse file.
-          type: integer
     DeviceKind:
       description: >-
         The type of the btrfs device, if `device` the block device must
@@ -15164,9 +16439,8 @@ components:
           type: array
           items:
             type: string
-        mailboxId:
-          type: string
-          format: uuid
+        hasMailbox:
+          type: boolean
         status:
           $ref: "#/components/schemas/EmailStatus"
         quota:
@@ -15190,7 +16464,6 @@ components:
         - address
         - aliases
         - status
-        - spamDelivery
         - blacklist
         - whitelist
         - autorespondersCount
@@ -15211,18 +16484,12 @@ components:
           type: array
           items:
             type: string
-        mailboxId:
-          type: string
-          format: uuid
+        hasMailbox:
+          type: boolean
         status:
           $ref: "#/components/schemas/WebsiteStatus"
         quota:
           $ref: "#/components/schemas/Quota"
-        spamThreshold:
-          type: integer
-        spamDelivery:
-          type: string
-          enum: [spamFolder, reject]
         blacklist:
           type: array
           items:
@@ -15266,11 +16533,6 @@ components:
           $ref: "#/components/schemas/EmailStatus"
         quota:
           type: integer
-        spamThreshold:
-          type: integer
-        spamDelivery:
-          type: string
-          enum: [spamFolder, reject]
         blacklist:
           type: array
           items:
@@ -15341,6 +16603,18 @@ components:
           type: string
         body:
           type: string
+    SpamThresholds:
+      type: object
+      required:
+        - reject
+        - spambox
+      properties:
+        greylist:
+          type: number
+        reject:
+          type: number
+        spambox:
+          type: number
     ServerRole:
       type: string
       enum: [email, backup, database, application, dns]
@@ -15357,9 +16631,6 @@ components:
           mysqlcd,
           dnscd,
           filerd,
-          mtacd,
-          imapcd,
-          spamcd,
           ftpcd,
         ]
     ServerRoleState:
@@ -15496,23 +16767,12 @@ components:
     MySQLDB:
       type: object
       required:
-        - id
         - name
-        - websiteId
         - size
         - createdAt
       properties:
-        id:
-          type: string
-          format: uuid
         name:
           type: string
-        serverId:
-          type: string
-          format: uuid
-        websiteId:
-          type: string
-          format: uuid
         size:
           type: integer
         createdAt:
@@ -15548,7 +16808,6 @@ components:
     MySQLUser:
       type: object
       required:
-        - id
         - username
         - accessHosts
         - authPlugin
@@ -15556,9 +16815,6 @@ components:
         - createdAt
         - internal
       properties:
-        id:
-          type: string
-          format: uuid
         dbId:
           type: string
           format: uuid
@@ -15581,10 +16837,10 @@ components:
     MySQLUserGrants:
       type: object
       required:
-        - dbId
+        - dbName
         - grants
       properties:
-        dbId:
+        dbName:
           type: string
           format: uuid
         grants:
@@ -15785,7 +17041,7 @@ components:
           default: false
     DnsRecordKind:
       type: string
-      enum: [A, AAAA, CNAME, TXT, SPF, SRV, NS, MX, PTR]
+      enum: [A, AAAA, CNAME, TXT, SPF, SRV, NS, MX, PTR, DS, CAA]
     DnsThirdPartyProvider:
       type: object
       required:
@@ -15807,6 +17063,73 @@ components:
           type: string
         headers:
           $ref: "#/components/schemas/MapOfStrings"
+    UiPreferencesViewKind:
+      type: string
+      enum: [list, grid]
+    ServerId:
+      type: string
+      format: uuid
+    NewUiPreferences:
+      type: object
+      required:
+        - fileManagerView
+        - websiteView
+        - spineOpen
+        - fileManagerEditorFullscreen
+        - serverGroups
+      properties:
+        fileManagerView:
+          $ref: "#/components/schemas/UiPreferencesViewKind"
+        websiteView:
+          $ref: "#/components/schemas/UiPreferencesViewKind"
+        spineOpen:
+          type: boolean
+        fileManagerEditorFullscreen:
+          type: boolean
+        serverGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServerId"
+    UpdateUiPreferences:
+      type: object
+      properties:
+        fileManagerView:
+          $ref: "#/components/schemas/UiPreferencesViewKind"
+        websiteView:
+          $ref: "#/components/schemas/UiPreferencesViewKind"
+        spineOpen:
+          type: boolean
+        fileManagerEditorFullscreen:
+          type: boolean
+        serverGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServerId"
+    UiPreferences:
+      type: object
+      required:
+        - loginId
+        - fileManagerView
+        - websiteView
+        - spineOpen
+        - fileManagerEditorFullscreen
+        - serverGroups
+      properties:
+        loginId:
+          type: string
+          format: uuid
+        fileManagerView:
+          $ref: "#/components/schemas/UiPreferencesViewKind"
+        websiteView:
+          $ref: "#/components/schemas/UiPreferencesViewKind"
+        spineOpen:
+          type: boolean
+        fileManagerEditorFullscreen:
+          type: boolean
+        serverGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServerId"
     NewResourceId:
       type: object
       required:
@@ -15868,7 +17191,7 @@ components:
             ]
         importType:
           type: string
-          enum: [cPanel]
+          enum: [cPanel, plesk, pleskStreaming]
         createdAt:
           type: string
           format: date-time
@@ -15895,6 +17218,10 @@ components:
           type: boolean
         locale:
           $ref: "#/components/schemas/CPLocale"
+        slackNotificationWebhookUrl:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/Unset"
     OrgOwnerUpdate:
       type: object
       required:
@@ -16008,15 +17335,6 @@ components:
             $ref: "#/components/schemas/Email"
         total:
           type: integer
-    AutorespondersFullListing:
-      type: object
-      required:
-        - items
-      properties:
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/Autoresponder"
     ForwardersFullListing:
       type: object
       required:
@@ -16382,6 +17700,9 @@ components:
     WPPluginAutoUpdateStatus:
       type: string
       enum: ["enabled", "disabled"]
+    WPThemeAutoUpdateStatus:
+      type: string
+      enum: ["on", "off"]
     WPPluginStatus:
       type: string
       enum: ["active", "inactive", "unknown"]
@@ -16395,12 +17716,6 @@ components:
           $ref: "#/components/schemas/WPPluginStatus"
         autoUpdate:
           $ref: "#/components/schemas/WPPluginAutoUpdateStatus"
-    UpdateWpAppToVersion:
-      type: object
-      properties:
-        newVersion:
-          type: string
-          description: Defaults to latest available major release.
     WpThemesFullListing:
       type: object
       required:
@@ -16427,6 +17742,8 @@ components:
           type: string
         update:
           type: string
+        autoUpdate:
+          $ref: "#/components/schemas/WPThemeAutoUpdateStatus"
     WpLatestVersion:
       type: object
       required:
@@ -16434,6 +17751,16 @@ components:
       properties:
         version:
           type: string
+    InstallWpThemeRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        activate:
+          type: boolean
+          description: Activate theme after installation
     MetricsEntry:
       description: >-
         Each Metrics entry represts an hourly window of banwidth usage
@@ -16934,6 +18261,9 @@ components:
         inverseLogoPath:
           type: string
           format: path
+        inverseIconPath:
+          type: string
+          format: path
         loginImagePath:
           type: string
           format: path
@@ -16943,7 +18273,7 @@ components:
         nameServers:
           type: array
           items:
-            $ref: "#/components/schemas/DomainIp"
+            type: string
         settings:
           type: array
           items:
@@ -16976,7 +18306,6 @@ components:
       type: object
       required:
         - id
-        - websiteId
         - startedAt
         - snapshotDirName
         - kind
@@ -16984,9 +18313,6 @@ components:
       properties:
         id:
           type: integer
-        websiteId:
-          type: string
-          format: uuid
         startedAt:
           type: string
           format: datetime
@@ -17043,7 +18369,6 @@ components:
       type: object
       required:
         - id
-        - websiteId
         - startedAt
         - snapshotDirName
         - kind
@@ -17051,9 +18376,6 @@ components:
       properties:
         id:
           type: integer
-        websiteId:
-          type: string
-          format: uuid
         startedAt:
           type: string
           format: date-time
@@ -17289,9 +18611,6 @@ components:
               type: integer
         creds:
           type: object
-          required:
-            - username
-            - password
           properties:
             username:
               type: string
@@ -17460,6 +18779,8 @@ components:
           be-BY,
           bg,
           bg-BG,
+          bn-IN,
+          bn-BD,
           bs-BA,
           ca,
           ca-ES,
@@ -17822,3 +19143,315 @@ components:
           type: boolean
         mysqlKind:
           $ref: "#/components/schemas/MysqlKind"
+    #
+    # Activity log types
+    #
+    ActivityKind:
+      type: string
+      enum:
+        [added, removed, cloned, imported, backedUp, errorRaised, backupError]
+      description: >-
+        Different activities that happen in orchd.
+        There will be a lot of changes to the values of this enum as time goes
+        by, consider this non-exhausive and be graceful with unknown values.
+    ActivitiesListing:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Activity"
+    Activity:
+      type: object
+      required:
+        - id
+        - orgId
+        - kind
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        orgId:
+          type: string
+          format: uuid
+        kind:
+          $ref: "#/components/schemas/ActivityKind"
+        createdAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+        context:
+          $ref: "#/components/schemas/ActivityContext"
+        activityObject:
+          $ref: "#/components/schemas/ActivityObject"
+    ActivityContext:
+      type: object
+      properties:
+        org:
+          $ref: "#/components/schemas/ActivityOrgEntity"
+        website:
+          $ref: "#/components/schemas/ActivityWebsiteEntity"
+        domain:
+          $ref: "#/components/schemas/ActivityDomainEntity"
+        actor:
+          oneOf:
+            - $ref: "#/components/schemas/ActivityLoginEntity"
+            - $ref: "#/components/schemas/ActivityAccessTokenEntity"
+        server:
+          $ref: "#/components/schemas/ActivityServerEntity"
+        error:
+          $ref: "#/components/schemas/ActivityErrorEntity"
+    ActivityObject:
+      oneOf:
+        - $ref: "#/components/schemas/ActivityObjectEntity"
+        - type: object
+          required:
+            - type
+            - from
+            - to
+          properties:
+            type:
+              type: string
+              enum: [fromTo]
+            from:
+              $ref: "#/components/schemas/ActivityObjectEntity"
+            to:
+              $ref: "#/components/schemas/ActivityObjectEntity"
+    ActivityObjectEntity:
+      oneOf:
+        - $ref: "#/components/schemas/ActivityWebsiteEntity"
+        - $ref: "#/components/schemas/ActivityDomainEntity"
+        - $ref: "#/components/schemas/ActivityOrgEntity"
+        - $ref: "#/components/schemas/ActivityLoginEntity"
+        - $ref: "#/components/schemas/ActivityServerEntity"
+    ActivityOrgEntity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+          enum: [org]
+        content:
+          type: object
+          required:
+            - id
+            - detail
+          properties:
+            id:
+              type: string
+              format: uuid
+            detail:
+              type: object
+              properties:
+                ok:
+                  $ref: "#/components/schemas/ActivityOrgEntityDetail"
+                error:
+                  $ref: "#/components/schemas/HttpError"
+    ActivityOrgEntityDetail:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    ActivityWebsiteEntity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+          enum: [website]
+        content:
+          type: object
+          required:
+            - id
+            - detail
+          properties:
+            id:
+              type: string
+              format: uuid
+            detail:
+              type: object
+              properties:
+                ok:
+                  $ref: "#/components/schemas/ActivityWebsiteEntityDetail"
+                error:
+                  $ref: "#/components/schemas/HttpError"
+    ActivityWebsiteEntityDetail:
+      type: object
+      required:
+        - domain
+        - orgId
+      properties:
+        domain:
+          type: string
+        subscriptionId:
+          type: string
+          format: uuid
+        orgId:
+          type: string
+          format: uuid
+    ActivityDomainEntity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+          enum: [domain]
+        content:
+          type: object
+          required:
+            - id
+            - detail
+          properties:
+            id:
+              type: string
+              format: uuid
+            detail:
+              type: object
+              properties:
+                ok:
+                  $ref: "#/components/schemas/ActivityDomainEntityDetail"
+                error:
+                  $ref: "#/components/schemas/HttpError"
+    ActivityDomainEntityDetail:
+      type: object
+      required:
+        - name
+        - orgId
+      properties:
+        name:
+          type: string
+        orgId:
+          type: string
+          format: uuid
+        websiteId:
+          type: string
+          format: uuid
+        mappingKind:
+          $ref: "#/components/schemas/DomainMappingKind"
+    ActivityLoginEntity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+          enum: [login]
+        content:
+          type: object
+          required:
+            - id
+            - detail
+          properties:
+            id:
+              type: string
+              format: uuid
+            detail:
+              type: object
+              properties:
+                ok:
+                  $ref: "#/components/schemas/ActivityLoginEntityDetail"
+                error:
+                  $ref: "#/components/schemas/HttpError"
+    ActivityLoginEntityDetail:
+      type: object
+      required:
+        - email
+        - name
+        - realmId
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        realmId:
+          type: string
+          format: uuid
+    ActivityServerEntity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+          enum: [server]
+        content:
+          type: object
+          required:
+            - id
+            - detail
+          properties:
+            id:
+              type: string
+              format: uuid
+            detail:
+              type: object
+              properties:
+                ok:
+                  $ref: "#/components/schemas/ActivityServerEntityDetail"
+                error:
+                  $ref: "#/components/schemas/HttpError"
+    ActivityServerEntityDetail:
+      type: object
+      required:
+        - friendlyName
+        - hostname
+      properties:
+        friendlyName:
+          type: string
+        hostname:
+          type: string
+          format: uuid
+    ActivityErrorEntity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+          enum: [error]
+        content:
+          type: object
+          required:
+            - detail
+          properties:
+            detail:
+              $ref: "#/components/schemas/HttpError"
+    ActivityAccessTokenEntity:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum: [accessToken]
+    EmailServerHostnameOverride:
+      type: object
+      properties:
+        domain:
+          type: string
+    OutboundSpamScanningSettings:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    #
+    #
+    #

@@ -5,9 +5,9 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**createFtpUser()**](FtpApi.md#createFtpUser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website |
-| [**deleteFtpUser()**](FtpApi.md#deleteFtpUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Deletes given FTP user |
+| [**deleteFtpUser()**](FtpApi.md#deleteFtpUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{username} | Deletes given FTP user |
 | [**getFtpUsers()**](FtpApi.md#getFtpUsers) | **GET** /orgs/{org_id}/websites/{website_id}/ftp/users | Returns all ftp users data for a given website |
-| [**updateFtpUser()**](FtpApi.md#updateFtpUser) | **PATCH** /orgs/{org_id}/websites/{website_id}/ftp/users/{user_id} | Update given FTP user |
+| [**updateFtpUser()**](FtpApi.md#updateFtpUser) | **PATCH** /orgs/{org_id}/websites/{website_id}/ftp/users/{username} | Update given FTP user |
 
 
 ## `createFtpUser()`
@@ -27,11 +27,20 @@ Endpoint for creating a new FTP user. NOTE: user.account well get appended with 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new Upmind\EnhanceSdk\Api\FtpApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
@@ -61,7 +70,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -75,7 +84,7 @@ No authorization required
 ## `deleteFtpUser()`
 
 ```php
-deleteFtpUser($org_id, $website_id, $user_id, $delete_home)
+deleteFtpUser($org_id, $website_id, $username, $delete_home)
 ```
 
 Deletes given FTP user
@@ -89,19 +98,28 @@ Endpoint for deleting FTP user for a given website. User homeDir can only be del
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new Upmind\EnhanceSdk\Api\FtpApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of an FTP user.
+$username = 'username_example'; // string
 $delete_home = True; // bool | If set to true we will try to delete the homeDir for the user. User homeDir can only be deleted if it is a subdir for the website home.
 
 try {
-    $apiInstance->deleteFtpUser($org_id, $website_id, $user_id, $delete_home);
+    $apiInstance->deleteFtpUser($org_id, $website_id, $username, $delete_home);
 } catch (Exception $e) {
     echo 'Exception when calling FtpApi->deleteFtpUser: ', $e->getMessage(), PHP_EOL;
 }
@@ -113,7 +131,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of an FTP user. | |
+| **username** | **string**|  | |
 | **delete_home** | **bool**| If set to true we will try to delete the homeDir for the user. User homeDir can only be deleted if it is a subdir for the website home. | [optional] |
 
 ### Return type
@@ -122,7 +140,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -150,11 +168,20 @@ Endpoint for retreaving ftp users for a given website Session holder must be at 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new Upmind\EnhanceSdk\Api\FtpApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
@@ -180,7 +207,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -194,7 +221,7 @@ No authorization required
 ## `updateFtpUser()`
 
 ```php
-updateFtpUser($org_id, $website_id, $user_id, $ftp_user_update)
+updateFtpUser($org_id, $website_id, $username, $ftp_user_update)
 ```
 
 Update given FTP user
@@ -208,19 +235,28 @@ Endpoint for updating FTP user for a given website We only allow user's homeDir 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new Upmind\EnhanceSdk\Api\FtpApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of an FTP user.
+$username = 'username_example'; // string
 $ftp_user_update = new \Upmind\EnhanceSdk\Model\FtpUserUpdate(); // \Upmind\EnhanceSdk\Model\FtpUserUpdate | FTP User
 
 try {
-    $apiInstance->updateFtpUser($org_id, $website_id, $user_id, $ftp_user_update);
+    $apiInstance->updateFtpUser($org_id, $website_id, $username, $ftp_user_update);
 } catch (Exception $e) {
     echo 'Exception when calling FtpApi->updateFtpUser: ', $e->getMessage(), PHP_EOL;
 }
@@ -232,7 +268,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of an FTP user. | |
+| **username** | **string**|  | |
 | **ftp_user_update** | [**\Upmind\EnhanceSdk\Model\FtpUserUpdate**](../Model/FtpUserUpdate.md)| FTP User | |
 
 ### Return type
@@ -241,7 +277,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 

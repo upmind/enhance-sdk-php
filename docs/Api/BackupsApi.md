@@ -86,7 +86,7 @@ try {
 ## `deleteWebsiteBackup()`
 
 ```php
-deleteWebsiteBackup($org_id, $website_id, $backup_id)
+deleteWebsiteBackup($org_id, $website_id, $backup_id, $storage_kind)
 ```
 
 Delete a backup
@@ -118,9 +118,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BackupsApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $backup_id = 56; // int | The id of the backup.
+$storage_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\BackupStorageKind(); // \Upmind\EnhanceSdk\Model\BackupStorageKind | The storage kind of the requested backup.
 
 try {
-    $apiInstance->deleteWebsiteBackup($org_id, $website_id, $backup_id);
+    $apiInstance->deleteWebsiteBackup($org_id, $website_id, $backup_id, $storage_kind);
 } catch (Exception $e) {
     echo 'Exception when calling BackupsApi->deleteWebsiteBackup: ', $e->getMessage(), PHP_EOL;
 }
@@ -133,6 +134,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **backup_id** | **int**| The id of the backup. | |
+| **storage_kind** | [**\Upmind\EnhanceSdk\Model\BackupStorageKind**](../Model/.md)| The storage kind of the requested backup. | [optional] |
 
 ### Return type
 
@@ -154,7 +156,7 @@ void (empty response body)
 ## `getWebsiteBackup()`
 
 ```php
-getWebsiteBackup($org_id, $website_id, $backup_id): \Upmind\EnhanceSdk\Model\BackupDetailed
+getWebsiteBackup($org_id, $website_id, $backup_id, $storage_kind): \Upmind\EnhanceSdk\Model\BackupDetailed
 ```
 
 Get detailed metadata of the website backup
@@ -186,9 +188,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BackupsApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $backup_id = 56; // int | The id of the backup.
+$storage_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\BackupStorageKind(); // \Upmind\EnhanceSdk\Model\BackupStorageKind | The storage kind of the requested backup.
 
 try {
-    $result = $apiInstance->getWebsiteBackup($org_id, $website_id, $backup_id);
+    $result = $apiInstance->getWebsiteBackup($org_id, $website_id, $backup_id, $storage_kind);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling BackupsApi->getWebsiteBackup: ', $e->getMessage(), PHP_EOL;
@@ -202,6 +205,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **backup_id** | **int**| The id of the backup. | |
+| **storage_kind** | [**\Upmind\EnhanceSdk\Model\BackupStorageKind**](../Model/.md)| The storage kind of the requested backup. | [optional] |
 
 ### Return type
 
@@ -350,7 +354,7 @@ No authorization required
 ## `restoreWebsite()`
 
 ```php
-restoreWebsite($org_id, $website_id, $backup_id, $backup_restore_options)
+restoreWebsite($org_id, $website_id, $backup_id, $storage_kind, $backup_restore_options)
 ```
 
 Restore website from a backup
@@ -382,10 +386,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\BackupsApi(
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
 $backup_id = 56; // int | The id of the backup.
+$storage_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\BackupStorageKind(); // \Upmind\EnhanceSdk\Model\BackupStorageKind | The storage kind of the requested backup.
 $backup_restore_options = new \Upmind\EnhanceSdk\Model\BackupRestoreOptions(); // \Upmind\EnhanceSdk\Model\BackupRestoreOptions | The options used to define what will be restored from the backup snapshot.
 
 try {
-    $apiInstance->restoreWebsite($org_id, $website_id, $backup_id, $backup_restore_options);
+    $apiInstance->restoreWebsite($org_id, $website_id, $backup_id, $storage_kind, $backup_restore_options);
 } catch (Exception $e) {
     echo 'Exception when calling BackupsApi->restoreWebsite: ', $e->getMessage(), PHP_EOL;
 }
@@ -398,6 +403,7 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **backup_id** | **int**| The id of the backup. | |
+| **storage_kind** | [**\Upmind\EnhanceSdk\Model\BackupStorageKind**](../Model/.md)| The storage kind of the requested backup. | [optional] |
 | **backup_restore_options** | [**\Upmind\EnhanceSdk\Model\BackupRestoreOptions**](../Model/BackupRestoreOptions.md)| The options used to define what will be restored from the backup snapshot. | [optional] |
 
 ### Return type

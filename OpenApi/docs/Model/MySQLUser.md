@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  |
 **db_id** | **string** |  | [optional]
 **username** | **string** |  |
 **access_hosts** | **string[]** |  |

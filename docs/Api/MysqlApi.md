@@ -6,24 +6,23 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**createWebsiteMySQLDB()**](MysqlApi.md#createWebsiteMySQLDB) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Create a MySQL database for website |
 | [**createWebsiteMySQLUser()**](MysqlApi.md#createWebsiteMySQLUser) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users | Create website MySQL database user |
-| [**createWebsiteMySQLUserAccessHosts()**](MysqlApi.md#createWebsiteMySQLUserAccessHosts) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Create website MySQL database user access hosts |
-| [**deleteWebsiteMySQLDB()**](MysqlApi.md#deleteWebsiteMySQLDB) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id} | Delete website MySQL database |
-| [**deleteWebsiteMySQLUser()**](MysqlApi.md#deleteWebsiteMySQLUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Delete website MySQL database user |
-| [**deleteWebsiteMySQLUserAccessHosts()**](MysqlApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/access-hosts | Delete website MySQL database user access hosts |
-| [**downloadSql()**](MysqlApi.md#downloadSql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sql | Takes a backup of given database and returns it gziped |
-| [**getOrgMySQLDBs()**](MysqlApi.md#getOrgMySQLDBs) | **GET** /orgs/{org_id}/mysql-dbs | Get org&#39;s MySQL databases |
-| [**getPhpMyAdminSSOUrl()**](MysqlApi.md#getPhpMyAdminSSOUrl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_id}/sso | Get phpMyAdmin SSO URL |
+| [**createWebsiteMySQLUserAccessHosts()**](MysqlApi.md#createWebsiteMySQLUserAccessHosts) | **POST** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/access-hosts | Create website MySQL database user access hosts |
+| [**deleteWebsiteMySQLDB()**](MysqlApi.md#deleteWebsiteMySQLDB) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name} | Delete website MySQL database |
+| [**deleteWebsiteMySQLUser()**](MysqlApi.md#deleteWebsiteMySQLUser) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{username} | Delete website MySQL database user |
+| [**deleteWebsiteMySQLUserAccessHosts()**](MysqlApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/access-hosts | Delete website MySQL database user access hosts |
+| [**downloadSql()**](MysqlApi.md#downloadSql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sql | Takes a backup of given database and returns it gziped |
+| [**getPhpMyAdminSSOUrl()**](MysqlApi.md#getPhpMyAdminSSOUrl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sso | Get phpMyAdmin SSO URL |
 | [**getWebsiteMySQLDBs()**](MysqlApi.md#getWebsiteMySQLDBs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases |
 | [**getWebsiteMySQLUsers()**](MysqlApi.md#getWebsiteMySQLUsers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-users | Get website MySQL database users |
-| [**setWebsiteMySQLUserPrivileges()**](MysqlApi.md#setWebsiteMySQLUserPrivileges) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id}/privileges | Create website MySQL database user privileges |
-| [**updateWebsiteMySQLUser()**](MysqlApi.md#updateWebsiteMySQLUser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{user_id} | Update website MySQL database user |
-| [**uploadSql()**](MysqlApi.md#uploadSql) | **POST** /v2/mysql/{db_id}/sql | Uploads sql file and executes it against db |
+| [**setWebsiteMySQLUserPrivileges()**](MysqlApi.md#setWebsiteMySQLUserPrivileges) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/privileges | Create website MySQL database user privileges |
+| [**updateWebsiteMySQLUser()**](MysqlApi.md#updateWebsiteMySQLUser) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{username} | Update website MySQL database user |
+| [**uploadSql()**](MysqlApi.md#uploadSql) | **POST** /v2/websites/{websiteId}/mysql/{db_id}/sql | Uploads sql file and executes it against db |
 
 
 ## `createWebsiteMySQLDB()`
 
 ```php
-createWebsiteMySQLDB($org_id, $website_id, $new_my_sqldb): \Upmind\EnhanceSdk\Model\NewResourceUuid
+createWebsiteMySQLDB($org_id, $website_id, $new_my_sqldb)
 ```
 
 Create a MySQL database for website
@@ -48,8 +47,7 @@ $website_id = 'website_id_example'; // string | The id of the website.
 $new_my_sqldb = new \Upmind\EnhanceSdk\Model\NewMySQLDB(); // \Upmind\EnhanceSdk\Model\NewMySQLDB | New database details.
 
 try {
-    $result = $apiInstance->createWebsiteMySQLDB($org_id, $website_id, $new_my_sqldb);
-    print_r($result);
+    $apiInstance->createWebsiteMySQLDB($org_id, $website_id, $new_my_sqldb);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->createWebsiteMySQLDB: ', $e->getMessage(), PHP_EOL;
 }
@@ -65,7 +63,7 @@ try {
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\NewResourceUuid**](../Model/NewResourceUuid.md)
+void (empty response body)
 
 ### Authorization
 
@@ -74,7 +72,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
-- **Accept**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -83,7 +81,7 @@ No authorization required
 ## `createWebsiteMySQLUser()`
 
 ```php
-createWebsiteMySQLUser($org_id, $website_id, $new_my_sql_user): \Upmind\EnhanceSdk\Model\NewResourceUuid
+createWebsiteMySQLUser($org_id, $website_id, $new_my_sql_user)
 ```
 
 Create website MySQL database user
@@ -108,8 +106,7 @@ $website_id = 'website_id_example'; // string | The id of the website.
 $new_my_sql_user = new \Upmind\EnhanceSdk\Model\NewMySQLUser(); // \Upmind\EnhanceSdk\Model\NewMySQLUser | New user details.
 
 try {
-    $result = $apiInstance->createWebsiteMySQLUser($org_id, $website_id, $new_my_sql_user);
-    print_r($result);
+    $apiInstance->createWebsiteMySQLUser($org_id, $website_id, $new_my_sql_user);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->createWebsiteMySQLUser: ', $e->getMessage(), PHP_EOL;
 }
@@ -125,7 +122,7 @@ try {
 
 ### Return type
 
-[**\Upmind\EnhanceSdk\Model\NewResourceUuid**](../Model/NewResourceUuid.md)
+void (empty response body)
 
 ### Authorization
 
@@ -134,7 +131,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
-- **Accept**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -143,7 +140,7 @@ No authorization required
 ## `createWebsiteMySQLUserAccessHosts()`
 
 ```php
-createWebsiteMySQLUserAccessHosts($org_id, $website_id, $db_id, $user_id, $my_sql_user_access_hosts)
+createWebsiteMySQLUserAccessHosts($org_id, $website_id, $username, $my_sql_user_access_hosts)
 ```
 
 Create website MySQL database user access hosts
@@ -165,12 +162,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
-$user_id = 'user_id_example'; // string | The id of the database user.
+$username = 'username_example'; // string | The user of the database user.
 $my_sql_user_access_hosts = new \Upmind\EnhanceSdk\Model\MySQLUserAccessHosts(); // \Upmind\EnhanceSdk\Model\MySQLUserAccessHosts | User access hosts.
 
 try {
-    $apiInstance->createWebsiteMySQLUserAccessHosts($org_id, $website_id, $db_id, $user_id, $my_sql_user_access_hosts);
+    $apiInstance->createWebsiteMySQLUserAccessHosts($org_id, $website_id, $username, $my_sql_user_access_hosts);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->createWebsiteMySQLUserAccessHosts: ', $e->getMessage(), PHP_EOL;
 }
@@ -182,8 +178,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
-| **user_id** | **string**| The id of the database user. | |
+| **username** | **string**| The user of the database user. | |
 | **my_sql_user_access_hosts** | [**\Upmind\EnhanceSdk\Model\MySQLUserAccessHosts**](../Model/MySQLUserAccessHosts.md)| User access hosts. | |
 
 ### Return type
@@ -206,7 +201,7 @@ No authorization required
 ## `deleteWebsiteMySQLDB()`
 
 ```php
-deleteWebsiteMySQLDB($org_id, $website_id, $db_id)
+deleteWebsiteMySQLDB($org_id, $website_id, $db_name)
 ```
 
 Delete website MySQL database
@@ -228,10 +223,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
+$db_name = 'db_name_example'; // string | The name of the database.
 
 try {
-    $apiInstance->deleteWebsiteMySQLDB($org_id, $website_id, $db_id);
+    $apiInstance->deleteWebsiteMySQLDB($org_id, $website_id, $db_name);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->deleteWebsiteMySQLDB: ', $e->getMessage(), PHP_EOL;
 }
@@ -243,7 +238,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
+| **db_name** | **string**| The name of the database. | |
 
 ### Return type
 
@@ -265,7 +260,7 @@ No authorization required
 ## `deleteWebsiteMySQLUser()`
 
 ```php
-deleteWebsiteMySQLUser($org_id, $website_id, $user_id)
+deleteWebsiteMySQLUser($org_id, $website_id, $username)
 ```
 
 Delete website MySQL database user
@@ -287,10 +282,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of the database user.
+$username = 'username_example'; // string | The user of the database user.
 
 try {
-    $apiInstance->deleteWebsiteMySQLUser($org_id, $website_id, $user_id);
+    $apiInstance->deleteWebsiteMySQLUser($org_id, $website_id, $username);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->deleteWebsiteMySQLUser: ', $e->getMessage(), PHP_EOL;
 }
@@ -302,7 +297,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of the database user. | |
+| **username** | **string**| The user of the database user. | |
 
 ### Return type
 
@@ -324,7 +319,7 @@ No authorization required
 ## `deleteWebsiteMySQLUserAccessHosts()`
 
 ```php
-deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $db_id, $user_id, $my_sql_user_access_hosts)
+deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $username, $my_sql_user_access_hosts)
 ```
 
 Delete website MySQL database user access hosts
@@ -346,12 +341,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
-$user_id = 'user_id_example'; // string | The id of the database user.
+$username = 'username_example'; // string | The user of the database user.
 $my_sql_user_access_hosts = new \Upmind\EnhanceSdk\Model\MySQLUserAccessHosts(); // \Upmind\EnhanceSdk\Model\MySQLUserAccessHosts | User access hosts.
 
 try {
-    $apiInstance->deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $db_id, $user_id, $my_sql_user_access_hosts);
+    $apiInstance->deleteWebsiteMySQLUserAccessHosts($org_id, $website_id, $username, $my_sql_user_access_hosts);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->deleteWebsiteMySQLUserAccessHosts: ', $e->getMessage(), PHP_EOL;
 }
@@ -363,8 +357,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
-| **user_id** | **string**| The id of the database user. | |
+| **username** | **string**| The user of the database user. | |
 | **my_sql_user_access_hosts** | [**\Upmind\EnhanceSdk\Model\MySQLUserAccessHosts**](../Model/MySQLUserAccessHosts.md)| User access hosts. | |
 
 ### Return type
@@ -387,7 +380,7 @@ No authorization required
 ## `downloadSql()`
 
 ```php
-downloadSql($org_id, $website_id, $db_id): string
+downloadSql($org_id, $website_id, $db_name): string
 ```
 
 Takes a backup of given database and returns it gziped
@@ -418,10 +411,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
+$db_name = 'db_name_example'; // string | The name of the database.
 
 try {
-    $result = $apiInstance->downloadSql($org_id, $website_id, $db_id);
+    $result = $apiInstance->downloadSql($org_id, $website_id, $db_name);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->downloadSql: ', $e->getMessage(), PHP_EOL;
@@ -434,7 +427,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
+| **db_name** | **string**| The name of the database. | |
 
 ### Return type
 
@@ -453,76 +446,10 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getOrgMySQLDBs()`
-
-```php
-getOrgMySQLDBs($org_id, $offset, $limit, $sort_by, $sort_order, $search): \Upmind\EnhanceSdk\Model\MySQLDBsListing
-```
-
-Get org's MySQL databases
-
-Returns all MySQL databases belonging to the given organization. The results may optionally be filtered. Session holder must be at least a `SuperAdmin` in this org or a parent org.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-
-$apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
-);
-$org_id = 'org_id_example'; // string | The id of the organization.
-$offset = 56; // int | The offset from which to return items.
-$limit = 56; // int | The maximum number of items to return.
-$sort_by = 'sort_by_example'; // string | The field by which to sort.
-$sort_order = 'sort_order_example'; // string | The direction in which to sort. Possible values are 'asc' and 'desc', defaulting to 'asc'.
-$search = 'search_example'; // string | Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website's uuid.
-
-try {
-    $result = $apiInstance->getOrgMySQLDBs($org_id, $offset, $limit, $sort_by, $sort_order, $search);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling MysqlApi->getOrgMySQLDBs: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **org_id** | **string**| The id of the organization. | |
-| **offset** | **int**| The offset from which to return items. | [optional] |
-| **limit** | **int**| The maximum number of items to return. | [optional] |
-| **sort_by** | **string**| The field by which to sort. | [optional] |
-| **sort_order** | **string**| The direction in which to sort. Possible values are &#39;asc&#39; and &#39;desc&#39;, defaulting to &#39;asc&#39;. | [optional] |
-| **search** | **string**| Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website&#39;s uuid. | [optional] |
-
-### Return type
-
-[**\Upmind\EnhanceSdk\Model\MySQLDBsListing**](../Model/MySQLDBsListing.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
 ## `getPhpMyAdminSSOUrl()`
 
 ```php
-getPhpMyAdminSSOUrl($org_id, $website_id, $db_id, $should_redirect): string
+getPhpMyAdminSSOUrl($org_id, $website_id, $db_name, $should_redirect): string
 ```
 
 Get phpMyAdmin SSO URL
@@ -544,11 +471,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$db_id = 'db_id_example'; // string | The id of the database.
+$db_name = 'db_name_example'; // string | The name of the database.
 $should_redirect = True; // bool | If set to true, the endpoint will send a 307 redirect to the SSO URL.
 
 try {
-    $result = $apiInstance->getPhpMyAdminSSOUrl($org_id, $website_id, $db_id, $should_redirect);
+    $result = $apiInstance->getPhpMyAdminSSOUrl($org_id, $website_id, $db_name, $should_redirect);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->getPhpMyAdminSSOUrl: ', $e->getMessage(), PHP_EOL;
@@ -561,7 +488,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **db_id** | **string**| The id of the database. | |
+| **db_name** | **string**| The name of the database. | |
 | **should_redirect** | **bool**| If set to true, the endpoint will send a 307 redirect to the SSO URL. | [optional] |
 
 ### Return type
@@ -700,7 +627,7 @@ No authorization required
 ## `setWebsiteMySQLUserPrivileges()`
 
 ```php
-setWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants)
+setWebsiteMySQLUserPrivileges($org_id, $website_id, $username, $my_sql_user_grants)
 ```
 
 Create website MySQL database user privileges
@@ -722,11 +649,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of the database user.
+$username = 'username_example'; // string | The user of the database user.
 $my_sql_user_grants = new \Upmind\EnhanceSdk\Model\MySQLUserGrants(); // \Upmind\EnhanceSdk\Model\MySQLUserGrants | User privilege grants.
 
 try {
-    $apiInstance->setWebsiteMySQLUserPrivileges($org_id, $website_id, $user_id, $my_sql_user_grants);
+    $apiInstance->setWebsiteMySQLUserPrivileges($org_id, $website_id, $username, $my_sql_user_grants);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->setWebsiteMySQLUserPrivileges: ', $e->getMessage(), PHP_EOL;
 }
@@ -738,7 +665,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of the database user. | |
+| **username** | **string**| The user of the database user. | |
 | **my_sql_user_grants** | [**\Upmind\EnhanceSdk\Model\MySQLUserGrants**](../Model/MySQLUserGrants.md)| User privilege grants. | |
 
 ### Return type
@@ -761,7 +688,7 @@ No authorization required
 ## `updateWebsiteMySQLUser()`
 
 ```php
-updateWebsiteMySQLUser($org_id, $website_id, $user_id, $my_sql_user_update)
+updateWebsiteMySQLUser($org_id, $website_id, $username, $my_sql_user_update)
 ```
 
 Update website MySQL database user
@@ -783,11 +710,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
 );
 $org_id = 'org_id_example'; // string | The id of the organization.
 $website_id = 'website_id_example'; // string | The id of the website.
-$user_id = 'user_id_example'; // string | The id of the database user.
+$username = 'username_example'; // string | The user of the database user.
 $my_sql_user_update = new \Upmind\EnhanceSdk\Model\MySQLUserUpdate(); // \Upmind\EnhanceSdk\Model\MySQLUserUpdate | User update details.
 
 try {
-    $apiInstance->updateWebsiteMySQLUser($org_id, $website_id, $user_id, $my_sql_user_update);
+    $apiInstance->updateWebsiteMySQLUser($org_id, $website_id, $username, $my_sql_user_update);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->updateWebsiteMySQLUser: ', $e->getMessage(), PHP_EOL;
 }
@@ -799,7 +726,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
-| **user_id** | **string**| The id of the database user. | |
+| **username** | **string**| The user of the database user. | |
 | **my_sql_user_update** | [**\Upmind\EnhanceSdk\Model\MySQLUserUpdate**](../Model/MySQLUserUpdate.md)| User update details. | |
 
 ### Return type
@@ -822,7 +749,7 @@ No authorization required
 ## `uploadSql()`
 
 ```php
-uploadSql($db_id, $sql, $force)
+uploadSql($website_id, $db_name, $sql, $force)
 ```
 
 Uploads sql file and executes it against db
@@ -851,12 +778,13 @@ $apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
     new GuzzleHttp\Client(),
     $config
 );
-$db_id = 'db_id_example'; // string | The id of the database.
+$website_id = 'website_id_example'; // string | The id of the website.
+$db_name = 'db_name_example'; // string | The name of the database.
 $sql = '/path/to/file.txt'; // \SplFileObject | Upload either a raw sql file (must be utf8 valid string) or .zip or .gz file with the sql string.
 $force = false; // bool
 
 try {
-    $apiInstance->uploadSql($db_id, $sql, $force);
+    $apiInstance->uploadSql($website_id, $db_name, $sql, $force);
 } catch (Exception $e) {
     echo 'Exception when calling MysqlApi->uploadSql: ', $e->getMessage(), PHP_EOL;
 }
@@ -866,7 +794,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **db_id** | **string**| The id of the database. | |
+| **website_id** | **string**| The id of the website. | |
+| **db_name** | **string**| The name of the database. | |
 | **sql** | **\SplFileObject****\SplFileObject**| Upload either a raw sql file (must be utf8 valid string) or .zip or .gz file with the sql string. | |
 | **force** | **bool**|  | [optional] [default to false] |
 
