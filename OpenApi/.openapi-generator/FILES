@@ -65,6 +65,7 @@ docs/Model/ActivityWebsiteEntity.md
 docs/Model/ActivityWebsiteEntityContent.md
 docs/Model/ActivityWebsiteEntityContentDetail.md
 docs/Model/ActivityWebsiteEntityDetail.md
+docs/Model/AdminCredentials.md
 docs/Model/Allowance.md
 docs/Model/ApplicationRoleInfo.md
 docs/Model/AuthNs.md
@@ -543,6 +544,7 @@ lib/Model/ActivityWebsiteEntity.php
 lib/Model/ActivityWebsiteEntityContent.php
 lib/Model/ActivityWebsiteEntityContentDetail.php
 lib/Model/ActivityWebsiteEntityDetail.php
+lib/Model/AdminCredentials.php
 lib/Model/Allowance.php
 lib/Model/ApplicationRoleInfo.php
 lib/Model/AuthNs.php
@@ -1020,6 +1022,7 @@ test/Model/ActivityWebsiteEntityContentDetailTest.php
 test/Model/ActivityWebsiteEntityContentTest.php
 test/Model/ActivityWebsiteEntityDetailTest.php
 test/Model/ActivityWebsiteEntityTest.php
+test/Model/AdminCredentialsTest.php
 test/Model/AllowanceTest.php
 test/Model/ApplicationRoleInfoTest.php
 test/Model/AuthNsResponseNsTest.php

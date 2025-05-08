@@ -2,6 +2,13 @@
 
 All notable changes to the package will be documented in this file.
 
+## v12.3.0 - 2025-05-08
+
+- Update generator.sh to use openapi-generator-cli v7.12.0
+- Update open-api.yml to Enhance v12.3.0 OpenAPI spec
+- Re-generate SDK
+- Update README.md docs
+
 ## v12.0.0 - 2025-02-19
 
 - Update open-api.yml to Enhance v12.0.0 OpenAPI spec

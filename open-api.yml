@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 12.0.0
+  version: 12.3.0
   title: orchd
 tags:
   - name: install
@@ -9111,6 +9111,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: createWebsiteApp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -9140,6 +9143,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: getWebsiteApps
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       responses:
         "200":
           description: Successful
@@ -9169,6 +9175,9 @@ paths:
         Session holder must be at least a `SuperAdmin` in this org or a parent
         org, or be a member in this org that has access to the website.
       operationId: deleteWebsiteApp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/BackupBeforeOperation"
       responses:
@@ -15205,6 +15214,10 @@ components:
           format: uuid
         phpVersion:
           $ref: "#/components/schemas/PhpVersion"
+        # if WordPress is preinstalled as part of the package, override the
+        # automatically generated admin login credentials
+        wordPressAdminCredentials:
+          $ref: "#/components/schemas/AdminCredentials"
     UpdateWebsite:
       type: object
       properties:
@@ -15417,6 +15430,10 @@ components:
           php82,
           php83,
           php84,
+          php52,
+          php53,
+          php54,
+          php55,
         ]
     SiteAccessMember:
       type: object
@@ -19452,6 +19469,17 @@ components:
       properties:
         enabled:
           type: boolean
-    #
-    #
-    #
+    AdminCredentials:
+      description: A username/password for a web app such as WordPress
+      type: object
+      required:
+        - username
+        - password
+        - email
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string

@@ -586,6 +586,7 @@ Class | Method | HTTP request | Description
 - [ActivityWebsiteEntityContent](docs/Model/ActivityWebsiteEntityContent.md)
 - [ActivityWebsiteEntityContentDetail](docs/Model/ActivityWebsiteEntityContentDetail.md)
 - [ActivityWebsiteEntityDetail](docs/Model/ActivityWebsiteEntityDetail.md)
+- [AdminCredentials](docs/Model/AdminCredentials.md)
 - [Allowance](docs/Model/Allowance.md)
 - [ApplicationRoleInfo](docs/Model/ApplicationRoleInfo.md)
 - [AuthNs](docs/Model/AuthNs.md)
