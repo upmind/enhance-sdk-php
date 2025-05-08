@@ -1,5 +1,5 @@
 #! /bin/bash
-openapi-generator generate -i ./open-api.yml -g php -c generator-config.yml -o ./OpenApi/ --package-name "upmind/enhance-sdk"
+openapi-generator-cli generate -i ./open-api.yml -g php -c generator-config.yml -o ./OpenApi/ --package-name "upmind/enhance-sdk"
 cp -r ./OpenApi/lib/* ./src/
 cp -r OpenApi/.openapi-generator ./
 cp -r ./OpenApi/docs ./

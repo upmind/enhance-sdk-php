@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/upmind/enhance-sdk.svg?style=flat-square)](https://packagist.org/packages/upmind/enhance-sdk)
 
-[Enhance.com](https://enhance.com) PHP SDK automatically [generated](generate.sh) from the [Enhance OpenAPI](https://apidocs.enhance.com/#/) spec using [OpenAPI Generator](https://openapi-generator.tech) v7.11.0.
+[Enhance.com](https://enhance.com) PHP SDK automatically [generated](generate.sh) from the [Enhance OpenAPI](https://apidocs.enhance.com/#/) spec using [OpenAPI Generator](https://openapi-generator.tech) v7.12.0.
 
 This package's versioning corresponds to the version of the [Enhance orchd OpenAPI spec](https://apidocs.enhance.com/spec/oas3-api.yaml) used to generate the SDK.
 
