@@ -104,6 +104,7 @@ docs/Model/CrontabValueCmd.md
 docs/Model/CrontabValueCmdCronCmd.md
 docs/Model/CrontabValueVariable.md
 docs/Model/CrontabValueVariableVariable.md
+docs/Model/Customer.md
 docs/Model/CustomersListing.md
 docs/Model/DaemonKind.md
 docs/Model/DatabaseRoleInfo.md
@@ -155,6 +156,7 @@ docs/Model/FtpUserUpdate.md
 docs/Model/FtpUsersFullListing.md
 docs/Model/GetServerRole200Response.md
 docs/Model/GetWordpressAppVersion200Response.md
+docs/Model/GlobalWebsiteBackup.md
 docs/Model/HttpError.md
 docs/Model/HttpdStatus.md
 docs/Model/ImportKind.md
@@ -390,6 +392,7 @@ docs/Model/TransferUserAccountReqBody.md
 docs/Model/UiPreferences.md
 docs/Model/UiPreferencesViewKind.md
 docs/Model/UnixTimestamp.md
+docs/Model/UpdateAccessToken.md
 docs/Model/UpdateApplicationRole.md
 docs/Model/UpdateAutoresponder.md
 docs/Model/UpdateBackupRemoteStorageS3.md
@@ -583,6 +586,7 @@ lib/Model/CrontabValueCmd.php
 lib/Model/CrontabValueCmdCronCmd.php
 lib/Model/CrontabValueVariable.php
 lib/Model/CrontabValueVariableVariable.php
+lib/Model/Customer.php
 lib/Model/CustomersListing.php
 lib/Model/DaemonKind.php
 lib/Model/DatabaseRoleInfo.php
@@ -634,6 +638,7 @@ lib/Model/FtpUserUpdate.php
 lib/Model/FtpUsersFullListing.php
 lib/Model/GetServerRole200Response.php
 lib/Model/GetWordpressAppVersion200Response.php
+lib/Model/GlobalWebsiteBackup.php
 lib/Model/HttpError.php
 lib/Model/HttpdStatus.php
 lib/Model/ImportKind.php
@@ -870,6 +875,7 @@ lib/Model/TransferUserAccountReqBody.php
 lib/Model/UiPreferences.php
 lib/Model/UiPreferencesViewKind.php
 lib/Model/UnixTimestamp.php
+lib/Model/UpdateAccessToken.php
 lib/Model/UpdateApplicationRole.php
 lib/Model/UpdateAutoresponder.php
 lib/Model/UpdateBackupRemoteStorageS3.php
@@ -1061,6 +1067,7 @@ test/Model/CrontabValueCmdTest.php
 test/Model/CrontabValueTest.php
 test/Model/CrontabValueVariableTest.php
 test/Model/CrontabValueVariableVariableTest.php
+test/Model/CustomerTest.php
 test/Model/CustomersListingTest.php
 test/Model/DaemonKindTest.php
 test/Model/DatabaseRoleInfoTest.php
@@ -1112,6 +1119,7 @@ test/Model/FtpUserUpdateTest.php
 test/Model/FtpUsersFullListingTest.php
 test/Model/GetServerRole200ResponseTest.php
 test/Model/GetWordpressAppVersion200ResponseTest.php
+test/Model/GlobalWebsiteBackupTest.php
 test/Model/HttpErrorTest.php
 test/Model/HttpdStatusTest.php
 test/Model/ImportKindTest.php
@@ -1347,6 +1355,7 @@ test/Model/TransferUserAccountReqBodyTest.php
 test/Model/UiPreferencesTest.php
 test/Model/UiPreferencesViewKindTest.php
 test/Model/UnixTimestampTest.php
+test/Model/UpdateAccessTokenTest.php
 test/Model/UpdateApplicationRoleTest.php
 test/Model/UpdateAutoresponderTest.php
 test/Model/UpdateBackupRemoteStorageS3Test.php

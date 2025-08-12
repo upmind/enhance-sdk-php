@@ -71,10 +71,14 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**getInstallableApps**](docs/Api/AppsApi.md#getinstallableapps) | **GET** /orgs/{org_id}/subscriptions/{subscription_id}/installable-apps | Get installable website applications
 *AppsApi* | [**getWebsiteApps**](docs/Api/AppsApi.md#getwebsiteapps) | **GET** /orgs/{org_id}/websites/{website_id}/apps | Get website applications
 *BackupsApi* | [**backupWebsite**](docs/Api/BackupsApi.md#backupwebsite) | **POST** /orgs/{org_id}/websites/{website_id}/backups | Create a website backup
+*BackupsApi* | [**deleteAllWebsiteBackups**](docs/Api/BackupsApi.md#deleteallwebsitebackups) | **DELETE** /backups/{server_id}/{website_id} | Delete all backups for a website
 *BackupsApi* | [**deleteWebsiteBackup**](docs/Api/BackupsApi.md#deletewebsitebackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup
 *BackupsApi* | [**getWebsiteBackup**](docs/Api/BackupsApi.md#getwebsitebackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup
 *BackupsApi* | [**getWebsiteBackups**](docs/Api/BackupsApi.md#getwebsitebackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata
+*BackupsApi* | [**getWebsiteRestoreLog**](docs/Api/BackupsApi.md#getwebsiterestorelog) | **GET** /backups/{website_id}/restore/log | Get the log for an ongoing restore, will return 404 if the restore is already complete
 *BackupsApi* | [**getWebsiteRestoreStatus**](docs/Api/BackupsApi.md#getwebsiterestorestatus) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/restore_status | Get the last detailed metadata of the restored website backup.
+*BackupsApi* | [**listGlobalBackups**](docs/Api/BackupsApi.md#listglobalbackups) | **GET** /backups | List global website backups across all backup servers, by backup server ID
+*BackupsApi* | [**restoreHardDeletedBackup**](docs/Api/BackupsApi.md#restoreharddeletedbackup) | **PUT** /backups/{server_id}/{website_id} | Restore a backup of a hard deleted website
 *BackupsApi* | [**restoreWebsite**](docs/Api/BackupsApi.md#restorewebsite) | **PUT** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Restore website from a backup
 *BrandingApi* | [**createBrandingSettings**](docs/Api/BrandingApi.md#createbrandingsettings) | **POST** /orgs/{org_id}/branding/settings | Create branding settings
 *BrandingApi* | [**createNameServerDomain**](docs/Api/BrandingApi.md#createnameserverdomain) | **POST** /orgs/{org_id}/name-servers | Create reseller name server domain
@@ -148,22 +152,22 @@ Class | Method | HTTP request | Description
 *EmailClientApi* | [**updateEmailForwarders**](docs/Api/EmailClientApi.md#updateemailforwarders) | **PUT** /email-client/forwarders | Updates email account&#39;s forwarders
 *EmailClientApi* | [**updateEmailPassword**](docs/Api/EmailClientApi.md#updateemailpassword) | **PUT** /email-client/password | Updates email account&#39;s password
 *EmailsApi* | [**createWebsiteEmail**](docs/Api/EmailsApi.md#createwebsiteemail) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/emails | Create an email under website&#39;s domain
-*EmailsApi* | [**createWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#createwebsiteemailautoresponder) | **POST** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder | Create new website email autoresponder
-*EmailsApi* | [**deleteWebsiteEmail**](docs/Api/EmailsApi.md#deletewebsiteemail) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Delete website email
-*EmailsApi* | [**deleteWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#deletewebsiteemailautoresponder) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder | Delete website email autoresponder
-*EmailsApi* | [**getDomainEmailAuth**](docs/Api/EmailsApi.md#getdomainemailauth) | **GET** /orgs/{org_id}/domains/{domain_id}/email-auth | Get email authentication preferences
+*EmailsApi* | [**createWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#createwebsiteemailautoresponder) | **POST** /orgs/{org_id}/websites/{website_id}/emails/{email_address}/autoresponder | Create new website email autoresponder
+*EmailsApi* | [**deleteWebsiteEmail**](docs/Api/EmailsApi.md#deletewebsiteemail) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_address} | Delete website email
+*EmailsApi* | [**deleteWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#deletewebsiteemailautoresponder) | **DELETE** /orgs/{org_id}/websites/{website_id}/emails/{email_address}/autoresponder | Delete website email autoresponder
+*EmailsApi* | [**getDomainEmailAuth**](docs/Api/EmailsApi.md#getdomainemailauth) | **GET** /websites/{website_id}/domains/{domain_name}/email-auth | Get email authentication preferences
 *EmailsApi* | [**getDomainLocalRemote**](docs/Api/EmailsApi.md#getdomainlocalremote) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/local_remote | Get the current local/remote status
-*EmailsApi* | [**getEmailSpamThresholds**](docs/Api/EmailsApi.md#getemailspamthresholds) | **GET** /emails/{email_id}/spam_thresholds | Get spam thresholds for an email address
+*EmailsApi* | [**getEmailSpamThresholds**](docs/Api/EmailsApi.md#getemailspamthresholds) | **GET** /websites/{website_id}/emails/{email_address}/spam_thresholds | Get spam thresholds for an email address
 *EmailsApi* | [**getEmails**](docs/Api/EmailsApi.md#getemails) | **GET** /orgs/{org_id}/emails | Get org emails
-*EmailsApi* | [**getWebsiteEmail**](docs/Api/EmailsApi.md#getwebsiteemail) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Get website email
-*EmailsApi* | [**getWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#getwebsiteemailautoresponder) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder | Get website email autoresponder
-*EmailsApi* | [**getWebsiteEmailClientConf**](docs/Api/EmailsApi.md#getwebsiteemailclientconf) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_id}/client-conf | Get website email client configuration
+*EmailsApi* | [**getWebsiteEmail**](docs/Api/EmailsApi.md#getwebsiteemail) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_address} | Get website email
+*EmailsApi* | [**getWebsiteEmailAutoresponder**](docs/Api/EmailsApi.md#getwebsiteemailautoresponder) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_address}/autoresponder | Get website email autoresponder
+*EmailsApi* | [**getWebsiteEmailClientConf**](docs/Api/EmailsApi.md#getwebsiteemailclientconf) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_address}/client-conf | Get website email client configuration
 *EmailsApi* | [**getWebsiteEmails**](docs/Api/EmailsApi.md#getwebsiteemails) | **GET** /orgs/{org_id}/websites/{website_id}/emails | Get website emails
 *EmailsApi* | [**setDomainLocalRemote**](docs/Api/EmailsApi.md#setdomainlocalremote) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/local_remote | Update email local/remote status
-*EmailsApi* | [**setEmailSpamThresholds**](docs/Api/EmailsApi.md#setemailspamthresholds) | **PUT** /emails/{email_id}/spam_thresholds | Set spam thresholds for an email address
-*EmailsApi* | [**updateDomainEmailAuth**](docs/Api/EmailsApi.md#updatedomainemailauth) | **PUT** /orgs/{org_id}/domains/{domain_id}/email-auth | Update email authentication preferences
-*EmailsApi* | [**updateWebsiteEmail**](docs/Api/EmailsApi.md#updatewebsiteemail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_id} | Update website email
-*EmailsApi* | [**validateDomainEmailAuth**](docs/Api/EmailsApi.md#validatedomainemailauth) | **GET** /orgs/{org_id}/domains/{domain_id}/email-auth/validate | Validate email authentication DNS records
+*EmailsApi* | [**setEmailSpamThresholds**](docs/Api/EmailsApi.md#setemailspamthresholds) | **PUT** /websites/{website_id}/emails/{email_address}/spam_thresholds | Set spam thresholds for an email address
+*EmailsApi* | [**updateDomainEmailAuth**](docs/Api/EmailsApi.md#updatedomainemailauth) | **PUT** /websites/{website_id}/domains/{domain_name}/email-auth | Update email authentication preferences
+*EmailsApi* | [**updateWebsiteEmail**](docs/Api/EmailsApi.md#updatewebsiteemail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_address} | Update website email
+*EmailsApi* | [**validateDomainEmailAuth**](docs/Api/EmailsApi.md#validatedomainemailauth) | **GET** /websites/{website_id}/domains/{domain_name}/email-auth/validate | Validate email authentication DNS records
 *FtpApi* | [**createFtpUser**](docs/Api/FtpApi.md#createftpuser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website
 *FtpApi* | [**deleteFtpUser**](docs/Api/FtpApi.md#deleteftpuser) | **DELETE** /orgs/{org_id}/websites/{website_id}/ftp/users/{username} | Deletes given FTP user
 *FtpApi* | [**getFtpUsers**](docs/Api/FtpApi.md#getftpusers) | **GET** /orgs/{org_id}/websites/{website_id}/ftp/users | Returns all ftp users data for a given website
@@ -230,6 +234,7 @@ Class | Method | HTTP request | Description
 *MembersApi* | [**getMember**](docs/Api/MembersApi.md#getmember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member
 *MembersApi* | [**getMembers**](docs/Api/MembersApi.md#getmembers) | **GET** /orgs/{org_id}/members | Get organization members
 *MembersApi* | [**getOrgMemberLogin**](docs/Api/MembersApi.md#getorgmemberlogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member
+*MembersApi* | [**updateAccessToken**](docs/Api/MembersApi.md#updateaccesstoken) | **PATCH** /orgs/{org_id}/access_tokens/{token_id} | Update access token
 *MembersApi* | [**updateMember**](docs/Api/MembersApi.md#updatemember) | **PUT** /orgs/{org_id}/members/{member_id} | Overwrite organization member settings
 *MembersApi* | [**updateOwner**](docs/Api/MembersApi.md#updateowner) | **PUT** /orgs/{org_id}/owner | Update organization owner
 *MetricsApi* | [**getWebsiteMetrics**](docs/Api/MetricsApi.md#getwebsitemetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics
@@ -405,6 +410,8 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**deleteOrchdLoginPolicyIpBlacklist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipblacklist) | **DELETE** /settings/orchd/login-policy/ip-blacklist | Delete an orchd login policy ip blacklist
 *SettingsApi* | [**deleteOrchdLoginPolicyIpWhitelist**](docs/Api/SettingsApi.md#deleteorchdloginpolicyipwhitelist) | **DELETE** /settings/orchd/login-policy/ip-whitelist | Delete an orchd login policy ip whitelist
 *SettingsApi* | [**deleteSetting**](docs/Api/SettingsApi.md#deletesetting) | **DELETE** /settings/{name} | Remove the specified setting
+*SettingsApi* | [**getAdminLockdownList**](docs/Api/SettingsApi.md#getadminlockdownlist) | **GET** /settings/orchd/admin-lockdown/list | Get the list of allowed IPs for master organisation login, line separated
+*SettingsApi* | [**getAdminLockdownStatus**](docs/Api/SettingsApi.md#getadminlockdownstatus) | **GET** /settings/orchd/admin-lockdown/status | Check if master organisation IP lockdown is enabled
 *SettingsApi* | [**getBackupRemoteStorageS3**](docs/Api/SettingsApi.md#getbackupremotestorages3) | **GET** /v2/settings/backup/remote_storage/s3 | Get S3 object storage settings at platform level.
 *SettingsApi* | [**getDemoMode**](docs/Api/SettingsApi.md#getdemomode) | **GET** /v2/settings/demo_mode | Get the demo mode status of the orchd service
 *SettingsApi* | [**getGlobalServiceSetting**](docs/Api/SettingsApi.md#getglobalservicesetting) | **GET** /settings/service/{setting_kind} | Get the value for a particular global service setting
@@ -417,6 +424,8 @@ Class | Method | HTTP request | Description
 *SettingsApi* | [**getProhibitedDomains**](docs/Api/SettingsApi.md#getprohibiteddomains) | **GET** /settings/orchd/prohibited_domains | Get the platform level prohibited domains as a newline separated list
 *SettingsApi* | [**getSetting**](docs/Api/SettingsApi.md#getsetting) | **GET** /settings/{name} | Get the specified setting
 *SettingsApi* | [**getSettings**](docs/Api/SettingsApi.md#getsettings) | **GET** /settings | Get all current settings
+*SettingsApi* | [**setAdminLockdownList**](docs/Api/SettingsApi.md#setadminlockdownlist) | **PUT** /settings/orchd/admin-lockdown/list | Set admin lockdown list as a whole
+*SettingsApi* | [**setAdminLockdownStatus**](docs/Api/SettingsApi.md#setadminlockdownstatus) | **PUT** /settings/orchd/admin-lockdown/status | Set admin lockdown status
 *SettingsApi* | [**setGlobalServiceSetting**](docs/Api/SettingsApi.md#setglobalservicesetting) | **PUT** /settings/service/{setting_kind}/{setting_key} | Set a single global service setting
 *SettingsApi* | [**setOrchdLogSettings**](docs/Api/SettingsApi.md#setorchdlogsettings) | **PUT** /settings/orchd/logs | Set the orchd log settings
 *SettingsApi* | [**setProhibitedDomains**](docs/Api/SettingsApi.md#setprohibiteddomains) | **PUT** /settings/orchd/prohibited_domains | Set the platform level prohibited domains
@@ -625,6 +634,7 @@ Class | Method | HTTP request | Description
 - [CrontabValueCmdCronCmd](docs/Model/CrontabValueCmdCronCmd.md)
 - [CrontabValueVariable](docs/Model/CrontabValueVariable.md)
 - [CrontabValueVariableVariable](docs/Model/CrontabValueVariableVariable.md)
+- [Customer](docs/Model/Customer.md)
 - [CustomersListing](docs/Model/CustomersListing.md)
 - [DaemonKind](docs/Model/DaemonKind.md)
 - [DatabaseRoleInfo](docs/Model/DatabaseRoleInfo.md)
@@ -676,6 +686,7 @@ Class | Method | HTTP request | Description
 - [FtpUsersFullListing](docs/Model/FtpUsersFullListing.md)
 - [GetServerRole200Response](docs/Model/GetServerRole200Response.md)
 - [GetWordpressAppVersion200Response](docs/Model/GetWordpressAppVersion200Response.md)
+- [GlobalWebsiteBackup](docs/Model/GlobalWebsiteBackup.md)
 - [HttpError](docs/Model/HttpError.md)
 - [HttpdStatus](docs/Model/HttpdStatus.md)
 - [ImportKind](docs/Model/ImportKind.md)
@@ -911,6 +922,7 @@ Class | Method | HTTP request | Description
 - [UiPreferences](docs/Model/UiPreferences.md)
 - [UiPreferencesViewKind](docs/Model/UiPreferencesViewKind.md)
 - [UnixTimestamp](docs/Model/UnixTimestamp.md)
+- [UpdateAccessToken](docs/Model/UpdateAccessToken.md)
 - [UpdateApplicationRole](docs/Model/UpdateApplicationRole.md)
 - [UpdateAutoresponder](docs/Model/UpdateAutoresponder.md)
 - [UpdateBackupRemoteStorageS3](docs/Model/UpdateBackupRemoteStorageS3.md)

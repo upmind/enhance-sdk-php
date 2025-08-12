@@ -14,10 +14,11 @@ Name | Type | Description | Notes
 **status** | [**\Upmind\EnhanceSdk\Model\NetworkStatus**](NetworkStatus.md) |  | [optional]
 **roles** | [**\Upmind\EnhanceSdk\Model\RolesSummary**](RolesSummary.md) |  |
 **created_at** | **string** |  |
-**controld_version** | **string** |  | [optional]
+**appcd_version** | **string** |  | [optional]
 **dedicated_subscription** | [**\Upmind\EnhanceSdk\Model\DedicatedSubscriptionInfo**](DedicatedSubscriptionInfo.md) |  | [optional]
 **is_decommissioned** | **bool** |  |
 **ipv6_addr** | **string** |  | [optional]
 **disks** | [**\Upmind\EnhanceSdk\Model\Disk[]**](Disk.md) |  |
+**update_required** | **bool** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

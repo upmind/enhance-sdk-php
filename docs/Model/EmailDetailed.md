@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  |
 **mailbox_name** | **string** |  | [optional]
 **address** | **string** |  |
 **aliases** | **string[]** |  |
@@ -16,5 +15,6 @@ Name | Type | Description | Notes
 **whitelist** | **string[]** |  |
 **autoresponders_count** | **int** |  |
 **created_at** | **string** |  |
+**is_catch_all** | **bool** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

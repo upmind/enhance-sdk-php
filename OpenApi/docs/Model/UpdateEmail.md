@@ -13,5 +13,6 @@ Name | Type | Description | Notes
 **quota** | **int** |  | [optional]
 **blacklist** | **string[]** |  | [optional]
 **whitelist** | **string[]** |  | [optional]
+**is_catch_all** | **bool** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

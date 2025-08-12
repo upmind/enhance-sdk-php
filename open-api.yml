@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 12.3.0
+  version: 12.9.3
   title: orchd
 tags:
   - name: install
@@ -631,6 +631,97 @@ paths:
         "403":
           description: Insufficient privileges
   # ANCHOR_END: email_blacklist
+
+  /settings/orchd/admin-lockdown/status:
+    get:
+      tags:
+        - settings
+      summary: Check if master organisation IP lockdown is enabled
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getAdminLockdownStatus
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set admin lockdown status
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setAdminLockdownStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "204":
+          description: Successful
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /settings/orchd/admin-lockdown/list:
+    get:
+      tags:
+        - settings
+      summary: Get the list of allowed IPs for master organisation login, line separated
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getAdminLockdownList
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - settings
+      summary: Set admin lockdown list as a whole
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: setAdminLockdownList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "204":
+          description: Successful
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
 
   /settings/{name}:
     parameters:
@@ -4987,6 +5078,35 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+    patch:
+      tags:
+        - members
+      summary: Update access token
+      description: >-
+        Update an access token
+      operationId: updateAccessToken
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/OrgId"
+        - $ref: "#/components/parameters/OrgAccessTokenId"
+      requestBody:
+        description: Access token details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAccessToken"
+      responses:
+        "200":
+          description: Updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   ###############################################################################
   # -- plans
   ###############################################################################
@@ -6692,10 +6812,10 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/domains/{domain_id}/email-auth:
+  /websites/{website_id}/domains/{domain_name}/email-auth:
     parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/DomainId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DomainName"
     get:
       tags:
         - emails
@@ -6747,10 +6867,10 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/domains/{domain_id}/email-auth/validate:
+  /websites/{website_id}/domains/{domain_name}/email-auth/validate:
     parameters:
-      - $ref: "#/components/parameters/OrgId"
-      - $ref: "#/components/parameters/DomainId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DomainName"
     get:
       tags:
         - emails
@@ -7546,8 +7666,6 @@ paths:
         - sessionCookie: []
         - bearerAuth: []
       parameters:
-        - $ref: "#/components/parameters/Offset"
-        - $ref: "#/components/parameters/Limit"
         - name: sortBy
           in: query
           description: The field by which to sort.
@@ -7624,11 +7742,11 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/emails/{email_id}:
+  /orgs/{org_id}/websites/{website_id}/emails/{email_address}:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/EmailId"
+      - $ref: "#/components/parameters/EmailAddress"
     get:
       tags:
         - emails
@@ -7710,11 +7828,11 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/emails/{email_id}/client-conf:
+  /orgs/{org_id}/websites/{website_id}/emails/{email_address}/client-conf:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/EmailId"
+      - $ref: "#/components/parameters/EmailAddress"
     get:
       tags:
         - emails
@@ -7741,11 +7859,11 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /orgs/{org_id}/websites/{website_id}/emails/{email_id}/autoresponder:
+  /orgs/{org_id}/websites/{website_id}/emails/{email_address}/autoresponder:
     parameters:
       - $ref: "#/components/parameters/OrgId"
       - $ref: "#/components/parameters/WebsiteId"
-      - $ref: "#/components/parameters/EmailId"
+      - $ref: "#/components/parameters/EmailAddress"
     get:
       tags:
         - emails
@@ -7829,9 +7947,10 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
-  /emails/{email_id}/spam_thresholds:
+  /websites/{website_id}/emails/{email_address}/spam_thresholds:
     parameters:
-      - $ref: "#/components/parameters/EmailId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/EmailAddress"
     put:
       tags:
         - emails
@@ -12603,6 +12722,102 @@ paths:
         "403":
           description: Insufficient privileges
 
+  ###############################################################################
+  # --------------------------------- Backup vault --------------------------------
+  ###############################################################################
+
+  /backups:
+    get:
+      parameters:
+        - $ref: "#/components/parameters/ShowExisting"
+      tags:
+        - backups
+      summary: List global website backups across all backup servers, by backup server ID
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: listGlobalBackups
+      responses:
+        "200":
+          description: Backups returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/GlobalWebsiteBackup"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /backups/{server_id}/{website_id}:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+      - $ref: "#/components/parameters/WebsiteId"
+    put:
+      tags:
+        - backups
+      summary: Restore a backup of a hard deleted website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: restoreHardDeletedBackup
+      responses:
+        "200":
+          description: Backup restore key
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    delete:
+      tags:
+        - backups
+      summary: Delete all backups for a website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: deleteAllWebsiteBackups
+      responses:
+        "200":
+          description: Backups removed
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /backups/{website_id}/restore/log:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - backups
+      summary: Get the log for an ongoing restore, will return 404 if the restore is already complete
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsiteRestoreLog
+      responses:
+        "200":
+          description: Backup restore log as an array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Restore not in progress
+
 ###############################################################################
 # --------------------------------- Components --------------------------------
 ###############################################################################
@@ -12739,14 +12954,13 @@ components:
       description: The storage kind of the requested backup.
       schema:
         $ref: "#/components/schemas/BackupStorageKind"
-    EmailId:
-      name: email_id
+    EmailAddress:
+      name: email_address
       in: path
-      description: The id of the email.
+      description: The address of the email.
       required: true
       schema:
         type: string
-        format: uuid
     RemoteServerUserId:
       name: user_id
       in: path
@@ -12762,6 +12976,12 @@ components:
       schema:
         type: string
         format: uuid
+    ShowExisting:
+      name: showExisting
+      in: query
+      schema:
+        type: boolean
+      description: Show global backups belonging to websites that already exist on the cluster
     ServiceId:
       name: service_id
       in: path
@@ -12785,6 +13005,13 @@ components:
       schema:
         type: string
         format: uuid
+    DomainName:
+      name: domain_name
+      in: path
+      description: The full domain to query.
+      required: true
+      schema:
+        type: string
     SslCertId:
       name: cert_id
       in: path
@@ -13239,6 +13466,50 @@ components:
   ###############################################################################
 
   schemas:
+    Customer:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    GlobalWebsiteBackup:
+      type: object
+      required:
+        - websiteId
+        - primaryDomain
+        - snapshotId
+        - emailCount
+        - filesSize
+        - mysqlDbsCount
+        - createdAt
+        - serverId
+      properties:
+        websiteId:
+          type: string
+          format: uuid
+        primaryDomain:
+          type: string
+        snapshotId:
+          type: integer
+        emailsCount:
+          type: integer
+        filesSize:
+          type: integer
+        mysqlDbsCount:
+          type: integer
+        createdAt:
+          type: string
+          format: datetime
+        serverId:
+          type: string
+          format: uuid
+        customer:
+          $ref: "#/components/schemas/Customer"
     ImportKind:
       type: string
       enum: [cPanel, plesk, pleskStreaming]
@@ -14752,6 +15023,7 @@ components:
         - websites
         - addonDomains
         - subdomains
+        - dnsRecords
     Allowance:
       type: object
       required:
@@ -15104,6 +15376,13 @@ components:
           type: string
         friendlyName:
           type: string
+        allowedIps:
+          type: array
+          description: If this array is empty, all IPs are allowed
+          items:
+            type: string
+        ipRestricted:
+          type: boolean
     NewAccessToken:
       type: object
       required:
@@ -15118,6 +15397,32 @@ components:
           format: date-time
         friendlyName:
           type: string
+        allowedIps:
+          type: array
+          description: If this array is empty, all IPs are allowed
+          items:
+            type: string
+        ipRestricted:
+          type: boolean
+    UpdateAccessToken:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+        tokenExpires:
+          type: string
+          format: date-time
+        friendlyName:
+          type: string
+        allowedIps:
+          type: array
+          description: If this array is empty, all IPs are allowed
+          items:
+            type: string
+        ipRestricted:
+          type: boolean
     NewAccessTokenResponse:
       type: object
       required:
@@ -15586,7 +15891,7 @@ components:
           $ref: "#/components/schemas/RolesSummary"
         createdAt:
           type: string
-        controldVersion:
+        appcdVersion:
           type: string
           format: semver
         dedicatedSubscription:
@@ -15599,6 +15904,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Disk"
+        updateRequired:
+          type: boolean
     ServerInfoBrief:
       type: object
       required:
@@ -15642,6 +15949,10 @@ components:
           type: boolean
         ipv6Addr:
           type: string
+        appcdVersion:
+          type: string
+        updateRequired:
+          type: boolean
     DedicatedSubscriptionInfo:
       required:
         - subscriptionId
@@ -16275,7 +16586,6 @@ components:
       required:
         - state
         - usage
-        - mailboxCount
         - failedDeliveryCount
         - websitesCount
       properties:
@@ -16431,20 +16741,15 @@ components:
             type: string
         quota:
           type: integer
+        isCatchAll:
+          type: boolean
     Email:
       type: object
       required:
-        - id
-        - websiteId
         - address
         - aliases
         - status
-        - autorespondersCount
-        - domainId
       properties:
-        id:
-          type: string
-          format: uuid
         websiteId:
           type: string
           format: uuid
@@ -16462,22 +16767,15 @@ components:
           $ref: "#/components/schemas/EmailStatus"
         quota:
           $ref: "#/components/schemas/Quota"
-        autorespondersCount:
-          type: integer
         forwardersCount:
           type: integer
         createdAt:
           type: string
-        emailKind:
-          type: string
-          enum: ["normal", "internal"]
-        domainId:
-          type: string
-          format: uuid
+        isCatchAll:
+          type: boolean
     EmailDetailed:
       type: object
       required:
-        - id
         - address
         - aliases
         - status
@@ -16486,9 +16784,6 @@ components:
         - autorespondersCount
         - createdAt
       properties:
-        id:
-          type: string
-          format: uuid
         mailboxName:
           type: string
         address:
@@ -16519,6 +16814,8 @@ components:
           type: integer
         createdAt:
           type: string
+        isCatchAll:
+          type: boolean
     Quota:
       type: object
       required:
@@ -16558,6 +16855,8 @@ components:
           type: array
           items:
             type: string
+        isCatchAll:
+          type: boolean
     NewAutoresponder:
       type: object
       required:
@@ -16582,7 +16881,6 @@ components:
       type: object
       required:
         - id
-        - emailId
         - startDate
         - enabled
         - subject
@@ -16590,9 +16888,6 @@ components:
       properties:
         id:
           type: integer
-        emailId:
-          type: string
-          format: uuid
         startDate:
           type: string
           format: date
@@ -18438,7 +18733,7 @@ components:
           $ref: "#/components/schemas/BackupStorageKind"
     BackupKind:
       type: string
-      enum: [manual, automatic]
+      enum: [manual, automatic, archive]
     WebsiteLogsFullListing:
       type: object
       required:

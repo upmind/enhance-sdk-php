@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  |
-**email_id** | **string** |  |
 **start_date** | **\DateTime** |  |
 **end_date** | **\DateTime** |  | [optional]
 **enabled** | **bool** |  |

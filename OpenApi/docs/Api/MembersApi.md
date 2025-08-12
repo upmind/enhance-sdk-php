@@ -13,6 +13,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getMember()**](MembersApi.md#getMember) | **GET** /orgs/{org_id}/members/{member_id} | Get organization member |
 | [**getMembers()**](MembersApi.md#getMembers) | **GET** /orgs/{org_id}/members | Get organization members |
 | [**getOrgMemberLogin()**](MembersApi.md#getOrgMemberLogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member |
+| [**updateAccessToken()**](MembersApi.md#updateAccessToken) | **PATCH** /orgs/{org_id}/access_tokens/{token_id} | Update access token |
 | [**updateMember()**](MembersApi.md#updateMember) | **PUT** /orgs/{org_id}/members/{member_id} | Overwrite organization member settings |
 | [**updateOwner()**](MembersApi.md#updateOwner) | **PUT** /orgs/{org_id}/owner | Update organization owner |
 
@@ -618,6 +619,74 @@ try {
 
 - **Content-Type**: Not defined
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateAccessToken()`
+
+```php
+updateAccessToken($org_id, $token_id, $update_access_token)
+```
+
+Update access token
+
+Update an access token
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\MembersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$token_id = 'token_id_example'; // string | The id of an org access token.
+$update_access_token = new \Upmind\EnhanceSdk\Model\UpdateAccessToken(); // \Upmind\EnhanceSdk\Model\UpdateAccessToken | Access token details
+
+try {
+    $apiInstance->updateAccessToken($org_id, $token_id, $update_access_token);
+} catch (Exception $e) {
+    echo 'Exception when calling MembersApi->updateAccessToken: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **token_id** | **string**| The id of an org access token. | |
+| **update_access_token** | [**\Upmind\EnhanceSdk\Model\UpdateAccessToken**](../Model/UpdateAccessToken.md)| Access token details | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
