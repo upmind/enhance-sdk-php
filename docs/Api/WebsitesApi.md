@@ -37,6 +37,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsite()**](WebsitesApi.md#getWebsite) | **GET** /orgs/{org_id}/websites/{website_id} | Get website |
 | [**getWebsiteAvailablePhpExtensions()**](WebsitesApi.md#getWebsiteAvailablePhpExtensions) | **GET** /websites/{website_id}/available_php_extensions | Get available PHP extensions for a website |
 | [**getWebsiteBackupStatus()**](WebsitesApi.md#getWebsiteBackupStatus) | **GET** /orgs/{org_id}/websites/{website_id}/status/backup | Get the status of an ongoing website backup operation |
+| [**getWebsiteBackupsDisabledStatus()**](WebsitesApi.md#getWebsiteBackupsDisabledStatus) | **GET** /websites/{website_id}/backups_disabled | Get backups disabled status on a website |
 | [**getWebsiteCgroupLimits()**](WebsitesApi.md#getWebsiteCgroupLimits) | **GET** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Get the active cgroup limits for a website |
 | [**getWebsiteClone()**](WebsitesApi.md#getWebsiteClone) | **GET** /orgs/{org_id}/websites/clone/{clone_id} | Get&#39;s detail about a single push live |
 | [**getWebsiteCloneLog()**](WebsitesApi.md#getWebsiteCloneLog) | **GET** /orgs/{org_id}/websites/clone/{clone_id}/log | Get the log for a given clone id.. |
@@ -53,9 +54,11 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteHtaccessIpsRule()**](WebsitesApi.md#getWebsiteHtaccessIpsRule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs |
 | [**getWebsiteHtaccessRewrites()**](WebsitesApi.md#getWebsiteHtaccessRewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules |
 | [**getWebsiteIoncubeStatus()**](WebsitesApi.md#getWebsiteIoncubeStatus) | **GET** /v2/websites/{website_id}/ioncube | Get ioncube status for an existing website |
+| [**getWebsiteLsphpSettings()**](WebsitesApi.md#getWebsiteLsphpSettings) | **GET** /websites/{website_id}/lsphp_settings | Get the LSPHP settings for this website |
 | [**getWebsiteMailDomainSslCert()**](WebsitesApi.md#getWebsiteMailDomainSslCert) | **GET** /v2/domains/{domain_id}/mail_ssl | Returns the SSL for this website domain with the mail.prefix |
 | [**getWebsiteMetrics()**](WebsitesApi.md#getWebsiteMetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics |
 | [**getWebsiteMySQLDBs()**](WebsitesApi.md#getWebsiteMySQLDBs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases |
+| [**getWebsitePhpErrorLog()**](WebsitesApi.md#getWebsitePhpErrorLog) | **GET** /websites/{website_id}/php_error_log | Get last 256KB of PHP error log |
 | [**getWebsiteRedisState()**](WebsitesApi.md#getWebsiteRedisState) | **GET** /v2/websites/{website_id}/redis | Get redis state for a website |
 | [**getWebsiteServerDomains()**](WebsitesApi.md#getWebsiteServerDomains) | **GET** /orgs/{org_id}/websites/{website_id}/server_domains | Fetch website server domains |
 | [**getWebsiteSetting()**](WebsitesApi.md#getWebsiteSetting) | **GET** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind} | Get the value for a particular setting |
@@ -67,12 +70,14 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**restartWebsitePhp()**](WebsitesApi.md#restartWebsitePhp) | **POST** /v2/websites/{website_id}/restart_php | Restart PHP container for a website |
 | [**setDomainNginxFastCgi()**](WebsitesApi.md#setDomainNginxFastCgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement |
 | [**setDomainWebserverRewrite()**](WebsitesApi.md#setDomainWebserverRewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file |
+| [**setWebsiteBackupsDisabledStatus()**](WebsitesApi.md#setWebsiteBackupsDisabledStatus) | **PUT** /websites/{website_id}/backups_disabled | Set backups disabled status on a website |
 | [**setWebsiteCgroupLimits()**](WebsitesApi.md#setWebsiteCgroupLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only) |
 | [**setWebsiteDomainForceSsl()**](WebsitesApi.md#setWebsiteDomainForceSsl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping |
 | [**setWebsiteDomainModSecStatus()**](WebsitesApi.md#setWebsiteDomainModSecStatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain |
 | [**setWebsiteDomainVhost()**](WebsitesApi.md#setWebsiteDomainVhost) | **PUT** /v2/domains/{domain_id}/vhost | Set a custom vhost file |
 | [**setWebsiteFsQuotaLimits()**](WebsitesApi.md#setWebsiteFsQuotaLimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only) |
 | [**setWebsiteIoncubeStatus()**](WebsitesApi.md#setWebsiteIoncubeStatus) | **PUT** /v2/websites/{website_id}/ioncube | Set ioncube status for an existing website |
+| [**setWebsiteLsphpSettings()**](WebsitesApi.md#setWebsiteLsphpSettings) | **PUT** /websites/{website_id}/lsphp_settings | Set the LSPHP settings for this website |
 | [**setWebsiteRedisState()**](WebsitesApi.md#setWebsiteRedisState) | **PUT** /v2/websites/{website_id}/redis | Set Redis state for an existing website |
 | [**setWebsiteSetting()**](WebsitesApi.md#setWebsiteSetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting |
 | [**takeScreenshot()**](WebsitesApi.md#takeScreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/screenshot/take | Take website screenshot immediately |
@@ -2233,6 +2238,69 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteBackupsDisabledStatus()`
+
+```php
+getWebsiteBackupsDisabledStatus($website_id): bool
+```
+
+Get backups disabled status on a website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsiteBackupsDisabledStatus($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteBackupsDisabledStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebsiteCgroupLimits()`
 
 ```php
@@ -3264,6 +3332,71 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWebsiteLsphpSettings()`
+
+```php
+getWebsiteLsphpSettings($website_id): \Upmind\EnhanceSdk\Model\LsphpSettings
+```
+
+Get the LSPHP settings for this website
+
+Only for websites on Litespeed or Openlitespeed
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsiteLsphpSettings($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteLsphpSettings: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\LsphpSettings**](../Model/LsphpSettings.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getWebsiteMailDomainSslCert()`
 
 ```php
@@ -3432,6 +3565,69 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsitePhpErrorLog()`
+
+```php
+getWebsitePhpErrorLog($website_id): string
+```
+
+Get last 256KB of PHP error log
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsitePhpErrorLog($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsitePhpErrorLog: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -4180,6 +4376,72 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `setWebsiteBackupsDisabledStatus()`
+
+```php
+setWebsiteBackupsDisabledStatus($website_id, $body)
+```
+
+Set backups disabled status on a website
+
+This will prevent automatic and manual backups from being taken.  This is a master org level setting and overrides any other settings.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+$body = True; // bool | Backups disabled boolean
+
+try {
+    $apiInstance->setWebsiteBackupsDisabledStatus($website_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteBackupsDisabledStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+| **body** | **bool**| Backups disabled boolean | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `setWebsiteCgroupLimits()`
 
 ```php
@@ -4523,6 +4785,72 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **website_id** | **string**| The id of the website. | |
 | **body** | **bool**|  | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setWebsiteLsphpSettings()`
+
+```php
+setWebsiteLsphpSettings($website_id, $lsphp_settings)
+```
+
+Set the LSPHP settings for this website
+
+Only for websites on Litespeed or Openlitespeed
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+$lsphp_settings = new \Upmind\EnhanceSdk\Model\LsphpSettings(); // \Upmind\EnhanceSdk\Model\LsphpSettings | Cgroup limits.
+
+try {
+    $apiInstance->setWebsiteLsphpSettings($website_id, $lsphp_settings);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setWebsiteLsphpSettings: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+| **lsphp_settings** | [**\Upmind\EnhanceSdk\Model\LsphpSettings**](../Model/LsphpSettings.md)| Cgroup limits. | |
 
 ### Return type
 

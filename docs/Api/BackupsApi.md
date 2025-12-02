@@ -7,6 +7,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**backupWebsite()**](BackupsApi.md#backupWebsite) | **POST** /orgs/{org_id}/websites/{website_id}/backups | Create a website backup |
 | [**deleteAllWebsiteBackups()**](BackupsApi.md#deleteAllWebsiteBackups) | **DELETE** /backups/{server_id}/{website_id} | Delete all backups for a website |
 | [**deleteWebsiteBackup()**](BackupsApi.md#deleteWebsiteBackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup |
+| [**downloadWebsiteBackup()**](BackupsApi.md#downloadWebsiteBackup) | **GET** /websites/{website_id}/backup/download | Download website backup |
 | [**getWebsiteBackup()**](BackupsApi.md#getWebsiteBackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup |
 | [**getWebsiteBackups()**](BackupsApi.md#getWebsiteBackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata |
 | [**getWebsiteRestoreLog()**](BackupsApi.md#getWebsiteRestoreLog) | **GET** /backups/{website_id}/restore/log | Get the log for an ongoing restore, will return 404 if the restore is already complete |
@@ -216,6 +217,73 @@ void (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `downloadWebsiteBackup()`
+
+```php
+downloadWebsiteBackup($website_id, $backup_download_kind): \SplFileObject
+```
+
+Download website backup
+
+Streams a download of the current website and metadata to the browser.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\BackupsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+$backup_download_kind = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\BackupDownloadKind(); // \Upmind\EnhanceSdk\Model\BackupDownloadKind
+
+try {
+    $result = $apiInstance->downloadWebsiteBackup($website_id, $backup_download_kind);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling BackupsApi->downloadWebsiteBackup: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+| **backup_download_kind** | [**\Upmind\EnhanceSdk\Model\BackupDownloadKind**](../Model/.md)|  | [optional] |
+
+### Return type
+
+**\SplFileObject**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/gzip`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

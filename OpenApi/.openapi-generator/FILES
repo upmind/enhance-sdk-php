@@ -7,6 +7,7 @@ docs/Api/AppsApi.md
 docs/Api/BackupsApi.md
 docs/Api/BrandingApi.md
 docs/Api/CustomersApi.md
+docs/Api/DefaultApi.md
 docs/Api/DnsApi.md
 docs/Api/DomainsApi.md
 docs/Api/EmailClientApi.md
@@ -75,6 +76,7 @@ docs/Model/Autoresponder.md
 docs/Model/Backup.md
 docs/Model/BackupAction.md
 docs/Model/BackupDetailed.md
+docs/Model/BackupDownloadKind.md
 docs/Model/BackupKind.md
 docs/Model/BackupOptions.md
 docs/Model/BackupRemoteStorageS3.md
@@ -190,6 +192,7 @@ docs/Model/LetsEncryptPreflightResult.md
 docs/Model/LicenceInfo.md
 docs/Model/LicenceKey.md
 docs/Model/LicenceStatus.md
+docs/Model/ListedPersistentApp.md
 docs/Model/LocalRemote.md
 docs/Model/LocalRemoteBody.md
 docs/Model/LogAction.md
@@ -207,6 +210,7 @@ docs/Model/LoginInfo.md
 docs/Model/LoginMembership.md
 docs/Model/LoginMemberships.md
 docs/Model/LoginsListing.md
+docs/Model/LsphpSettings.md
 docs/Model/MaintenanceMode.md
 docs/Model/MaintenanceModeStatus.md
 docs/Model/Member.md
@@ -271,6 +275,7 @@ docs/Model/NewUiPreferences.md
 docs/Model/NewWebsite.md
 docs/Model/NewWebsiteApp.md
 docs/Model/NewWpUser.md
+docs/Model/NodeVersion.md
 docs/Model/OperationStatus.md
 docs/Model/OrchdLogSettings.md
 docs/Model/OrchdLoginPolicyEmailList.md
@@ -284,6 +289,9 @@ docs/Model/OrgUpdateSlackNotificationWebhookUrl.md
 docs/Model/OutboundSpamScanningSettings.md
 docs/Model/Outcome.md
 docs/Model/OwaspVersion.md
+docs/Model/PersistentApp.md
+docs/Model/PersistentAppProxyDetails.md
+docs/Model/PersistentAppStartMode.md
 docs/Model/PhpIni.md
 docs/Model/PhpVersion.md
 docs/Model/Plan.md
@@ -305,6 +313,7 @@ docs/Model/ResourceCheckManagerErrorKind.md
 docs/Model/ResourceCountByInterval.md
 docs/Model/ResourceName.md
 docs/Model/RestoreDetailed.md
+docs/Model/RestoreUploadedBackupRequest.md
 docs/Model/RewriteChain.md
 docs/Model/RewriteChainCondsInner.md
 docs/Model/RewriteChainFullListing.md
@@ -415,8 +424,12 @@ docs/Model/UpdateImportServerSettings.md
 docs/Model/UpdateLogin.md
 docs/Model/UpdateLoginResult.md
 docs/Model/UpdateMember.md
+docs/Model/UpdatePersistentApp.md
+docs/Model/UpdatePersistentAppNodeVersion.md
+docs/Model/UpdatePersistentAppProxyDetails.md
 docs/Model/UpdatePlan.md
 docs/Model/UpdatePlanDefaultServerGroupId.md
+docs/Model/UpdatePlanPreinstallWordpressTheme.md
 docs/Model/UpdateRewriteChain.md
 docs/Model/UpdateRewriteChainFullListing.md
 docs/Model/UpdateServerRoleRequest.md
@@ -486,6 +499,7 @@ lib/Api/AppsApi.php
 lib/Api/BackupsApi.php
 lib/Api/BrandingApi.php
 lib/Api/CustomersApi.php
+lib/Api/DefaultApi.php
 lib/Api/DnsApi.php
 lib/Api/DomainsApi.php
 lib/Api/EmailClientApi.php
@@ -557,6 +571,7 @@ lib/Model/Autoresponder.php
 lib/Model/Backup.php
 lib/Model/BackupAction.php
 lib/Model/BackupDetailed.php
+lib/Model/BackupDownloadKind.php
 lib/Model/BackupKind.php
 lib/Model/BackupOptions.php
 lib/Model/BackupRemoteStorageS3.php
@@ -672,6 +687,7 @@ lib/Model/LetsEncryptPreflightResult.php
 lib/Model/LicenceInfo.php
 lib/Model/LicenceKey.php
 lib/Model/LicenceStatus.php
+lib/Model/ListedPersistentApp.php
 lib/Model/LocalRemote.php
 lib/Model/LocalRemoteBody.php
 lib/Model/LogAction.php
@@ -689,6 +705,7 @@ lib/Model/LoginInfo.php
 lib/Model/LoginMembership.php
 lib/Model/LoginMemberships.php
 lib/Model/LoginsListing.php
+lib/Model/LsphpSettings.php
 lib/Model/MaintenanceMode.php
 lib/Model/MaintenanceModeStatus.php
 lib/Model/Member.php
@@ -754,6 +771,7 @@ lib/Model/NewUiPreferences.php
 lib/Model/NewWebsite.php
 lib/Model/NewWebsiteApp.php
 lib/Model/NewWpUser.php
+lib/Model/NodeVersion.php
 lib/Model/OperationStatus.php
 lib/Model/OrchdLogSettings.php
 lib/Model/OrchdLoginPolicyEmailList.php
@@ -767,6 +785,9 @@ lib/Model/OrgUpdateSlackNotificationWebhookUrl.php
 lib/Model/OutboundSpamScanningSettings.php
 lib/Model/Outcome.php
 lib/Model/OwaspVersion.php
+lib/Model/PersistentApp.php
+lib/Model/PersistentAppProxyDetails.php
+lib/Model/PersistentAppStartMode.php
 lib/Model/PhpIni.php
 lib/Model/PhpVersion.php
 lib/Model/Plan.php
@@ -788,6 +809,7 @@ lib/Model/ResourceCheckManagerErrorKind.php
 lib/Model/ResourceCountByInterval.php
 lib/Model/ResourceName.php
 lib/Model/RestoreDetailed.php
+lib/Model/RestoreUploadedBackupRequest.php
 lib/Model/RewriteChain.php
 lib/Model/RewriteChainCondsInner.php
 lib/Model/RewriteChainFullListing.php
@@ -898,8 +920,12 @@ lib/Model/UpdateImportServerSettings.php
 lib/Model/UpdateLogin.php
 lib/Model/UpdateLoginResult.php
 lib/Model/UpdateMember.php
+lib/Model/UpdatePersistentApp.php
+lib/Model/UpdatePersistentAppNodeVersion.php
+lib/Model/UpdatePersistentAppProxyDetails.php
 lib/Model/UpdatePlan.php
 lib/Model/UpdatePlanDefaultServerGroupId.php
+lib/Model/UpdatePlanPreinstallWordpressTheme.php
 lib/Model/UpdateRewriteChain.php
 lib/Model/UpdateRewriteChainFullListing.php
 lib/Model/UpdateServerRoleRequest.php
@@ -970,6 +996,7 @@ test/Api/AppsApiTest.php
 test/Api/BackupsApiTest.php
 test/Api/BrandingApiTest.php
 test/Api/CustomersApiTest.php
+test/Api/DefaultApiTest.php
 test/Api/DnsApiTest.php
 test/Api/DomainsApiTest.php
 test/Api/EmailClientApiTest.php
@@ -1037,6 +1064,7 @@ test/Model/AuthNsTest.php
 test/Model/AutoresponderTest.php
 test/Model/BackupActionTest.php
 test/Model/BackupDetailedTest.php
+test/Model/BackupDownloadKindTest.php
 test/Model/BackupKindTest.php
 test/Model/BackupOptionsTest.php
 test/Model/BackupRemoteStorageS3Test.php
@@ -1153,6 +1181,7 @@ test/Model/LetsEncryptPreflightResultTest.php
 test/Model/LicenceInfoTest.php
 test/Model/LicenceKeyTest.php
 test/Model/LicenceStatusTest.php
+test/Model/ListedPersistentAppTest.php
 test/Model/LocalRemoteBodyTest.php
 test/Model/LocalRemoteTest.php
 test/Model/LogActionTest.php
@@ -1170,6 +1199,7 @@ test/Model/LoginMembershipTest.php
 test/Model/LoginMembershipsTest.php
 test/Model/LoginTest.php
 test/Model/LoginsListingTest.php
+test/Model/LsphpSettingsTest.php
 test/Model/MaintenanceModeStatusTest.php
 test/Model/MaintenanceModeTest.php
 test/Model/MemberTest.php
@@ -1234,6 +1264,7 @@ test/Model/NewUiPreferencesTest.php
 test/Model/NewWebsiteAppTest.php
 test/Model/NewWebsiteTest.php
 test/Model/NewWpUserTest.php
+test/Model/NodeVersionTest.php
 test/Model/OperationStatusTest.php
 test/Model/OrchdLogSettingsTest.php
 test/Model/OrchdLoginPolicyEmailListTest.php
@@ -1247,6 +1278,9 @@ test/Model/OrgUpdateTest.php
 test/Model/OutboundSpamScanningSettingsTest.php
 test/Model/OutcomeTest.php
 test/Model/OwaspVersionTest.php
+test/Model/PersistentAppProxyDetailsTest.php
+test/Model/PersistentAppStartModeTest.php
+test/Model/PersistentAppTest.php
 test/Model/PhpIniTest.php
 test/Model/PhpVersionTest.php
 test/Model/PlanTest.php
@@ -1268,6 +1302,7 @@ test/Model/ResourceCountByIntervalTest.php
 test/Model/ResourceNameTest.php
 test/Model/ResourceTest.php
 test/Model/RestoreDetailedTest.php
+test/Model/RestoreUploadedBackupRequestTest.php
 test/Model/RewriteChainCondsInnerTest.php
 test/Model/RewriteChainFullListingTest.php
 test/Model/RewriteChainRuleTest.php
@@ -1378,7 +1413,11 @@ test/Model/UpdateImportServerSettingsTest.php
 test/Model/UpdateLoginResultTest.php
 test/Model/UpdateLoginTest.php
 test/Model/UpdateMemberTest.php
+test/Model/UpdatePersistentAppNodeVersionTest.php
+test/Model/UpdatePersistentAppProxyDetailsTest.php
+test/Model/UpdatePersistentAppTest.php
 test/Model/UpdatePlanDefaultServerGroupIdTest.php
+test/Model/UpdatePlanPreinstallWordpressThemeTest.php
 test/Model/UpdatePlanTest.php
 test/Model/UpdateRewriteChainFullListingTest.php
 test/Model/UpdateRewriteChainTest.php

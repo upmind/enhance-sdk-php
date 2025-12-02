@@ -66,13 +66,24 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AppsApi* | [**createWebsiteApp**](docs/Api/AppsApi.md#createwebsiteapp) | **POST** /orgs/{org_id}/websites/{website_id}/apps | Create website applications
+*AppsApi* | [**createWebsitePersistentApp**](docs/Api/AppsApi.md#createwebsitepersistentapp) | **POST** /websites/{website_id}/apps/persistent | Create a persistent application
 *AppsApi* | [**deleteWebsiteApp**](docs/Api/AppsApi.md#deletewebsiteapp) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id} | Delete website app
+*AppsApi* | [**deleteWebsitePersistentApp**](docs/Api/AppsApi.md#deletewebsitepersistentapp) | **DELETE** /websites/{website_id}/apps/persistent/{app_id} | Delete a persistent app
 *AppsApi* | [**getGlobalInstallableApps**](docs/Api/AppsApi.md#getglobalinstallableapps) | **GET** /utils/installable-apps | Get all installable applications
 *AppsApi* | [**getInstallableApps**](docs/Api/AppsApi.md#getinstallableapps) | **GET** /orgs/{org_id}/subscriptions/{subscription_id}/installable-apps | Get installable website applications
+*AppsApi* | [**getPossibleNodeVersions**](docs/Api/AppsApi.md#getpossiblenodeversions) | **GET** /websites/{website_id}/apps/node/possible_versions | Get possible versions of node to install from nvm
 *AppsApi* | [**getWebsiteApps**](docs/Api/AppsApi.md#getwebsiteapps) | **GET** /orgs/{org_id}/websites/{website_id}/apps | Get website applications
+*AppsApi* | [**getWebsitePersistentAppLog**](docs/Api/AppsApi.md#getwebsitepersistentapplog) | **GET** /websites/{website_id}/apps/persistent/{app_id} | Get the log for a persistent app
+*AppsApi* | [**getWebsitePersistentApps**](docs/Api/AppsApi.md#getwebsitepersistentapps) | **GET** /websites/{website_id}/apps/persistent | Get website persistent applications
+*AppsApi* | [**installNodeVersion**](docs/Api/AppsApi.md#installnodeversion) | **POST** /websites/{website_id}/apps/node/versions | Install a specific version of Node with NVM
+*AppsApi* | [**installNvm**](docs/Api/AppsApi.md#installnvm) | **POST** /websites/{website_id}/apps/node | Install nvm and default stable node to this website
+*AppsApi* | [**listInstalledNodeVersions**](docs/Api/AppsApi.md#listinstallednodeversions) | **GET** /websites/{website_id}/apps/node/versions | List installed Node versions with NVM
+*AppsApi* | [**setDefaultNodeVersion**](docs/Api/AppsApi.md#setdefaultnodeversion) | **PUT** /websites/{website_id}/apps/node/versions/default | Set default node version
+*AppsApi* | [**updateWebsitePersistentApp**](docs/Api/AppsApi.md#updatewebsitepersistentapp) | **PATCH** /websites/{website_id}/apps/persistent/{app_id} | Update a persistent application
 *BackupsApi* | [**backupWebsite**](docs/Api/BackupsApi.md#backupwebsite) | **POST** /orgs/{org_id}/websites/{website_id}/backups | Create a website backup
 *BackupsApi* | [**deleteAllWebsiteBackups**](docs/Api/BackupsApi.md#deleteallwebsitebackups) | **DELETE** /backups/{server_id}/{website_id} | Delete all backups for a website
 *BackupsApi* | [**deleteWebsiteBackup**](docs/Api/BackupsApi.md#deletewebsitebackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup
+*BackupsApi* | [**downloadWebsiteBackup**](docs/Api/BackupsApi.md#downloadwebsitebackup) | **GET** /websites/{website_id}/backup/download | Download website backup
 *BackupsApi* | [**getWebsiteBackup**](docs/Api/BackupsApi.md#getwebsitebackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup
 *BackupsApi* | [**getWebsiteBackups**](docs/Api/BackupsApi.md#getwebsitebackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata
 *BackupsApi* | [**getWebsiteRestoreLog**](docs/Api/BackupsApi.md#getwebsiterestorelog) | **GET** /backups/{website_id}/restore/log | Get the log for an ongoing restore, will return 404 if the restore is already complete
@@ -105,6 +116,7 @@ Class | Method | HTTP request | Description
 *CustomersApi* | [**createCustomerSubscription**](docs/Api/CustomersApi.md#createcustomersubscription) | **POST** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Create a subscriptions for a customer
 *CustomersApi* | [**getCustomerSubscriptions**](docs/Api/CustomersApi.md#getcustomersubscriptions) | **GET** /orgs/{org_id}/customers/{customer_org_id}/subscriptions | Get customer subscriptions
 *CustomersApi* | [**getOrgCustomers**](docs/Api/CustomersApi.md#getorgcustomers) | **GET** /orgs/{org_id}/customers | Get organization customers
+*DefaultApi* | [**uploadWebsiteBackup**](docs/Api/DefaultApi.md#uploadwebsitebackup) | **POST** /websites/{website_id}/backup/upload | Upload and restore a .tar.gz archive
 *DnsApi* | [**createDefaultDnsRecord**](docs/Api/DnsApi.md#createdefaultdnsrecord) | **POST** /v2/settings/dns/default-records | Create a default DNS record
 *DnsApi* | [**createDnsThirdPartyProvider**](docs/Api/DnsApi.md#creatednsthirdpartyprovider) | **POST** /dns/third-party-providers | Create new third party provider.
 *DnsApi* | [**createWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#createwebsitedomaindnszonerecord) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records | Create a new dns record for website domain
@@ -479,6 +491,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsite**](docs/Api/WebsitesApi.md#getwebsite) | **GET** /orgs/{org_id}/websites/{website_id} | Get website
 *WebsitesApi* | [**getWebsiteAvailablePhpExtensions**](docs/Api/WebsitesApi.md#getwebsiteavailablephpextensions) | **GET** /websites/{website_id}/available_php_extensions | Get available PHP extensions for a website
 *WebsitesApi* | [**getWebsiteBackupStatus**](docs/Api/WebsitesApi.md#getwebsitebackupstatus) | **GET** /orgs/{org_id}/websites/{website_id}/status/backup | Get the status of an ongoing website backup operation
+*WebsitesApi* | [**getWebsiteBackupsDisabledStatus**](docs/Api/WebsitesApi.md#getwebsitebackupsdisabledstatus) | **GET** /websites/{website_id}/backups_disabled | Get backups disabled status on a website
 *WebsitesApi* | [**getWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#getwebsitecgrouplimits) | **GET** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Get the active cgroup limits for a website
 *WebsitesApi* | [**getWebsiteClone**](docs/Api/WebsitesApi.md#getwebsiteclone) | **GET** /orgs/{org_id}/websites/clone/{clone_id} | Get&#39;s detail about a single push live
 *WebsitesApi* | [**getWebsiteCloneLog**](docs/Api/WebsitesApi.md#getwebsiteclonelog) | **GET** /orgs/{org_id}/websites/clone/{clone_id}/log | Get the log for a given clone id..
@@ -495,9 +508,11 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteHtaccessIpsRule**](docs/Api/WebsitesApi.md#getwebsitehtaccessipsrule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs
 *WebsitesApi* | [**getWebsiteHtaccessRewrites**](docs/Api/WebsitesApi.md#getwebsitehtaccessrewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules
 *WebsitesApi* | [**getWebsiteIoncubeStatus**](docs/Api/WebsitesApi.md#getwebsiteioncubestatus) | **GET** /v2/websites/{website_id}/ioncube | Get ioncube status for an existing website
+*WebsitesApi* | [**getWebsiteLsphpSettings**](docs/Api/WebsitesApi.md#getwebsitelsphpsettings) | **GET** /websites/{website_id}/lsphp_settings | Get the LSPHP settings for this website
 *WebsitesApi* | [**getWebsiteMailDomainSslCert**](docs/Api/WebsitesApi.md#getwebsitemaildomainsslcert) | **GET** /v2/domains/{domain_id}/mail_ssl | Returns the SSL for this website domain with the mail.prefix
 *WebsitesApi* | [**getWebsiteMetrics**](docs/Api/WebsitesApi.md#getwebsitemetrics) | **GET** /orgs/{org_id}/websites/{website_id}/metrics | Get website metrics
 *WebsitesApi* | [**getWebsiteMySQLDBs**](docs/Api/WebsitesApi.md#getwebsitemysqldbs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases
+*WebsitesApi* | [**getWebsitePhpErrorLog**](docs/Api/WebsitesApi.md#getwebsitephperrorlog) | **GET** /websites/{website_id}/php_error_log | Get last 256KB of PHP error log
 *WebsitesApi* | [**getWebsiteRedisState**](docs/Api/WebsitesApi.md#getwebsiteredisstate) | **GET** /v2/websites/{website_id}/redis | Get redis state for a website
 *WebsitesApi* | [**getWebsiteServerDomains**](docs/Api/WebsitesApi.md#getwebsiteserverdomains) | **GET** /orgs/{org_id}/websites/{website_id}/server_domains | Fetch website server domains
 *WebsitesApi* | [**getWebsiteSetting**](docs/Api/WebsitesApi.md#getwebsitesetting) | **GET** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind} | Get the value for a particular setting
@@ -509,12 +524,14 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**restartWebsitePhp**](docs/Api/WebsitesApi.md#restartwebsitephp) | **POST** /v2/websites/{website_id}/restart_php | Restart PHP container for a website
 *WebsitesApi* | [**setDomainNginxFastCgi**](docs/Api/WebsitesApi.md#setdomainnginxfastcgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement
 *WebsitesApi* | [**setDomainWebserverRewrite**](docs/Api/WebsitesApi.md#setdomainwebserverrewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file
+*WebsitesApi* | [**setWebsiteBackupsDisabledStatus**](docs/Api/WebsitesApi.md#setwebsitebackupsdisabledstatus) | **PUT** /websites/{website_id}/backups_disabled | Set backups disabled status on a website
 *WebsitesApi* | [**setWebsiteCgroupLimits**](docs/Api/WebsitesApi.md#setwebsitecgrouplimits) | **PUT** /orgs/{org_id}/websites/{website_id}/cgroup_limits | Set the active cgroup limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteDomainForceSsl**](docs/Api/WebsitesApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
 *WebsitesApi* | [**setWebsiteDomainModSecStatus**](docs/Api/WebsitesApi.md#setwebsitedomainmodsecstatus) | **PUT** /v2/domains/{domain_id}/modsec_status | Set mod security status on a single domain
 *WebsitesApi* | [**setWebsiteDomainVhost**](docs/Api/WebsitesApi.md#setwebsitedomainvhost) | **PUT** /v2/domains/{domain_id}/vhost | Set a custom vhost file
 *WebsitesApi* | [**setWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#setwebsitefsquotalimits) | **PUT** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Set the active FS quota limits for a website (Master org only)
 *WebsitesApi* | [**setWebsiteIoncubeStatus**](docs/Api/WebsitesApi.md#setwebsiteioncubestatus) | **PUT** /v2/websites/{website_id}/ioncube | Set ioncube status for an existing website
+*WebsitesApi* | [**setWebsiteLsphpSettings**](docs/Api/WebsitesApi.md#setwebsitelsphpsettings) | **PUT** /websites/{website_id}/lsphp_settings | Set the LSPHP settings for this website
 *WebsitesApi* | [**setWebsiteRedisState**](docs/Api/WebsitesApi.md#setwebsiteredisstate) | **PUT** /v2/websites/{website_id}/redis | Set Redis state for an existing website
 *WebsitesApi* | [**setWebsiteSetting**](docs/Api/WebsitesApi.md#setwebsitesetting) | **PUT** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Set a single override setting
 *WebsitesApi* | [**takeScreenshot**](docs/Api/WebsitesApi.md#takescreenshot) | **POST** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/screenshot/take | Take website screenshot immediately
@@ -605,6 +622,7 @@ Class | Method | HTTP request | Description
 - [Backup](docs/Model/Backup.md)
 - [BackupAction](docs/Model/BackupAction.md)
 - [BackupDetailed](docs/Model/BackupDetailed.md)
+- [BackupDownloadKind](docs/Model/BackupDownloadKind.md)
 - [BackupKind](docs/Model/BackupKind.md)
 - [BackupOptions](docs/Model/BackupOptions.md)
 - [BackupRemoteStorageS3](docs/Model/BackupRemoteStorageS3.md)
@@ -720,6 +738,7 @@ Class | Method | HTTP request | Description
 - [LicenceInfo](docs/Model/LicenceInfo.md)
 - [LicenceKey](docs/Model/LicenceKey.md)
 - [LicenceStatus](docs/Model/LicenceStatus.md)
+- [ListedPersistentApp](docs/Model/ListedPersistentApp.md)
 - [LocalRemote](docs/Model/LocalRemote.md)
 - [LocalRemoteBody](docs/Model/LocalRemoteBody.md)
 - [LogAction](docs/Model/LogAction.md)
@@ -737,6 +756,7 @@ Class | Method | HTTP request | Description
 - [LoginMembership](docs/Model/LoginMembership.md)
 - [LoginMemberships](docs/Model/LoginMemberships.md)
 - [LoginsListing](docs/Model/LoginsListing.md)
+- [LsphpSettings](docs/Model/LsphpSettings.md)
 - [MaintenanceMode](docs/Model/MaintenanceMode.md)
 - [MaintenanceModeStatus](docs/Model/MaintenanceModeStatus.md)
 - [Member](docs/Model/Member.md)
@@ -801,6 +821,7 @@ Class | Method | HTTP request | Description
 - [NewWebsite](docs/Model/NewWebsite.md)
 - [NewWebsiteApp](docs/Model/NewWebsiteApp.md)
 - [NewWpUser](docs/Model/NewWpUser.md)
+- [NodeVersion](docs/Model/NodeVersion.md)
 - [OperationStatus](docs/Model/OperationStatus.md)
 - [OrchdLogSettings](docs/Model/OrchdLogSettings.md)
 - [OrchdLoginPolicyEmailList](docs/Model/OrchdLoginPolicyEmailList.md)
@@ -814,6 +835,9 @@ Class | Method | HTTP request | Description
 - [OutboundSpamScanningSettings](docs/Model/OutboundSpamScanningSettings.md)
 - [Outcome](docs/Model/Outcome.md)
 - [OwaspVersion](docs/Model/OwaspVersion.md)
+- [PersistentApp](docs/Model/PersistentApp.md)
+- [PersistentAppProxyDetails](docs/Model/PersistentAppProxyDetails.md)
+- [PersistentAppStartMode](docs/Model/PersistentAppStartMode.md)
 - [PhpIni](docs/Model/PhpIni.md)
 - [PhpVersion](docs/Model/PhpVersion.md)
 - [Plan](docs/Model/Plan.md)
@@ -835,6 +859,7 @@ Class | Method | HTTP request | Description
 - [ResourceCountByInterval](docs/Model/ResourceCountByInterval.md)
 - [ResourceName](docs/Model/ResourceName.md)
 - [RestoreDetailed](docs/Model/RestoreDetailed.md)
+- [RestoreUploadedBackupRequest](docs/Model/RestoreUploadedBackupRequest.md)
 - [RewriteChain](docs/Model/RewriteChain.md)
 - [RewriteChainCondsInner](docs/Model/RewriteChainCondsInner.md)
 - [RewriteChainFullListing](docs/Model/RewriteChainFullListing.md)
@@ -945,8 +970,12 @@ Class | Method | HTTP request | Description
 - [UpdateLogin](docs/Model/UpdateLogin.md)
 - [UpdateLoginResult](docs/Model/UpdateLoginResult.md)
 - [UpdateMember](docs/Model/UpdateMember.md)
+- [UpdatePersistentApp](docs/Model/UpdatePersistentApp.md)
+- [UpdatePersistentAppNodeVersion](docs/Model/UpdatePersistentAppNodeVersion.md)
+- [UpdatePersistentAppProxyDetails](docs/Model/UpdatePersistentAppProxyDetails.md)
 - [UpdatePlan](docs/Model/UpdatePlan.md)
 - [UpdatePlanDefaultServerGroupId](docs/Model/UpdatePlanDefaultServerGroupId.md)
+- [UpdatePlanPreinstallWordpressTheme](docs/Model/UpdatePlanPreinstallWordpressTheme.md)
 - [UpdateRewriteChain](docs/Model/UpdateRewriteChain.md)
 - [UpdateRewriteChainFullListing](docs/Model/UpdateRewriteChainFullListing.md)
 - [UpdateServerRoleRequest](docs/Model/UpdateServerRoleRequest.md)

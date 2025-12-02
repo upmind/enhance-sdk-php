@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **mod_sec** | **bool** |  |
 **backup** | **bool** |  |
 **mysql_kind** | [**\Upmind\EnhanceSdk\Model\MysqlKind**](MysqlKind.md) |  | [optional]
+**persistent_apps** | **bool** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

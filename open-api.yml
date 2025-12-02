@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 12.9.3
+  version: 12.13.0
   title: orchd
 tags:
   - name: install
@@ -6596,6 +6596,105 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /websites/{website_id}/lsphp_settings:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get the LSPHP settings for this website
+      operationId: getWebsiteLsphpSettings
+      description: Only for websites on Litespeed or Openlitespeed
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: LSPHP Settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LsphpSettings"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - websites
+      summary: Set the LSPHP settings for this website
+      description: Only for websites on Litespeed or Openlitespeed
+      operationId: setWebsiteLsphpSettings
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Cgroup limits.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LsphpSettings"
+      responses:
+        "200":
+          description: LSPHP settings successfully updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/backups_disabled:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get backups disabled status on a website
+      operationId: getWebsiteBackupsDisabledStatus
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Backups disabled boolean
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - websites
+      summary: Set backups disabled status on a website
+      description: This will prevent automatic and manual backups from being taken.  This is a master org level setting and overrides any other settings.
+      operationId: setWebsiteBackupsDisabledStatus
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Backups disabled boolean
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: Backups disabled status saved
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /orgs/{org_id}/websites/{website_id}/fs_quota_limits:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -10060,6 +10159,256 @@ paths:
         "404":
           description: Not found
 
+  /websites/{website_id}/apps/persistent:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    post:
+      tags:
+        - apps
+      summary: Create a persistent application
+      description: >-
+        Create an application that will be started automatically within the website
+        container and restarted if it fails.  Set a port to proxy from the web server
+        to the running application.
+      operationId: createWebsitePersistentApp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersistentApp"
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - apps
+      summary: Get website persistent applications
+      description: >-
+        List all persistent applications belonging to this website
+      operationId: getWebsitePersistentApps
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebsitePersistentAppsListing"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /websites/{website_id}/apps/persistent/{app_id}:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+    patch:
+      tags:
+        - apps
+      summary: Update a persistent application
+      description: >-
+        Update settings for this application, for example startMode
+      operationId: updateWebsitePersistentApp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePersistentApp"
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - apps
+      summary: Get the log for a persistent app
+      operationId: getWebsitePersistentAppLog
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - apps
+      summary: Delete a persistent app
+      operationId: deleteWebsitePersistentApp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /websites/{website_id}/apps/node:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    post:
+      tags:
+        - apps
+      summary: Install nvm and default stable node to this website
+      operationId: installNvm
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /websites/{website_id}/apps/node/possible_versions:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - apps
+      summary: Get possible versions of node to install from nvm
+      operationId: getPossibleNodeVersions
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /websites/{website_id}/apps/node/versions:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    post:
+      tags:
+        - apps
+      summary: Install a specific version of Node with NVM
+      operationId: installNodeVersion
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: semver
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - apps
+      summary: List installed Node versions with NVM
+      operationId: listInstalledNodeVersions
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: semver
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /websites/{website_id}/apps/node/versions/default:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    put:
+      tags:
+        - apps
+      summary: Set default node version
+      operationId: setDefaultNodeVersion
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: semver
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
   ###############################################################################
   # -- website backups
   ###############################################################################
@@ -10163,6 +10512,67 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /websites/{website_id}/backup/download:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+      - name: backupDownloadKind
+        in: query
+        schema:
+          $ref: "#/components/schemas/BackupDownloadKind"
+    get:
+      tags:
+        - backups
+      summary: Download website backup
+      description: >-
+        Streams a download of the current website and metadata to the browser.
+      operationId: downloadWebsiteBackup
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Streamed tar.gz archive
+          content:
+            application/gzip:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Disposition:
+              description: Triggers download of the archive
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /websites/{website_id}/backup/upload:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    post:
+      summary: Upload and restore a .tar.gz archive
+      operationId: uploadWebsiteBackup
+      requestBody:
+        required: true
+        content:
+          application/gzip:
+            schema:
+              type: string
+              format: binary
+            examples:
+              example1:
+                summary: Upload archive via raw body
+                value: (binary .tar.gz data)
+      responses:
+        "200":
+          description: Restore completed successfully
+        "400":
+          description: Bad request (e.g., invalid archive or missing file)
+        "500":
+          description: Internal server error
 
   /orgs/{org_id}/websites/{website_id}/backups/{backup_id}:
     parameters:
@@ -12632,6 +13042,29 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  /websites/{website_id}/php_error_log:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get last 256KB of PHP error log
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getWebsitePhpErrorLog
+      responses:
+        "200":
+          description: Log data
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
   /websites/{website_id}/php_extensions:
     parameters:
       - $ref: "#/components/parameters/WebsiteId"
@@ -13466,6 +13899,18 @@ components:
   ###############################################################################
 
   schemas:
+    NodeVersion:
+      description: >
+        A node version selector: the literal "default", the literal "stable",
+        or a SemVer string (e.g., "20.11.1", "18.17.0-beta.1", "16.20.2+build.5").
+      oneOf:
+        - type: string
+          enum: ["default", "stable"]
+        - type: string
+          format: semver
+    BackupDownloadKind:
+      type: string
+      enum: [website, email]
     Customer:
       type: object
       required:
@@ -14799,6 +15244,15 @@ components:
           description: :>
             When WordPress is installed on a website under this plan, the chosen
             theme will be preinstalled.
+        persistentAppsAllowed:
+          type: boolean
+    LsphpSettings:
+      type: object
+      required:
+        - lsapiChildren
+      properties:
+        lsapiChildren:
+          type: number
     CgroupLimits:
       type: object
       required:
@@ -14935,6 +15389,8 @@ components:
           description: :>
             When WordPress is installed on a website under this plan, the chosen
             theme will be preinstalled.
+        persistentAppsAllowed:
+          type: boolean
     UpdatePlan:
       type: object
       properties:
@@ -14982,10 +15438,14 @@ components:
             serverGroupIds will be expanded with defaultServerGroupId if
             not there yet.
         preinstallWordpressTheme:
-          type: string
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/Unset"
           description: :>
             When WordPress is installed on a website under this plan, the chosen
             theme will be preinstalled.
+        persistentAppsAllowed:
+          type: boolean
     Resource:
       type: object
       required:
@@ -15077,6 +15537,7 @@ components:
         - defaultPhpVersion
         - redisAllowed
         - friendlyName
+        - persistentAppsAllowed
       properties:
         id:
           type: integer
@@ -15131,6 +15592,8 @@ components:
             theme will be preinstalled.
         friendlyName:
           type: string
+        persistentAppsAllowed:
+          type: boolean
     UpdateSubscription:
       type: object
       properties:
@@ -15224,6 +15687,14 @@ components:
       properties:
         description:
           type: string
+    RestoreUploadedBackupRequest:
+      type: object
+      required:
+        - fileName
+      properties:
+        fileName:
+          type: string
+          description: The file name you would like to restore, from the website's home dir
     BackupRestoreOptions:
       type: object
       properties:
@@ -15449,6 +15920,7 @@ components:
         - notifications
         - joinedAt
         - colorCode
+        - authMethod
       properties:
         id:
           type: string
@@ -15480,6 +15952,9 @@ components:
           format: path
         colorCode:
           type: string
+        authMethod:
+          type: string
+          enum: [basic, email, otp]
     UpdateMember:
       type: object
       properties:
@@ -15739,6 +16214,7 @@ components:
           php53,
           php54,
           php55,
+          php85,
         ]
     SiteAccessMember:
       type: object
@@ -17231,7 +17707,6 @@ components:
         - kind
         - name
         - value
-        - ttl
         - proxy
       properties:
         id:
@@ -17806,6 +18281,66 @@ components:
         createdAt:
           type: string
           format: date-time
+    PersistentApp:
+      type: object
+      required:
+        - startMode
+        - command
+      properties:
+        proxyDetails:
+          $ref: "#/components/schemas/PersistentAppProxyDetails"
+        startMode:
+          $ref: "#/components/schemas/PersistentAppStartMode"
+        command:
+          type: string
+        workingDirectory:
+          type: string
+        nodeVersion:
+          $ref: "#/components/schemas/NodeVersion"
+    PersistentAppProxyDetails:
+      type: object
+      required:
+        - path
+        - port
+      properties:
+        path:
+          type: string
+        port:
+          type: integer
+    ListedPersistentApp:
+      allOf:
+        - $ref: "#/components/schemas/PersistentApp"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+          required:
+            - id
+    UpdatePersistentApp:
+      type: object
+      properties:
+        proxyDetails:
+          oneOf:
+            - $ref: "#/components/schemas/PersistentAppProxyDetails"
+            - $ref: "#/components/schemas/Unset"
+        startMode:
+          $ref: "#/components/schemas/PersistentAppStartMode"
+        command:
+          type: string
+        workingDirectory:
+          type: string
+        nodeVersion:
+          oneOf:
+            - $ref: "#/components/schemas/NodeVersion"
+            - $ref: "#/components/schemas/Unset"
+    PersistentAppStartMode:
+      type: string
+      enum: ["automatic", "manual"]
+    WebsitePersistentAppsListing:
+      type: array
+      items:
+        $ref: "#/components/schemas/ListedPersistentApp"
     NewWebsiteApp:
       type: object
       required:
@@ -19438,6 +19973,7 @@ components:
         - redis
         - modSec
         - backup
+        - persistentApps
       properties:
         ftp:
           type: boolean
@@ -19455,6 +19991,8 @@ components:
           type: boolean
         mysqlKind:
           $ref: "#/components/schemas/MysqlKind"
+        persistentApps:
+          type: boolean
     #
     # Activity log types
     #
