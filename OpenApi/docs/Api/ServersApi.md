@@ -32,6 +32,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getOutboundSpamScanningSettings()**](ServersApi.md#getOutboundSpamScanningSettings) | **GET** /servers/{server_id}/email/spam/outbound_scanning | Get the status of outbound spam scanning |
 | [**getOwaspRulesVersion()**](ServersApi.md#getOwaspRulesVersion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules |
 | [**getRegistrationKey()**](ServersApi.md#getRegistrationKey) | **GET** /servers/registration-key | Get slave registration key |
+| [**getRoundcubeSsoEnabled()**](ServersApi.md#getRoundcubeSsoEnabled) | **GET** /servers/{server_id}/roundcube_sso_enabled | Check if Roundcube SSO is enabled on this server |
 | [**getServerDiskUsage()**](ServersApi.md#getServerDiskUsage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage |
 | [**getServerFpmSettings()**](ServersApi.md#getServerFpmSettings) | **GET** /servers/{server_id}/php/fpm | Get php-fpm config for all the websites on a server |
 | [**getServerGroups()**](ServersApi.md#getServerGroups) | **GET** /servers/groups | Returns all server groups |
@@ -46,6 +47,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getServerNetworkStats()**](ServersApi.md#getServerNetworkStats) | **GET** /servers/{server_id}/network-stats | Get server network stats |
 | [**getServerRole()**](ServersApi.md#getServerRole) | **GET** /servers/{server_id}/roles/{role} | Get server role info |
 | [**getServerRoles()**](ServersApi.md#getServerRoles) | **GET** /servers/{server_id}/roles | Get server roles info |
+| [**getServerSpecs()**](ServersApi.md#getServerSpecs) | **GET** /servers/{server_id}/specs | Get server specs |
 | [**getServerStats()**](ServersApi.md#getServerStats) | **GET** /servers/{server_id}/historic-stats | Get Server stats |
 | [**getServerStatus()**](ServersApi.md#getServerStatus) | **GET** /servers/{server_id}/status | Get server status |
 | [**getServerUptime()**](ServersApi.md#getServerUptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds |
@@ -66,6 +68,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**setEmailServerHostnameOverride()**](ServersApi.md#setEmailServerHostnameOverride) | **PUT** /servers/{server_id}/email/hostname_override | Set the hostname override for the email server (postfix) |
 | [**setLiteSpeedAdminPassword()**](ServersApi.md#setLiteSpeedAdminPassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password. |
 | [**setOutboundSpamScanningSettings()**](ServersApi.md#setOutboundSpamScanningSettings) | **PUT** /servers/{server_id}/email/spam/outbound_scanning | Set the settings for outbound spam scanning |
+| [**setRoundcubeSsoEnabled()**](ServersApi.md#setRoundcubeSsoEnabled) | **PUT** /servers/{server_id}/roundcube_sso_enabled | Set Roundcube SSO enabled state |
 | [**setServerDecommissioned()**](ServersApi.md#setServerDecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned |
 | [**setServerModSecurityConfig()**](ServersApi.md#setServerModSecurityConfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config |
 | [**setServerModSecurityStatus()**](ServersApi.md#setServerModSecurityStatus) | **PUT** /v2/servers/{server_id}/modsec_status | Set mod security status for a server |
@@ -1824,6 +1827,69 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getRoundcubeSsoEnabled()`
+
+```php
+getRoundcubeSsoEnabled($server_id): bool
+```
+
+Check if Roundcube SSO is enabled on this server
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getRoundcubeSsoEnabled($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getRoundcubeSsoEnabled: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getServerDiskUsage()`
 
 ```php
@@ -2706,6 +2772,71 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\RolesInfo**](../Model/RolesInfo.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getServerSpecs()`
+
+```php
+getServerSpecs($server_id): \Upmind\EnhanceSdk\Model\ServerSpecs
+```
+
+Get server specs
+
+Returns the spec of a given server ID.  Endpoint accessible to master organisation and to an end user or reseller who has a dedicated subscription to this server.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+
+try {
+    $result = $apiInstance->getServerSpecs($server_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->getServerSpecs: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ServerSpecs**](../Model/ServerSpecs.md)
 
 ### Authorization
 
@@ -3962,6 +4093,70 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **outbound_spam_scanning_settings** | [**\Upmind\EnhanceSdk\Model\OutboundSpamScanningSettings**](../Model/OutboundSpamScanningSettings.md)| Outbound spam settings | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setRoundcubeSsoEnabled()`
+
+```php
+setRoundcubeSsoEnabled($server_id, $body)
+```
+
+Set Roundcube SSO enabled state
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$server_id = 'server_id_example'; // string | The UUID of the server
+$body = True; // bool
+
+try {
+    $apiInstance->setRoundcubeSsoEnabled($server_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling ServersApi->setRoundcubeSsoEnabled: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **server_id** | **string**| The UUID of the server | |
+| **body** | **bool**|  | |
 
 ### Return type
 

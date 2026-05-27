@@ -9,5 +9,6 @@ Name | Type | Description | Notes
 **spine_open** | **bool** |  | [optional]
 **file_manager_editor_fullscreen** | **bool** |  | [optional]
 **server_groups** | **string[]** |  | [optional]
+**onboarding_card_dismissed** | **bool** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

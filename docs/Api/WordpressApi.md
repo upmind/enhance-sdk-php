@@ -14,6 +14,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWordPressSiteurl()**](WordpressApi.md#getWordPressSiteurl) | **GET** /v2/apps/{app_id}/wordpress/url | Fetches the site URL for a WordPress installation |
 | [**getWordpressAppVersion()**](WordpressApi.md#getWordpressAppVersion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version |
 | [**getWordpressConfig()**](WordpressApi.md#getWordpressConfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option |
+| [**getWordpressInfo()**](WordpressApi.md#getWordpressInfo) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/info |  |
 | [**getWordpressInstallations()**](WordpressApi.md#getWordpressInstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations |
 | [**getWordpressLatestVersion()**](WordpressApi.md#getWordpressLatestVersion) | **GET** /utils/wordpress/latest | Get WordPress latest available version |
 | [**getWordpressPlugins()**](WordpressApi.md#getWordpressPlugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins |
@@ -626,6 +627,66 @@ try {
 ### Authorization
 
 [sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWordpressInfo()`
+
+```php
+getWordpressInfo($org_id, $website_id, $app_id): \Upmind\EnhanceSdk\Model\WordPressInfo
+```
+
+
+
+Get WordPress installation info
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WordpressApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$app_id = 'app_id_example'; // string | The id of the app.
+
+try {
+    $result = $apiInstance->getWordpressInfo($org_id, $website_id, $app_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WordpressApi->getWordpressInfo: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **app_id** | **string**| The id of the app. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\WordPressInfo**](../Model/WordPressInfo.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

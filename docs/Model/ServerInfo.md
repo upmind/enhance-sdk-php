@@ -20,5 +20,6 @@ Name | Type | Description | Notes
 **ipv6_addr** | **string** |  | [optional]
 **disks** | [**\Upmind\EnhanceSdk\Model\Disk[]**](Disk.md) |  |
 **update_required** | **bool** |  | [optional]
+**mysql_kind** | [**\Upmind\EnhanceSdk\Model\MysqlKind**](MysqlKind.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

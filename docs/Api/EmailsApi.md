@@ -18,6 +18,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteEmails()**](EmailsApi.md#getWebsiteEmails) | **GET** /orgs/{org_id}/websites/{website_id}/emails | Get website emails |
 | [**setDomainLocalRemote()**](EmailsApi.md#setDomainLocalRemote) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/local_remote | Update email local/remote status |
 | [**setEmailSpamThresholds()**](EmailsApi.md#setEmailSpamThresholds) | **PUT** /websites/{website_id}/emails/{email_address}/spam_thresholds | Set spam thresholds for an email address |
+| [**ssoToRoundcube()**](EmailsApi.md#ssoToRoundcube) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_address}/sso | SSO to Roundcube |
 | [**updateDomainEmailAuth()**](EmailsApi.md#updateDomainEmailAuth) | **PUT** /websites/{website_id}/domains/{domain_name}/email-auth | Update email authentication preferences |
 | [**updateWebsiteEmail()**](EmailsApi.md#updateWebsiteEmail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_address} | Update website email |
 | [**validateDomainEmailAuth()**](EmailsApi.md#validateDomainEmailAuth) | **GET** /websites/{website_id}/domains/{domain_name}/email-auth/validate | Validate email authentication DNS records |
@@ -987,6 +988,65 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `ssoToRoundcube()`
+
+```php
+ssoToRoundcube($org_id, $website_id, $email_address)
+```
+
+SSO to Roundcube
+
+Generate an SSO token for Roundcube and redirect the user
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\EmailsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$email_address = 'email_address_example'; // string | The address of the email.
+
+try {
+    $apiInstance->ssoToRoundcube($org_id, $website_id, $email_address);
+} catch (Exception $e) {
+    echo 'Exception when calling EmailsApi->ssoToRoundcube: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **email_address** | **string**| The address of the email. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

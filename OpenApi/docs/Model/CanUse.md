@@ -12,5 +12,7 @@ Name | Type | Description | Notes
 **backup** | **bool** |  |
 **mysql_kind** | [**\Upmind\EnhanceSdk\Model\MysqlKind**](MysqlKind.md) |  | [optional]
 **persistent_apps** | **bool** |  |
+**roundcube_sso** | **bool** |  | [optional]
+**postgresql** | **bool** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

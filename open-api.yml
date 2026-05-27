@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 12.13.0
+  version: 12.22.0
   title: orchd
 tags:
   - name: install
@@ -1368,6 +1368,32 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /servers/{server_id}/specs:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Get server specs
+      description: >-
+        Returns the spec of a given server ID.  Endpoint accessible to master
+        organisation and to an end user or reseller who has a dedicated
+        subscription to this server.
+      operationId: getServerSpecs
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerSpecs"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
 
   /servers/{server_id}/appcd/version:
     parameters:
@@ -1395,6 +1421,51 @@ paths:
         "403":
           description: Insufficient privileges
 
+  /servers/{server_id}/roundcube_sso_enabled:
+    parameters:
+      - $ref: "#/components/parameters/ServerId"
+    get:
+      tags:
+        - servers
+      summary: Check if Roundcube SSO is enabled on this server
+      operationId: getRoundcubeSsoEnabled
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Query successful
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+    put:
+      tags:
+        - servers
+      summary: Set Roundcube SSO enabled state
+      operationId: setRoundcubeSsoEnabled
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: State updated
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
   /servers/{server_id}/appcd/screenshot/config:
     parameters:
       - $ref: "#/components/parameters/ServerId"
@@ -5850,7 +5921,7 @@ paths:
         - websites
       summary: List website clones for given OrgId
       description: >-
-        List of all webiste clones for the given OrgId.
+        List of all website clones for the given OrgId.
       operationId: getWebsiteClones
       security:
         - sessionCookie: []
@@ -6590,6 +6661,31 @@ paths:
       responses:
         "200":
           description: Cgroup limits successfully updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/container_ip:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get the container IP and host IP for this website
+      operationId: getWebsiteContainerIp
+      description: Returns the IP of the website container and the host side (for database connections, etc)
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Container IP info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContainerIpInfo"
         "401":
           description: Invalid session
         "403":
@@ -8046,6 +8142,27 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/websites/{website_id}/emails/{email_address}/sso:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/EmailAddress"
+    get:
+      tags:
+        - emails
+      summary: SSO to Roundcube
+      description: >-
+        Generate an SSO token for Roundcube and redirect the user
+      operationId: ssoToRoundcube
+      responses:
+        "302":
+          description: SSO URL generated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /websites/{website_id}/emails/{email_address}/spam_thresholds:
     parameters:
       - $ref: "#/components/parameters/WebsiteId"
@@ -8788,6 +8905,253 @@ paths:
           description: Invalid input
         "401":
           description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  ###############################################################################
+  # -- website postgresql dbs
+  ###############################################################################
+
+  /orgs/{org_id}/websites/{website_id}/postgresql-dbs:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - postgresql
+      summary: Get website PostgreSQL databases
+      description: >-
+        Returns all PostgreSQL databases belonging to the given website.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: getWebsitePostgresqlDbs
+      responses:
+        "200":
+          description: Databases successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MySQLDBsFullListing"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - postgresql
+      summary: Create a PostgreSQL database for website
+      description: >-
+        Creates a new PostgreSQL database for the given website.
+
+        The supplied name must conform to the following regular expression:
+        `^[0-9a-z$_]+$`. That is, a name may only contain alphanumerical
+        characters, dollar signs, and underscores.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: createWebsitePostgresqlDb
+      requestBody:
+        description: New database details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewMySQLDB"
+      responses:
+        "201":
+          description: Database successfully created
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+        "409":
+          description: Already exists
+  /orgs/{org_id}/websites/{website_id}/postgresql-dbs/{db_name}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DbName"
+    delete:
+      tags:
+        - postgresql
+      summary: Delete website PostgreSQL database
+      description: >-
+        Delete website's PostgreSQL database.
+
+        NOTE: All data will be lost after this endpoint returns.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: deleteWebsitePostgresqlDb
+      responses:
+        "204":
+          description: Database successfully deleted
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/postgresql-users:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - postgresql
+      summary: Get website PostgreSQL database users
+      description: >-
+        Returns all PostgreSQL users belonging to the given website database.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: getWebsitePostgresqlUsers
+      responses:
+        "200":
+          description: Database users successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostgresqlUsersFullListing"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - postgresql
+      summary: Create website PostgreSQL database user
+      description: >-
+        Creates a new MySQL database user for the given website database.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: createWebsitePostgresqlUser
+      requestBody:
+        description: New user details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPostgresqlUser"
+      responses:
+        "201":
+          description: Database user successfully created
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+        "409":
+          description: Already exists
+  /orgs/{org_id}/websites/{website_id}/postgresql-users/{username}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DbUserName"
+    patch:
+      tags:
+        - postgresql
+      summary: Update website PostgreSQL database user
+      description: >-
+        Updates website's PostgreSQL database user's password (username update coming later).
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: updateWebsitePostgresqlUser
+      requestBody:
+        description: User update details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostgresqlUserUpdate"
+      responses:
+        "200":
+          description: Database user successfully updated
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - postgresql
+      summary: Delete website PostgreSQL database user
+      description: >-
+        Delete website's PostgreSQL database user.
+
+        Session holder must be at least a `SuperAdmin` in this org or a parent
+        org, or be a member in this org that has access to the website.
+      operationId: deleteWebsitePostgresqlUser
+      responses:
+        "204":
+          description: Database user successfully deleted
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/postgresql-users/{username}/privileges:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DbUserName"
+    post:
+      tags:
+        - postgresql
+      summary: Grant privileges on a specific database
+      description: >-
+        This will grant the Postgresql user full super admin privileges on the given database.
+      operationId: grantPostgresqlUserDbPrivileges
+      requestBody:
+        description: Database name
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "201":
+          description: Database privileges created
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/postgresql-users/{username}/privileges/{db_name}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DbUserName"
+      - $ref: "#/components/parameters/DbName"
+    delete:
+      tags:
+        - postgresql
+      summary: Remove privileges on this database
+      operationId: revokePostgresqlUserDbPrivileges
+      responses:
+        "200":
+          description: Database privileges deleted
+        "400":
+          description: Invalid input
         "403":
           description: Insufficient privileges
         "404":
@@ -10159,6 +10523,225 @@ paths:
         "404":
           description: Not found
 
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/info:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+    get:
+      tags:
+        - joomla
+      description: >-
+        Get Joomla installation info
+      operationId: getJoomlaInfo
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JoomlaInfo"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/info:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+    get:
+      tags:
+        - wordpress
+      description: >-
+        Get WordPress installation info
+      operationId: getWordpressInfo
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WordPressInfo"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+    get:
+      tags:
+        - joomla
+      description: >-
+        List all users of a Joomla installation
+      operationId: getJoomlaUsers
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JoomlaUsersFullListing"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - joomla
+      summary: Create website Joomla user
+      description: >-
+        Add a user admin user to a Joomla installation
+      operationId: createJoomlaUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewJoomlaUser"
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - name: username
+        in: path
+        description: Joomla username
+        required: true
+        schema:
+          type: string
+    delete:
+      tags:
+        - joomla
+      summary: Delete a joomla user
+      operationId: deleteJoomlaUser
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}/password:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - name: username
+        in: path
+        description: Joomla username
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - joomla
+      summary: Set the password for a given username
+      operationId: resetJoomlaUserPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}/username:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - name: username
+        in: path
+        description: Joomla username
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - joomla
+      summary: Update the username for a given username
+      operationId: updateJoomlaUsername
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}/email:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/AppId"
+      - name: username
+        in: path
+        description: Joomla username
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - joomla
+      summary: Update the email address for a given username
+      operationId: updateJoomlaEmailAddress
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "201":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
   /websites/{website_id}/apps/persistent:
     parameters:
       - $ref: "#/components/parameters/WebsiteId"
@@ -10693,6 +11276,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RestoreDetailed"
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/directory_tree:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/BackupId"
+      - name: offset
+        in: query
+        schema:
+          type: string
+          description: Start listing the tree at a specific base dir
+    get:
+      tags:
+        - backups
+      summary: Get the directory tree for the home dir
+      description: >-
+        Will return the directory tree for the home directory of the website at the
+        time of the snapshot.  Only works with Enhance backups, not S3.
+      operationId: getWebsiteBackupDirectoryTree
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DirectoryTreeNode"
         "400":
           description: Invalid input
         "403":
@@ -13155,6 +13771,31 @@ paths:
         "403":
           description: Insufficient privileges
 
+  /websites/{website_id}/built_in_php_extensions:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      operationId: getBuiltInPhpExtensions
+      responses:
+        "200":
+          description: Extensions returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+
   ###############################################################################
   # --------------------------------- Backup vault --------------------------------
   ###############################################################################
@@ -13899,6 +14540,43 @@ components:
   ###############################################################################
 
   schemas:
+    DirectoryTreeNode:
+      type: object
+      required:
+        - name
+        - rel_path
+        - node_type
+        - size
+        - permissions
+        - last_modified
+      properties:
+        name:
+          type: string
+          example: "public_html"
+        rel_path:
+          type: string
+          description: "The path of the file relative to the root of the home dir"
+          example: "public_html/wordpress/index.php"
+        node_type:
+          type: string
+          enum: [file, directory, symlink]
+        size:
+          type: integer
+          format: int64
+          description: Size in bytes
+        permissions:
+          type: string
+          description: POSIX permissions
+          example: "0755"
+        last_modified:
+          type: string
+          format: date-time
+          example: "2026-01-11T17:42:10Z"
+        children:
+          type: array
+          description: Only present when type=directory
+          items:
+            $ref: "#/components/schemas/DirectoryTreeNode"
     NodeVersion:
       description: >
         A node version selector: the literal "default", the literal "stable",
@@ -15160,6 +15838,9 @@ components:
         emailServerId:
           type: string
           format: uuid
+        postgresqlServerId:
+          type: string
+          format: uuid
     SubscriptionDedicatedServersInfo:
       type: object
       properties:
@@ -15171,17 +15852,22 @@ components:
           $ref: "#/components/schemas/SubscriptionDedicatedServer"
         emailServer:
           $ref: "#/components/schemas/SubscriptionDedicatedServer"
+        postgresqlServer:
+          $ref: "#/components/schemas/SubscriptionDedicatedServer"
     SubscriptionDedicatedServer:
       type: object
       required:
         - name
         - id
+        - ip
       properties:
         name:
           type: string
         id:
           type: string
           format: uuid
+        ip:
+          type: string
     NewPlan:
       type: object
       required:
@@ -15253,6 +15939,16 @@ components:
       properties:
         lsapiChildren:
           type: number
+    ContainerIpInfo:
+      type: object
+      required:
+        - containerIp
+        - hostIp
+      properties:
+        containerIp:
+          type: string
+        hostIp:
+          type: string
     CgroupLimits:
       type: object
       required:
@@ -15277,6 +15973,9 @@ components:
         virtualCpus:
           type: number
           nullable: true
+        swapLimit:
+          type: number
+          nullable: true
     SetCgroupLimits:
       type: object
       properties:
@@ -15290,6 +15989,9 @@ components:
           type: number
         virtualCpus:
           type: number
+        swapLimit:
+          type: number
+          nullable: true
     FsQuotaStatus:
       type: string
       enum:
@@ -15477,13 +16179,13 @@ components:
         - mailboxes
         - mysqlDbs
         - pageViews
-        - processes
         - stagingWebsites
         - transfer
         - websites
         - addonDomains
         - subdomains
         - dnsRecords
+        - postgresqlDbs
     Allowance:
       type: object
       required:
@@ -15704,6 +16406,13 @@ components:
           description: >-
             If set to false, the backup restoration will not include
             the website home directory.
+        restoreOnlyFiles:
+          description: >-
+            Used in conjunction with the restoreFiles parameter, will limit the
+            restoration to only the files/directories specified.
+          type: array
+          items:
+            type: string
         restoreEmails:
           type: array
           items:
@@ -15720,6 +16429,15 @@ components:
             type: string
           description: >-
             The list of databases names that need to be restored. If this list
+            is not specified all the databases found in the backup snapshot will
+            be restored, otherwise if this list is specified as empty, no
+            database will be restored.
+        restorePostgresqlDatabases:
+          type: array
+          items:
+            type: string
+          description: >-
+            The list of PostgreSQL database names that need to be restored. If this list
             is not specified all the databases found in the backup snapshot will
             be restored, otherwise if this list is specified as empty, no
             database will be restored.
@@ -15989,6 +16707,9 @@ components:
         emailServerId:
           type: string
           format: uuid
+        postgresqlServerId:
+          type: string
+          format: uuid
         serverGroupId:
           type: string
           format: uuid
@@ -16117,6 +16838,9 @@ components:
             concerns them.
           type: string
           format: uuid
+        postgresqlServerId:
+          type: string
+          format: uuid
         unixUser:
           description: >-
             The unix user assigned to this website, used for ssh shells,
@@ -16138,6 +16862,11 @@ components:
             $ref: "#/components/schemas/ServerIp"
         dbServerIps:
           description: The addresses of the the server on which this website's databases are located.
+          type: array
+          items:
+            $ref: "#/components/schemas/ServerIp"
+        postgresqlServerIps:
+          description: The addresses of the the server on which this website's PostgreSQL databases are located.
           type: array
           items:
             $ref: "#/components/schemas/ServerIp"
@@ -16169,6 +16898,9 @@ components:
           type: string
           format: ipv6
         dbServerIpv6:
+          type: string
+          format: ipv6
+        postgresqlServerIpv6:
           type: string
           format: ipv6
         emailServerIpv6:
@@ -16382,6 +17114,8 @@ components:
             $ref: "#/components/schemas/Disk"
         updateRequired:
           type: boolean
+        mysqlKind:
+          $ref: "#/components/schemas/MysqlKind"
     ServerInfoBrief:
       type: object
       required:
@@ -16429,6 +17163,8 @@ components:
           type: string
         updateRequired:
           type: boolean
+        mysqlKind:
+          $ref: "#/components/schemas/MysqlKind"
     DedicatedSubscriptionInfo:
       required:
         - subscriptionId
@@ -16454,6 +17190,8 @@ components:
         dns:
           $ref: "#/components/schemas/RoleInstallationState"
         email:
+          $ref: "#/components/schemas/RoleInstallationState"
+        postgresql:
           $ref: "#/components/schemas/RoleInstallationState"
     RoleInstallationState:
       type: string
@@ -16483,6 +17221,8 @@ components:
         dns:
           $ref: "#/components/schemas/RoleSummary"
         controlPanel:
+          $ref: "#/components/schemas/RoleSummary"
+        postgresql:
           $ref: "#/components/schemas/RoleSummary"
     RoleSummary:
       type: object
@@ -16920,12 +17660,16 @@ components:
           $ref: "#/components/schemas/BackupRoleInfo"
         database:
           $ref: "#/components/schemas/DatabaseRoleInfo"
+        postgresql:
+          $ref: "#/components/schemas/PostgresqlRoleInfo"
         application:
           $ref: "#/components/schemas/ApplicationRoleInfo"
         dns:
           $ref: "#/components/schemas/DnsRoleInfo"
         webserverKind:
           $ref: "#/components/schemas/WebserverKind"
+        mysqlKind:
+          $ref: "#/components/schemas/MysqlKind"
     ControlRoleInfo:
       type: object
       required:
@@ -17035,6 +17779,22 @@ components:
           description: >-
             The number of websites whose databases are assigned to be on this
             database role.
+    PostgresqlRoleInfo:
+      type: object
+      required:
+        - state
+        - usage
+        - websitesCount
+      properties:
+        state:
+          $ref: "#/components/schemas/ServerRoleState"
+        usage:
+          type: integer
+        websitesCount:
+          type: integer
+          description: >-
+            The number of websites whose databases are assigned to be on this
+            PostgreSQL role.
     DnsRoleInfo:
       type: object
       required:
@@ -17249,6 +18009,8 @@ components:
           type: string
         isCatchAll:
           type: boolean
+        ssoAvailable:
+          type: boolean
     EmailDetailed:
       type: object
       required:
@@ -17405,7 +18167,7 @@ components:
           type: number
     ServerRole:
       type: string
-      enum: [email, backup, database, application, dns]
+      enum: [email, backup, database, application, dns, "postgresql"]
     ServiceKind:
       type: string
       enum:
@@ -17558,6 +18320,7 @@ components:
         - name
         - size
         - createdAt
+        - userCount
       properties:
         name:
           type: string
@@ -17565,6 +18328,8 @@ components:
           type: integer
         createdAt:
           type: string
+        userCount:
+          type: number
     NewMySQLUser:
       type: object
       required:
@@ -17577,7 +18342,24 @@ components:
           type: string
         authPlugin:
           $ref: "#/components/schemas/MySQLAuthPlugin"
+    NewPostgresqlUser:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
     MySQLUserUpdate:
+      type: object
+      required:
+        - password
+      properties:
+        password:
+          type: string
+    PostgresqlUserUpdate:
       type: object
       required:
         - password
@@ -17593,6 +18375,15 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/MySQLUser"
+    PostgresqlUsersFullListing:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostgresqlUser"
     MySQLUser:
       type: object
       required:
@@ -17622,6 +18413,22 @@ components:
           type: string
         isEphemeral:
           $ref: "#/components/schemas/MySQLUserIsEphemeralFlag"
+    PostgresqlUser:
+      type: object
+      required:
+        - username
+        - privs
+        - createdAt
+      properties:
+        username:
+          type: string
+        privs:
+          description: A list of the databases this user has admin privileges on
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
     MySQLUserGrants:
       type: object
       required:
@@ -17892,6 +18699,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServerId"
+        onboardingCardDismissed:
+          type: boolean
     UiPreferences:
       type: object
       required:
@@ -17901,6 +18710,7 @@ components:
         - spineOpen
         - fileManagerEditorFullscreen
         - serverGroups
+        - onboardingCardDismissed
       properties:
         loginId:
           type: string
@@ -17917,6 +18727,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServerId"
+        onboardingCardDismissed:
+          type: boolean
     NewResourceId:
       type: object
       required:
@@ -18248,7 +19060,7 @@ components:
           $ref: "#/components/schemas/Role"
     WebsiteAppKind:
       type: string
-      enum: ["wordpress"]
+      enum: ["wordpress", "joomla"]
     InstallableWebsiteAppsFullListing:
       type: object
       required:
@@ -18451,6 +19263,19 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServerStatEntry"
+    NewJoomlaUser:
+      type: object
+      required:
+        - username
+        - password
+        - email
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
     NewWpUser:
       type: object
       required:
@@ -18481,6 +19306,24 @@ components:
           type: string
         email:
           type: string
+    JoomlaUser:
+      type: object
+      required:
+        - id
+        - username
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        blocked:
+          type: boolean
+        super_user:
+          type: boolean
     UpdateWpUser:
       type: object
       properties:
@@ -18501,6 +19344,52 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/WpUser"
+    JoomlaUsersFullListing:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/JoomlaUser"
+    JoomlaInfo:
+      type: object
+      required:
+        - version
+        - site_url
+        - plugin_count
+        - user_count
+      properties:
+        version:
+          type: string
+        site_url:
+          type: string
+          description: Parsed from configuration.php or defaulted to the domain matching the installation path
+        plugin_count:
+          type: number
+        user_count:
+          type: number
+    WordPressInfo:
+      type: object
+      required:
+        - version
+        - site_url
+        - plugin_count
+        - user_count
+        - has_woocommerce
+      properties:
+        version:
+          type: string
+        site_url:
+          type: string
+          description: From the WordPress database, ignores wp-config.php overrides
+        plugin_count:
+          type: number
+        user_count:
+          type: number
+        has_woocommerce:
+          type: boolean
     WpPluginsFullListing:
       type: object
       required:
@@ -19178,6 +20067,8 @@ components:
           $ref: "#/components/schemas/OperationStatus"
         mysqlDbsCount:
           type: integer
+        postgresqlDbsCount:
+          type: integer
         mysqlDbsSize:
           type: integer
         emailsStatus:
@@ -19242,7 +20133,7 @@ components:
         mysqlDbs:
           type: array
           items:
-            type: string
+            $ref: "#/components/schemas/DatabaseBackupWithSize"
         mysqlDbsSize:
           type: integer
         emailsStatus:
@@ -19266,6 +20157,20 @@ components:
           type: string
         storageKind:
           $ref: "#/components/schemas/BackupStorageKind"
+        postgresqlDbs:
+          type: array
+          items:
+            $ref: "#/components/schemas/DatabaseBackupWithSize"
+    DatabaseBackupWithSize:
+      type: object
+      required:
+        - name
+        - size
+      properties:
+        name:
+          type: string
+        size:
+          type: number
     BackupKind:
       type: string
       enum: [manual, automatic, archive]
@@ -19974,6 +20879,7 @@ components:
         - modSec
         - backup
         - persistentApps
+        - postgresql
       properties:
         ftp:
           type: boolean
@@ -19992,6 +20898,10 @@ components:
         mysqlKind:
           $ref: "#/components/schemas/MysqlKind"
         persistentApps:
+          type: boolean
+        roundcubeSso:
+          type: boolean
+        postgresql:
           type: boolean
     #
     # Activity log types
@@ -20315,4 +21225,23 @@ components:
         password:
           type: string
         email:
+          type: string
+    ServerSpecs:
+      required:
+        - cpuKind
+        - cpuMhz
+        - cpuCores
+        - architecture
+        - os
+      properties:
+        cpuKind:
+          type: string
+        cpuMhz:
+          type: number
+        cpuCores:
+          type: number
+        architecture:
+          type: string
+          enum: ["x86_64"]
+        os:
           type: string

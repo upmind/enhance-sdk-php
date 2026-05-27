@@ -16,6 +16,7 @@ docs/Api/FtpApi.md
 docs/Api/ImportersApi.md
 docs/Api/InstallApi.md
 docs/Api/InvitesApi.md
+docs/Api/JoomlaApi.md
 docs/Api/LetsencryptApi.md
 docs/Api/LicenceApi.md
 docs/Api/LoginsApi.md
@@ -26,6 +27,7 @@ docs/Api/MysqlApi.md
 docs/Api/OrgsApi.md
 docs/Api/OwnerApi.md
 docs/Api/PlansApi.md
+docs/Api/PostgresqlApi.md
 docs/Api/ReportsApi.md
 docs/Api/ServersApi.md
 docs/Api/SettingsApi.md
@@ -97,6 +99,7 @@ docs/Model/CloneStatus.md
 docs/Model/CloudFlareApiKey.md
 docs/Model/CloudFlareNameServers.md
 docs/Model/CloudFlareStatus.md
+docs/Model/ContainerIpInfo.md
 docs/Model/ControlRoleInfo.md
 docs/Model/CoreServiceInfo.md
 docs/Model/CreateBackupRemoteStorageS3.md
@@ -109,12 +112,14 @@ docs/Model/CrontabValueVariableVariable.md
 docs/Model/Customer.md
 docs/Model/CustomersListing.md
 docs/Model/DaemonKind.md
+docs/Model/DatabaseBackupWithSize.md
 docs/Model/DatabaseRoleInfo.md
 docs/Model/DedicatedSubscriptionInfo.md
 docs/Model/DefaultDnsRecord.md
 docs/Model/DeleteWebsiteDomainVhostRequest.md
 docs/Model/DemoMode.md
 docs/Model/DeviceKind.md
+docs/Model/DirectoryTreeNode.md
 docs/Model/Disk.md
 docs/Model/DnsQueryOutcome.md
 docs/Model/DnsRecord.md
@@ -188,6 +193,9 @@ docs/Model/InstallableWebsiteApp.md
 docs/Model/InstallableWebsiteAppsFullListing.md
 docs/Model/InterfaceIp.md
 docs/Model/InviteValidation.md
+docs/Model/JoomlaInfo.md
+docs/Model/JoomlaUser.md
+docs/Model/JoomlaUsersFullListing.md
 docs/Model/LetsEncryptPreflightResult.md
 docs/Model/LicenceInfo.md
 docs/Model/LicenceKey.md
@@ -254,6 +262,7 @@ docs/Model/NewEmail.md
 docs/Model/NewFtpUser.md
 docs/Model/NewImportServerSettings.md
 docs/Model/NewInvite.md
+docs/Model/NewJoomlaUser.md
 docs/Model/NewMappedDomain.md
 docs/Model/NewMember.md
 docs/Model/NewMigrationDetails.md
@@ -261,6 +270,7 @@ docs/Model/NewMySQLDB.md
 docs/Model/NewMySQLUser.md
 docs/Model/NewPassword.md
 docs/Model/NewPlan.md
+docs/Model/NewPostgresqlUser.md
 docs/Model/NewPrimaryDomainMapping.md
 docs/Model/NewResourceId.md
 docs/Model/NewResourceUuid.md
@@ -297,6 +307,10 @@ docs/Model/PhpVersion.md
 docs/Model/Plan.md
 docs/Model/PlanType.md
 docs/Model/PlansListing.md
+docs/Model/PostgresqlRoleInfo.md
+docs/Model/PostgresqlUser.md
+docs/Model/PostgresqlUserUpdate.md
+docs/Model/PostgresqlUsersFullListing.md
 docs/Model/ProcessInfo.md
 docs/Model/Quota.md
 docs/Model/Recursion.md
@@ -347,6 +361,7 @@ docs/Model/ServerRole.md
 docs/Model/ServerRoleState.md
 docs/Model/ServerSniMapping.md
 docs/Model/ServerSniMappingBody.md
+docs/Model/ServerSpecs.md
 docs/Model/ServerStatEntry.md
 docs/Model/ServerStatsFullListing.md
 docs/Model/ServerStatus.md
@@ -481,6 +496,7 @@ docs/Model/WebsitePhpSettings.md
 docs/Model/WebsiteServerDomains.md
 docs/Model/WebsiteStatus.md
 docs/Model/WebsitesListing.md
+docs/Model/WordPressInfo.md
 docs/Model/WordpressConfig.md
 docs/Model/WpDebug.md
 docs/Model/WpDebugDisplay.md
@@ -508,6 +524,7 @@ lib/Api/FtpApi.php
 lib/Api/ImportersApi.php
 lib/Api/InstallApi.php
 lib/Api/InvitesApi.php
+lib/Api/JoomlaApi.php
 lib/Api/LetsencryptApi.php
 lib/Api/LicenceApi.php
 lib/Api/LoginsApi.php
@@ -518,6 +535,7 @@ lib/Api/MysqlApi.php
 lib/Api/OrgsApi.php
 lib/Api/OwnerApi.php
 lib/Api/PlansApi.php
+lib/Api/PostgresqlApi.php
 lib/Api/ReportsApi.php
 lib/Api/ServersApi.php
 lib/Api/SettingsApi.php
@@ -592,6 +610,7 @@ lib/Model/CloneStatus.php
 lib/Model/CloudFlareApiKey.php
 lib/Model/CloudFlareNameServers.php
 lib/Model/CloudFlareStatus.php
+lib/Model/ContainerIpInfo.php
 lib/Model/ControlRoleInfo.php
 lib/Model/CoreServiceInfo.php
 lib/Model/CreateBackupRemoteStorageS3.php
@@ -604,12 +623,14 @@ lib/Model/CrontabValueVariableVariable.php
 lib/Model/Customer.php
 lib/Model/CustomersListing.php
 lib/Model/DaemonKind.php
+lib/Model/DatabaseBackupWithSize.php
 lib/Model/DatabaseRoleInfo.php
 lib/Model/DedicatedSubscriptionInfo.php
 lib/Model/DefaultDnsRecord.php
 lib/Model/DeleteWebsiteDomainVhostRequest.php
 lib/Model/DemoMode.php
 lib/Model/DeviceKind.php
+lib/Model/DirectoryTreeNode.php
 lib/Model/Disk.php
 lib/Model/DnsQueryOutcome.php
 lib/Model/DnsRecord.php
@@ -683,6 +704,9 @@ lib/Model/InstallableWebsiteApp.php
 lib/Model/InstallableWebsiteAppsFullListing.php
 lib/Model/InterfaceIp.php
 lib/Model/InviteValidation.php
+lib/Model/JoomlaInfo.php
+lib/Model/JoomlaUser.php
+lib/Model/JoomlaUsersFullListing.php
 lib/Model/LetsEncryptPreflightResult.php
 lib/Model/LicenceInfo.php
 lib/Model/LicenceKey.php
@@ -750,6 +774,7 @@ lib/Model/NewEmail.php
 lib/Model/NewFtpUser.php
 lib/Model/NewImportServerSettings.php
 lib/Model/NewInvite.php
+lib/Model/NewJoomlaUser.php
 lib/Model/NewMappedDomain.php
 lib/Model/NewMember.php
 lib/Model/NewMigrationDetails.php
@@ -757,6 +782,7 @@ lib/Model/NewMySQLDB.php
 lib/Model/NewMySQLUser.php
 lib/Model/NewPassword.php
 lib/Model/NewPlan.php
+lib/Model/NewPostgresqlUser.php
 lib/Model/NewPrimaryDomainMapping.php
 lib/Model/NewResourceId.php
 lib/Model/NewResourceUuid.php
@@ -793,6 +819,10 @@ lib/Model/PhpVersion.php
 lib/Model/Plan.php
 lib/Model/PlanType.php
 lib/Model/PlansListing.php
+lib/Model/PostgresqlRoleInfo.php
+lib/Model/PostgresqlUser.php
+lib/Model/PostgresqlUserUpdate.php
+lib/Model/PostgresqlUsersFullListing.php
 lib/Model/ProcessInfo.php
 lib/Model/Quota.php
 lib/Model/Recursion.php
@@ -843,6 +873,7 @@ lib/Model/ServerRole.php
 lib/Model/ServerRoleState.php
 lib/Model/ServerSniMapping.php
 lib/Model/ServerSniMappingBody.php
+lib/Model/ServerSpecs.php
 lib/Model/ServerStatEntry.php
 lib/Model/ServerStatsFullListing.php
 lib/Model/ServerStatus.php
@@ -977,6 +1008,7 @@ lib/Model/WebsitePhpSettings.php
 lib/Model/WebsiteServerDomains.php
 lib/Model/WebsiteStatus.php
 lib/Model/WebsitesListing.php
+lib/Model/WordPressInfo.php
 lib/Model/WordpressConfig.php
 lib/Model/WpDebug.php
 lib/Model/WpDebugDisplay.php
@@ -1005,6 +1037,7 @@ test/Api/FtpApiTest.php
 test/Api/ImportersApiTest.php
 test/Api/InstallApiTest.php
 test/Api/InvitesApiTest.php
+test/Api/JoomlaApiTest.php
 test/Api/LetsencryptApiTest.php
 test/Api/LicenceApiTest.php
 test/Api/LoginsApiTest.php
@@ -1015,6 +1048,7 @@ test/Api/MysqlApiTest.php
 test/Api/OrgsApiTest.php
 test/Api/OwnerApiTest.php
 test/Api/PlansApiTest.php
+test/Api/PostgresqlApiTest.php
 test/Api/ReportsApiTest.php
 test/Api/ServersApiTest.php
 test/Api/SettingsApiTest.php
@@ -1086,6 +1120,7 @@ test/Model/CloneStatusTest.php
 test/Model/CloudFlareApiKeyTest.php
 test/Model/CloudFlareNameServersTest.php
 test/Model/CloudFlareStatusTest.php
+test/Model/ContainerIpInfoTest.php
 test/Model/ControlRoleInfoTest.php
 test/Model/CoreServiceInfoTest.php
 test/Model/CreateBackupRemoteStorageS3Test.php
@@ -1098,12 +1133,14 @@ test/Model/CrontabValueVariableVariableTest.php
 test/Model/CustomerTest.php
 test/Model/CustomersListingTest.php
 test/Model/DaemonKindTest.php
+test/Model/DatabaseBackupWithSizeTest.php
 test/Model/DatabaseRoleInfoTest.php
 test/Model/DedicatedSubscriptionInfoTest.php
 test/Model/DefaultDnsRecordTest.php
 test/Model/DeleteWebsiteDomainVhostRequestTest.php
 test/Model/DemoModeTest.php
 test/Model/DeviceKindTest.php
+test/Model/DirectoryTreeNodeTest.php
 test/Model/DiskTest.php
 test/Model/DnsQueryOutcomeTest.php
 test/Model/DnsRecordKindTest.php
@@ -1177,6 +1214,9 @@ test/Model/InstallableWebsiteAppTest.php
 test/Model/InstallableWebsiteAppsFullListingTest.php
 test/Model/InterfaceIpTest.php
 test/Model/InviteValidationTest.php
+test/Model/JoomlaInfoTest.php
+test/Model/JoomlaUserTest.php
+test/Model/JoomlaUsersFullListingTest.php
 test/Model/LetsEncryptPreflightResultTest.php
 test/Model/LicenceInfoTest.php
 test/Model/LicenceKeyTest.php
@@ -1243,6 +1283,7 @@ test/Model/NewEmailTest.php
 test/Model/NewFtpUserTest.php
 test/Model/NewImportServerSettingsTest.php
 test/Model/NewInviteTest.php
+test/Model/NewJoomlaUserTest.php
 test/Model/NewMappedDomainTest.php
 test/Model/NewMemberTest.php
 test/Model/NewMigrationDetailsTest.php
@@ -1250,6 +1291,7 @@ test/Model/NewMySQLDBTest.php
 test/Model/NewMySQLUserTest.php
 test/Model/NewPasswordTest.php
 test/Model/NewPlanTest.php
+test/Model/NewPostgresqlUserTest.php
 test/Model/NewPrimaryDomainMappingTest.php
 test/Model/NewResourceIdTest.php
 test/Model/NewResourceUuidTest.php
@@ -1286,6 +1328,10 @@ test/Model/PhpVersionTest.php
 test/Model/PlanTest.php
 test/Model/PlanTypeTest.php
 test/Model/PlansListingTest.php
+test/Model/PostgresqlRoleInfoTest.php
+test/Model/PostgresqlUserTest.php
+test/Model/PostgresqlUserUpdateTest.php
+test/Model/PostgresqlUsersFullListingTest.php
 test/Model/ProcessInfoTest.php
 test/Model/QuotaTest.php
 test/Model/RecursionTest.php
@@ -1336,6 +1382,7 @@ test/Model/ServerRoleStateTest.php
 test/Model/ServerRoleTest.php
 test/Model/ServerSniMappingBodyTest.php
 test/Model/ServerSniMappingTest.php
+test/Model/ServerSpecsTest.php
 test/Model/ServerStatEntryTest.php
 test/Model/ServerStatsFullListingTest.php
 test/Model/ServerStatusActionTest.php
@@ -1470,6 +1517,7 @@ test/Model/WebsiteServerDomainsTest.php
 test/Model/WebsiteStatusTest.php
 test/Model/WebsiteTest.php
 test/Model/WebsitesListingTest.php
+test/Model/WordPressInfoTest.php
 test/Model/WordpressConfigTest.php
 test/Model/WpDebugDisplayTest.php
 test/Model/WpDebugLogTest.php

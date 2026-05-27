@@ -9,6 +9,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWebsiteBackup()**](BackupsApi.md#deleteWebsiteBackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup |
 | [**downloadWebsiteBackup()**](BackupsApi.md#downloadWebsiteBackup) | **GET** /websites/{website_id}/backup/download | Download website backup |
 | [**getWebsiteBackup()**](BackupsApi.md#getWebsiteBackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup |
+| [**getWebsiteBackupDirectoryTree()**](BackupsApi.md#getWebsiteBackupDirectoryTree) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/directory_tree | Get the directory tree for the home dir |
 | [**getWebsiteBackups()**](BackupsApi.md#getWebsiteBackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata |
 | [**getWebsiteRestoreLog()**](BackupsApi.md#getWebsiteRestoreLog) | **GET** /backups/{website_id}/restore/log | Get the log for an ongoing restore, will return 404 if the restore is already complete |
 | [**getWebsiteRestoreStatus()**](BackupsApi.md#getWebsiteRestoreStatus) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/restore_status | Get the last detailed metadata of the restored website backup. |
@@ -350,6 +351,68 @@ try {
 ### Authorization
 
 [sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteBackupDirectoryTree()`
+
+```php
+getWebsiteBackupDirectoryTree($org_id, $website_id, $backup_id, $offset): \Upmind\EnhanceSdk\Model\DirectoryTreeNode[]
+```
+
+Get the directory tree for the home dir
+
+Will return the directory tree for the home directory of the website at the time of the snapshot.  Only works with Enhance backups, not S3.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\BackupsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$backup_id = 56; // int | The id of the backup.
+$offset = 'offset_example'; // string
+
+try {
+    $result = $apiInstance->getWebsiteBackupDirectoryTree($org_id, $website_id, $backup_id, $offset);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling BackupsApi->getWebsiteBackupDirectoryTree: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
+| **backup_id** | **int**| The id of the backup. | |
+| **offset** | **string**|  | [optional] |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\DirectoryTreeNode[]**](../Model/DirectoryTreeNode.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

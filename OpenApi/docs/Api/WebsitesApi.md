@@ -27,6 +27,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWebsites()**](WebsitesApi.md#deleteWebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites |
 | [**disableWebsitePhpExtension()**](WebsitesApi.md#disableWebsitePhpExtension) | **DELETE** /websites/{website_id}/php_extensions | Disable a PHP extension |
 | [**enableWebsitePhpExtension()**](WebsitesApi.md#enableWebsitePhpExtension) | **POST** /websites/{website_id}/php_extensions | Enable a PHP extension |
+| [**getBuiltInPhpExtensions()**](WebsitesApi.md#getBuiltInPhpExtensions) | **GET** /websites/{website_id}/built_in_php_extensions | Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website |
 | [**getDomainNginxFastCgi()**](WebsitesApi.md#getDomainNginxFastCgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement |
 | [**getDomainNginxFastCgiExcludedPaths()**](WebsitesApi.md#getDomainNginxFastCgiExcludedPaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths |
 | [**getDomainWebserverRewrites()**](WebsitesApi.md#getDomainWebserverRewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain |
@@ -42,6 +43,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteClone()**](WebsitesApi.md#getWebsiteClone) | **GET** /orgs/{org_id}/websites/clone/{clone_id} | Get&#39;s detail about a single push live |
 | [**getWebsiteCloneLog()**](WebsitesApi.md#getWebsiteCloneLog) | **GET** /orgs/{org_id}/websites/clone/{clone_id}/log | Get the log for a given clone id.. |
 | [**getWebsiteClones()**](WebsitesApi.md#getWebsiteClones) | **GET** /orgs/{org_id}/websites/clone | List website clones for given OrgId |
+| [**getWebsiteContainerIp()**](WebsitesApi.md#getWebsiteContainerIp) | **GET** /websites/{website_id}/container_ip | Get the container IP and host IP for this website |
 | [**getWebsiteDomainDnsQuery()**](WebsitesApi.md#getWebsiteDomainDnsQuery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain |
 | [**getWebsiteDomainMapping()**](WebsitesApi.md#getWebsiteDomainMapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping |
 | [**getWebsiteDomainMappingDnsStatus()**](WebsitesApi.md#getWebsiteDomainMappingDnsStatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status |
@@ -1582,6 +1584,69 @@ void (empty response body)
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getBuiltInPhpExtensions()`
+
+```php
+getBuiltInPhpExtensions($website_id): string[]
+```
+
+Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getBuiltInPhpExtensions($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getBuiltInPhpExtensions: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+**string[]**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getDomainNginxFastCgi()`
 
 ```php
@@ -2508,7 +2573,7 @@ getWebsiteClones($org_id): \Upmind\EnhanceSdk\Model\WebsiteCloneFullListing
 
 List website clones for given OrgId
 
-List of all webiste clones for the given OrgId.
+List of all website clones for the given OrgId.
 
 ### Example
 
@@ -2551,6 +2616,71 @@ try {
 ### Return type
 
 [**\Upmind\EnhanceSdk\Model\WebsiteCloneFullListing**](../Model/WebsiteCloneFullListing.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getWebsiteContainerIp()`
+
+```php
+getWebsiteContainerIp($website_id): \Upmind\EnhanceSdk\Model\ContainerIpInfo
+```
+
+Get the container IP and host IP for this website
+
+Returns the IP of the website container and the host side (for database connections, etc)
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getWebsiteContainerIp($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getWebsiteContainerIp: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\ContainerIpInfo**](../Model/ContainerIpInfo.md)
 
 ### Authorization
 

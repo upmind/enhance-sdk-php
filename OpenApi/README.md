@@ -103,6 +103,7 @@ Class | Method | HTTP request | Description
 *BackupsApi* | [**deleteWebsiteBackup**](docs/Api/BackupsApi.md#deletewebsitebackup) | **DELETE** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Delete a backup
 *BackupsApi* | [**downloadWebsiteBackup**](docs/Api/BackupsApi.md#downloadwebsitebackup) | **GET** /websites/{website_id}/backup/download | Download website backup
 *BackupsApi* | [**getWebsiteBackup**](docs/Api/BackupsApi.md#getwebsitebackup) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id} | Get detailed metadata of the website backup
+*BackupsApi* | [**getWebsiteBackupDirectoryTree**](docs/Api/BackupsApi.md#getwebsitebackupdirectorytree) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/directory_tree | Get the directory tree for the home dir
 *BackupsApi* | [**getWebsiteBackups**](docs/Api/BackupsApi.md#getwebsitebackups) | **GET** /orgs/{org_id}/websites/{website_id}/backups | Get all website backups metadata
 *BackupsApi* | [**getWebsiteRestoreLog**](docs/Api/BackupsApi.md#getwebsiterestorelog) | **GET** /backups/{website_id}/restore/log | Get the log for an ongoing restore, will return 404 if the restore is already complete
 *BackupsApi* | [**getWebsiteRestoreStatus**](docs/Api/BackupsApi.md#getwebsiterestorestatus) | **GET** /orgs/{org_id}/websites/{website_id}/backups/{backup_id}/restore_status | Get the last detailed metadata of the restored website backup.
@@ -195,6 +196,7 @@ Class | Method | HTTP request | Description
 *EmailsApi* | [**getWebsiteEmails**](docs/Api/EmailsApi.md#getwebsiteemails) | **GET** /orgs/{org_id}/websites/{website_id}/emails | Get website emails
 *EmailsApi* | [**setDomainLocalRemote**](docs/Api/EmailsApi.md#setdomainlocalremote) | **PUT** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/local_remote | Update email local/remote status
 *EmailsApi* | [**setEmailSpamThresholds**](docs/Api/EmailsApi.md#setemailspamthresholds) | **PUT** /websites/{website_id}/emails/{email_address}/spam_thresholds | Set spam thresholds for an email address
+*EmailsApi* | [**ssoToRoundcube**](docs/Api/EmailsApi.md#ssotoroundcube) | **GET** /orgs/{org_id}/websites/{website_id}/emails/{email_address}/sso | SSO to Roundcube
 *EmailsApi* | [**updateDomainEmailAuth**](docs/Api/EmailsApi.md#updatedomainemailauth) | **PUT** /websites/{website_id}/domains/{domain_name}/email-auth | Update email authentication preferences
 *EmailsApi* | [**updateWebsiteEmail**](docs/Api/EmailsApi.md#updatewebsiteemail) | **PATCH** /orgs/{org_id}/websites/{website_id}/emails/{email_address} | Update website email
 *EmailsApi* | [**validateDomainEmailAuth**](docs/Api/EmailsApi.md#validatedomainemailauth) | **GET** /websites/{website_id}/domains/{domain_name}/email-auth/validate | Validate email authentication DNS records
@@ -226,6 +228,13 @@ Class | Method | HTTP request | Description
 *InvitesApi* | [**acceptInvite**](docs/Api/InvitesApi.md#acceptinvite) | **POST** /invites/{invite_id} | Accept invite
 *InvitesApi* | [**createInvite**](docs/Api/InvitesApi.md#createinvite) | **POST** /orgs/{org_id}/invites | Create invite
 *InvitesApi* | [**validateInvite**](docs/Api/InvitesApi.md#validateinvite) | **POST** /invites/{invite_id}/validate | Validate invite
+*JoomlaApi* | [**createJoomlaUser**](docs/Api/JoomlaApi.md#createjoomlauser) | **POST** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users | Create website Joomla user
+*JoomlaApi* | [**deleteJoomlaUser**](docs/Api/JoomlaApi.md#deletejoomlauser) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username} | Delete a joomla user
+*JoomlaApi* | [**getJoomlaInfo**](docs/Api/JoomlaApi.md#getjoomlainfo) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/info | 
+*JoomlaApi* | [**getJoomlaUsers**](docs/Api/JoomlaApi.md#getjoomlausers) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users | 
+*JoomlaApi* | [**resetJoomlaUserPassword**](docs/Api/JoomlaApi.md#resetjoomlauserpassword) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}/password | Set the password for a given username
+*JoomlaApi* | [**updateJoomlaEmailAddress**](docs/Api/JoomlaApi.md#updatejoomlaemailaddress) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}/email | Update the email address for a given username
+*JoomlaApi* | [**updateJoomlaUsername**](docs/Api/JoomlaApi.md#updatejoomlausername) | **PUT** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/joomla/users/{username}/username | Update the username for a given username
 *LetsencryptApi* | [**createWebsiteDomainLetsencryptCerts**](docs/Api/LetsencryptApi.md#createwebsitedomainletsencryptcerts) | **POST** /v2/domains/{domain_id}/letsencrypt | Generate and setup letsencrypt ssl certificates for website&#39;s domain
 *LetsencryptApi* | [**createWebsiteMailDomainLetsencryptCerts**](docs/Api/LetsencryptApi.md#createwebsitemaildomainletsencryptcerts) | **POST** /v2/domains/{domain_id}/letsencrypt_mail | Generate and setup letsencrypt ssl certificates for website&#39;s domain with mail. prefix.
 *LetsencryptApi* | [**performLetsEncryptPreflightCheck**](docs/Api/LetsencryptApi.md#performletsencryptpreflightcheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check
@@ -345,6 +354,15 @@ Class | Method | HTTP request | Description
 *PlansApi* | [**updatePlanAllowance**](docs/Api/PlansApi.md#updateplanallowance) | **PUT** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Update plan allowance
 *PlansApi* | [**updatePlanResource**](docs/Api/PlansApi.md#updateplanresource) | **PUT** /orgs/{org_id}/plans/{plan_id}/resources/{name} | Update plan resource
 *PlansApi* | [**updatePlanSelection**](docs/Api/PlansApi.md#updateplanselection) | **PUT** /orgs/{org_id}/plans/{plan_id}/selections/{name} | Update plan selection
+*PostgresqlApi* | [**createWebsitePostgresqlDb**](docs/Api/PostgresqlApi.md#createwebsitepostgresqldb) | **POST** /orgs/{org_id}/websites/{website_id}/postgresql-dbs | Create a PostgreSQL database for website
+*PostgresqlApi* | [**createWebsitePostgresqlUser**](docs/Api/PostgresqlApi.md#createwebsitepostgresqluser) | **POST** /orgs/{org_id}/websites/{website_id}/postgresql-users | Create website PostgreSQL database user
+*PostgresqlApi* | [**deleteWebsitePostgresqlDb**](docs/Api/PostgresqlApi.md#deletewebsitepostgresqldb) | **DELETE** /orgs/{org_id}/websites/{website_id}/postgresql-dbs/{db_name} | Delete website PostgreSQL database
+*PostgresqlApi* | [**deleteWebsitePostgresqlUser**](docs/Api/PostgresqlApi.md#deletewebsitepostgresqluser) | **DELETE** /orgs/{org_id}/websites/{website_id}/postgresql-users/{username} | Delete website PostgreSQL database user
+*PostgresqlApi* | [**getWebsitePostgresqlDbs**](docs/Api/PostgresqlApi.md#getwebsitepostgresqldbs) | **GET** /orgs/{org_id}/websites/{website_id}/postgresql-dbs | Get website PostgreSQL databases
+*PostgresqlApi* | [**getWebsitePostgresqlUsers**](docs/Api/PostgresqlApi.md#getwebsitepostgresqlusers) | **GET** /orgs/{org_id}/websites/{website_id}/postgresql-users | Get website PostgreSQL database users
+*PostgresqlApi* | [**grantPostgresqlUserDbPrivileges**](docs/Api/PostgresqlApi.md#grantpostgresqluserdbprivileges) | **POST** /orgs/{org_id}/websites/{website_id}/postgresql-users/{username}/privileges | Grant privileges on a specific database
+*PostgresqlApi* | [**revokePostgresqlUserDbPrivileges**](docs/Api/PostgresqlApi.md#revokepostgresqluserdbprivileges) | **DELETE** /orgs/{org_id}/websites/{website_id}/postgresql-users/{username}/privileges/{db_name} | Remove privileges on this database
+*PostgresqlApi* | [**updateWebsitePostgresqlUser**](docs/Api/PostgresqlApi.md#updatewebsitepostgresqluser) | **PATCH** /orgs/{org_id}/websites/{website_id}/postgresql-users/{username} | Update website PostgreSQL database user
 *ReportsApi* | [**getLoginPolicyBlockedIps**](docs/Api/ReportsApi.md#getloginpolicyblockedips) | **GET** /reports/orchd/login-policy/blocked-ips | Get blocked ips
 *ReportsApi* | [**getLoginPolicyBlockedLogins**](docs/Api/ReportsApi.md#getloginpolicyblockedlogins) | **GET** /reports/orchd/login-policy/blocked-logins | Get blocked logins
 *ServersApi* | [**addSpamIpWhitelist**](docs/Api/ServersApi.md#addspamipwhitelist) | **POST** /servers/{server_id}/spam/ip_whitelist | Add to the IP whitelist
@@ -375,6 +393,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getOutboundSpamScanningSettings**](docs/Api/ServersApi.md#getoutboundspamscanningsettings) | **GET** /servers/{server_id}/email/spam/outbound_scanning | Get the status of outbound spam scanning
 *ServersApi* | [**getOwaspRulesVersion**](docs/Api/ServersApi.md#getowasprulesversion) | **GET** /v2/servers/{server_id}/owasp | Get the current and available version of the OWASP rules
 *ServersApi* | [**getRegistrationKey**](docs/Api/ServersApi.md#getregistrationkey) | **GET** /servers/registration-key | Get slave registration key
+*ServersApi* | [**getRoundcubeSsoEnabled**](docs/Api/ServersApi.md#getroundcubessoenabled) | **GET** /servers/{server_id}/roundcube_sso_enabled | Check if Roundcube SSO is enabled on this server
 *ServersApi* | [**getServerDiskUsage**](docs/Api/ServersApi.md#getserverdiskusage) | **GET** /servers/{server_id}/disk-usage | Get server disk usage
 *ServersApi* | [**getServerFpmSettings**](docs/Api/ServersApi.md#getserverfpmsettings) | **GET** /servers/{server_id}/php/fpm | Get php-fpm config for all the websites on a server
 *ServersApi* | [**getServerGroups**](docs/Api/ServersApi.md#getservergroups) | **GET** /servers/groups | Returns all server groups
@@ -389,6 +408,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**getServerNetworkStats**](docs/Api/ServersApi.md#getservernetworkstats) | **GET** /servers/{server_id}/network-stats | Get server network stats
 *ServersApi* | [**getServerRole**](docs/Api/ServersApi.md#getserverrole) | **GET** /servers/{server_id}/roles/{role} | Get server role info
 *ServersApi* | [**getServerRoles**](docs/Api/ServersApi.md#getserverroles) | **GET** /servers/{server_id}/roles | Get server roles info
+*ServersApi* | [**getServerSpecs**](docs/Api/ServersApi.md#getserverspecs) | **GET** /servers/{server_id}/specs | Get server specs
 *ServersApi* | [**getServerStats**](docs/Api/ServersApi.md#getserverstats) | **GET** /servers/{server_id}/historic-stats | Get Server stats
 *ServersApi* | [**getServerStatus**](docs/Api/ServersApi.md#getserverstatus) | **GET** /servers/{server_id}/status | Get server status
 *ServersApi* | [**getServerUptime**](docs/Api/ServersApi.md#getserveruptime) | **GET** /servers/{server_id}/uptime | Get server uptime in seconds
@@ -409,6 +429,7 @@ Class | Method | HTTP request | Description
 *ServersApi* | [**setEmailServerHostnameOverride**](docs/Api/ServersApi.md#setemailserverhostnameoverride) | **PUT** /servers/{server_id}/email/hostname_override | Set the hostname override for the email server (postfix)
 *ServersApi* | [**setLiteSpeedAdminPassword**](docs/Api/ServersApi.md#setlitespeedadminpassword) | **POST** /servers/{server_id}/webserver/litespeed/password | Set a new LiteSpeed admin password.
 *ServersApi* | [**setOutboundSpamScanningSettings**](docs/Api/ServersApi.md#setoutboundspamscanningsettings) | **PUT** /servers/{server_id}/email/spam/outbound_scanning | Set the settings for outbound spam scanning
+*ServersApi* | [**setRoundcubeSsoEnabled**](docs/Api/ServersApi.md#setroundcubessoenabled) | **PUT** /servers/{server_id}/roundcube_sso_enabled | Set Roundcube SSO enabled state
 *ServersApi* | [**setServerDecommissioned**](docs/Api/ServersApi.md#setserverdecommissioned) | **PUT** /servers/{server_id}/decommissioned | Set server to decommissioned
 *ServersApi* | [**setServerModSecurityConfig**](docs/Api/ServersApi.md#setservermodsecurityconfig) | **PUT** /v2/servers/{server_id}/modsec_conf | Set mod security config
 *ServersApi* | [**setServerModSecurityStatus**](docs/Api/ServersApi.md#setservermodsecuritystatus) | **PUT** /v2/servers/{server_id}/modsec_status | Set mod security status for a server
@@ -499,6 +520,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**deleteWebsites**](docs/Api/WebsitesApi.md#deletewebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites
 *WebsitesApi* | [**disableWebsitePhpExtension**](docs/Api/WebsitesApi.md#disablewebsitephpextension) | **DELETE** /websites/{website_id}/php_extensions | Disable a PHP extension
 *WebsitesApi* | [**enableWebsitePhpExtension**](docs/Api/WebsitesApi.md#enablewebsitephpextension) | **POST** /websites/{website_id}/php_extensions | Enable a PHP extension
+*WebsitesApi* | [**getBuiltInPhpExtensions**](docs/Api/WebsitesApi.md#getbuiltinphpextensions) | **GET** /websites/{website_id}/built_in_php_extensions | Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website
 *WebsitesApi* | [**getDomainNginxFastCgi**](docs/Api/WebsitesApi.md#getdomainnginxfastcgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement
 *WebsitesApi* | [**getDomainNginxFastCgiExcludedPaths**](docs/Api/WebsitesApi.md#getdomainnginxfastcgiexcludedpaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths
 *WebsitesApi* | [**getDomainWebserverRewrites**](docs/Api/WebsitesApi.md#getdomainwebserverrewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain
@@ -514,6 +536,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteClone**](docs/Api/WebsitesApi.md#getwebsiteclone) | **GET** /orgs/{org_id}/websites/clone/{clone_id} | Get&#39;s detail about a single push live
 *WebsitesApi* | [**getWebsiteCloneLog**](docs/Api/WebsitesApi.md#getwebsiteclonelog) | **GET** /orgs/{org_id}/websites/clone/{clone_id}/log | Get the log for a given clone id..
 *WebsitesApi* | [**getWebsiteClones**](docs/Api/WebsitesApi.md#getwebsiteclones) | **GET** /orgs/{org_id}/websites/clone | List website clones for given OrgId
+*WebsitesApi* | [**getWebsiteContainerIp**](docs/Api/WebsitesApi.md#getwebsitecontainerip) | **GET** /websites/{website_id}/container_ip | Get the container IP and host IP for this website
 *WebsitesApi* | [**getWebsiteDomainDnsQuery**](docs/Api/WebsitesApi.md#getwebsitedomaindnsquery) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-query | Recursively query Dns servers for given domain
 *WebsitesApi* | [**getWebsiteDomainMapping**](docs/Api/WebsitesApi.md#getwebsitedomainmapping) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Returns website domain mapping
 *WebsitesApi* | [**getWebsiteDomainMappingDnsStatus**](docs/Api/WebsitesApi.md#getwebsitedomainmappingdnsstatus) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-status | Returns website domain mapping DNS status
@@ -575,6 +598,7 @@ Class | Method | HTTP request | Description
 *WordpressApi* | [**getWordPressSiteurl**](docs/Api/WordpressApi.md#getwordpresssiteurl) | **GET** /v2/apps/{app_id}/wordpress/url | Fetches the site URL for a WordPress installation
 *WordpressApi* | [**getWordpressAppVersion**](docs/Api/WordpressApi.md#getwordpressappversion) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/version | Get WordPress version
 *WordpressApi* | [**getWordpressConfig**](docs/Api/WordpressApi.md#getwordpressconfig) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/wp-config/{wp_option} | Get the WP config value for a given option
+*WordpressApi* | [**getWordpressInfo**](docs/Api/WordpressApi.md#getwordpressinfo) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/info | 
 *WordpressApi* | [**getWordpressInstallations**](docs/Api/WordpressApi.md#getwordpressinstallations) | **GET** /orgs/{org_id}/websites/{website_id}/apps/wordpress | Trigger discovery of WP installations
 *WordpressApi* | [**getWordpressLatestVersion**](docs/Api/WordpressApi.md#getwordpresslatestversion) | **GET** /utils/wordpress/latest | Get WordPress latest available version
 *WordpressApi* | [**getWordpressPlugins**](docs/Api/WordpressApi.md#getwordpressplugins) | **GET** /orgs/{org_id}/websites/{website_id}/apps/{app_id}/wordpress/plugins | Get website WordPress plugins
@@ -661,6 +685,7 @@ Class | Method | HTTP request | Description
 - [CloudFlareApiKey](docs/Model/CloudFlareApiKey.md)
 - [CloudFlareNameServers](docs/Model/CloudFlareNameServers.md)
 - [CloudFlareStatus](docs/Model/CloudFlareStatus.md)
+- [ContainerIpInfo](docs/Model/ContainerIpInfo.md)
 - [ControlRoleInfo](docs/Model/ControlRoleInfo.md)
 - [CoreServiceInfo](docs/Model/CoreServiceInfo.md)
 - [CreateBackupRemoteStorageS3](docs/Model/CreateBackupRemoteStorageS3.md)
@@ -673,12 +698,14 @@ Class | Method | HTTP request | Description
 - [Customer](docs/Model/Customer.md)
 - [CustomersListing](docs/Model/CustomersListing.md)
 - [DaemonKind](docs/Model/DaemonKind.md)
+- [DatabaseBackupWithSize](docs/Model/DatabaseBackupWithSize.md)
 - [DatabaseRoleInfo](docs/Model/DatabaseRoleInfo.md)
 - [DedicatedSubscriptionInfo](docs/Model/DedicatedSubscriptionInfo.md)
 - [DefaultDnsRecord](docs/Model/DefaultDnsRecord.md)
 - [DeleteWebsiteDomainVhostRequest](docs/Model/DeleteWebsiteDomainVhostRequest.md)
 - [DemoMode](docs/Model/DemoMode.md)
 - [DeviceKind](docs/Model/DeviceKind.md)
+- [DirectoryTreeNode](docs/Model/DirectoryTreeNode.md)
 - [Disk](docs/Model/Disk.md)
 - [DnsQueryOutcome](docs/Model/DnsQueryOutcome.md)
 - [DnsRecord](docs/Model/DnsRecord.md)
@@ -752,6 +779,9 @@ Class | Method | HTTP request | Description
 - [InstallableWebsiteAppsFullListing](docs/Model/InstallableWebsiteAppsFullListing.md)
 - [InterfaceIp](docs/Model/InterfaceIp.md)
 - [InviteValidation](docs/Model/InviteValidation.md)
+- [JoomlaInfo](docs/Model/JoomlaInfo.md)
+- [JoomlaUser](docs/Model/JoomlaUser.md)
+- [JoomlaUsersFullListing](docs/Model/JoomlaUsersFullListing.md)
 - [LetsEncryptPreflightResult](docs/Model/LetsEncryptPreflightResult.md)
 - [LicenceInfo](docs/Model/LicenceInfo.md)
 - [LicenceKey](docs/Model/LicenceKey.md)
@@ -818,6 +848,7 @@ Class | Method | HTTP request | Description
 - [NewFtpUser](docs/Model/NewFtpUser.md)
 - [NewImportServerSettings](docs/Model/NewImportServerSettings.md)
 - [NewInvite](docs/Model/NewInvite.md)
+- [NewJoomlaUser](docs/Model/NewJoomlaUser.md)
 - [NewMappedDomain](docs/Model/NewMappedDomain.md)
 - [NewMember](docs/Model/NewMember.md)
 - [NewMigrationDetails](docs/Model/NewMigrationDetails.md)
@@ -825,6 +856,7 @@ Class | Method | HTTP request | Description
 - [NewMySQLUser](docs/Model/NewMySQLUser.md)
 - [NewPassword](docs/Model/NewPassword.md)
 - [NewPlan](docs/Model/NewPlan.md)
+- [NewPostgresqlUser](docs/Model/NewPostgresqlUser.md)
 - [NewPrimaryDomainMapping](docs/Model/NewPrimaryDomainMapping.md)
 - [NewResourceId](docs/Model/NewResourceId.md)
 - [NewResourceUuid](docs/Model/NewResourceUuid.md)
@@ -861,6 +893,10 @@ Class | Method | HTTP request | Description
 - [Plan](docs/Model/Plan.md)
 - [PlanType](docs/Model/PlanType.md)
 - [PlansListing](docs/Model/PlansListing.md)
+- [PostgresqlRoleInfo](docs/Model/PostgresqlRoleInfo.md)
+- [PostgresqlUser](docs/Model/PostgresqlUser.md)
+- [PostgresqlUserUpdate](docs/Model/PostgresqlUserUpdate.md)
+- [PostgresqlUsersFullListing](docs/Model/PostgresqlUsersFullListing.md)
 - [ProcessInfo](docs/Model/ProcessInfo.md)
 - [Quota](docs/Model/Quota.md)
 - [Recursion](docs/Model/Recursion.md)
@@ -911,6 +947,7 @@ Class | Method | HTTP request | Description
 - [ServerRoleState](docs/Model/ServerRoleState.md)
 - [ServerSniMapping](docs/Model/ServerSniMapping.md)
 - [ServerSniMappingBody](docs/Model/ServerSniMappingBody.md)
+- [ServerSpecs](docs/Model/ServerSpecs.md)
 - [ServerStatEntry](docs/Model/ServerStatEntry.md)
 - [ServerStatsFullListing](docs/Model/ServerStatsFullListing.md)
 - [ServerStatus](docs/Model/ServerStatus.md)
@@ -1045,6 +1082,7 @@ Class | Method | HTTP request | Description
 - [WebsiteServerDomains](docs/Model/WebsiteServerDomains.md)
 - [WebsiteStatus](docs/Model/WebsiteStatus.md)
 - [WebsitesListing](docs/Model/WebsitesListing.md)
+- [WordPressInfo](docs/Model/WordPressInfo.md)
 - [WordpressConfig](docs/Model/WordpressConfig.md)
 - [WpDebug](docs/Model/WpDebug.md)
 - [WpDebugDisplay](docs/Model/WpDebugDisplay.md)
@@ -1090,6 +1128,6 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `12.13.0`
+- API version: `12.22.0`
     - Generator version: `7.12.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

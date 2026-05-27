@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **files_size** | **int** |  | [optional]
 **mysql_dbs_status** | [**\Upmind\EnhanceSdk\Model\OperationStatus**](OperationStatus.md) |  | [optional]
 **mysql_dbs_count** | **int** |  | [optional]
+**postgresql_dbs_count** | **int** |  | [optional]
 **mysql_dbs_size** | **int** |  | [optional]
 **emails_status** | [**\Upmind\EnhanceSdk\Model\OperationStatus**](OperationStatus.md) |  | [optional]
 **emails_count** | **int** |  | [optional]

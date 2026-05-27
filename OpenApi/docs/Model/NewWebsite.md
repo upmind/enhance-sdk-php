@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **backup_server_id** | **string** |  | [optional]
 **db_server_id** | **string** |  | [optional]
 **email_server_id** | **string** |  | [optional]
+**postgresql_server_id** | **string** |  | [optional]
 **server_group_id** | **string** |  | [optional]
 **php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  | [optional]
 **word_press_admin_credentials** | [**\Upmind\EnhanceSdk\Model\AdminCredentials**](AdminCredentials.md) |  | [optional]

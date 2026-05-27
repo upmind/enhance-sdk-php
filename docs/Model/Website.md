@@ -26,11 +26,13 @@ Name | Type | Description | Notes
 **backup_server_id** | **string** | The id of the server on which the backups of this website are located. This is only returned when websites are queried recursively by an MO member, as the MO is in charge of servers and thus this information only concerns them. | [optional]
 **db_server_id** | **string** | The id of the server on which the databases of this website are located. This is only returned when websites are queried recursively by an MO member, as the MO is in charge of servers and thus this information only concerns them. | [optional]
 **email_server_id** | **string** | The id of the server on which the emails of this website are located. This is only returned when websites are queried recursively by an MO member, as the MO is in charge of servers and thus this information only concerns them. | [optional]
+**postgresql_server_id** | **string** |  | [optional]
 **unix_user** | **string** | The unix user assigned to this website, used for ssh shells, prefixing website databases and databse users, etc. | [optional]
 **site_access_members** | [**\Upmind\EnhanceSdk\Model\SiteAccessMember[]**](SiteAccessMember.md) |  | [optional]
 **server_ips** | [**\Upmind\EnhanceSdk\Model\ServerIp[]**](ServerIp.md) | The addresses of the the server on which this website is located. | [optional]
 **backup_server_ips** | [**\Upmind\EnhanceSdk\Model\ServerIp[]**](ServerIp.md) | The addresses of the the server on which this website&#39;s backups are located. | [optional]
 **db_server_ips** | [**\Upmind\EnhanceSdk\Model\ServerIp[]**](ServerIp.md) | The addresses of the the server on which this website&#39;s databases are located. | [optional]
+**postgresql_server_ips** | [**\Upmind\EnhanceSdk\Model\ServerIp[]**](ServerIp.md) | The addresses of the the server on which this website&#39;s PostgreSQL databases are located. | [optional]
 **email_server_ips** | [**\Upmind\EnhanceSdk\Model\ServerIp[]**](ServerIp.md) | The addresses of the the server on which this website&#39;s emails are located. | [optional]
 **filerd_address** | **string** | The path relative to the control panel domain where filerd can be accessed. | [optional]
 **php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  | [optional]
@@ -42,6 +44,7 @@ Name | Type | Description | Notes
 **can_use** | [**\Upmind\EnhanceSdk\Model\CanUse**](CanUse.md) |  | [optional]
 **app_server_ipv6** | **string** |  | [optional]
 **db_server_ipv6** | **string** |  | [optional]
+**postgresql_server_ipv6** | **string** |  | [optional]
 **email_server_ipv6** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

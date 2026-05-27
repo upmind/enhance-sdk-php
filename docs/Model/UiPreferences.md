@@ -10,5 +10,6 @@ Name | Type | Description | Notes
 **spine_open** | **bool** |  |
 **file_manager_editor_fullscreen** | **bool** |  |
 **server_groups** | **string[]** |  |
+**onboarding_card_dismissed** | **bool** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

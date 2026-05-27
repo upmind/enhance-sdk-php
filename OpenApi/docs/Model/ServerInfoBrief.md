@@ -18,5 +18,6 @@ Name | Type | Description | Notes
 **ipv6_addr** | **string** |  | [optional]
 **appcd_version** | **string** |  | [optional]
 **update_required** | **bool** |  | [optional]
+**mysql_kind** | [**\Upmind\EnhanceSdk\Model\MysqlKind**](MysqlKind.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

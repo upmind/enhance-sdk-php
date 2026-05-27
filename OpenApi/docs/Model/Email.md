@@ -14,5 +14,6 @@ Name | Type | Description | Notes
 **forwarders_count** | **int** |  | [optional]
 **created_at** | **string** |  | [optional]
 **is_catch_all** | **bool** |  | [optional]
+**sso_available** | **bool** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
