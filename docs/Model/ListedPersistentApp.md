@@ -10,5 +10,6 @@ Name | Type | Description | Notes
 **working_directory** | **string** |  | [optional]
 **node_version** | [**\Upmind\EnhanceSdk\Model\NodeVersion**](NodeVersion.md) |  | [optional]
 **id** | **string** |  |
+**app_kind** | [**\Upmind\EnhanceSdk\Model\PersistentAppKind**](PersistentAppKind.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

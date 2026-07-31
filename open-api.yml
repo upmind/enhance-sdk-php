@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 12.22.0
+  version: 12.25.2
   title: orchd
 tags:
   - name: install
@@ -2890,6 +2890,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/ServerId"
       - $ref: "#/components/parameters/ServerRole"
+      - $ref: "#/components/parameters/DisableRoleOnInstallation"
     get:
       tags:
         - servers
@@ -2924,6 +2925,8 @@ paths:
         "404":
           description: Not found
     put:
+      parameters:
+      - $ref: "#/components/parameters/DisableRoleOnInstallation"
       tags:
         - servers
       summary: Install server role
@@ -4394,6 +4397,7 @@ paths:
         - $ref: "#/components/parameters/MaxDepth"
         - $ref: "#/components/parameters/Status"
         - $ref: "#/components/parameters/ResourcesUnderPlanId"
+        - $ref: "#/components/parameters/Search"
       responses:
         "200":
           description: Customers successfully queried
@@ -6785,6 +6789,251 @@ paths:
       responses:
         "200":
           description: Backups disabled status saved
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/container_cron_enabled:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get container cron status for a website
+      operationId: getContainerCronEnabledStatus
+      description: This setting controls whether or not a website can change its own crontab from inside the container.
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Cron enabled boolean
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - websites
+      summary: Set backups disabled status on a website
+      description: This setting controls whether or not a website can change its own crontab from inside the container.
+      operationId: setContainerCronEnabledStatus
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Cron enabled boolean
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      responses:
+        "200":
+          description: Cron enabled status saved
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/info:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - apps
+      summary: Get Openclaw info (if installed)
+      operationId: getWebsiteOpenclawInfo
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Openclaw info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenclawInfo"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/sso:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - apps
+      summary: Generate SSO URL for Openclaw and 302 redirect
+      operationId: openclawSso
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "302":
+          description: SSO URL generated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/devices:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - apps
+      summary: List Openclaw devices
+      operationId: openclawDeviceList
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Device list returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenclawDeviceList"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/approve:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    put:
+      tags:
+        - apps
+      summary: Approve a device request
+      operationId: approveOpenclawDevice
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Device request ID
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              format: uuid
+      responses:
+        "200":
+          description: Device approved
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/device_auth_enabled:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    put:
+      tags:
+        - apps
+      summary: Set device auth for Openclaw installation
+      operationId: setOpenclawDeviceAuth
+      requestBody:
+        description: Device enabled boolean
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Setting updated
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/rotate_token:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    post:
+      tags:
+        - apps
+      summary: Rotate the auth token for Openclaw to a new random token
+      operationId: rotateOpenclawAuthToken
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Token rotated, new token returned
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /websites/{website_id}/openclaw/provider_keys:
+    parameters:
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - apps
+      summary: List configured provider keys
+      operationId: getOpenclawProviderKeys
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Provider keys returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenclawProviderKeys"
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    put:
+      tags:
+        - apps
+      summary: Set configured provider keys
+      operationId: setOpenclawProviderKeys
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      requestBody:
+        description: Openclaw API provider keys
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OpenclawProviderKeys"
+      responses:
+        "200":
+          description: Provider keys updated
         "401":
           description: Invalid session
         "403":
@@ -9266,6 +9515,32 @@ paths:
         Fetches a single sign-on URL to access phpMyAdmin for this database
         without the need to log in.
       operationId: getPhpMyAdminSSOUrl
+      responses:
+        "200":
+          description: SSO URL Fetched
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+  /orgs/{org_id}/websites/{website_id}/phpmyadmin:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/ShouldRedirect"
+    get:
+      tags:
+        - mysql
+      summary: Get phpMyAdmin SSO URL (per website)
+      description: >-
+        Fetches a single sign-on URL to access phpMyAdmin for this website
+        without the need to log in.
+      operationId: getPhpMyAdminWebsiteSSOUrl
       responses:
         "200":
           description: SSO URL Fetched
@@ -13086,9 +13361,9 @@ paths:
         schema:
           type: integer
     delete:
+      summary: Deletes a third party dns provider.
       tags:
         - dns
-      summary: Deletes a third party dns provider.
       description: >-
         This operation can only be done by an MO admin.
 
@@ -13096,6 +13371,34 @@ paths:
         Enhance. This endpoint removes an existing provider. After this endpoint
         resolves, no new dns zones are going to be replicated to the provider.
       operationId: deleteDnsThirdPartyProvider
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    patch:
+      summary: Update a third party dns provider.
+      tags:
+        - dns
+      description: >-
+        Update the URL or headers for a DNS third party provider
+      operationId: updateDnsThirdPartyProvider
+      requestBody:
+        description: >-
+          Url where the updates are sent and map of header names to their
+          values.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewDnsThirdPartyProvider"
       security:
         - sessionCookie: []
         - bearerAuth: []
@@ -14166,6 +14469,13 @@ components:
       required: true
       schema:
         $ref: "#/components/schemas/ServerRole"
+    DisableRoleOnInstallation:
+      name: disable_role_on_installation
+      in: query
+      description: Disable placement immediately after installation
+      required: false
+      schema:
+        type: boolean
     ServiceKind:
       name: service_kind
       in: path
@@ -14540,6 +14850,66 @@ components:
   ###############################################################################
 
   schemas:
+    OpenclawDeviceList:
+      type: object
+      properties:
+        pending:
+          type: array
+          items:
+            $ref: "#/components/schemas/OpenclawDevice"
+        paired:
+          type: array
+          items:
+            $ref: "#/components/schemas/OpenclawDevice"
+    OpenclawDevice:
+      type: object
+      required:
+        - id
+        - platform
+        - clientMode
+        - clientId
+      properties:
+        requestId:
+          type: string
+          format: uuid
+        id:
+          type: string
+        platform:
+          type: string
+        clientMode:
+          type: string
+        clientId:
+          type: string
+    OpenclawInfo:
+      type: object
+      required:
+        - token
+        - device_auth_enabled
+      properties:
+        token:
+          type: string
+          description: Access token for the Openclaw installation
+        device_auth_enabled:
+          type: boolean
+          description: If disabled, a user can access Openclaw from any device with only the access token.
+    OpenclawProviderKeys:
+      type: object
+      properties:
+        openAi:
+          type: string
+          description: API key for openAi
+        xAi:
+          type: string
+          description: API key for xAI
+        anthropic:
+          type: string
+          description: API key for Anthropic
+        gemini:
+          type: string
+          description: API key for Gemini
+        openrouter:
+          type: string
+          description: API key for Openrouter
     DirectoryTreeNode:
       type: object
       required:
@@ -15911,6 +16281,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PhpVersion"
+        allowedApps:
+          type: array
+          description: If unset, all current and future apps are allowed.
+          items:
+            $ref: "#/components/schemas/WebsiteAppKind"
         defaultPhpVersion:
           $ref: "#/components/schemas/PhpVersion"
         redisAllowed:
@@ -16006,6 +16381,8 @@ components:
       properties:
         totalAvailable:
           type: number
+        inodesAvailable:
+          type: number
     FsQuotaInfo:
       description: File system quota info in bytes.
       type: object
@@ -16015,6 +16392,10 @@ components:
         totalAvailable:
           type: number
         used:
+          type: number
+        inodesAvailable:
+          type: number
+        inodesUsed:
           type: number
     Plan:
       description: >-
@@ -16093,6 +16474,11 @@ components:
             theme will be preinstalled.
         persistentAppsAllowed:
           type: boolean
+        allowedApps:
+          type: array
+          description: If unset, all current and future apps are allowed.
+          items:
+            $ref: "#/components/schemas/WebsiteAppKind"
     UpdatePlan:
       type: object
       properties:
@@ -16148,6 +16534,13 @@ components:
             theme will be preinstalled.
         persistentAppsAllowed:
           type: boolean
+        allowedApps:
+          oneOf:
+            - $ref: "#/components/schemas/Unset"
+            - type: array
+              description: If unset, all current and future apps are allowed.
+              items:
+                $ref: "#/components/schemas/WebsiteAppKind"
     Resource:
       type: object
       required:
@@ -16296,6 +16689,11 @@ components:
           type: string
         persistentAppsAllowed:
           type: boolean
+        allowedApps:
+          type: array
+          description: If unset, all current and future apps are allowed.
+          items:
+            $ref: "#/components/schemas/WebsiteAppKind"
     UpdateSubscription:
       type: object
       properties:
@@ -19060,7 +19458,10 @@ components:
           $ref: "#/components/schemas/Role"
     WebsiteAppKind:
       type: string
-      enum: ["wordpress", "joomla"]
+      enum: ["wordpress", "joomla", "openclaw"]
+    PersistentAppKind:
+      type: string
+      enum: ["generic", "openclaw"]
     InstallableWebsiteAppsFullListing:
       type: object
       required:
@@ -19119,6 +19520,8 @@ components:
           type: string
         port:
           type: integer
+        allowWebSocketUpgrade:
+          type: boolean
     ListedPersistentApp:
       allOf:
         - $ref: "#/components/schemas/PersistentApp"
@@ -19127,6 +19530,8 @@ components:
             id:
               type: string
               format: uuid
+            appKind:
+              $ref: "#/components/schemas/PersistentAppKind"
           required:
             - id
     UpdatePersistentApp:
@@ -19157,9 +19562,6 @@ components:
       type: object
       required:
         - app
-        - adminUsername
-        - adminPassword
-        - adminEmail
       properties:
         app:
           $ref: "#/components/schemas/WebsiteAppKind"

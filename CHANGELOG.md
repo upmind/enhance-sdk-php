@@ -2,6 +2,12 @@
 
 All notable changes to the package will be documented in this file.
 
+## v12.25.2 - 2026-07-31
+
+- Update open-api.yml to Enhance v12.25.2 OpenAPI spec
+- Re-generate SDK
+- Update README.md docs
+
 ## v12.22.1 - 2026-05-27
 
 - Remove InvalidArgumentException throws when encountering unexpected enum values

@@ -2657,7 +2657,7 @@ try {
 ## `getServerRole()`
 
 ```php
-getServerRole($server_id, $role): \Upmind\EnhanceSdk\Model\GetServerRole200Response
+getServerRole($server_id, $role, $disable_role_on_installation): \Upmind\EnhanceSdk\Model\GetServerRole200Response
 ```
 
 Get server role info
@@ -2688,9 +2688,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
+$disable_role_on_installation = True; // bool | Disable placement immediately after installation
 
 try {
-    $result = $apiInstance->getServerRole($server_id, $role);
+    $result = $apiInstance->getServerRole($server_id, $role, $disable_role_on_installation);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->getServerRole: ', $e->getMessage(), PHP_EOL;
@@ -2703,6 +2704,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
+| **disable_role_on_installation** | **bool**| Disable placement immediately after installation | [optional] |
 
 ### Return type
 
@@ -3616,7 +3618,7 @@ No authorization required
 ## `installServerRole()`
 
 ```php
-installServerRole($server_id, $role, $new_backup_role)
+installServerRole($server_id, $role, $disable_role_on_installation, $new_backup_role)
 ```
 
 Install server role
@@ -3647,10 +3649,11 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
+$disable_role_on_installation = True; // bool | Disable placement immediately after installation
 $new_backup_role = new \Upmind\EnhanceSdk\Model\NewBackupRole(); // \Upmind\EnhanceSdk\Model\NewBackupRole | Information for the backup role.
 
 try {
-    $apiInstance->installServerRole($server_id, $role, $new_backup_role);
+    $apiInstance->installServerRole($server_id, $role, $disable_role_on_installation, $new_backup_role);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->installServerRole: ', $e->getMessage(), PHP_EOL;
 }
@@ -3662,6 +3665,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
+| **disable_role_on_installation** | **bool**| Disable placement immediately after installation | [optional] |
 | **new_backup_role** | [**\Upmind\EnhanceSdk\Model\NewBackupRole**](../Model/NewBackupRole.md)| Information for the backup role. | [optional] |
 
 ### Return type
@@ -4705,7 +4709,7 @@ void (empty response body)
 ## `uninstallServerRole()`
 
 ```php
-uninstallServerRole($server_id, $role)
+uninstallServerRole($server_id, $role, $disable_role_on_installation)
 ```
 
 Uninstall a server role
@@ -4736,9 +4740,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 );
 $server_id = 'server_id_example'; // string | The UUID of the server
 $role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
+$disable_role_on_installation = True; // bool | Disable placement immediately after installation
 
 try {
-    $apiInstance->uninstallServerRole($server_id, $role);
+    $apiInstance->uninstallServerRole($server_id, $role, $disable_role_on_installation);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->uninstallServerRole: ', $e->getMessage(), PHP_EOL;
 }
@@ -4750,6 +4755,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **server_id** | **string**| The UUID of the server | |
 | **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
+| **disable_role_on_installation** | **bool**| Disable placement immediately after installation | [optional] |
 
 ### Return type
 
@@ -5077,7 +5083,7 @@ No authorization required
 ## `updateServerRole()`
 
 ```php
-updateServerRole($server_id, $role, $update_server_role_request)
+updateServerRole($server_id, $role, $update_server_role_request, $disable_role_on_installation)
 ```
 
 Update server role
@@ -5109,9 +5115,10 @@ $apiInstance = new Upmind\EnhanceSdk\Api\ServersApi(
 $server_id = 'server_id_example'; // string | The UUID of the server
 $role = new \Upmind\EnhanceSdk\Model\\Upmind\EnhanceSdk\Model\ServerRole(); // \Upmind\EnhanceSdk\Model\ServerRole | The role of the server.
 $update_server_role_request = new \Upmind\EnhanceSdk\Model\UpdateServerRoleRequest(); // \Upmind\EnhanceSdk\Model\UpdateServerRoleRequest | Info for updating the server role.
+$disable_role_on_installation = True; // bool | Disable placement immediately after installation
 
 try {
-    $apiInstance->updateServerRole($server_id, $role, $update_server_role_request);
+    $apiInstance->updateServerRole($server_id, $role, $update_server_role_request, $disable_role_on_installation);
 } catch (Exception $e) {
     echo 'Exception when calling ServersApi->updateServerRole: ', $e->getMessage(), PHP_EOL;
 }
@@ -5124,6 +5131,7 @@ try {
 | **server_id** | **string**| The UUID of the server | |
 | **role** | [**\Upmind\EnhanceSdk\Model\ServerRole**](../Model/.md)| The role of the server. | |
 | **update_server_role_request** | [**\Upmind\EnhanceSdk\Model\UpdateServerRoleRequest**](../Model/UpdateServerRoleRequest.md)| Info for updating the server role. | |
+| **disable_role_on_installation** | **bool**| Disable placement immediately after installation | [optional] |
 
 ### Return type
 

@@ -286,6 +286,10 @@ docs/Model/NewWebsite.md
 docs/Model/NewWebsiteApp.md
 docs/Model/NewWpUser.md
 docs/Model/NodeVersion.md
+docs/Model/OpenclawDevice.md
+docs/Model/OpenclawDeviceList.md
+docs/Model/OpenclawInfo.md
+docs/Model/OpenclawProviderKeys.md
 docs/Model/OperationStatus.md
 docs/Model/OrchdLogSettings.md
 docs/Model/OrchdLoginPolicyEmailList.md
@@ -300,6 +304,7 @@ docs/Model/OutboundSpamScanningSettings.md
 docs/Model/Outcome.md
 docs/Model/OwaspVersion.md
 docs/Model/PersistentApp.md
+docs/Model/PersistentAppKind.md
 docs/Model/PersistentAppProxyDetails.md
 docs/Model/PersistentAppStartMode.md
 docs/Model/PhpIni.md
@@ -443,6 +448,7 @@ docs/Model/UpdatePersistentApp.md
 docs/Model/UpdatePersistentAppNodeVersion.md
 docs/Model/UpdatePersistentAppProxyDetails.md
 docs/Model/UpdatePlan.md
+docs/Model/UpdatePlanAllowedApps.md
 docs/Model/UpdatePlanDefaultServerGroupId.md
 docs/Model/UpdatePlanPreinstallWordpressTheme.md
 docs/Model/UpdateRewriteChain.md
@@ -798,6 +804,10 @@ lib/Model/NewWebsite.php
 lib/Model/NewWebsiteApp.php
 lib/Model/NewWpUser.php
 lib/Model/NodeVersion.php
+lib/Model/OpenclawDevice.php
+lib/Model/OpenclawDeviceList.php
+lib/Model/OpenclawInfo.php
+lib/Model/OpenclawProviderKeys.php
 lib/Model/OperationStatus.php
 lib/Model/OrchdLogSettings.php
 lib/Model/OrchdLoginPolicyEmailList.php
@@ -812,6 +822,7 @@ lib/Model/OutboundSpamScanningSettings.php
 lib/Model/Outcome.php
 lib/Model/OwaspVersion.php
 lib/Model/PersistentApp.php
+lib/Model/PersistentAppKind.php
 lib/Model/PersistentAppProxyDetails.php
 lib/Model/PersistentAppStartMode.php
 lib/Model/PhpIni.php
@@ -955,6 +966,7 @@ lib/Model/UpdatePersistentApp.php
 lib/Model/UpdatePersistentAppNodeVersion.php
 lib/Model/UpdatePersistentAppProxyDetails.php
 lib/Model/UpdatePlan.php
+lib/Model/UpdatePlanAllowedApps.php
 lib/Model/UpdatePlanDefaultServerGroupId.php
 lib/Model/UpdatePlanPreinstallWordpressTheme.php
 lib/Model/UpdateRewriteChain.php
@@ -1307,6 +1319,10 @@ test/Model/NewWebsiteAppTest.php
 test/Model/NewWebsiteTest.php
 test/Model/NewWpUserTest.php
 test/Model/NodeVersionTest.php
+test/Model/OpenclawDeviceListTest.php
+test/Model/OpenclawDeviceTest.php
+test/Model/OpenclawInfoTest.php
+test/Model/OpenclawProviderKeysTest.php
 test/Model/OperationStatusTest.php
 test/Model/OrchdLogSettingsTest.php
 test/Model/OrchdLoginPolicyEmailListTest.php
@@ -1320,6 +1336,7 @@ test/Model/OrgUpdateTest.php
 test/Model/OutboundSpamScanningSettingsTest.php
 test/Model/OutcomeTest.php
 test/Model/OwaspVersionTest.php
+test/Model/PersistentAppKindTest.php
 test/Model/PersistentAppProxyDetailsTest.php
 test/Model/PersistentAppStartModeTest.php
 test/Model/PersistentAppTest.php
@@ -1463,6 +1480,7 @@ test/Model/UpdateMemberTest.php
 test/Model/UpdatePersistentAppNodeVersionTest.php
 test/Model/UpdatePersistentAppProxyDetailsTest.php
 test/Model/UpdatePersistentAppTest.php
+test/Model/UpdatePlanAllowedAppsTest.php
 test/Model/UpdatePlanDefaultServerGroupIdTest.php
 test/Model/UpdatePlanPreinstallWordpressThemeTest.php
 test/Model/UpdatePlanTest.php

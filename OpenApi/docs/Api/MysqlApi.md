@@ -12,6 +12,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteWebsiteMySQLUserAccessHosts()**](MysqlApi.md#deleteWebsiteMySQLUserAccessHosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/access-hosts | Delete website MySQL database user access hosts |
 | [**downloadSql()**](MysqlApi.md#downloadSql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sql | Takes a backup of given database and returns it gziped |
 | [**getPhpMyAdminSSOUrl()**](MysqlApi.md#getPhpMyAdminSSOUrl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sso | Get phpMyAdmin SSO URL |
+| [**getPhpMyAdminWebsiteSSOUrl()**](MysqlApi.md#getPhpMyAdminWebsiteSSOUrl) | **GET** /orgs/{org_id}/websites/{website_id}/phpmyadmin | Get phpMyAdmin SSO URL (per website) |
 | [**getWebsiteMySQLDBs()**](MysqlApi.md#getWebsiteMySQLDBs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases |
 | [**getWebsiteMySQLUsers()**](MysqlApi.md#getWebsiteMySQLUsers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-users | Get website MySQL database users |
 | [**setWebsiteMySQLUserPrivileges()**](MysqlApi.md#setWebsiteMySQLUserPrivileges) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/privileges | Create website MySQL database user privileges |
@@ -489,6 +490,66 @@ try {
 | **org_id** | **string**| The id of the organization. | |
 | **website_id** | **string**| The id of the website. | |
 | **db_name** | **string**| The name of the database. | |
+| **should_redirect** | **bool**| If set to true, the endpoint will send a 307 redirect to the SSO URL. | [optional] |
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getPhpMyAdminWebsiteSSOUrl()`
+
+```php
+getPhpMyAdminWebsiteSSOUrl($org_id, $website_id, $should_redirect): string
+```
+
+Get phpMyAdmin SSO URL (per website)
+
+Fetches a single sign-on URL to access phpMyAdmin for this website without the need to log in.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\MysqlApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$website_id = 'website_id_example'; // string | The id of the website.
+$should_redirect = True; // bool | If set to true, the endpoint will send a 307 redirect to the SSO URL.
+
+try {
+    $result = $apiInstance->getPhpMyAdminWebsiteSSOUrl($org_id, $website_id, $should_redirect);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MysqlApi->getPhpMyAdminWebsiteSSOUrl: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **website_id** | **string**| The id of the website. | |
 | **should_redirect** | **bool**| If set to true, the endpoint will send a 307 redirect to the SSO URL. | [optional] |
 
 ### Return type

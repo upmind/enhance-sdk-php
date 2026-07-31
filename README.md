@@ -65,20 +65,28 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AppsApi* | [**approveOpenclawDevice**](docs/Api/AppsApi.md#approveopenclawdevice) | **PUT** /websites/{website_id}/openclaw/approve | Approve a device request
 *AppsApi* | [**createWebsiteApp**](docs/Api/AppsApi.md#createwebsiteapp) | **POST** /orgs/{org_id}/websites/{website_id}/apps | Create website applications
 *AppsApi* | [**createWebsitePersistentApp**](docs/Api/AppsApi.md#createwebsitepersistentapp) | **POST** /websites/{website_id}/apps/persistent | Create a persistent application
 *AppsApi* | [**deleteWebsiteApp**](docs/Api/AppsApi.md#deletewebsiteapp) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id} | Delete website app
 *AppsApi* | [**deleteWebsitePersistentApp**](docs/Api/AppsApi.md#deletewebsitepersistentapp) | **DELETE** /websites/{website_id}/apps/persistent/{app_id} | Delete a persistent app
 *AppsApi* | [**getGlobalInstallableApps**](docs/Api/AppsApi.md#getglobalinstallableapps) | **GET** /utils/installable-apps | Get all installable applications
 *AppsApi* | [**getInstallableApps**](docs/Api/AppsApi.md#getinstallableapps) | **GET** /orgs/{org_id}/subscriptions/{subscription_id}/installable-apps | Get installable website applications
+*AppsApi* | [**getOpenclawProviderKeys**](docs/Api/AppsApi.md#getopenclawproviderkeys) | **GET** /websites/{website_id}/openclaw/provider_keys | List configured provider keys
 *AppsApi* | [**getPossibleNodeVersions**](docs/Api/AppsApi.md#getpossiblenodeversions) | **GET** /websites/{website_id}/apps/node/possible_versions | Get possible versions of node to install from nvm
 *AppsApi* | [**getWebsiteApps**](docs/Api/AppsApi.md#getwebsiteapps) | **GET** /orgs/{org_id}/websites/{website_id}/apps | Get website applications
+*AppsApi* | [**getWebsiteOpenclawInfo**](docs/Api/AppsApi.md#getwebsiteopenclawinfo) | **GET** /websites/{website_id}/openclaw/info | Get Openclaw info (if installed)
 *AppsApi* | [**getWebsitePersistentAppLog**](docs/Api/AppsApi.md#getwebsitepersistentapplog) | **GET** /websites/{website_id}/apps/persistent/{app_id} | Get the log for a persistent app
 *AppsApi* | [**getWebsitePersistentApps**](docs/Api/AppsApi.md#getwebsitepersistentapps) | **GET** /websites/{website_id}/apps/persistent | Get website persistent applications
 *AppsApi* | [**installNodeVersion**](docs/Api/AppsApi.md#installnodeversion) | **POST** /websites/{website_id}/apps/node/versions | Install a specific version of Node with NVM
 *AppsApi* | [**installNvm**](docs/Api/AppsApi.md#installnvm) | **POST** /websites/{website_id}/apps/node | Install nvm and default stable node to this website
 *AppsApi* | [**listInstalledNodeVersions**](docs/Api/AppsApi.md#listinstallednodeversions) | **GET** /websites/{website_id}/apps/node/versions | List installed Node versions with NVM
+*AppsApi* | [**openclawDeviceList**](docs/Api/AppsApi.md#openclawdevicelist) | **GET** /websites/{website_id}/openclaw/devices | List Openclaw devices
+*AppsApi* | [**openclawSso**](docs/Api/AppsApi.md#openclawsso) | **GET** /websites/{website_id}/openclaw/sso | Generate SSO URL for Openclaw and 302 redirect
+*AppsApi* | [**rotateOpenclawAuthToken**](docs/Api/AppsApi.md#rotateopenclawauthtoken) | **POST** /websites/{website_id}/openclaw/rotate_token | Rotate the auth token for Openclaw to a new random token
 *AppsApi* | [**setDefaultNodeVersion**](docs/Api/AppsApi.md#setdefaultnodeversion) | **PUT** /websites/{website_id}/apps/node/versions/default | Set default node version
+*AppsApi* | [**setOpenclawDeviceAuth**](docs/Api/AppsApi.md#setopenclawdeviceauth) | **PUT** /websites/{website_id}/openclaw/device_auth_enabled | Set device auth for Openclaw installation
+*AppsApi* | [**setOpenclawProviderKeys**](docs/Api/AppsApi.md#setopenclawproviderkeys) | **PUT** /websites/{website_id}/openclaw/provider_keys | Set configured provider keys
 *AppsApi* | [**updateWebsitePersistentApp**](docs/Api/AppsApi.md#updatewebsitepersistentapp) | **PATCH** /websites/{website_id}/apps/persistent/{app_id} | Update a persistent application
 *BackupsApi* | [**backupWebsite**](docs/Api/BackupsApi.md#backupwebsite) | **POST** /orgs/{org_id}/websites/{website_id}/backups | Create a website backup
 *BackupsApi* | [**deleteAllWebsiteBackups**](docs/Api/BackupsApi.md#deleteallwebsitebackups) | **DELETE** /backups/{server_id}/{website_id} | Delete all backups for a website
@@ -130,6 +138,7 @@ Class | Method | HTTP request | Description
 *DnsApi* | [**getWebsiteDomainDnsZone**](docs/Api/DnsApi.md#getwebsitedomaindnszone) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Get a dns zone for given domain
 *DnsApi* | [**listDefaultDnsRecords**](docs/Api/DnsApi.md#listdefaultdnsrecords) | **GET** /v2/settings/dns/default-records | List default DNS records
 *DnsApi* | [**updateDefaultDnsRecord**](docs/Api/DnsApi.md#updatedefaultdnsrecord) | **PATCH** /v2/settings/dns/default-records/{record_id} | Update a default DNS record
+*DnsApi* | [**updateDnsThirdPartyProvider**](docs/Api/DnsApi.md#updatednsthirdpartyprovider) | **PATCH** /dns/third-party-providers/{provider_id} | Update a third party dns provider.
 *DnsApi* | [**updateWebsiteDomainDnsZone**](docs/Api/DnsApi.md#updatewebsitedomaindnszone) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Updates a dns zone SOA for website domain
 *DnsApi* | [**updateWebsiteDomainDnsZoneRecord**](docs/Api/DnsApi.md#updatewebsitedomaindnszonerecord) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Updates a dns record for given domain
 *DomainsApi* | [**checkDomain**](docs/Api/DomainsApi.md#checkdomain) | **POST** /orgs/{org_id}/domains/check | Check if a domain can be created
@@ -273,6 +282,7 @@ Class | Method | HTTP request | Description
 *MysqlApi* | [**deleteWebsiteMySQLUserAccessHosts**](docs/Api/MysqlApi.md#deletewebsitemysqluseraccesshosts) | **DELETE** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/access-hosts | Delete website MySQL database user access hosts
 *MysqlApi* | [**downloadSql**](docs/Api/MysqlApi.md#downloadsql) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sql | Takes a backup of given database and returns it gziped
 *MysqlApi* | [**getPhpMyAdminSSOUrl**](docs/Api/MysqlApi.md#getphpmyadminssourl) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs/{db_name}/sso | Get phpMyAdmin SSO URL
+*MysqlApi* | [**getPhpMyAdminWebsiteSSOUrl**](docs/Api/MysqlApi.md#getphpmyadminwebsitessourl) | **GET** /orgs/{org_id}/websites/{website_id}/phpmyadmin | Get phpMyAdmin SSO URL (per website)
 *MysqlApi* | [**getWebsiteMySQLDBs**](docs/Api/MysqlApi.md#getwebsitemysqldbs) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-dbs | Get website MySQL databases
 *MysqlApi* | [**getWebsiteMySQLUsers**](docs/Api/MysqlApi.md#getwebsitemysqlusers) | **GET** /orgs/{org_id}/websites/{website_id}/mysql-users | Get website MySQL database users
 *MysqlApi* | [**setWebsiteMySQLUserPrivileges**](docs/Api/MysqlApi.md#setwebsitemysqluserprivileges) | **PUT** /orgs/{org_id}/websites/{website_id}/mysql-users/{username}/privileges | Create website MySQL database user privileges
@@ -503,6 +513,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**disableWebsitePhpExtension**](docs/Api/WebsitesApi.md#disablewebsitephpextension) | **DELETE** /websites/{website_id}/php_extensions | Disable a PHP extension
 *WebsitesApi* | [**enableWebsitePhpExtension**](docs/Api/WebsitesApi.md#enablewebsitephpextension) | **POST** /websites/{website_id}/php_extensions | Enable a PHP extension
 *WebsitesApi* | [**getBuiltInPhpExtensions**](docs/Api/WebsitesApi.md#getbuiltinphpextensions) | **GET** /websites/{website_id}/built_in_php_extensions | Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website
+*WebsitesApi* | [**getContainerCronEnabledStatus**](docs/Api/WebsitesApi.md#getcontainercronenabledstatus) | **GET** /websites/{website_id}/container_cron_enabled | Get container cron status for a website
 *WebsitesApi* | [**getDomainNginxFastCgi**](docs/Api/WebsitesApi.md#getdomainnginxfastcgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement
 *WebsitesApi* | [**getDomainNginxFastCgiExcludedPaths**](docs/Api/WebsitesApi.md#getdomainnginxfastcgiexcludedpaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths
 *WebsitesApi* | [**getDomainWebserverRewrites**](docs/Api/WebsitesApi.md#getdomainwebserverrewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain
@@ -545,6 +556,7 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**performLetsEncryptPreflightCheck**](docs/Api/WebsitesApi.md#performletsencryptpreflightcheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check
 *WebsitesApi* | [**pushWebsiteLive**](docs/Api/WebsitesApi.md#pushwebsitelive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live
 *WebsitesApi* | [**restartWebsitePhp**](docs/Api/WebsitesApi.md#restartwebsitephp) | **POST** /v2/websites/{website_id}/restart_php | Restart PHP container for a website
+*WebsitesApi* | [**setContainerCronEnabledStatus**](docs/Api/WebsitesApi.md#setcontainercronenabledstatus) | **PUT** /websites/{website_id}/container_cron_enabled | Set backups disabled status on a website
 *WebsitesApi* | [**setDomainNginxFastCgi**](docs/Api/WebsitesApi.md#setdomainnginxfastcgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement
 *WebsitesApi* | [**setDomainWebserverRewrite**](docs/Api/WebsitesApi.md#setdomainwebserverrewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file
 *WebsitesApi* | [**setWebsiteBackupsDisabledStatus**](docs/Api/WebsitesApi.md#setwebsitebackupsdisabledstatus) | **PUT** /websites/{website_id}/backups_disabled | Set backups disabled status on a website
@@ -854,6 +866,10 @@ Class | Method | HTTP request | Description
 - [NewWebsiteApp](docs/Model/NewWebsiteApp.md)
 - [NewWpUser](docs/Model/NewWpUser.md)
 - [NodeVersion](docs/Model/NodeVersion.md)
+- [OpenclawDevice](docs/Model/OpenclawDevice.md)
+- [OpenclawDeviceList](docs/Model/OpenclawDeviceList.md)
+- [OpenclawInfo](docs/Model/OpenclawInfo.md)
+- [OpenclawProviderKeys](docs/Model/OpenclawProviderKeys.md)
 - [OperationStatus](docs/Model/OperationStatus.md)
 - [OrchdLogSettings](docs/Model/OrchdLogSettings.md)
 - [OrchdLoginPolicyEmailList](docs/Model/OrchdLoginPolicyEmailList.md)
@@ -868,6 +884,7 @@ Class | Method | HTTP request | Description
 - [Outcome](docs/Model/Outcome.md)
 - [OwaspVersion](docs/Model/OwaspVersion.md)
 - [PersistentApp](docs/Model/PersistentApp.md)
+- [PersistentAppKind](docs/Model/PersistentAppKind.md)
 - [PersistentAppProxyDetails](docs/Model/PersistentAppProxyDetails.md)
 - [PersistentAppStartMode](docs/Model/PersistentAppStartMode.md)
 - [PhpIni](docs/Model/PhpIni.md)
@@ -1011,6 +1028,7 @@ Class | Method | HTTP request | Description
 - [UpdatePersistentAppNodeVersion](docs/Model/UpdatePersistentAppNodeVersion.md)
 - [UpdatePersistentAppProxyDetails](docs/Model/UpdatePersistentAppProxyDetails.md)
 - [UpdatePlan](docs/Model/UpdatePlan.md)
+- [UpdatePlanAllowedApps](docs/Model/UpdatePlanAllowedApps.md)
 - [UpdatePlanDefaultServerGroupId](docs/Model/UpdatePlanDefaultServerGroupId.md)
 - [UpdatePlanPreinstallWordpressTheme](docs/Model/UpdatePlanPreinstallWordpressTheme.md)
 - [UpdateRewriteChain](docs/Model/UpdateRewriteChain.md)

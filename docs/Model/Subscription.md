@@ -23,5 +23,6 @@ Name | Type | Description | Notes
 **preinstall_wordpress_theme** | **string** | :&gt; When WordPress is installed on a website under this plan, the chosen theme will be preinstalled. | [optional]
 **friendly_name** | **string** |  |
 **persistent_apps_allowed** | **bool** |  |
+**allowed_apps** | [**\Upmind\EnhanceSdk\Model\WebsiteAppKind[]**](WebsiteAppKind.md) | If unset, all current and future apps are allowed. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

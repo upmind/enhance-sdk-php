@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **default_server_group_id** | [**\Upmind\EnhanceSdk\Model\UpdatePlanDefaultServerGroupId**](UpdatePlanDefaultServerGroupId.md) |  | [optional]
 **preinstall_wordpress_theme** | [**\Upmind\EnhanceSdk\Model\UpdatePlanPreinstallWordpressTheme**](UpdatePlanPreinstallWordpressTheme.md) |  | [optional]
 **persistent_apps_allowed** | **bool** |  | [optional]
+**allowed_apps** | [**\Upmind\EnhanceSdk\Model\UpdatePlanAllowedApps**](UpdatePlanAllowedApps.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

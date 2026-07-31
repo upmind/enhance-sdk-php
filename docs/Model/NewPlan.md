@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **cgroup_limits** | [**\Upmind\EnhanceSdk\Model\CgroupLimits**](CgroupLimits.md) |  | [optional]
 **fs_quota_limit** | [**\Upmind\EnhanceSdk\Model\FsQuotaLimit**](FsQuotaLimit.md) |  | [optional]
 **allowed_php_versions** | [**\Upmind\EnhanceSdk\Model\PhpVersion[]**](PhpVersion.md) |  | [optional]
+**allowed_apps** | [**\Upmind\EnhanceSdk\Model\WebsiteAppKind[]**](WebsiteAppKind.md) | If unset, all current and future apps are allowed. | [optional]
 **default_php_version** | [**\Upmind\EnhanceSdk\Model\PhpVersion**](PhpVersion.md) |  | [optional]
 **redis_allowed** | **bool** |  | [optional]
 **default_server_group_id** | **string** | If set, servers from this server group are prioritized by placement algorithm. If no server from the default server group is available, servers from other server groups are tried. The defaultServerGroupId will be automatically added to serverGroupIds if they do not contain it or are not provided. | [optional]

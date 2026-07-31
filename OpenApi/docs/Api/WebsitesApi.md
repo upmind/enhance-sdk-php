@@ -28,6 +28,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**disableWebsitePhpExtension()**](WebsitesApi.md#disableWebsitePhpExtension) | **DELETE** /websites/{website_id}/php_extensions | Disable a PHP extension |
 | [**enableWebsitePhpExtension()**](WebsitesApi.md#enableWebsitePhpExtension) | **POST** /websites/{website_id}/php_extensions | Enable a PHP extension |
 | [**getBuiltInPhpExtensions()**](WebsitesApi.md#getBuiltInPhpExtensions) | **GET** /websites/{website_id}/built_in_php_extensions | Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website |
+| [**getContainerCronEnabledStatus()**](WebsitesApi.md#getContainerCronEnabledStatus) | **GET** /websites/{website_id}/container_cron_enabled | Get container cron status for a website |
 | [**getDomainNginxFastCgi()**](WebsitesApi.md#getDomainNginxFastCgi) | **GET** /v2/domains/{domain_id}/nginx_fastcgi | Get status of Nginx FastCGI enablement |
 | [**getDomainNginxFastCgiExcludedPaths()**](WebsitesApi.md#getDomainNginxFastCgiExcludedPaths) | **GET** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Get Nginx FastCGI excluded paths |
 | [**getDomainWebserverRewrites()**](WebsitesApi.md#getDomainWebserverRewrites) | **GET** /v2/domains/{domain_id}/webserver_rewrites | Get web server rewrites for specified domain |
@@ -70,6 +71,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**performLetsEncryptPreflightCheck()**](WebsitesApi.md#performLetsEncryptPreflightCheck) | **POST** /v2/domains/{domain_id}/letsencrypt_preflight | Perform the LetsEncrypt preflight check |
 | [**pushWebsiteLive()**](WebsitesApi.md#pushWebsiteLive) | **POST** /orgs/{org_id}/websites/{website_id}/push-live | Making a staging website live |
 | [**restartWebsitePhp()**](WebsitesApi.md#restartWebsitePhp) | **POST** /v2/websites/{website_id}/restart_php | Restart PHP container for a website |
+| [**setContainerCronEnabledStatus()**](WebsitesApi.md#setContainerCronEnabledStatus) | **PUT** /websites/{website_id}/container_cron_enabled | Set backups disabled status on a website |
 | [**setDomainNginxFastCgi()**](WebsitesApi.md#setDomainNginxFastCgi) | **PUT** /v2/domains/{domain_id}/nginx_fastcgi | Set Nginx FastCGI enablement |
 | [**setDomainWebserverRewrite()**](WebsitesApi.md#setDomainWebserverRewrite) | **PUT** /v2/domains/{domain_id}/webserver_rewrites | Set web server rewrite to file |
 | [**setWebsiteBackupsDisabledStatus()**](WebsitesApi.md#setWebsiteBackupsDisabledStatus) | **PUT** /websites/{website_id}/backups_disabled | Set backups disabled status on a website |
@@ -1633,6 +1635,71 @@ try {
 ### Return type
 
 **string[]**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getContainerCronEnabledStatus()`
+
+```php
+getContainerCronEnabledStatus($website_id): bool
+```
+
+Get container cron status for a website
+
+This setting controls whether or not a website can change its own crontab from inside the container.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+
+try {
+    $result = $apiInstance->getContainerCronEnabledStatus($website_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->getContainerCronEnabledStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+
+### Return type
+
+**bool**
 
 ### Authorization
 
@@ -4372,6 +4439,72 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setContainerCronEnabledStatus()`
+
+```php
+setContainerCronEnabledStatus($website_id, $body)
+```
+
+Set backups disabled status on a website
+
+This setting controls whether or not a website can change its own crontab from inside the container.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\WebsitesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$website_id = 'website_id_example'; // string | The id of the website.
+$body = True; // bool | Cron enabled boolean
+
+try {
+    $apiInstance->setContainerCronEnabledStatus($website_id, $body);
+} catch (Exception $e) {
+    echo 'Exception when calling WebsitesApi->setContainerCronEnabledStatus: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **website_id** | **string**| The id of the website. | |
+| **body** | **bool**| Cron enabled boolean | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

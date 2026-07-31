@@ -16,6 +16,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteDomainDnsZone()**](DnsApi.md#getWebsiteDomainDnsZone) | **GET** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Get a dns zone for given domain |
 | [**listDefaultDnsRecords()**](DnsApi.md#listDefaultDnsRecords) | **GET** /v2/settings/dns/default-records | List default DNS records |
 | [**updateDefaultDnsRecord()**](DnsApi.md#updateDefaultDnsRecord) | **PATCH** /v2/settings/dns/default-records/{record_id} | Update a default DNS record |
+| [**updateDnsThirdPartyProvider()**](DnsApi.md#updateDnsThirdPartyProvider) | **PATCH** /dns/third-party-providers/{provider_id} | Update a third party dns provider. |
 | [**updateWebsiteDomainDnsZone()**](DnsApi.md#updateWebsiteDomainDnsZone) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone | Updates a dns zone SOA for website domain |
 | [**updateWebsiteDomainDnsZoneRecord()**](DnsApi.md#updateWebsiteDomainDnsZoneRecord) | **PATCH** /orgs/{org_id}/websites/{website_id}/domains/{domain_id}/dns-zone/records/{record_id} | Updates a dns record for given domain |
 
@@ -796,6 +797,72 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **record_id** | **string**|  | |
 | **update_default_dns_record** | [**\Upmind\EnhanceSdk\Model\UpdateDefaultDnsRecord**](../Model/UpdateDefaultDnsRecord.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateDnsThirdPartyProvider()`
+
+```php
+updateDnsThirdPartyProvider($provider_id, $new_dns_third_party_provider)
+```
+
+Update a third party dns provider.
+
+Update the URL or headers for a DNS third party provider
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\DnsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$provider_id = 56; // int | The id of the third party provider which can be obtained by querying the GET /dns/third-party-providers endpoint.
+$new_dns_third_party_provider = new \Upmind\EnhanceSdk\Model\NewDnsThirdPartyProvider(); // \Upmind\EnhanceSdk\Model\NewDnsThirdPartyProvider | Url where the updates are sent and map of header names to their values.
+
+try {
+    $apiInstance->updateDnsThirdPartyProvider($provider_id, $new_dns_third_party_provider);
+} catch (Exception $e) {
+    echo 'Exception when calling DnsApi->updateDnsThirdPartyProvider: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **provider_id** | **int**| The id of the third party provider which can be obtained by querying the GET /dns/third-party-providers endpoint. | |
+| **new_dns_third_party_provider** | [**\Upmind\EnhanceSdk\Model\NewDnsThirdPartyProvider**](../Model/NewDnsThirdPartyProvider.md)| Url where the updates are sent and map of header names to their values. | |
 
 ### Return type
 

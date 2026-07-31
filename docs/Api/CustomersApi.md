@@ -224,7 +224,7 @@ try {
 ## `getOrgCustomers()`
 
 ```php
-getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth, $status, $plan_id): \Upmind\EnhanceSdk\Model\CustomersListing
+getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth, $status, $plan_id, $search): \Upmind\EnhanceSdk\Model\CustomersListing
 ```
 
 Get organization customers
@@ -262,9 +262,10 @@ $recursive = True; // bool | If set to true, the endpoint will return resources 
 $max_depth = 56; // int | If recursive is set to true, this can be specified to limit the recursion depth. By default there is no recursion bound.
 $status = 'status_example'; // string | Filters the customers list by its status.
 $plan_id = 56; // int | Limit the result set to resources under subscriptions to the plan.
+$search = 'search_example'; // string | Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website's uuid.
 
 try {
-    $result = $apiInstance->getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth, $status, $plan_id);
+    $result = $apiInstance->getOrgCustomers($org_id, $offset, $limit, $sort_by, $sort_order, $recursive, $max_depth, $status, $plan_id, $search);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling CustomersApi->getOrgCustomers: ', $e->getMessage(), PHP_EOL;
@@ -284,6 +285,7 @@ try {
 | **max_depth** | **int**| If recursive is set to true, this can be specified to limit the recursion depth. By default there is no recursion bound. | [optional] |
 | **status** | **string**| Filters the customers list by its status. | [optional] |
 | **plan_id** | **int**| Limit the result set to resources under subscriptions to the plan. | [optional] |
+| **search** | **string**| Limit the result set to the resources whose names, partially and case insensitively, match the specified search term. E.g. for websites, this is their domain or tag, for databases the database name, for emails the email address or mailbox name, etc. A website will also be returned if the search term exactly matches the website&#39;s uuid. | [optional] |
 
 ### Return type
 
