@@ -6,6 +6,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | ------------- | ------------- | ------------- |
 | [**createAccessToken()**](MembersApi.md#createAccessToken) | **POST** /orgs/{org_id}/access_tokens | Create organisation access token |
 | [**createMember()**](MembersApi.md#createMember) | **POST** /orgs/{org_id}/members | Create organization member |
+| [**createMemberSession()**](MembersApi.md#createMemberSession) | **POST** /orgs/{org_id}/members/{member_id}/session | Create member session token |
 | [**deleteAccessToken()**](MembersApi.md#deleteAccessToken) | **DELETE** /orgs/{org_id}/access_tokens/{token_id} | Delete access token member |
 | [**deleteMember()**](MembersApi.md#deleteMember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member |
 | [**deleteOwner()**](MembersApi.md#deleteOwner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner |
@@ -146,6 +147,73 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createMemberSession()`
+
+```php
+createMemberSession($org_id, $member_id): string
+```
+
+Create member session token
+
+Creates a new session token for a member as if they logged in but, instead of issuing a session cookie, return the session token to the caller for communication to the client via an external system. The client can then send the session token as a bearer token. The caller must have write access to the member's organization. The resulting session token should be treated like a password.  It is initially valid for 60 seconds and must be used within that time.  Once used for the first time, the session is extended according to your maximum configured session timeout.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\MembersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$member_id = 'member_id_example'; // string | The id of the member.
+
+try {
+    $result = $apiInstance->createMemberSession($org_id, $member_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MembersApi->createMemberSession: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **member_id** | **string**| The id of the member. | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

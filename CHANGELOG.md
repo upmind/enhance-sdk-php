@@ -2,6 +2,12 @@
 
 All notable changes to the package will be documented in this file.
 
+## v12.26.3 - 2026-10-26
+
+- Update open-api.yml to Enhance v12.26.3 OpenAPI spec
+- Re-generate SDK
+- Update README.md docs
+
 ## v12.25.2 - 2026-07-31
 
 - Update open-api.yml to Enhance v12.25.2 OpenAPI spec
