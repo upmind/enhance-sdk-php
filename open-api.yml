@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   description: orchd API docs
-  version: 12.25.2
+  version: 12.26.3
   title: orchd
 tags:
   - name: install
@@ -173,6 +173,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InstallableWebsiteAppsFullListing"
+  /utils/possible_node_versions:
+    get:
+      tags:
+        - apps
+      summary: Get possible versions of node to install from nvm
+      operationId: getGlobalPossibleNodeVersions
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "400":
+          description: Invalid input
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
 
   ###############################################################################
   # -- Platform settings
@@ -2926,7 +2950,7 @@ paths:
           description: Not found
     put:
       parameters:
-      - $ref: "#/components/parameters/DisableRoleOnInstallation"
+        - $ref: "#/components/parameters/DisableRoleOnInstallation"
       tags:
         - servers
       summary: Install server role
@@ -4317,7 +4341,240 @@ paths:
           description: Insufficient privileges
         "404":
           description: Not found
+  /orgs/{org_id}/github/app:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - orgs
+      summary: Get an organisation's registered GitHub apps.
+      operationId: getOrgGithubApp
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgGitHubApp"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+         - orgs
+      summary: Delete an organisation's GitHub app connection.
+      operationId: deleteOrgGithubApp
+      security:
+         - sessionCookie: []
+         - bearerAuth: []
+      responses:
+         "204":
+          description: Successfully deleted (idempotent)
+         "400":
+          description: Invalid input
+         "401":
+          description: Invalid session
+         "403":
+          description: Insufficient privileges
+  /orgs/{org_id}/projects/manifest-callback:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - orgs
+      summary: |
+        Callback endpoint for GitHub App manifest conversion.
 
+        This endpoint is called by GitHub after a user creates a GitHub App
+        through the manifest flow. It converts the manifest code into a
+        permanent GitHub App, stores the credentials, and redirects the user
+        to the installation page.
+
+        The endpoint is idempotent: if an app already exists for the
+        organization, it will be replaced with the new credentials.
+      operationId: manifestCallback
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      parameters:
+        - name: code
+          in: query
+          required: true
+          description: Authorization code from GitHub
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: true
+          description: State parameter for CSRF protection
+          schema:
+            type: string
+      responses:
+        "303":
+          description: Redirect to GitHub installation page
+          headers:
+            Location:
+              description: URL to GitHub installation page
+              schema:
+                type: string
+        "400":
+          description: Invalid input or GitHub conversion failed
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /orgs/{org_id}/projects/install-complete:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - orgs
+      summary: |
+        Callback endpoint after GitHub App installation is complete.
+
+        This endpoint is called by GitHub after the user installs the
+        GitHub App. It stores the installation ID and closes the window.
+      operationId: installComplete
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      parameters:
+        - name: installation_id
+          in: query
+          required: true
+          description: GitHub installation ID
+          schema:
+            type: integer
+        - name: setup_action
+          in: query
+          required: true
+          description: Setup action performed
+          schema:
+            type: string
+            enum: [install]
+      responses:
+        "200":
+          description: Installation complete, window will close
+          content:
+            text/html:
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+  /orgs/{org_id}/projects/webhook:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    post:
+      tags:
+        - orgs
+      summary: |
+        Webhook endpoint for GitHub push events.
+
+        This endpoint receives push events from GitHub when a connected
+        repository is updated. It validates the webhook signature using
+        the X-Hub-Signature-256 header and automatically triggers
+        deployments for websites that have auto_deploy enabled.
+      operationId: githubWebhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ref:
+                  type: string
+                  description: Full git ref (e.g., refs/heads/main)
+                repository:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Repository name
+                    full_name:
+                      type: string
+                      description: Full repository path (owner/name)
+                    owner:
+                      type: object
+                      properties:
+                        login:
+                          type: string
+                          description: Owner username
+              required:
+                - ref
+                - repository
+      responses:
+        "200":
+          description: Webhook received and processed
+        "400":
+          description: Invalid signature or payload
+  /orgs/{org_id}/github/repositories/{repo_owner}/{repo_name}/refs:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/RepoOwner"
+      - $ref: "#/components/parameters/RepoName"
+    get:
+      tags:
+        - orgs
+      summary: List the tags and branches for a given repository
+      operationId: getOrgGithubRepoRefs
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GitRepositoryRefs"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+
+  /orgs/{org_id}/github/repos:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+    get:
+      tags:
+        - orgs
+      summary: Get details of a registered Github app
+      operationId: getOrgGithubAppInfo
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully queried
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgGithubAppInfo"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
   /v2/orgs/{org_id}/activities:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -5066,6 +5323,45 @@ paths:
           description: Invalid session
         "403":
           description: Insufficient privileges
+  /orgs/{org_id}/members/{member_id}/session:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/MemberId"
+    post:
+      tags:
+        - orgs
+        - members
+      summary: Create member session token
+      description: >-
+        Creates a new session token for a member as if they logged in
+        but, instead of issuing a session cookie, return the session token to
+        the caller for communication to the client via an external system.
+
+        The client can then send the session token as a bearer token.
+
+        The caller must have write access to the member's organization.
+
+        The resulting session token should be treated like a password.  It is
+        initially valid for 60 seconds and must be used within that time.  Once
+        used for the first time, the session is extended according to your maximum
+        configured session timeout.
+      operationId: createMemberSession
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Session token successfully created
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Member not found
   /orgs/{org_id}/access_tokens:
     get:
       tags:
@@ -6190,6 +6486,201 @@ paths:
         "404":
           description: Not found
 
+  /orgs/{org_id}/websites/{website_id}/git:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    put:
+      tags:
+        - websites
+      summary: Connect a website to a git repository
+      description: >-
+        This must be a git repository reachable with the Git connection owned by
+        the current organisation.
+      operationId: connectWebsiteGit
+      requestBody:
+        description: Website update details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebsiteGithubConnection"
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    delete:
+      tags:
+        - websites
+      summary: Disconnect a website from github
+      operationId: deleteWebsiteGit
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    post:
+      tags:
+        - websites
+      summary: Deploy the currently configured branch/tag now
+      description: >-
+        Will initiate a new deployment in the background
+      operationId: deployWebsiteGithubNow
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Not found
+    get:
+      tags:
+        - websites
+      summary: Get website Github repo info
+      description: >-
+        Will return 404 if Git not configured for this website.
+      operationId: getWebsiteGitInfo
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebsiteGithubConnection"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Github not configured for this website
+  /orgs/{org_id}/websites/{website_id}/git/deploys:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+    get:
+      tags:
+        - websites
+      summary: Get website Github deployment history
+      description: >-
+        List the Git deployments made for this website through the Github
+        integration
+      operationId: getWebsiteGitDeploys
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GitDeployInfo"
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Github not configured for this website
+  /orgs/{org_id}/websites/{website_id}/git/deploys/{deployment_id}:
+    parameters:
+      - $ref: "#/components/parameters/OrgId"
+      - $ref: "#/components/parameters/WebsiteId"
+      - $ref: "#/components/parameters/DeploymentId"
+    get:
+      tags:
+        - websites
+      summary: Get website Github deployment log
+      description: >-
+        Gets the full log for a given deployment ID
+      operationId: getWebsiteGitDeploymentLog
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: string
+                description: The full log in plain text format
+        "400":
+          description: Invalid input
+        "401":
+          description: Invalid session
+        "403":
+          description: Insufficient privileges
+        "404":
+          description: Github not configured for this website or deployment not found
+  /orgs/{org_id}/websites/{website_id}/git/deploys/{deploy_id}/cancel:
+    parameters:
+       - $ref: "#/components/parameters/OrgId"
+       - $ref: "#/components/parameters/WebsiteId"
+       - name: deploy_id
+         in: path
+         description: The id of a running git deployment.
+         required: true
+         schema:
+           type: string
+           format: uuid
+    post:
+      tags:
+         - websites
+      summary: Cancel a running website Github deployment
+      description: >-
+        Requests cancellation of a running Git deployment. The running
+        command (clone, node install or build) is terminated and the
+        deployment is recorded as failed without activating the checkout
+      operationId: cancelWebsiteGitDeploy
+      security:
+         - sessionCookie: []
+         - bearerAuth: []
+      responses:
+         "200":
+          description: Successful
+         "400":
+          description: Invalid input, e.g. the deployment is not running
+         "401":
+          description: Invalid session
+         "403":
+          description: Insufficient privileges
+         "404":
+          description: Github not configured for this website or deployment not found
   /orgs/{org_id}/websites/{website_id}/push-live:
     parameters:
       - $ref: "#/components/parameters/OrgId"
@@ -14215,6 +14706,27 @@ components:
 
   parameters:
     # path parameters
+    GithubAppSlug:
+      name: slug
+      in: path
+      description: The slug of a GitHub application
+      required: true
+      schema:
+        type: string
+    RepoOwner:
+      name: repo_owner
+      in: path
+      description: The owner of a git repository
+      required: true
+      schema:
+        type: string
+    RepoName:
+      name: repo_name
+      in: path
+      description: The name of a git repository
+      required: true
+      schema:
+        type: string
     OrgId:
       name: org_id
       in: path
@@ -14274,6 +14786,14 @@ components:
       name: website_id
       in: path
       description: The id of the website.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    DeploymentId:
+      name: deployment_id
+      in: path
+      description: The id of a git deployment.
       required: true
       schema:
         type: string
@@ -14850,6 +15370,234 @@ components:
   ###############################################################################
 
   schemas:
+    RuntimeKind:
+      type: string
+      enum:
+        - none
+        - php
+        - nodejs
+        - custom
+        - laravel
+        - python
+        - tomcat
+    GitDeployState:
+      type: string
+      enum: ["pending", "running", "complete", "failed"]
+    GitDeployTrigger:
+      type: string
+      enum: ["manual", "automatic"]
+    GitDeployInfo:
+      type: object
+      required:
+        - deployId
+        - state
+        - timeStamp
+        - branchOrTagName
+        - repositoryName
+        - commitMessage
+        - percentageComplete
+        - trigger
+      properties:
+        state:
+          $ref: "#/components/schemas/GitDeployState"
+        timeStamp:
+          type: number
+        branchOrTagName:
+          type: string
+        repositoryName:
+          type: string
+        commitRef:
+          type: string
+        deployId:
+          type: string
+          format: uuid
+        commitMessage:
+          type: string
+        percentageComplete:
+          type: number
+        trigger:
+          $ref: "#/components/schemas/GitDeployTrigger"
+    GitRepositoryRefs:
+      type: object
+      properties:
+        branches:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+    WebsiteGithubConnection:
+      type: object
+      required:
+        - repoOwner
+        - repoName
+        - branchOrTagName
+        - autoDeploy
+        - refKind
+      properties:
+        repoOwner:
+          type: string
+        repoName:
+          type: string
+        branchOrTagName:
+          type: string
+        buildCommand:
+          type: string
+        publishDirectory:
+          type: string
+          description: >
+            If the build command produces static assets, enter the
+            directory relative to the build directory where those
+            assets are built, and the document root will be set to
+            that directory.
+        autoDeploy:
+          type: boolean
+          description: :>
+            Enhance will automatically deploy the latest commit the selected
+            branch or tag when a request is received from Github to the webhook
+            URL
+        refKind:
+          type: string
+          enum: ["branch", "tag", "commit"]
+    OrgGitHubApp:
+      type: object
+      required:
+        - slug
+      properties:
+        slug:
+          type: string
+        owner:
+          type: object
+          required:
+            - login
+            - avatar_url
+          properties:
+            login:
+              type: string
+            avatar_url:
+              type: string
+        created_at:
+          type: string
+          format: datetime
+    ManifestCallbackQuery:
+      type: object
+      required:
+        - code
+        - state
+      properties:
+        code:
+          type: string
+          description: Authorization code received from GitHub
+        state:
+          type: string
+          description: State parameter for CSRF protection
+    InstallCompleteQuery:
+      type: object
+      required:
+        - installation_id
+        - setup_action
+      properties:
+        installation_id:
+          type: integer
+          description: GitHub installation ID
+        setup_action:
+          type: string
+          enum: [install]
+          description: Setup action performed by GitHub
+    OrgGithubAppInfo:
+      type: array
+      items:
+        $ref: "#/components/schemas/GithubRepositoryInfo"
+    GithubRepositoryInfo:
+      type: object
+      required:
+        - id
+        - name
+        - full_name
+        - private
+        - clone_url
+        - default_branch
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        full_name:
+          type: string
+        private:
+          type: boolean
+        clone_url:
+          type: string
+        default_branch:
+          type: string
+        language:
+          $ref: "#/components/schemas/GithubLanguage"
+        visibility:
+          $ref: "#/components/schemas/GithubRepositoryVisibility"
+        owner:
+          type: object
+          required:
+            - login
+            - avatar_url
+          properties:
+            login:
+              type: string
+            avatar_url:
+              type: string
+    GithubRepositoryVisibility:
+      type: string
+      enum:
+        - public
+        - private
+        - internal
+    GithubLanguage:
+      type: string
+      enum:
+        - Rust
+        - JavaScript
+        - TypeScript
+        - PHP
+        - Python
+        - Ruby
+        - Go
+        - Java
+        - C
+        - C++
+        - C#
+        - Swift
+        - Kotlin
+        - Shell
+        - HTML
+        - CSS
+        - Vue
+        - Dart
+        - Objective-C
+        - unknown
+
+      x-enum-varnames:
+        - RUST
+        - JAVASCRIPT
+        - TYPESCRIPT
+        - PHP
+        - PYTHON
+        - RUBY
+        - GO
+        - JAVA
+        - C
+        - CPP
+        - CSHARP
+        - SWIFT
+        - KOTLIN
+        - SHELL
+        - HTML
+        - CSS
+        - VUE
+        - DART
+        - OBJECTIVE_C
+        - UNKNOWN
+      example: Rust
     OpenclawDeviceList:
       type: object
       properties:
@@ -16806,7 +17554,7 @@ components:
             the website home directory.
         restoreOnlyFiles:
           description: >-
-            Used in conjunction with the restoreFiles parameter, will limit the
+            Used in conjunction with the restoreFiles parameter, will limit the 
             restoration to only the files/directories specified.
           type: array
           items:
@@ -19461,7 +20209,8 @@ components:
       enum: ["wordpress", "joomla", "openclaw"]
     PersistentAppKind:
       type: string
-      enum: ["generic", "openclaw"]
+      enum:
+        ["generic", "openclaw", "nodejs", "django", "tomcat", "laravel", "php"]
     InstallableWebsiteAppsFullListing:
       type: object
       required:
@@ -19510,6 +20259,8 @@ components:
           type: string
         nodeVersion:
           $ref: "#/components/schemas/NodeVersion"
+        appKind:
+          $ref: "#/components/schemas/PersistentAppKind"
     PersistentAppProxyDetails:
       type: object
       required:
@@ -21646,4 +22397,11 @@ components:
           type: string
           enum: ["x86_64"]
         os:
+          type: string
+    ConnectWebsiteGitRequest:
+      type: object
+      required:
+        - repository
+      properties:
+        repository:
           type: string

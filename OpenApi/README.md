@@ -87,6 +87,7 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**deleteWebsiteApp**](docs/Api/AppsApi.md#deletewebsiteapp) | **DELETE** /orgs/{org_id}/websites/{website_id}/apps/{app_id} | Delete website app
 *AppsApi* | [**deleteWebsitePersistentApp**](docs/Api/AppsApi.md#deletewebsitepersistentapp) | **DELETE** /websites/{website_id}/apps/persistent/{app_id} | Delete a persistent app
 *AppsApi* | [**getGlobalInstallableApps**](docs/Api/AppsApi.md#getglobalinstallableapps) | **GET** /utils/installable-apps | Get all installable applications
+*AppsApi* | [**getGlobalPossibleNodeVersions**](docs/Api/AppsApi.md#getglobalpossiblenodeversions) | **GET** /utils/possible_node_versions | Get possible versions of node to install from nvm
 *AppsApi* | [**getInstallableApps**](docs/Api/AppsApi.md#getinstallableapps) | **GET** /orgs/{org_id}/subscriptions/{subscription_id}/installable-apps | Get installable website applications
 *AppsApi* | [**getOpenclawProviderKeys**](docs/Api/AppsApi.md#getopenclawproviderkeys) | **GET** /websites/{website_id}/openclaw/provider_keys | List configured provider keys
 *AppsApi* | [**getPossibleNodeVersions**](docs/Api/AppsApi.md#getpossiblenodeversions) | **GET** /websites/{website_id}/apps/node/possible_versions | Get possible versions of node to install from nvm
@@ -273,6 +274,7 @@ Class | Method | HTTP request | Description
 *LoginsApi* | [**verify2FA**](docs/Api/LoginsApi.md#verify2fa) | **POST** /login/2fa | Verifies 2FA sign-in code.
 *MembersApi* | [**createAccessToken**](docs/Api/MembersApi.md#createaccesstoken) | **POST** /orgs/{org_id}/access_tokens | Create organisation access token
 *MembersApi* | [**createMember**](docs/Api/MembersApi.md#createmember) | **POST** /orgs/{org_id}/members | Create organization member
+*MembersApi* | [**createMemberSession**](docs/Api/MembersApi.md#createmembersession) | **POST** /orgs/{org_id}/members/{member_id}/session | Create member session token
 *MembersApi* | [**deleteAccessToken**](docs/Api/MembersApi.md#deleteaccesstoken) | **DELETE** /orgs/{org_id}/access_tokens/{token_id} | Delete access token member
 *MembersApi* | [**deleteMember**](docs/Api/MembersApi.md#deletemember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member
 *MembersApi* | [**deleteOwner**](docs/Api/MembersApi.md#deleteowner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner
@@ -308,6 +310,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**createCloudflareApiKey**](docs/Api/OrgsApi.md#createcloudflareapikey) | **POST** /orgs/{org_id}/cloudflare | Set CloudFlare API key, org level
 *OrgsApi* | [**createCustomer**](docs/Api/OrgsApi.md#createcustomer) | **POST** /orgs/{org_id}/customers | Create a customer organization
 *OrgsApi* | [**createMember**](docs/Api/OrgsApi.md#createmember) | **POST** /orgs/{org_id}/members | Create organization member
+*OrgsApi* | [**createMemberSession**](docs/Api/OrgsApi.md#createmembersession) | **POST** /orgs/{org_id}/members/{member_id}/session | Create member session token
 *OrgsApi* | [**createPlan**](docs/Api/OrgsApi.md#createplan) | **POST** /orgs/{org_id}/plans | Create plan
 *OrgsApi* | [**createPlanAllowances**](docs/Api/OrgsApi.md#createplanallowances) | **POST** /orgs/{org_id}/plans/{plan_id}/allowances | Create plan allowances
 *OrgsApi* | [**createPlanResources**](docs/Api/OrgsApi.md#createplanresources) | **POST** /orgs/{org_id}/plans/{plan_id}/resources | Create plan resources
@@ -317,6 +320,7 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**deleteMember**](docs/Api/OrgsApi.md#deletemember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member
 *OrgsApi* | [**deleteOrg**](docs/Api/OrgsApi.md#deleteorg) | **DELETE** /orgs/{org_id} | Delete organization
 *OrgsApi* | [**deleteOrgAvatar**](docs/Api/OrgsApi.md#deleteorgavatar) | **DELETE** /orgs/{org_id}/avatar | Remove org avatar
+*OrgsApi* | [**deleteOrgGithubApp**](docs/Api/OrgsApi.md#deleteorggithubapp) | **DELETE** /orgs/{org_id}/github/app | Delete an organisation&#39;s GitHub app connection.
 *OrgsApi* | [**deleteOwner**](docs/Api/OrgsApi.md#deleteowner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner
 *OrgsApi* | [**deletePlan**](docs/Api/OrgsApi.md#deleteplan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan
 *OrgsApi* | [**deletePlanAllowance**](docs/Api/OrgsApi.md#deleteplanallowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance
@@ -329,6 +333,9 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**getMembers**](docs/Api/OrgsApi.md#getmembers) | **GET** /orgs/{org_id}/members | Get organization members
 *OrgsApi* | [**getOrg**](docs/Api/OrgsApi.md#getorg) | **GET** /orgs/{org_id} | Get organization info
 *OrgsApi* | [**getOrgActivities**](docs/Api/OrgsApi.md#getorgactivities) | **GET** /v2/orgs/{org_id}/activities | Get organization&#39;s activity log.
+*OrgsApi* | [**getOrgGithubApp**](docs/Api/OrgsApi.md#getorggithubapp) | **GET** /orgs/{org_id}/github/app | Get an organisation&#39;s registered GitHub apps.
+*OrgsApi* | [**getOrgGithubAppInfo**](docs/Api/OrgsApi.md#getorggithubappinfo) | **GET** /orgs/{org_id}/github/repos | Get details of a registered Github app
+*OrgsApi* | [**getOrgGithubRepoRefs**](docs/Api/OrgsApi.md#getorggithubreporefs) | **GET** /orgs/{org_id}/github/repositories/{repo_owner}/{repo_name}/refs | List the tags and branches for a given repository
 *OrgsApi* | [**getOrgMemberLogin**](docs/Api/OrgsApi.md#getorgmemberlogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member
 *OrgsApi* | [**getPlan**](docs/Api/OrgsApi.md#getplan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan
 *OrgsApi* | [**getPlans**](docs/Api/OrgsApi.md#getplans) | **GET** /orgs/{org_id}/plans | Get plans
@@ -336,6 +343,9 @@ Class | Method | HTTP request | Description
 *OrgsApi* | [**getWebsiteDomainSslCert**](docs/Api/OrgsApi.md#getwebsitedomainsslcert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain
 *OrgsApi* | [**getWebsiteMailDomainSslCert**](docs/Api/OrgsApi.md#getwebsitemaildomainsslcert) | **GET** /v2/domains/{domain_id}/mail_ssl | Returns the SSL for this website domain with the mail.prefix
 *OrgsApi* | [**getWebsitesAdded**](docs/Api/OrgsApi.md#getwebsitesadded) | **GET** /orgs/{org_id}/stats/websites/added | Get websites added over a given time period
+*OrgsApi* | [**githubWebhook**](docs/Api/OrgsApi.md#githubwebhook) | **POST** /orgs/{org_id}/projects/webhook | Webhook endpoint for GitHub push events.  This endpoint receives push events from GitHub when a connected repository is updated. It validates the webhook signature using the X-Hub-Signature-256 header and automatically triggers deployments for websites that have auto_deploy enabled.
+*OrgsApi* | [**installComplete**](docs/Api/OrgsApi.md#installcomplete) | **GET** /orgs/{org_id}/projects/install-complete | Callback endpoint after GitHub App installation is complete.  This endpoint is called by GitHub after the user installs the GitHub App. It stores the installation ID and closes the window.
+*OrgsApi* | [**manifestCallback**](docs/Api/OrgsApi.md#manifestcallback) | **GET** /orgs/{org_id}/projects/manifest-callback | Callback endpoint for GitHub App manifest conversion.  This endpoint is called by GitHub after a user creates a GitHub App through the manifest flow. It converts the manifest code into a permanent GitHub App, stores the credentials, and redirects the user to the installation page.  The endpoint is idempotent: if an app already exists for the organization, it will be replaced with the new credentials.
 *OrgsApi* | [**setOrgAvatar**](docs/Api/OrgsApi.md#setorgavatar) | **PUT** /orgs/{org_id}/avatar | Set org avatar
 *OrgsApi* | [**setWebsiteDomainForceSsl**](docs/Api/OrgsApi.md#setwebsitedomainforcessl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping
 *OrgsApi* | [**updateCloudflareApiKey**](docs/Api/OrgsApi.md#updatecloudflareapikey) | **PUT** /orgs/{org_id}/cloudflare/{cloudflare_key} | Update CloudFlare API key
@@ -508,8 +518,10 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**addDomainNginxFastCgiExcludedPath**](docs/Api/WebsitesApi.md#adddomainnginxfastcgiexcludedpath) | **POST** /v2/domains/{domain_id}/nginx_fastcgi_excluded_paths | Add Nginx FastCGI excluded path
 *WebsitesApi* | [**authorizeWebsiteSshKey**](docs/Api/WebsitesApi.md#authorizewebsitesshkey) | **POST** /orgs/{org_id}/websites/{website_id}/ssh/keys | Authorize a new SSH key.
 *WebsitesApi* | [**authorizeWebsiteSshPassword**](docs/Api/WebsitesApi.md#authorizewebsitesshpassword) | **POST** /orgs/{org_id}/websites/{website_id}/ssh/password | Authorize a new SSH password for website.
+*WebsitesApi* | [**cancelWebsiteGitDeploy**](docs/Api/WebsitesApi.md#cancelwebsitegitdeploy) | **POST** /orgs/{org_id}/websites/{website_id}/git/deploys/{deploy_id}/cancel | Cancel a running website Github deployment
 *WebsitesApi* | [**clearDomainNginxFastCgi**](docs/Api/WebsitesApi.md#cleardomainnginxfastcgi) | **DELETE** /v2/domains/{domain_id}/nginx_fastcgi | Clear FastCGI cache for domain
 *WebsitesApi* | [**cloneWebsite**](docs/Api/WebsitesApi.md#clonewebsite) | **POST** /orgs/{org_id}/websites/clone | Clone website or push live
+*WebsitesApi* | [**connectWebsiteGit**](docs/Api/WebsitesApi.md#connectwebsitegit) | **PUT** /orgs/{org_id}/websites/{website_id}/git | Connect a website to a git repository
 *WebsitesApi* | [**createFtpUser**](docs/Api/WebsitesApi.md#createftpuser) | **POST** /orgs/{org_id}/websites/{website_id}/ftp/users | Creates a new FTP user for a given website
 *WebsitesApi* | [**createPreviewDomain**](docs/Api/WebsitesApi.md#createpreviewdomain) | **POST** /orgs/{org_id}/websites/{website_id}/preview | Create a preview domain
 *WebsitesApi* | [**createWebsite**](docs/Api/WebsitesApi.md#createwebsite) | **POST** /orgs/{org_id}/websites | Create a new website or clone an existing one.
@@ -524,8 +536,10 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**deleteWebsite**](docs/Api/WebsitesApi.md#deletewebsite) | **DELETE** /orgs/{org_id}/websites/{website_id} | Delete website
 *WebsitesApi* | [**deleteWebsiteDomainMapping**](docs/Api/WebsitesApi.md#deletewebsitedomainmapping) | **DELETE** /orgs/{org_id}/websites/{website_id}/domains/{domain_id} | Delete website domain mapping
 *WebsitesApi* | [**deleteWebsiteDomainVhost**](docs/Api/WebsitesApi.md#deletewebsitedomainvhost) | **DELETE** /v2/domains/{domain_id}/vhost | Deletes domain&#39;s custom vhost file if any
+*WebsitesApi* | [**deleteWebsiteGit**](docs/Api/WebsitesApi.md#deletewebsitegit) | **DELETE** /orgs/{org_id}/websites/{website_id}/git | Disconnect a website from github
 *WebsitesApi* | [**deleteWebsiteSetting**](docs/Api/WebsitesApi.md#deletewebsitesetting) | **DELETE** /orgs/{org_id}/websites/{website_id}/settings/{setting_kind}/{setting_key} | Delete a single override setting
 *WebsitesApi* | [**deleteWebsites**](docs/Api/WebsitesApi.md#deletewebsites) | **DELETE** /orgs/{org_id}/websites | Delete websites
+*WebsitesApi* | [**deployWebsiteGithubNow**](docs/Api/WebsitesApi.md#deploywebsitegithubnow) | **POST** /orgs/{org_id}/websites/{website_id}/git | Deploy the currently configured branch/tag now
 *WebsitesApi* | [**disableWebsitePhpExtension**](docs/Api/WebsitesApi.md#disablewebsitephpextension) | **DELETE** /websites/{website_id}/php_extensions | Disable a PHP extension
 *WebsitesApi* | [**enableWebsitePhpExtension**](docs/Api/WebsitesApi.md#enablewebsitephpextension) | **POST** /websites/{website_id}/php_extensions | Enable a PHP extension
 *WebsitesApi* | [**getBuiltInPhpExtensions**](docs/Api/WebsitesApi.md#getbuiltinphpextensions) | **GET** /websites/{website_id}/built_in_php_extensions | Get a list of the PHP extensions compiled in to the currently selected version of PHP for this website
@@ -555,6 +569,9 @@ Class | Method | HTTP request | Description
 *WebsitesApi* | [**getWebsiteDomainVhost**](docs/Api/WebsitesApi.md#getwebsitedomainvhost) | **GET** /v2/domains/{domain_id}/vhost | Get domain&#39;s custom vhost file, if the file does not exist return empty string
 *WebsitesApi* | [**getWebsiteEnabledPhpExtensions**](docs/Api/WebsitesApi.md#getwebsiteenabledphpextensions) | **GET** /websites/{website_id}/php_extensions | Get enabled PHP extensions
 *WebsitesApi* | [**getWebsiteFsQuotaLimits**](docs/Api/WebsitesApi.md#getwebsitefsquotalimits) | **GET** /orgs/{org_id}/websites/{website_id}/fs_quota_limits | Get the active FS quoa limits for a website
+*WebsitesApi* | [**getWebsiteGitDeploymentLog**](docs/Api/WebsitesApi.md#getwebsitegitdeploymentlog) | **GET** /orgs/{org_id}/websites/{website_id}/git/deploys/{deployment_id} | Get website Github deployment log
+*WebsitesApi* | [**getWebsiteGitDeploys**](docs/Api/WebsitesApi.md#getwebsitegitdeploys) | **GET** /orgs/{org_id}/websites/{website_id}/git/deploys | Get website Github deployment history
+*WebsitesApi* | [**getWebsiteGitInfo**](docs/Api/WebsitesApi.md#getwebsitegitinfo) | **GET** /orgs/{org_id}/websites/{website_id}/git | Get website Github repo info
 *WebsitesApi* | [**getWebsiteHtaccessIpsRule**](docs/Api/WebsitesApi.md#getwebsitehtaccessipsrule) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess/ips | Returns current rules of blocked/whitelisted IPs
 *WebsitesApi* | [**getWebsiteHtaccessRewrites**](docs/Api/WebsitesApi.md#getwebsitehtaccessrewrites) | **GET** /orgs/{org_id}/websites/{website_id}/htaccess | Reads chains of rewrite rules
 *WebsitesApi* | [**getWebsiteIoncubeStatus**](docs/Api/WebsitesApi.md#getwebsiteioncubestatus) | **GET** /v2/websites/{website_id}/ioncube | Get ioncube status for an existing website
@@ -695,6 +712,7 @@ Class | Method | HTTP request | Description
 - [CloudFlareApiKey](docs/Model/CloudFlareApiKey.md)
 - [CloudFlareNameServers](docs/Model/CloudFlareNameServers.md)
 - [CloudFlareStatus](docs/Model/CloudFlareStatus.md)
+- [ConnectWebsiteGitRequest](docs/Model/ConnectWebsiteGitRequest.md)
 - [ContainerIpInfo](docs/Model/ContainerIpInfo.md)
 - [ControlRoleInfo](docs/Model/ControlRoleInfo.md)
 - [CoreServiceInfo](docs/Model/CoreServiceInfo.md)
@@ -759,6 +777,16 @@ Class | Method | HTTP request | Description
 - [FtpUsersFullListing](docs/Model/FtpUsersFullListing.md)
 - [GetServerRole200Response](docs/Model/GetServerRole200Response.md)
 - [GetWordpressAppVersion200Response](docs/Model/GetWordpressAppVersion200Response.md)
+- [GitDeployInfo](docs/Model/GitDeployInfo.md)
+- [GitDeployState](docs/Model/GitDeployState.md)
+- [GitDeployTrigger](docs/Model/GitDeployTrigger.md)
+- [GitRepositoryRefs](docs/Model/GitRepositoryRefs.md)
+- [GithubLanguage](docs/Model/GithubLanguage.md)
+- [GithubRepositoryInfo](docs/Model/GithubRepositoryInfo.md)
+- [GithubRepositoryVisibility](docs/Model/GithubRepositoryVisibility.md)
+- [GithubWebhookRequest](docs/Model/GithubWebhookRequest.md)
+- [GithubWebhookRequestRepository](docs/Model/GithubWebhookRequestRepository.md)
+- [GithubWebhookRequestRepositoryOwner](docs/Model/GithubWebhookRequestRepositoryOwner.md)
 - [GlobalWebsiteBackup](docs/Model/GlobalWebsiteBackup.md)
 - [HttpError](docs/Model/HttpError.md)
 - [HttpdStatus](docs/Model/HttpdStatus.md)
@@ -783,6 +811,7 @@ Class | Method | HTTP request | Description
 - [IniSetting](docs/Model/IniSetting.md)
 - [Install](docs/Model/Install.md)
 - [InstallCmd](docs/Model/InstallCmd.md)
+- [InstallCompleteQuery](docs/Model/InstallCompleteQuery.md)
 - [InstallWpPlugin](docs/Model/InstallWpPlugin.md)
 - [InstallWpThemeRequest](docs/Model/InstallWpThemeRequest.md)
 - [InstallableWebsiteApp](docs/Model/InstallableWebsiteApp.md)
@@ -817,6 +846,7 @@ Class | Method | HTTP request | Description
 - [LsphpSettings](docs/Model/LsphpSettings.md)
 - [MaintenanceMode](docs/Model/MaintenanceMode.md)
 - [MaintenanceModeStatus](docs/Model/MaintenanceModeStatus.md)
+- [ManifestCallbackQuery](docs/Model/ManifestCallbackQuery.md)
 - [Member](docs/Model/Member.md)
 - [MembersListing](docs/Model/MembersListing.md)
 - [MetricsEntry](docs/Model/MetricsEntry.md)
@@ -893,6 +923,8 @@ Class | Method | HTTP request | Description
 - [OrchdLoginPolicySettings](docs/Model/OrchdLoginPolicySettings.md)
 - [Org](docs/Model/Org.md)
 - [OrgAccessToken](docs/Model/OrgAccessToken.md)
+- [OrgGitHubApp](docs/Model/OrgGitHubApp.md)
+- [OrgGitHubAppOwner](docs/Model/OrgGitHubAppOwner.md)
 - [OrgOwnerUpdate](docs/Model/OrgOwnerUpdate.md)
 - [OrgUpdate](docs/Model/OrgUpdate.md)
 - [OrgUpdateSlackNotificationWebhookUrl](docs/Model/OrgUpdateSlackNotificationWebhookUrl.md)
@@ -940,6 +972,7 @@ Class | Method | HTTP request | Description
 - [RoleSummary](docs/Model/RoleSummary.md)
 - [RolesInfo](docs/Model/RolesInfo.md)
 - [RolesSummary](docs/Model/RolesSummary.md)
+- [RuntimeKind](docs/Model/RuntimeKind.md)
 - [ScreenshotConfig](docs/Model/ScreenshotConfig.md)
 - [ScreenshotConfigUpdate](docs/Model/ScreenshotConfigUpdate.md)
 - [Selection](docs/Model/Selection.md)
@@ -1086,6 +1119,7 @@ Class | Method | HTTP request | Description
 - [WebsiteCloneResponse](docs/Model/WebsiteCloneResponse.md)
 - [WebsiteCloneStatus](docs/Model/WebsiteCloneStatus.md)
 - [WebsiteDomain](docs/Model/WebsiteDomain.md)
+- [WebsiteGithubConnection](docs/Model/WebsiteGithubConnection.md)
 - [WebsiteKind](docs/Model/WebsiteKind.md)
 - [WebsiteLog](docs/Model/WebsiteLog.md)
 - [WebsiteLogMetadata](docs/Model/WebsiteLogMetadata.md)
@@ -1144,6 +1178,6 @@ vendor/bin/phpunit
 
 This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `12.25.2`
+- API version: `12.26.3`
     - Generator version: `7.12.0`
 - Build package: `org.openapitools.codegen.languages.PhpClientCodegen`

@@ -99,6 +99,7 @@ docs/Model/CloneStatus.md
 docs/Model/CloudFlareApiKey.md
 docs/Model/CloudFlareNameServers.md
 docs/Model/CloudFlareStatus.md
+docs/Model/ConnectWebsiteGitRequest.md
 docs/Model/ContainerIpInfo.md
 docs/Model/ControlRoleInfo.md
 docs/Model/CoreServiceInfo.md
@@ -163,6 +164,16 @@ docs/Model/FtpUserUpdate.md
 docs/Model/FtpUsersFullListing.md
 docs/Model/GetServerRole200Response.md
 docs/Model/GetWordpressAppVersion200Response.md
+docs/Model/GitDeployInfo.md
+docs/Model/GitDeployState.md
+docs/Model/GitDeployTrigger.md
+docs/Model/GitRepositoryRefs.md
+docs/Model/GithubLanguage.md
+docs/Model/GithubRepositoryInfo.md
+docs/Model/GithubRepositoryVisibility.md
+docs/Model/GithubWebhookRequest.md
+docs/Model/GithubWebhookRequestRepository.md
+docs/Model/GithubWebhookRequestRepositoryOwner.md
 docs/Model/GlobalWebsiteBackup.md
 docs/Model/HttpError.md
 docs/Model/HttpdStatus.md
@@ -187,6 +198,7 @@ docs/Model/ImporterMigrationReqBody.md
 docs/Model/IniSetting.md
 docs/Model/Install.md
 docs/Model/InstallCmd.md
+docs/Model/InstallCompleteQuery.md
 docs/Model/InstallWpPlugin.md
 docs/Model/InstallWpThemeRequest.md
 docs/Model/InstallableWebsiteApp.md
@@ -221,6 +233,7 @@ docs/Model/LoginsListing.md
 docs/Model/LsphpSettings.md
 docs/Model/MaintenanceMode.md
 docs/Model/MaintenanceModeStatus.md
+docs/Model/ManifestCallbackQuery.md
 docs/Model/Member.md
 docs/Model/MembersListing.md
 docs/Model/MetricsEntry.md
@@ -297,6 +310,8 @@ docs/Model/OrchdLoginPolicyIpList.md
 docs/Model/OrchdLoginPolicySettings.md
 docs/Model/Org.md
 docs/Model/OrgAccessToken.md
+docs/Model/OrgGitHubApp.md
+docs/Model/OrgGitHubAppOwner.md
 docs/Model/OrgOwnerUpdate.md
 docs/Model/OrgUpdate.md
 docs/Model/OrgUpdateSlackNotificationWebhookUrl.md
@@ -344,6 +359,7 @@ docs/Model/RoleState.md
 docs/Model/RoleSummary.md
 docs/Model/RolesInfo.md
 docs/Model/RolesSummary.md
+docs/Model/RuntimeKind.md
 docs/Model/ScreenshotConfig.md
 docs/Model/ScreenshotConfigUpdate.md
 docs/Model/Selection.md
@@ -490,6 +506,7 @@ docs/Model/WebsiteCloneRequest.md
 docs/Model/WebsiteCloneResponse.md
 docs/Model/WebsiteCloneStatus.md
 docs/Model/WebsiteDomain.md
+docs/Model/WebsiteGithubConnection.md
 docs/Model/WebsiteKind.md
 docs/Model/WebsiteLog.md
 docs/Model/WebsiteLogMetadata.md
@@ -616,6 +633,7 @@ lib/Model/CloneStatus.php
 lib/Model/CloudFlareApiKey.php
 lib/Model/CloudFlareNameServers.php
 lib/Model/CloudFlareStatus.php
+lib/Model/ConnectWebsiteGitRequest.php
 lib/Model/ContainerIpInfo.php
 lib/Model/ControlRoleInfo.php
 lib/Model/CoreServiceInfo.php
@@ -680,6 +698,16 @@ lib/Model/FtpUserUpdate.php
 lib/Model/FtpUsersFullListing.php
 lib/Model/GetServerRole200Response.php
 lib/Model/GetWordpressAppVersion200Response.php
+lib/Model/GitDeployInfo.php
+lib/Model/GitDeployState.php
+lib/Model/GitDeployTrigger.php
+lib/Model/GitRepositoryRefs.php
+lib/Model/GithubLanguage.php
+lib/Model/GithubRepositoryInfo.php
+lib/Model/GithubRepositoryVisibility.php
+lib/Model/GithubWebhookRequest.php
+lib/Model/GithubWebhookRequestRepository.php
+lib/Model/GithubWebhookRequestRepositoryOwner.php
 lib/Model/GlobalWebsiteBackup.php
 lib/Model/HttpError.php
 lib/Model/HttpdStatus.php
@@ -704,6 +732,7 @@ lib/Model/ImporterMigrationReqBody.php
 lib/Model/IniSetting.php
 lib/Model/Install.php
 lib/Model/InstallCmd.php
+lib/Model/InstallCompleteQuery.php
 lib/Model/InstallWpPlugin.php
 lib/Model/InstallWpThemeRequest.php
 lib/Model/InstallableWebsiteApp.php
@@ -738,6 +767,7 @@ lib/Model/LoginsListing.php
 lib/Model/LsphpSettings.php
 lib/Model/MaintenanceMode.php
 lib/Model/MaintenanceModeStatus.php
+lib/Model/ManifestCallbackQuery.php
 lib/Model/Member.php
 lib/Model/MembersListing.php
 lib/Model/MetricsEntry.php
@@ -815,6 +845,8 @@ lib/Model/OrchdLoginPolicyIpList.php
 lib/Model/OrchdLoginPolicySettings.php
 lib/Model/Org.php
 lib/Model/OrgAccessToken.php
+lib/Model/OrgGitHubApp.php
+lib/Model/OrgGitHubAppOwner.php
 lib/Model/OrgOwnerUpdate.php
 lib/Model/OrgUpdate.php
 lib/Model/OrgUpdateSlackNotificationWebhookUrl.php
@@ -862,6 +894,7 @@ lib/Model/RoleState.php
 lib/Model/RoleSummary.php
 lib/Model/RolesInfo.php
 lib/Model/RolesSummary.php
+lib/Model/RuntimeKind.php
 lib/Model/ScreenshotConfig.php
 lib/Model/ScreenshotConfigUpdate.php
 lib/Model/Selection.php
@@ -1008,6 +1041,7 @@ lib/Model/WebsiteCloneRequest.php
 lib/Model/WebsiteCloneResponse.php
 lib/Model/WebsiteCloneStatus.php
 lib/Model/WebsiteDomain.php
+lib/Model/WebsiteGithubConnection.php
 lib/Model/WebsiteKind.php
 lib/Model/WebsiteLog.php
 lib/Model/WebsiteLogMetadata.php
@@ -1132,6 +1166,7 @@ test/Model/CloneStatusTest.php
 test/Model/CloudFlareApiKeyTest.php
 test/Model/CloudFlareNameServersTest.php
 test/Model/CloudFlareStatusTest.php
+test/Model/ConnectWebsiteGitRequestTest.php
 test/Model/ContainerIpInfoTest.php
 test/Model/ControlRoleInfoTest.php
 test/Model/CoreServiceInfoTest.php
@@ -1196,6 +1231,16 @@ test/Model/FtpUserUpdateTest.php
 test/Model/FtpUsersFullListingTest.php
 test/Model/GetServerRole200ResponseTest.php
 test/Model/GetWordpressAppVersion200ResponseTest.php
+test/Model/GitDeployInfoTest.php
+test/Model/GitDeployStateTest.php
+test/Model/GitDeployTriggerTest.php
+test/Model/GitRepositoryRefsTest.php
+test/Model/GithubLanguageTest.php
+test/Model/GithubRepositoryInfoTest.php
+test/Model/GithubRepositoryVisibilityTest.php
+test/Model/GithubWebhookRequestRepositoryOwnerTest.php
+test/Model/GithubWebhookRequestRepositoryTest.php
+test/Model/GithubWebhookRequestTest.php
 test/Model/GlobalWebsiteBackupTest.php
 test/Model/HttpErrorTest.php
 test/Model/HttpdStatusTest.php
@@ -1219,6 +1264,7 @@ test/Model/ImporterAnalyzedDataTest.php
 test/Model/ImporterMigrationReqBodyTest.php
 test/Model/IniSettingTest.php
 test/Model/InstallCmdTest.php
+test/Model/InstallCompleteQueryTest.php
 test/Model/InstallTest.php
 test/Model/InstallWpPluginTest.php
 test/Model/InstallWpThemeRequestTest.php
@@ -1254,6 +1300,7 @@ test/Model/LoginsListingTest.php
 test/Model/LsphpSettingsTest.php
 test/Model/MaintenanceModeStatusTest.php
 test/Model/MaintenanceModeTest.php
+test/Model/ManifestCallbackQueryTest.php
 test/Model/MemberTest.php
 test/Model/MembersListingTest.php
 test/Model/MetricsEntryTest.php
@@ -1329,6 +1376,8 @@ test/Model/OrchdLoginPolicyEmailListTest.php
 test/Model/OrchdLoginPolicyIpListTest.php
 test/Model/OrchdLoginPolicySettingsTest.php
 test/Model/OrgAccessTokenTest.php
+test/Model/OrgGitHubAppOwnerTest.php
+test/Model/OrgGitHubAppTest.php
 test/Model/OrgOwnerUpdateTest.php
 test/Model/OrgTest.php
 test/Model/OrgUpdateSlackNotificationWebhookUrlTest.php
@@ -1377,6 +1426,7 @@ test/Model/RoleSummaryTest.php
 test/Model/RoleTest.php
 test/Model/RolesInfoTest.php
 test/Model/RolesSummaryTest.php
+test/Model/RuntimeKindTest.php
 test/Model/ScreenshotConfigTest.php
 test/Model/ScreenshotConfigUpdateTest.php
 test/Model/SelectionTest.php
@@ -1522,6 +1572,7 @@ test/Model/WebsiteCloneRequestTest.php
 test/Model/WebsiteCloneResponseTest.php
 test/Model/WebsiteCloneStatusTest.php
 test/Model/WebsiteDomainTest.php
+test/Model/WebsiteGithubConnectionTest.php
 test/Model/WebsiteKindTest.php
 test/Model/WebsiteLogMetadataTest.php
 test/Model/WebsiteLogStatusTest.php

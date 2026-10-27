@@ -8,6 +8,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**createCloudflareApiKey()**](OrgsApi.md#createCloudflareApiKey) | **POST** /orgs/{org_id}/cloudflare | Set CloudFlare API key, org level |
 | [**createCustomer()**](OrgsApi.md#createCustomer) | **POST** /orgs/{org_id}/customers | Create a customer organization |
 | [**createMember()**](OrgsApi.md#createMember) | **POST** /orgs/{org_id}/members | Create organization member |
+| [**createMemberSession()**](OrgsApi.md#createMemberSession) | **POST** /orgs/{org_id}/members/{member_id}/session | Create member session token |
 | [**createPlan()**](OrgsApi.md#createPlan) | **POST** /orgs/{org_id}/plans | Create plan |
 | [**createPlanAllowances()**](OrgsApi.md#createPlanAllowances) | **POST** /orgs/{org_id}/plans/{plan_id}/allowances | Create plan allowances |
 | [**createPlanResources()**](OrgsApi.md#createPlanResources) | **POST** /orgs/{org_id}/plans/{plan_id}/resources | Create plan resources |
@@ -17,6 +18,7 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**deleteMember()**](OrgsApi.md#deleteMember) | **DELETE** /orgs/{org_id}/members/{member_id} | Delete organization member |
 | [**deleteOrg()**](OrgsApi.md#deleteOrg) | **DELETE** /orgs/{org_id} | Delete organization |
 | [**deleteOrgAvatar()**](OrgsApi.md#deleteOrgAvatar) | **DELETE** /orgs/{org_id}/avatar | Remove org avatar |
+| [**deleteOrgGithubApp()**](OrgsApi.md#deleteOrgGithubApp) | **DELETE** /orgs/{org_id}/github/app | Delete an organisation&#39;s GitHub app connection. |
 | [**deleteOwner()**](OrgsApi.md#deleteOwner) | **DELETE** /orgs/{org_id}/owner | Delete organization owner |
 | [**deletePlan()**](OrgsApi.md#deletePlan) | **DELETE** /orgs/{org_id}/plans/{plan_id} | Delete plan |
 | [**deletePlanAllowance()**](OrgsApi.md#deletePlanAllowance) | **DELETE** /orgs/{org_id}/plans/{plan_id}/allowances/{name} | Delete plan allowance |
@@ -29,6 +31,9 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getMembers()**](OrgsApi.md#getMembers) | **GET** /orgs/{org_id}/members | Get organization members |
 | [**getOrg()**](OrgsApi.md#getOrg) | **GET** /orgs/{org_id} | Get organization info |
 | [**getOrgActivities()**](OrgsApi.md#getOrgActivities) | **GET** /v2/orgs/{org_id}/activities | Get organization&#39;s activity log. |
+| [**getOrgGithubApp()**](OrgsApi.md#getOrgGithubApp) | **GET** /orgs/{org_id}/github/app | Get an organisation&#39;s registered GitHub apps. |
+| [**getOrgGithubAppInfo()**](OrgsApi.md#getOrgGithubAppInfo) | **GET** /orgs/{org_id}/github/repos | Get details of a registered Github app |
+| [**getOrgGithubRepoRefs()**](OrgsApi.md#getOrgGithubRepoRefs) | **GET** /orgs/{org_id}/github/repositories/{repo_owner}/{repo_name}/refs | List the tags and branches for a given repository |
 | [**getOrgMemberLogin()**](OrgsApi.md#getOrgMemberLogin) | **GET** /orgs/{org_id}/members/{member_id}/sso | Get a One-Time-Password link for the member |
 | [**getPlan()**](OrgsApi.md#getPlan) | **GET** /orgs/{org_id}/plans/{plan_id} | Get plan |
 | [**getPlans()**](OrgsApi.md#getPlans) | **GET** /orgs/{org_id}/plans | Get plans |
@@ -36,6 +41,9 @@ All URIs are relative to http://localhost, except if the operation defines anoth
 | [**getWebsiteDomainSslCert()**](OrgsApi.md#getWebsiteDomainSslCert) | **GET** /v2/domains/{domain_id}/ssl | Returns the SSL for this website domain |
 | [**getWebsiteMailDomainSslCert()**](OrgsApi.md#getWebsiteMailDomainSslCert) | **GET** /v2/domains/{domain_id}/mail_ssl | Returns the SSL for this website domain with the mail.prefix |
 | [**getWebsitesAdded()**](OrgsApi.md#getWebsitesAdded) | **GET** /orgs/{org_id}/stats/websites/added | Get websites added over a given time period |
+| [**githubWebhook()**](OrgsApi.md#githubWebhook) | **POST** /orgs/{org_id}/projects/webhook | Webhook endpoint for GitHub push events.  This endpoint receives push events from GitHub when a connected repository is updated. It validates the webhook signature using the X-Hub-Signature-256 header and automatically triggers deployments for websites that have auto_deploy enabled. |
+| [**installComplete()**](OrgsApi.md#installComplete) | **GET** /orgs/{org_id}/projects/install-complete | Callback endpoint after GitHub App installation is complete.  This endpoint is called by GitHub after the user installs the GitHub App. It stores the installation ID and closes the window. |
+| [**manifestCallback()**](OrgsApi.md#manifestCallback) | **GET** /orgs/{org_id}/projects/manifest-callback | Callback endpoint for GitHub App manifest conversion.  This endpoint is called by GitHub after a user creates a GitHub App through the manifest flow. It converts the manifest code into a permanent GitHub App, stores the credentials, and redirects the user to the installation page.  The endpoint is idempotent: if an app already exists for the organization, it will be replaced with the new credentials. |
 | [**setOrgAvatar()**](OrgsApi.md#setOrgAvatar) | **PUT** /orgs/{org_id}/avatar | Set org avatar |
 | [**setWebsiteDomainForceSsl()**](OrgsApi.md#setWebsiteDomainForceSsl) | **PUT** /v2/domains/{domain_id}/ssl/force_ssl | Set \&quot;force ssl\&quot; status for domain mapping |
 | [**updateCloudflareApiKey()**](OrgsApi.md#updateCloudflareApiKey) | **PUT** /orgs/{org_id}/cloudflare/{cloudflare_key} | Update CloudFlare API key |
@@ -312,6 +320,73 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createMemberSession()`
+
+```php
+createMemberSession($org_id, $member_id): string
+```
+
+Create member session token
+
+Creates a new session token for a member as if they logged in but, instead of issuing a session cookie, return the session token to the caller for communication to the client via an external system. The client can then send the session token as a bearer token. The caller must have write access to the member's organization. The resulting session token should be treated like a password.  It is initially valid for 60 seconds and must be used within that time.  Once used for the first time, the session is extended according to your maximum configured session timeout.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$member_id = 'member_id_example'; // string | The id of the member.
+
+try {
+    $result = $apiInstance->createMemberSession($org_id, $member_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->createMemberSession: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **member_id** | **string**| The id of the member. | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -865,6 +940,68 @@ try {
     $apiInstance->deleteOrgAvatar($org_id);
 } catch (Exception $e) {
     echo 'Exception when calling OrgsApi->deleteOrgAvatar: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteOrgGithubApp()`
+
+```php
+deleteOrgGithubApp($org_id)
+```
+
+Delete an organisation's GitHub app connection.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+
+try {
+    $apiInstance->deleteOrgGithubApp($org_id);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->deleteOrgGithubApp: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -1712,6 +1849,199 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getOrgGithubApp()`
+
+```php
+getOrgGithubApp($org_id): \Upmind\EnhanceSdk\Model\OrgGitHubApp
+```
+
+Get an organisation's registered GitHub apps.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+
+try {
+    $result = $apiInstance->getOrgGithubApp($org_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->getOrgGithubApp: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\OrgGitHubApp**](../Model/OrgGitHubApp.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrgGithubAppInfo()`
+
+```php
+getOrgGithubAppInfo($org_id): \Upmind\EnhanceSdk\Model\GithubRepositoryInfo[]
+```
+
+Get details of a registered Github app
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+
+try {
+    $result = $apiInstance->getOrgGithubAppInfo($org_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->getOrgGithubAppInfo: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\GithubRepositoryInfo[]**](../Model/GithubRepositoryInfo.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrgGithubRepoRefs()`
+
+```php
+getOrgGithubRepoRefs($org_id, $repo_owner, $repo_name): \Upmind\EnhanceSdk\Model\GitRepositoryRefs
+```
+
+List the tags and branches for a given repository
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$repo_owner = 'repo_owner_example'; // string | The owner of a git repository
+$repo_name = 'repo_name_example'; // string | The name of a git repository
+
+try {
+    $result = $apiInstance->getOrgGithubRepoRefs($org_id, $repo_owner, $repo_name);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->getOrgGithubRepoRefs: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **repo_owner** | **string**| The owner of a git repository | |
+| **repo_name** | **string**| The name of a git repository | |
+
+### Return type
+
+[**\Upmind\EnhanceSdk\Model\GitRepositoryRefs**](../Model/GitRepositoryRefs.md)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getOrgMemberLogin()`
 
 ```php
@@ -2151,6 +2481,194 @@ try {
 
 - **Content-Type**: Not defined
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `githubWebhook()`
+
+```php
+githubWebhook($org_id, $github_webhook_request)
+```
+
+Webhook endpoint for GitHub push events.  This endpoint receives push events from GitHub when a connected repository is updated. It validates the webhook signature using the X-Hub-Signature-256 header and automatically triggers deployments for websites that have auto_deploy enabled.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$github_webhook_request = new \Upmind\EnhanceSdk\Model\GithubWebhookRequest(); // \Upmind\EnhanceSdk\Model\GithubWebhookRequest
+
+try {
+    $apiInstance->githubWebhook($org_id, $github_webhook_request);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->githubWebhook: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **github_webhook_request** | [**\Upmind\EnhanceSdk\Model\GithubWebhookRequest**](../Model/GithubWebhookRequest.md)|  | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `installComplete()`
+
+```php
+installComplete($org_id, $installation_id, $setup_action): string
+```
+
+Callback endpoint after GitHub App installation is complete.  This endpoint is called by GitHub after the user installs the GitHub App. It stores the installation ID and closes the window.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$installation_id = 56; // int | GitHub installation ID
+$setup_action = 'setup_action_example'; // string | Setup action performed
+
+try {
+    $result = $apiInstance->installComplete($org_id, $installation_id, $setup_action);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->installComplete: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **installation_id** | **int**| GitHub installation ID | |
+| **setup_action** | **string**| Setup action performed | |
+
+### Return type
+
+**string**
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `text/html`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `manifestCallback()`
+
+```php
+manifestCallback($org_id, $code, $state)
+```
+
+Callback endpoint for GitHub App manifest conversion.  This endpoint is called by GitHub after a user creates a GitHub App through the manifest flow. It converts the manifest code into a permanent GitHub App, stores the credentials, and redirects the user to the installation page.  The endpoint is idempotent: if an app already exists for the organization, it will be replaced with the new credentials.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure API key authorization: sessionCookie
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKey('id0', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// $config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('id0', 'Bearer');
+
+// Configure Bearer authorization: bearerAuth
+$config = Upmind\EnhanceSdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Upmind\EnhanceSdk\Api\OrgsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$org_id = 'org_id_example'; // string | The id of the organization.
+$code = 'code_example'; // string | Authorization code from GitHub
+$state = 'state_example'; // string | State parameter for CSRF protection
+
+try {
+    $apiInstance->manifestCallback($org_id, $code, $state);
+} catch (Exception $e) {
+    echo 'Exception when calling OrgsApi->manifestCallback: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **org_id** | **string**| The id of the organization. | |
+| **code** | **string**| Authorization code from GitHub | |
+| **state** | **string**| State parameter for CSRF protection | |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[sessionCookie](../../README.md#sessionCookie), [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
