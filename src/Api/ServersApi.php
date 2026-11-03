@@ -29,7 +29,7 @@ namespace Upmind\EnhanceSdk\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ConnectException;
+use Psr\Http\Client\NetworkExceptionInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
@@ -405,13 +405,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -545,7 +547,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -566,7 +568,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -644,13 +646,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -790,7 +794,7 @@ class ServersApi
         if (isset($server_conf)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($server_conf));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($server_conf), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $server_conf;
             }
@@ -811,7 +815,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -890,13 +894,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1126,7 +1132,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -1147,7 +1153,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -1224,13 +1230,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1442,7 +1450,7 @@ class ServersApi
         if (isset($new_server_group)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($new_server_group));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($new_server_group), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $new_server_group;
             }
@@ -1463,7 +1471,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -1543,13 +1551,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1707,7 +1717,7 @@ class ServersApi
         if (isset($new_server_ip)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($new_server_ip));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($new_server_ip), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $new_server_ip;
             }
@@ -1728,7 +1738,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -1806,13 +1816,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -1953,7 +1965,7 @@ class ServersApi
         if (isset($slave_registration)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($slave_registration));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($slave_registration), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $slave_registration;
             }
@@ -1974,7 +1986,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -2043,13 +2055,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2183,7 +2197,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -2204,7 +2218,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -2282,13 +2296,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2450,7 +2466,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -2526,13 +2542,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2676,7 +2694,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -2752,13 +2770,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -2902,7 +2922,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -2982,13 +3002,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -3168,7 +3190,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -3244,13 +3266,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -3394,7 +3418,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -3466,13 +3490,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -3777,7 +3803,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -3853,13 +3879,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -4003,7 +4031,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -4079,13 +4107,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -4229,7 +4259,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -4306,13 +4336,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -4546,7 +4578,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -4623,13 +4655,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -4863,7 +4897,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -4938,13 +4972,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -5160,7 +5196,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -5230,13 +5266,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -5483,7 +5521,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -5549,13 +5587,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -5771,7 +5811,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -5839,13 +5879,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -6079,7 +6121,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -6156,13 +6198,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -6396,7 +6440,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -6475,13 +6519,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -6733,7 +6779,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -6799,13 +6845,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -7021,7 +7069,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -7098,13 +7146,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -7338,7 +7388,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -7406,13 +7456,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -7646,7 +7698,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -7723,13 +7775,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -7963,7 +8017,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -8038,13 +8092,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -8260,7 +8316,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -8337,13 +8393,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -8577,7 +8635,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -8654,13 +8712,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -8894,7 +8954,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -8971,13 +9031,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -9211,7 +9273,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -9277,13 +9339,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -9499,7 +9563,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -9576,13 +9640,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -9816,7 +9882,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -9893,13 +9959,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -10133,7 +10201,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -10210,13 +10278,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -10450,7 +10520,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -10527,13 +10597,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -10767,7 +10839,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -10844,13 +10916,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -11084,7 +11158,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -11161,13 +11235,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -11401,7 +11477,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -11478,13 +11554,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -11718,7 +11796,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -11795,13 +11873,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -12035,7 +12115,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -12112,13 +12192,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -12352,7 +12434,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -12433,13 +12515,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -12704,7 +12788,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -12781,13 +12865,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -13021,7 +13107,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -13098,13 +13184,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -13338,7 +13426,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -13419,13 +13507,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -13685,7 +13775,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -13753,13 +13843,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -13993,7 +14085,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -14070,13 +14162,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -14310,7 +14404,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -14393,13 +14487,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -14667,7 +14763,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -14746,13 +14842,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -15004,7 +15102,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -15081,13 +15179,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -15321,7 +15421,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -15398,13 +15498,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -15638,7 +15740,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -15717,13 +15819,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -15970,7 +16074,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -16047,13 +16151,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -16287,7 +16393,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -16366,13 +16472,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -16624,7 +16732,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -16692,13 +16800,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -16932,7 +17042,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -17010,13 +17120,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -17173,7 +17285,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -17246,13 +17358,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -17417,7 +17531,7 @@ class ServersApi
         if (isset($new_backup_role)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($new_backup_role));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($new_backup_role), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $new_backup_role;
             }
@@ -17438,7 +17552,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -17514,13 +17628,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -17664,7 +17780,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -17740,13 +17856,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -17890,7 +18008,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -17966,13 +18084,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -18116,7 +18236,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -18185,13 +18305,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -18331,7 +18453,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -18352,7 +18474,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -18421,13 +18543,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -18561,7 +18685,7 @@ class ServersApi
         if (isset($email_server_hostname_override)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($email_server_hostname_override));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($email_server_hostname_override), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $email_server_hostname_override;
             }
@@ -18582,7 +18706,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -18660,13 +18784,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -18806,7 +18932,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -18827,7 +18953,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -18905,13 +19031,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -19045,7 +19173,7 @@ class ServersApi
         if (isset($outbound_spam_scanning_settings)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($outbound_spam_scanning_settings));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($outbound_spam_scanning_settings), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $outbound_spam_scanning_settings;
             }
@@ -19066,7 +19194,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -19144,13 +19272,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -19290,7 +19420,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -19311,7 +19441,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -19387,13 +19517,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -19537,7 +19669,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -19615,13 +19747,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -19761,7 +19895,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -19782,7 +19916,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -19860,13 +19994,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -20006,7 +20142,7 @@ class ServersApi
         if (isset($mod_sec_status)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mod_sec_status));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($mod_sec_status), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $mod_sec_status;
             }
@@ -20027,7 +20163,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -20105,13 +20241,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -20251,7 +20389,7 @@ class ServersApi
         if (isset($set_server_status)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($set_server_status));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($set_server_status), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $set_server_status;
             }
@@ -20272,7 +20410,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -20355,13 +20493,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -20662,7 +20802,7 @@ class ServersApi
         if (isset($service_setting_value)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($service_setting_value));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($service_setting_value), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $service_setting_value;
             }
@@ -20683,7 +20823,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -20761,13 +20901,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -20901,7 +21043,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -20922,7 +21064,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -21000,13 +21142,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -21146,7 +21290,7 @@ class ServersApi
         if (isset($set_webserver_kind)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($set_webserver_kind));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($set_webserver_kind), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $set_webserver_kind;
             }
@@ -21167,7 +21311,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -21245,13 +21389,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -21385,7 +21531,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -21406,7 +21552,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -21486,13 +21632,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -21667,7 +21815,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -21745,13 +21893,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -21891,7 +22041,7 @@ class ServersApi
         if (isset($screenshot_config_update)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($screenshot_config_update));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($screenshot_config_update), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $screenshot_config_update;
             }
@@ -21912,7 +22062,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -21988,13 +22138,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -22138,7 +22290,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -22216,13 +22368,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -22362,7 +22516,7 @@ class ServersApi
         if (isset($server_group_update)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($server_group_update));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($server_group_update), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $server_group_update;
             }
@@ -22383,7 +22537,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -22461,13 +22615,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -22607,7 +22763,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -22628,7 +22784,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -22697,13 +22853,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -22843,7 +23001,7 @@ class ServersApi
         if (isset($body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($body), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $body;
             }
@@ -22864,7 +23022,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -22937,13 +23095,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -23114,7 +23274,7 @@ class ServersApi
         if (isset($update_server_role_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_server_role_request));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($update_server_role_request), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $update_server_role_request;
             }
@@ -23135,7 +23295,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -23215,13 +23375,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -23374,7 +23536,7 @@ class ServersApi
         if (isset($system_package)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($system_package));
+                $httpBody = \json_encode(ObjectSerializer::sanitizeForSerialization($system_package), \JSON_THROW_ON_ERROR);
             } else {
                 $httpBody = $system_package;
             }
@@ -23395,7 +23557,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
@@ -23472,13 +23634,15 @@ class ServersApi
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
+                // Guzzle 8 exposes getResponse() on ResponseException only.
+                $errorResponse = method_exists($e, 'getResponse') ? $e->getResponse() : null;
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                    $errorResponse ? $errorResponse->getHeaders() : null,
+                    $errorResponse ? (string) $errorResponse->getBody() : null
                 );
-            } catch (ConnectException $e) {
+            } catch (NetworkExceptionInterface $e) {
                 throw new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
                     (int) $e->getCode(),
@@ -23713,7 +23877,7 @@ class ServersApi
 
             } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+                $httpBody = \json_encode($formParams, \JSON_THROW_ON_ERROR);
             } else {
                 // for HTTP post (form)
                 $httpBody = ObjectSerializer::buildQuery($formParams);
