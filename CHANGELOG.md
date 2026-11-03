@@ -2,6 +2,16 @@
 
 All notable changes to the package will be documented in this file.
 
+## Unreleased
+
+- Allow `guzzlehttp/guzzle` ^8.0 and `guzzlehttp/psr7` ^3.0; require `psr/http-client` ^1.0
+- Replace `GuzzleHttp\Utils::jsonEncode()` (removed in Guzzle 8) with `json_encode()` and `JSON_THROW_ON_ERROR`
+- Catch `Psr\Http\Client\NetworkExceptionInterface` instead of `ConnectException`, so Guzzle 8 network timeouts throw `ApiException`
+- Read the error response only from exceptions that have one (Guzzle 8 removed `RequestException::getResponse()`)
+- Add `templates/api.mustache` with these changes, so re-generation keeps them
+- Fix implicitly nullable parameters in files the generator no longer produces (deprecated in PHP 8.4)
+- Test PHP 8.4 and 8.5 in CI
+
 ## v12.26.3 - 2026-10-26
 
 - Update open-api.yml to Enhance v12.26.3 OpenAPI spec
